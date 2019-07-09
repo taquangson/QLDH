@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Quản lý học sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/js/diemdanh.js"></script>
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Điểm danh lớp</b></h2>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <label style="width:100%">Khối</label>
+        <div style="width:100%" id="comboKhoi"></div>
+    </div>
+    <div class="col-sm-3">
+        <label style="width:100%">Lớp</label>
+        <div style="width:100%" id="comboLop"></div>
+    </div>
+</div>
+<div style="margin-top:20px;" id="gridDiemDanh"></div>

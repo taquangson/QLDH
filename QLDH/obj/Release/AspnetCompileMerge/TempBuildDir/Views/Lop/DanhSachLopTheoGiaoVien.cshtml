@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Quản lý lớp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/danhsachloptheogiaovien.css" rel="stylesheet" />
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách lớp</b></h2>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+<div id="windowChitiet">
+    <input type="hidden" id="IDLop" />
+    <div id="gridHocSinhTrongLop"></div>
+</div>
+<div id="windowBaiKiemTra">
+    <input type="hidden" id="ID_HocSinh" />
+    <div id="lstBaiKiemTra" class="lstBKT">
+        <div class="itemBKT">
+            <div class="addnewfoler" onclick="ThemBaiKiemTra()"></div>
+            <label class="BKTname">Tạo bài kiểm tra mới</label>
+        </div>
+
+    </div>
+    <div class="row">
+        <input id="fileBKT" type="file" />
+    </div>
+    <div style="margin:auto; width:100%">
+        <div id="scrollView" style="width: 100%; height:calc(100vh - 50px)">
+        </div>
+    </div>
+</div>
+<div id="windowThemBKT">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="LuuBKT()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="HuyBKT()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <div class="form-group">
+        <input id="ID_BaiKiemTra" type="hidden" />
+    </div>
+    <div class="form-group valid" toggle-valid="TenHocSinh">
+        <label style="width:100%">Tên bài kiểm tra: <span style="color:red">*</span></label>
+        <input id="TenBKT" placeholder="Tên bài kiểm tra" type="text" class="k-textbox input" />
+        <span class="fa fa-exclamation-triangle icon"></span>
+    </div>
+</div>
+
+<script src="~/Scripts/js/danhsachhocsinhtheogiaovien.js"></script>
