@@ -23,6 +23,7 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        [SessionAdminRole]
         public ActionResult DanhSachLopTheoGiaoVien()
         {
             return View();

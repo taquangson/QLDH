@@ -3,6 +3,7 @@
     $("#comboKhoi").kendoComboBox({
         dataTextField: 'text',
         dataValueField: 'value',
+        clearButton: false,
         dataSource: new kendo.data.DataSource({
             data: [
                 { text: 'Tất cả', value: 0 },
@@ -25,6 +26,26 @@
             $("#comboLop").data("kendoComboBox").value('');
         }
     });
+
+    $("#comboCa").kendoComboBox({
+        dataTextField: 'text',
+        dataValueField: 'value',
+        clearButton: false,
+        dataSource: new kendo.data.DataSource({
+            data: [
+                { text: 'Ca 1 (7h-9h sáng)', value: 1 },
+                { text: 'Ca 2 (9h-11h sáng)', value: 2 },
+                { text: 'Ca 3 (2h-4h chiều)', value: 3 },
+                { text: 'Ca 4 (4h-7h chiều)', value: 4 },
+                { text: 'Ca 5 (7h-9h tối)', value: 5 },
+            ]
+        }),
+        change: function (e) {
+            LoadHocSinhTrongLop($("#comboKhoi").data("kendoComboBox").value());
+        }
+    });
+    $("#comboCa").data("kendoComboBox").value(1);
+
     $("#comboKhoi").data("kendoComboBox").value(0);
     LoadComboLop(0);
 
@@ -78,12 +99,17 @@
                     style: "text-align: center;",
                 },
                 template: function (e) {
-                    if (e.ID_DiemDanh > 0 && e.CoPhep == 0) {
-                        return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
-                            + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
-                    } else {
-                        return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
-                            + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
+                    if (e.QuaGioDiemDanh == 1) {
+                        return '';
+                    }
+                    else {
+                        if (e.ID_DiemDanh > 0 && e.CoPhep == 0) {
+                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                                + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
+                        } else {
+                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                                + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
+                        }
                     }
                 }
             },
@@ -98,12 +124,17 @@
                     style: "text-align: center;",
                 },
                 template: function (e) {
-                    if (e.ID_DiemDanh > 0 && e.CoPhep == -1) {
-                        return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
-                            + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
-                    } else {
-                        return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
-                            + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
+                    if (e.QuaGioDiemDanh == 1) {
+                        return '';
+                    }
+                    else {
+                        if (e.ID_DiemDanh > 0 && e.CoPhep == -1) {
+                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                                + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
+                        } else {
+                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                                + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
+                        }
                     }
                 }
             },
@@ -118,12 +149,17 @@
                     style: "text-align: center;",
                 },
                 template: function (e) {
-                    if (e.ID_DiemDanh > 0 && e.CoPhep == 1) {
-                        return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
-                            + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
-                    } else {
-                        return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
-                            + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
+                    if (e.QuaGioDiemDanh == 1) {
+                        return '';
+                    }
+                    else {
+                        if (e.ID_DiemDanh > 0 && e.CoPhep == 1) {
+                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                                + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
+                        } else {
+                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                                + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
+                        }
                     }
                 }
             },
@@ -232,6 +268,7 @@ function LoadComboLop(khoi) {
         $("#comboLop").kendoComboBox({
             dataTextField: 'TenLop',
             dataValueField: 'ID',
+            clearButton: false,
             dataSource: dataSource,
             change: function (e) {
                 LoadHocSinhTrongLop(e.sender.value());
@@ -241,29 +278,30 @@ function LoadComboLop(khoi) {
 }
 
 function LoadHocSinhTrongLop(id) {
-    console.log(id);
-    $.ajax({
-        url: '/DiemDanh/GetDSHocSinh_DiemDanh?ID_Lop=' + id,
-        type: 'GET',
-    }).done(function successCallback(response) {
-        kendo.ui.progress($("#gridDiemDanh"), true);
-        var dataSource = new kendo.data.DataSource({
-            data: response,
-            schema: {
-                model: {
-                    id: "ID",
-                    field: {
-                        NgaySinh: {
-                            type: 'date'
+    if (id > 0) {
+        $.ajax({
+            url: '/DiemDanh/GetDSHocSinh_DiemDanh?ID_Lop=' + id + "&Ca=" + $("#comboCa").data("kendoComboBox").value(),
+            type: 'GET',
+        }).done(function successCallback(response) {
+            kendo.ui.progress($("#gridDiemDanh"), true);
+            var dataSource = new kendo.data.DataSource({
+                data: response,
+                schema: {
+                    model: {
+                        id: "ID",
+                        field: {
+                            NgaySinh: {
+                                type: 'date'
+                            }
                         }
                     }
-                }
-            },
-            pageSize: 100,
+                },
+                pageSize: 100,
+            });
+            $("#gridDiemDanh").data("kendoGrid").setDataSource(dataSource);
+            kendo.ui.progress($("#gridDiemDanh"), false);
         });
-        $("#gridDiemDanh").data("kendoGrid").setDataSource(dataSource);
-        kendo.ui.progress($("#gridDiemDanh"), false);
-    });
+    }
 }
 
 function DiemDanh(ID_HocSinh, HocDuoi) {
@@ -277,7 +315,8 @@ function DiemDanh(ID_HocSinh, HocDuoi) {
             ID_HocSinh: ID_HocSinh,
             CoPhep: 0,
             GhiChu: '',
-            HocDuoi: HocDuoi ? 1 : 0
+            HocDuoi: HocDuoi ? 1 : 0,
+            Ca: $("#comboCa").data("kendoComboBox").value()
         }
     }).done(function successCallback(response) {
         $("#cophep" + ID_HocSinh).removeAttr("checked");
@@ -294,7 +333,8 @@ function CoPhep(ID_HocSinh, HocDuoi) {
             ID_HocSinh: ID_HocSinh,
             CoPhep: 1,
             GhiChu: '',
-            HocDuoi: HocDuoi ? 1 : 0
+            HocDuoi: HocDuoi ? 1 : 0,
+            Ca: $("#comboCa").data("kendoComboBox").value()
         }
     }).done(function successCallback(response) {
         if (($("#comat" + ID_HocSinh + ":checked")[0]) || ($("#vangmat" + ID_HocSinh + ":checked")[0])) {
@@ -316,7 +356,8 @@ function VangMat(ID_HocSinh, HocDuoi) {
             ID_HocSinh: ID_HocSinh,
             CoPhep: -1,
             GhiChu: '',
-            HocDuoi: HocDuoi ? 1 : 0
+            HocDuoi: HocDuoi ? 1 : 0,
+            Ca: $("#comboCa").data("kendoComboBox").value()
         }
     }).done(function successCallback(response) {
         $("#cophep" + ID_HocSinh).removeAttr("checked");
@@ -324,7 +365,6 @@ function VangMat(ID_HocSinh, HocDuoi) {
     })
 
 }
-
 function XemSoDo() {
     $("#anhsodo").css("background-image", "");
     $.ajax({

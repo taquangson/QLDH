@@ -69,6 +69,31 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
+        public DiemDanhModel GetByHocSinh_NgayGio(int ID_Lop, int ID_HocSinh, DateTime BatDau, DateTime KetThuc)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop),
+                new SqlParameter("@ID_HocSinh", ID_HocSinh),
+                new SqlParameter("@BatDau", BatDau),
+                new SqlParameter("@KetThuc", KetThuc)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_DiemDanh_GetByHocSinh_NgayGio", pars);
+                DataTable dt = ds.Tables[0];
+                DiemDanhModel result = new DiemDanhModel();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result = GetObjFromDataRow(dr);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new DiemDanhModel();
+            }
+        }
+
         public int InsertOrUpdate(DiemDanhModel model)
         {
             try
@@ -80,7 +105,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ID_NhanVien", model.ID_NhanVien),
                 new SqlParameter("@CoPhep", model.CoPhep),
                 new SqlParameter("@GhiChu", model.GhiChu),
-                new SqlParameter("@HocDuoi", model.HocDuoi)
+                new SqlParameter("@HocDuoi", model.HocDuoi),
+                new SqlParameter("@ThoiGianVaoLop", model.ThoiGianVaoLop == null ? model.ThoiGianVaoLop : DateTime.Now)
                 };
 
                 object id = helper.ExecuteScalar("sp_DiemDanh_InsertOrUpdate", pars);
@@ -97,14 +123,13 @@ namespace QLDH.DataAccess.DAO
             return 0;
         }
 
-        public bool Delete(int ID_Lop, int ID_HocSinh)
+        public bool Delete(long ID)
         {
             try
             {
                 SqlParameter[] pars = new SqlParameter[]
                 {
-                    new SqlParameter("@ID_Lop",ID_Lop ),
-                    new SqlParameter("@ID_HocSinh",ID_HocSinh )
+                    new SqlParameter("@ID",ID )
                 };
                 int rowaff = helper.ExecuteNonQuery("sp_DiemDanh_Delete", pars);
                 if (rowaff > 0)

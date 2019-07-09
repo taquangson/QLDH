@@ -23,5 +23,6 @@ namespace QLDH.DataAccess.Models
         public bool IsHocDuoi { get; set; }
         public long ID_DiemDanh { get; set; }
         public int CoPhep { get; set; }
+        public int QuaGioDiemDanh { get; set; }
     }
 }

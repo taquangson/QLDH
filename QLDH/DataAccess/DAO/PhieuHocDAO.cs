@@ -170,5 +170,31 @@ namespace QLDH.DataAccess.DAO
 
             return 0;
         }
+
+        public bool DeleteDiemDanh(int ID)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID", ID),
+                };
+
+                int rowaff = helper.ExecuteNonQuery("sp_PhieuHoc_Delete", pars);
+                if (rowaff > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_PhieuHoc_InsertOrUpdate " + ex.Message);
+            }
+
+            return false;
+        }
     }
 }

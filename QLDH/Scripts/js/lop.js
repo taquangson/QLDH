@@ -194,6 +194,7 @@ $(document).ready(function () {
         ]
 
     });
+
     $("#gridHocSinhTrongLop").kendoGrid({
         height: function () {
             var height = $(window).height() - 120;
@@ -347,7 +348,6 @@ $(document).ready(function () {
                 }
             }
         ]
-
     });
 
     $("#gridHocSinhNgoaiLop").kendoGrid({
@@ -398,7 +398,6 @@ $(document).ready(function () {
                 }
             });
 
-            console.log("change - " + lstHocSinhTrongLop.length)
             var dataSource = new kendo.data.DataSource({
                 data: lstHocSinhTrongLop,
                 schema: {
@@ -557,8 +556,11 @@ $(document).ready(function () {
         $("#grid").data("kendoGrid").select(row);
         openEditWindow();
     })
+
     LoadGridData();
+
     LoadComboGiaoVien();
+
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
 
 })
