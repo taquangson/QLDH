@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>G:\QLDH\Publish</_PublishTargetUrl>
+    <_PublishTargetUrl>E:\QLDH_Publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Assets/Common.css">
@@ -1771,10 +1771,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>07/07/2019 10:51:53</publishTime>
+      <publishTime>07/10/2019 22:01:53</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>07/07/2019 10:51:53</publishTime>
+      <publishTime>07/10/2019 22:01:53</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>03/08/2017 19:26:22</publishTime>
@@ -1789,10 +1789,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/03/2014 20:33:56</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>07/07/2019 10:51:33</publishTime>
+      <publishTime>07/10/2019 22:01:41</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>06/17/2019 09:48:22</publishTime>
+      <publishTime>07/10/2019 22:01:41</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -1984,7 +1984,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/21/2019 16:22:24</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>07/07/2019 10:51:44</publishTime>
+      <publishTime>07/10/2019 22:01:47</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>02/16/2019 07:44:34</publishTime>
@@ -2023,13 +2023,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/30/2019 15:55:36</publishTime>
     </File>
     <File Include="Scripts/js/diemdanh.js">
-      <publishTime>07/01/2019 18:37:38</publishTime>
+      <publishTime>07/10/2019 19:59:18</publishTime>
     </File>
     <File Include="Scripts/js/lop.js">
-      <publishTime>07/07/2019 10:53:39</publishTime>
+      <publishTime>07/09/2019 21:38:21</publishTime>
     </File>
     <File Include="Scripts/js/phieuhoc.js">
       <publishTime>07/06/2019 21:30:16</publishTime>
+    </File>
+    <File Include="Scripts/js/quanlydulieudiemdanh.js">
+      <publishTime>07/10/2019 19:05:09</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>02/16/2019 07:44:39</publishTime>
@@ -2044,7 +2047,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/03/2019 18:32:15</publishTime>
     </File>
     <File Include="Views/BaoCao/BaoCaoPhieuHocTheoHocSinh.cshtml">
-      <publishTime>07/03/2019 18:33:58</publishTime>
+      <publishTime>07/10/2019 18:35:45</publishTime>
     </File>
     <File Include="Views/BaoCao/ThongKeBuoiHocTheoHocSinh.cshtml">
       <publishTime>07/02/2019 20:12:21</publishTime>
@@ -2056,7 +2059,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/25/2019 11:11:47</publishTime>
     </File>
     <File Include="Views/DiemDanh/Index.cshtml">
-      <publishTime>07/07/2019 10:53:01</publishTime>
+      <publishTime>07/09/2019 19:30:44</publishTime>
+    </File>
+    <File Include="Views/DiemDanh/QuanLyDuLieuDiemDanh.cshtml">
+      <publishTime>07/10/2019 18:39:59</publishTime>
     </File>
     <File Include="Views/HocSinh/Index.cshtml">
       <publishTime>07/03/2019 19:29:06</publishTime>
@@ -2083,7 +2089,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/16/2019 07:44:28</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/03/2019 18:34:33</publishTime>
+      <publishTime>07/10/2019 18:37:26</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
       <publishTime>06/29/2019 19:16:06</publishTime>
@@ -2098,7 +2104,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/16/2019 07:44:28</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/17/2019 10:29:05</publishTime>
+      <publishTime>07/10/2019 22:01:43</publishTime>
     </File>
   </ItemGroup>
 </Project>

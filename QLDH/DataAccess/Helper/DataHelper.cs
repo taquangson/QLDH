@@ -263,6 +263,7 @@ namespace QLDH.DataAccess.Helper
                 cmd.Connection = conn;
                 cmd.CommandText = procName;
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
                 if (procParams != null)
                 {
                     for (int i = 0; i < procParams.Length; i++)

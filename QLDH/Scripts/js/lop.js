@@ -733,9 +733,9 @@ function XoaDuLieu(bangDuLieu) {
     })
 }
 
-function LoadHocSinhNgoaiLop() {
+function LoadHocSinhNgoaiLop(id) {
     $.ajax({
-        url: '/HocSinh/GetAll',
+        url: '/HocSinh/GetAllNgoaiLop?ID_Lop=' + id,
         type: 'GET',
     }).done(function successCallback(response) {
         kendo.ui.progress($("#gridHocSinhNgoaiLop"), true);
@@ -765,7 +765,6 @@ function LoadHocSinhTrongLop(id) {
     }).done(function successCallback(response) {
         kendo.ui.progress($("#gridHocSinhTrongLop"), true);
         lstHocSinhTrongLop = response;
-        console.log("load  - " + lstHocSinhTrongLop.length);
         var dataSource = new kendo.data.DataSource({
             data: response,
             schema: {
@@ -781,7 +780,7 @@ function LoadHocSinhTrongLop(id) {
             pageSize: 20,
         });
         $("#gridHocSinhTrongLop").data("kendoGrid").setDataSource(dataSource);
-        LoadHocSinhNgoaiLop();
+        LoadHocSinhNgoaiLop(id);
         kendo.ui.progress($("#gridHocSinhTrongLop"), false);
     });
 }

@@ -41,7 +41,7 @@
             ]
         }),
         change: function (e) {
-            LoadHocSinhTrongLop($("#comboKhoi").data("kendoComboBox").value());
+            LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
         }
     });
     $("#comboCa").data("kendoComboBox").value(1);
@@ -265,15 +265,19 @@ function LoadComboLop(khoi) {
         var dataSource = new kendo.data.DataSource({
             data: ds
         });
-        $("#comboLop").kendoComboBox({
-            dataTextField: 'TenLop',
-            dataValueField: 'ID',
-            clearButton: false,
-            dataSource: dataSource,
-            change: function (e) {
-                LoadHocSinhTrongLop(e.sender.value());
-            }
-        })
+        if ($("#comboLop").data("kendoComboBox") == undefined) {
+            $("#comboLop").kendoComboBox({
+                dataTextField: 'TenLop',
+                dataValueField: 'ID',
+                clearButton: false,
+                dataSource: dataSource,
+                change: function (e) {
+                    LoadHocSinhTrongLop(e.sender.value());
+                }
+            })
+        } else {
+            $("#comboLop").data("kendoComboBox").setDataSource(dataSource);
+        }
     });
 }
 

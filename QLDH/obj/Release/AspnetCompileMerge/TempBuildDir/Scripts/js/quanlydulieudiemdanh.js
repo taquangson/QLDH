@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
     $("#rootContainer").show();
+    $("#comboNgay").kendoDatePicker({
+        format: 'dd/MM/yyyy',
+        dateInput: false,
+        change: function (e) {
+            LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+        }
+    })
     $("#comboKhoi").kendoComboBox({
         dataTextField: 'text',
         dataValueField: 'value',
@@ -278,9 +285,10 @@ function LoadComboLop(khoi) {
 }
 
 function LoadHocSinhTrongLop(id) {
+    console.log(kendo.toString($("#comboNgay").data("kendoDatePicker").value(), 'yyyy/MM/dd'))
     if (id > 0) {
         $.ajax({
-            url: '/DiemDanh/GetDSHocSinh_DiemDanh?ID_Lop=' + id + "&Ca=" + $("#comboCa").data("kendoComboBox").value(),
+            url: '/DiemDanh/GetDSHocSinh_DiemDanh_ByAdmin?ID_Lop=' + id + "&Ca=" + $("#comboCa").data("kendoComboBox").value() + "&Ngay=" + kendo.toString($("#comboNgay").data("kendoDatePicker").value(),'yyyy/MM/dd'),
             type: 'GET',
         }).done(function successCallback(response) {
             kendo.ui.progress($("#gridDiemDanh"), true);
@@ -307,7 +315,7 @@ function LoadHocSinhTrongLop(id) {
 function DiemDanh(ID_HocSinh, HocDuoi) {
 
     $.ajax({
-        url: '/DiemDanh/DiemDanhHocSinh',
+        url: '/DiemDanh/DiemDanhHocSinhByAdmin',
         type: 'POST',
         data: {
             ID: 0,
@@ -316,7 +324,8 @@ function DiemDanh(ID_HocSinh, HocDuoi) {
             CoPhep: 0,
             GhiChu: '',
             HocDuoi: HocDuoi ? 1 : 0,
-            Ca: $("#comboCa").data("kendoComboBox").value()
+            Ca: $("#comboCa").data("kendoComboBox").value(),
+            ThoiGianVaoLop: kendo.toString($("#comboNgay").data("kendoDatePicker").value(),"yyyy/MM/dd")
         }
     }).done(function successCallback(response) {
         $("#cophep" + ID_HocSinh).removeAttr("checked");
@@ -325,7 +334,7 @@ function DiemDanh(ID_HocSinh, HocDuoi) {
 }
 function CoPhep(ID_HocSinh, HocDuoi) {
     $.ajax({
-        url: '/DiemDanh/DiemDanhHocSinh',
+        url: '/DiemDanh/DiemDanhHocSinhByAdmin',
         type: 'POST',
         data: {
             ID: 0,
@@ -334,7 +343,8 @@ function CoPhep(ID_HocSinh, HocDuoi) {
             CoPhep: 1,
             GhiChu: '',
             HocDuoi: HocDuoi ? 1 : 0,
-            Ca: $("#comboCa").data("kendoComboBox").value()
+            Ca: $("#comboCa").data("kendoComboBox").value(),
+            ThoiGianVaoLop: kendo.toString($("#comboNgay").data("kendoDatePicker").value(), "yyyy/MM/dd")
         }
     }).done(function successCallback(response) {
         if (($("#comat" + ID_HocSinh + ":checked")[0]) || ($("#vangmat" + ID_HocSinh + ":checked")[0])) {
@@ -348,7 +358,7 @@ function CoPhep(ID_HocSinh, HocDuoi) {
 }
 function VangMat(ID_HocSinh, HocDuoi) {
     $.ajax({
-        url: '/DiemDanh/DiemDanhHocSinh',
+        url: '/DiemDanh/DiemDanhHocSinhByAdmin',
         type: 'POST',
         data: {
             ID: 0,
@@ -357,7 +367,8 @@ function VangMat(ID_HocSinh, HocDuoi) {
             CoPhep: -1,
             GhiChu: '',
             HocDuoi: HocDuoi ? 1 : 0,
-            Ca: $("#comboCa").data("kendoComboBox").value()
+            Ca: $("#comboCa").data("kendoComboBox").value(),
+            ThoiGianVaoLop: kendo.toString($("#comboNgay").data("kendoDatePicker").value(), "yyyy/MM/dd")
         }
     }).done(function successCallback(response) {
         $("#cophep" + ID_HocSinh).removeAttr("checked");

@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -806,6 +807,7 @@
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihocthohocsinh.js" />
     <Content Include="Scripts\js\danhsachhocsinhtheogiaovien.js" />
+    <Content Include="Scripts\js\quanlydulieudiemdanh.js" />
     <Content Include="Scripts\js\phieuhoc.js" />
     <Content Include="Scripts\js\diemdanh.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -813,6 +815,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\js\lop.js" />
+    <Content Include="Views\DiemDanh\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -833,11 +836,11 @@
     <Content Include="Views\HocSinh\Index.cshtml" />
     <Content Include="Views\DanhMuc\DanhMucTruongHoc.cshtml" />
     <Content Include="Views\Lop\Index.cshtml" />
-    <Content Include="Views\DiemDanh\Index.cshtml" />
     <Content Include="Views\PhieuHoc\Index.cshtml" />
     <Content Include="Views\BaoCao\ThongKeBuoiHocTheoHocSinh.cshtml" />
     <Content Include="Views\Lop\DanhSachLopTheoGiaoVien.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoPhieuHocTheoHocSinh.cshtml" />
+    <Content Include="Views\DiemDanh\QuanLyDuLieuDiemDanh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -870,7 +873,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56811</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56811/</IISUrl>
+          <IISUrl>http://localhost:56812/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

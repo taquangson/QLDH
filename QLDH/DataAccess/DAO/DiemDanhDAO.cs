@@ -94,7 +94,7 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
-        public int InsertOrUpdate(DiemDanhModel model)
+        public bool InsertOrUpdate(DiemDanhModel model)
         {
             try
             {
@@ -106,21 +106,21 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@CoPhep", model.CoPhep),
                 new SqlParameter("@GhiChu", model.GhiChu),
                 new SqlParameter("@HocDuoi", model.HocDuoi),
-                new SqlParameter("@ThoiGianVaoLop", model.ThoiGianVaoLop == null ? model.ThoiGianVaoLop : DateTime.Now)
+                new SqlParameter("@ThoiGianVaoLop", model.ThoiGianVaoLop != null ? model.ThoiGianVaoLop : DateTime.Now)
                 };
 
-                object id = helper.ExecuteScalar("sp_DiemDanh_InsertOrUpdate", pars);
-                if (id != null)
+                int rowaff = helper.ExecuteNonQuery("sp_DiemDanh_InsertOrUpdate", pars);
+                if (rowaff > 0)
                 {
-                    return int.Parse(id.ToString());
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                log.Error("sp_TaiKhoan_InsertOrUpdate " + ex.Message);
+                log.Error("sp_DiemDanh_InsertOrUpdate " + ex.Message);
             }
 
-            return 0;
+            return false;
         }
 
         public bool Delete(long ID)

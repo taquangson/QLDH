@@ -28,6 +28,22 @@ namespace QLDH.Controllers
 
         [SessionExpire]
         [HttpGet]
+        public ActionResult GetAllNgoaiLop(int ID_Lop)
+        {
+            HocSinhDAO hsdao = new HocSinhDAO();
+            List<HocSinhModel> result = hsdao.GetByLop_HocSinh(ID_Lop);
+            foreach (HocSinhModel hs in hsdao.GetAll_HocSinh())
+            {
+                if (result.Where(x => x.ID == hs.ID).FirstOrDefault() == null)
+                {
+                    result.Add(hs);
+                }
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
         public ActionResult GetByLop(int ID_Lop)
         {
             HocSinhDAO hsdao = new HocSinhDAO();
