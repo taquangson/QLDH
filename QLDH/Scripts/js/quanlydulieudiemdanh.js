@@ -33,25 +33,7 @@
             $("#comboLop").data("kendoComboBox").value('');
         }
     });
-
-    $("#comboCa").kendoComboBox({
-        dataTextField: 'text',
-        dataValueField: 'value',
-        clearButton: false,
-        dataSource: new kendo.data.DataSource({
-            data: [
-                { text: 'Ca 1 (7h-9h sáng)', value: 1 },
-                { text: 'Ca 2 (9h-11h sáng)', value: 2 },
-                { text: 'Ca 3 (2h-4h chiều)', value: 3 },
-                { text: 'Ca 4 (4h-7h chiều)', value: 4 },
-                { text: 'Ca 5 (7h-9h tối)', value: 5 },
-            ]
-        }),
-        change: function (e) {
-            LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
-        }
-    });
-    $("#comboCa").data("kendoComboBox").value(1);
+    LoadComboCaHoc();
 
     $("#comboKhoi").data("kendoComboBox").value(0);
     LoadComboLop(0);
@@ -256,6 +238,31 @@ function CheckKhoi(khoi) {
     if (khoi.TenLop.indexOf(khoi) > 0) {
         return true;
     }
+}
+
+function LoadComboCaHoc() {
+    $.ajax({
+        url: '/DanhMuc/GetAll_CaHoc',
+        type: 'GET'
+    }).done(function (response) {
+        if ($("#comboCa").data("kendoComboBox") == undefined) {
+            $("#comboCa").kendoComboBox({
+                dataTextField: "TenCa",
+                dataValueField: "ID",
+                clearButton: false,
+                dataSource: new kendo.data.DataSource({
+                    data: response
+                }),
+                change: function (e) {
+                    LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+                }
+            });
+        } else {
+
+        }
+        $("#comboCa").data("kendoComboBox").value(1);
+
+    })
 }
 
 function LoadComboLop(khoi) {

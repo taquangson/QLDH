@@ -27,24 +27,7 @@
         }
     });
 
-    $("#comboCa").kendoComboBox({
-        dataTextField: 'text',
-        dataValueField: 'value',
-        clearButton: false,
-        dataSource: new kendo.data.DataSource({
-            data: [
-                { text: 'Ca 1 (7h-9h sáng)', value: 1 },
-                { text: 'Ca 2 (9h-11h sáng)', value: 2 },
-                { text: 'Ca 3 (2h-4h chiều)', value: 3 },
-                { text: 'Ca 4 (4h-7h chiều)', value: 4 },
-                { text: 'Ca 5 (7h-9h tối)', value: 5 },
-            ]
-        }),
-        change: function (e) {
-            LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
-        }
-    });
-    $("#comboCa").data("kendoComboBox").value(1);
+    LoadComboCaHoc();
 
     $("#comboKhoi").data("kendoComboBox").value(0);
     LoadComboLop(0);
@@ -57,9 +40,9 @@
 
     $("#gridDiemDanh").kendoGrid({
         height: function () {
-            var height = $(window).height() - 200;
+            var height = $(window).height() - 250;
             if (isMobile.any()) {
-                height = height - 50;
+                height = height - 100;
             }
             return height;
         },
@@ -243,12 +226,118 @@
         ]
 
     });
+
+    $("#file").kendoUpload({
+        multiple: false,
+        localization: {
+            select: 'Tải ảnh camera lớp',
+            remove: '',
+            cancel: ''
+        },
+        allowedExtensions: [".jpg", ".png", ".jpeg"],
+        select: function (e) {
+            PushFormDataFile(e.files[0], $("#comboCa").data("kendoComboBox").value(), $("#comboLop").data("kendoComboBox").value());
+        }
+    });
 })
+
+function DeleteImage(ID) {
+    openConfirm(dialogRoot, "<b style='line-height:40px;'>Bạn có chắc chắn muốn xóa ảnh?</b>", function () { XoaImage(ID); }, function () { });
+}
+
+function XoaImage(ID) {
+    $.ajax({
+        url: '/DiemDanh/DeleteAnhDiemDanh?ID=' + ID,
+        type: 'POST'
+    }).done(function successCallback(response) {
+        if (response.status) {
+            notification.show({ kValue: response.msg }, "success");
+            LoadAnhDiemDanh($("#comboLop").data("kendoComboBox").value(), $("#comboCa").data("kendoComboBox").value(), new Date());
+        } else {
+            notification.show({ kValue: response.msg }, "error");
+        }
+    });
+}
+
+function PushFormDataFile(file, ID_CaHoc, ID_LopHoc) {
+    var data = new FormData();
+    data.append("ID_LopHoc", ID_LopHoc);
+    data.append("ID_CaHoc", ID_CaHoc);
+    data.append("Ngay", kendo.toString(new Date(), "yyyy-MM-dd"));
+    data.append('file', file.rawFile, file.name);
+    var t = $.ajax({
+        url: '/DiemDanh/UpAnhDiemDanh',
+        processData: false,
+        contentType: false,
+        data: data,
+        type: 'POST'
+    }).done(function successCallback(response) {
+        if (response.status) {
+            notification.show({ kValue: response.msg }, "success");
+            $("#file").data("kendoUpload").clearAllFiles();
+            LoadAnhDiemDanh(ID_LopHoc, ID_CaHoc, new Date());
+        } else {
+            notification.show({ kValue: response.msg }, "error");
+        }
+
+    });
+}
+
+function LoadAnhDiemDanh(ID_LopHoc, ID_CaHoc, Ngay) {
+    $.ajax({
+        url: '/DiemDanh/GetAnhDiemDanh?ID_LopHoc=' + ID_LopHoc + "&ID_CaHoc=" + ID_CaHoc + "&Ngay=" + kendo.toString(new Date(), "yyyy-MM-dd"),
+        type: 'GET'
+    }).done(function (response) {
+        $("#listAnhDiemDanh").html("");
+        $.each(response, function (index, item) {
+            var html = '<div class="photo" title="' + item.DuongDan + '" style="background-image: url(' + item.DuongDan + ')" >'
+                + '<button type="button" onclick="DeleteImage(' + item.ID + ')" class="k-button k-upload-action BKTremovebtn" aria-label="">'
+                + '<span class="k-icon k-i-close k-i-x" title=""></span>'
+                + '</button>'
+                + '</div>'
+            $("#listAnhDiemDanh").append(html)
+        });
+        $("#listAnhDiemDanh").kendoTooltip({
+            autoHide: true,
+            filter: "div",
+            content: kendo.template($("#templateTooltip").html()),
+            position: "bottom",
+            show: function (e) {
+                console.log(e.sender.element);
+            }
+        });
+    })
+}
 
 function CheckKhoi(khoi) {
     if (khoi.TenLop.indexOf(khoi) > 0) {
         return true;
     }
+}
+
+function LoadComboCaHoc() {
+    $.ajax({
+        url: '/DanhMuc/GetAll_CaHoc',
+        type: 'GET'
+    }).done(function (response) {
+        if ($("#comboCa").data("kendoComboBox") == undefined) {
+            $("#comboCa").kendoComboBox({
+                dataTextField: "TenCa",
+                dataValueField: "ID",
+                clearButton: false,
+                dataSource: new kendo.data.DataSource({
+                    data: response
+                }),
+                change: function (e) {
+                    LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+                }
+            });
+        } else {
+
+        }
+        $("#comboCa").data("kendoComboBox").value(1);
+
+    })
 }
 
 function LoadComboLop(khoi) {
@@ -283,11 +372,14 @@ function LoadComboLop(khoi) {
 
 function LoadHocSinhTrongLop(id) {
     if (id > 0) {
+        kendo.ui.progress($("#gridDiemDanh"), true);
         $.ajax({
             url: '/DiemDanh/GetDSHocSinh_DiemDanh?ID_Lop=' + id + "&Ca=" + $("#comboCa").data("kendoComboBox").value(),
             type: 'GET',
-        }).done(function successCallback(response) {
-            kendo.ui.progress($("#gridDiemDanh"), true);
+        }).done(function successCallback(response) {          
+            if (typeof response == "string") {
+                location.reload(true);
+            }
             var dataSource = new kendo.data.DataSource({
                 data: response,
                 schema: {
@@ -303,13 +395,14 @@ function LoadHocSinhTrongLop(id) {
                 pageSize: 100,
             });
             $("#gridDiemDanh").data("kendoGrid").setDataSource(dataSource);
+            LoadAnhDiemDanh(id, $("#comboCa").data("kendoComboBox").value(), new Date());
             kendo.ui.progress($("#gridDiemDanh"), false);
         });
     }
 }
 
 function DiemDanh(ID_HocSinh, HocDuoi) {
-
+    kendo.ui.progress($("#gridDiemDanh"), true);
     $.ajax({
         url: '/DiemDanh/DiemDanhHocSinh',
         type: 'POST',
@@ -323,11 +416,16 @@ function DiemDanh(ID_HocSinh, HocDuoi) {
             Ca: $("#comboCa").data("kendoComboBox").value()
         }
     }).done(function successCallback(response) {
+        if (typeof response == "string") {
+            location.reload(true);
+        }
         $("#cophep" + ID_HocSinh).removeAttr("checked");
         $("#vangmat" + ID_HocSinh).removeAttr("checked");
+        kendo.ui.progress($("#gridDiemDanh"), false);
     })
 }
 function CoPhep(ID_HocSinh, HocDuoi) {
+    kendo.ui.progress($("#gridDiemDanh"), true);
     $.ajax({
         url: '/DiemDanh/DiemDanhHocSinh',
         type: 'POST',
@@ -341,16 +439,21 @@ function CoPhep(ID_HocSinh, HocDuoi) {
             Ca: $("#comboCa").data("kendoComboBox").value()
         }
     }).done(function successCallback(response) {
+        if (typeof response == "string") {
+            location.reload(true);
+        }
         if (($("#comat" + ID_HocSinh + ":checked")[0]) || ($("#vangmat" + ID_HocSinh + ":checked")[0])) {
             $("#comat" + ID_HocSinh).removeAttr("checked");
             $("#vangmat" + ID_HocSinh).removeAttr("checked");
 
         } else {
         }
+        kendo.ui.progress($("#gridDiemDanh"), false);
     })
 
 }
 function VangMat(ID_HocSinh, HocDuoi) {
+    kendo.ui.progress($("#gridDiemDanh"), true);
     $.ajax({
         url: '/DiemDanh/DiemDanhHocSinh',
         type: 'POST',
@@ -364,8 +467,12 @@ function VangMat(ID_HocSinh, HocDuoi) {
             Ca: $("#comboCa").data("kendoComboBox").value()
         }
     }).done(function successCallback(response) {
+        if (typeof response == "string") {
+            location.reload(true);
+        }
         $("#cophep" + ID_HocSinh).removeAttr("checked");
         $("#comat" + ID_HocSinh).removeAttr("checked");
+        kendo.ui.progress($("#gridDiemDanh"), false);
     })
 
 }
@@ -379,4 +486,8 @@ function XemSoDo() {
         $("#anhsodo").css("background-image", "url(../Images/SoDoLop/" + response.SoDoLop + ")");
         $("#windowSoDo").data("kendoWindow").maximize().open();
     })
+}
+
+function LoadLaiDuLieu() {
+    LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value())
 }

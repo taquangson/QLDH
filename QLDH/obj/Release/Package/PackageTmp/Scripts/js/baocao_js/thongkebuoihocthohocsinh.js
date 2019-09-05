@@ -375,7 +375,7 @@ function TimKiem() {
                     id: "ID"
                 }
             },
-            pageSize: 20
+            pageSize: 50
         });
 
         $("#gridData").data("kendoGrid").setDataSource(dataSource);

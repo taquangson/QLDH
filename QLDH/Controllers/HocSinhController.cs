@@ -32,13 +32,7 @@ namespace QLDH.Controllers
         {
             HocSinhDAO hsdao = new HocSinhDAO();
             List<HocSinhModel> result = hsdao.GetByLop_HocSinh(ID_Lop);
-            foreach (HocSinhModel hs in hsdao.GetAll_HocSinh())
-            {
-                if (result.Where(x => x.ID == hs.ID).FirstOrDefault() == null)
-                {
-                    result.Add(hs);
-                }
-            }
+            result.AddRange(hsdao.GetNgoaiLop_HocSinh(ID_Lop));
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -48,6 +42,32 @@ namespace QLDH.Controllers
         {
             HocSinhDAO hsdao = new HocSinhDAO();
             return Json(hsdao.GetByLop_HocSinh(ID_Lop), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetByGiaoVien()
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            HocSinhDAO hsdao = new HocSinhDAO();
+            return Json(hsdao.GetByGiaoVien_HocSinh(userinfor.ID), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetByGiaoVien_NgoaiLop(int ID_Lop)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            HocSinhDAO hsdao = new HocSinhDAO();
+            List<HocSinhModel> result = hsdao.GetByLop_HocSinh(ID_Lop);
+            foreach (HocSinhModel hs in hsdao.GetByGiaoVien_HocSinh(userinfor.ID))
+            {
+                if (result.Where(x => x.ID == hs.ID).FirstOrDefault() == null)
+                {
+                    result.Add(hs);
+                }
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpire]

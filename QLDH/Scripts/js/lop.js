@@ -1,8 +1,9 @@
 ﻿var lstHocSinhTrongLop = [];
+var lstCaHoc = []
 $(document).ready(function () {
     $("#window").kendoWindow({
-        width: "400px",
-        height: "250px",
+        width: "680px",
+        height: "470px",
         title: "Chi tiết",
         visible: false,
         modal: true,
@@ -14,22 +15,6 @@ $(document).ready(function () {
             $("#grid").data("kendoGrid").clearSelection();
         }
     });
-
-    $("#LichHocCombo").kendoMultiSelect({
-        dataTextField: "text",
-        dataValueField: "value",
-        autoBind: false,
-        dataSource: new kendo.data.DataSource({
-            data: [{ text: "Thứ 2", value: 2 },
-                { text: "Thứ 3", value: 3 },
-                { text: "Thứ 4", value: 4 },
-                { text: "Thứ 5", value: 5 },
-                { text: "Thứ 6", value: 6 },
-                { text: "Thứ 7", value: 7 },
-                { text: "Chủ nhật", value: 1 },
-            ]
-        }),
-    })
 
     $("#windowChitiet").kendoWindow({
         title: "Chi tiết danh sách học sinh thuộc lớp",
@@ -77,6 +62,33 @@ $(document).ready(function () {
         pageable: pageableShort,
         dataBinding: function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        },
+        excelexcel: {
+            filterable: true
+        },
+        excelExport: function (e) {
+            var columns = e.workbook.sheets[0].columns;
+            var sheet = e.workbook.sheets[0];
+            sheet.title = "Danh sách lớp";
+            //"từ" + kendo.toString($("#TuNgay").data("kendoDatePicker").value(), "dd/MM/yyyy") + " đến " + kendo.toString($("#DenNgay").data("kendoDatePicker").value(), "dd/MM/yyyy");
+            for (var rowIndex = 0; rowIndex < sheet.rows.length; rowIndex++) {
+                var row = sheet.rows[rowIndex];
+                var flag = false;
+                if (rowIndex == 0) {
+                    flag = true;
+                }
+                for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
+
+                    if (flag) {
+                        row.cells[cellIndex].textAlign = 'center';
+                        row.cells[cellIndex].bold = true;
+                    }
+                    row.cells[cellIndex].borderBottom = { color: "#000", size: 1 };
+                    row.cells[cellIndex].borderTop = { color: "#000", size: 1 };
+                    row.cells[cellIndex].borderRight = { color: "#000", size: 1 };
+                    row.cells[cellIndex].borderleft = { color: "#000", size: 1 };
+                }
+            }
         },
         columns: [
             {
@@ -156,41 +168,46 @@ $(document).ready(function () {
                     class: "text-center"
                 }
             },
-             {
-                 field: "NamHoc",
-                 title: "Năm học",
-                 width: "100px",
-                 filterable: {
-                     cell: {
-                         operator: "contains",
-                         showOperators: false,
-                         template: function (e) {
-                             e.element.addClass("k-textbox").css("width", "100%")
-                         }
-                     }
-                 },
-                 headerAttributes: {
-                     style: "text-align: center; font-size: 12px; font-weight:bold",
-                     class: "table-header-cell"
-                 },
-                 attributes: {
-                     class: "text-center"
-                 }
-             },
-             {
-                 title: "Chi tiết lớp",
-                 width: "200px",
-                 headerAttributes: {
-                     style: "text-align: center; font-size: 12px; font-weight:bold",
-                     class: "table-header-cell"
-                 },
-                 attributes: {
-                     style: "text-align:center"
-                 },
-                 template: function (e) {
-                     return "<button class='k-button k-success text-center' onclick='openChiTietLop(" + e.ID + ")'><i class='fa fa-pencil'/> Chi tiết</button>";
-                 }
-             }
+            {
+                field: "NamHoc",
+                title: "Năm học",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    class: "text-center"
+                }
+            },
+            {
+                title: "Chi tiết lớp",
+                width: "200px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align:center"
+                },
+                template: function (e) {
+                    if (e.TrangThai == -1) {
+                        return "<button class='k-button k-success text-center' onclick='openChiTietLop(" + e.ID + ")'><i class='fa fa-pencil'></i> Chi tiết</button>" +
+                            "<button class='k-button k-success text-center' onclick='DuyetLop(" + e.ID + ")'><i class='fa fa-check'></i> Phê duyệt lớp</button>";
+                    } else {
+                        return "<button class='k-button k-success text-center' onclick='openChiTietLop(" + e.ID + ")'><i class='fa fa-pencil'/> Chi tiết</button>";
+                    }
+                }
+            }
         ]
 
     });
@@ -269,24 +286,24 @@ $(document).ready(function () {
                     class: "table-header-cell"
                 }
             },
-             {
-                 field: "DiaChi",
-                 title: "Địa chỉ",
-                 width: "250px",
-                 filterable: {
-                     cell: {
-                         operator: "contains",
-                         showOperators: false,
-                         template: function (e) {
-                             e.element.addClass("k-textbox").css("width", "100%")
-                         }
-                     }
-                 },
-                 headerAttributes: {
-                     style: "text-align: center; font-size: 12px; font-weight:bold",
-                     class: "table-header-cell"
-                 }
-             },
+            {
+                field: "DiaChi",
+                title: "Địa chỉ",
+                width: "250px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
             {
                 field: "PhuHuynh",
                 title: "Tên phụ huynh",
@@ -405,7 +422,7 @@ $(document).ready(function () {
                         id: "ID"
                     }
                 },
-                pageSize: 20,
+                pageSize: 50,
             });
             $("#gridHocSinhTrongLop").data("kendoGrid").setDataSource(dataSource);
         },
@@ -427,17 +444,17 @@ $(document).ready(function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
         },
         columns: [
-             {
-                 selectable: true,
-                 width: 30,
-                 headerAttributes: {
-                     style: "text-align: left; font-size: 12px; ",
-                     class: "table-header-cell"
-                 },
-                 attributes: {
-                     class: "text-left"
-                 }
-             },
+            {
+                selectable: true,
+                width: 30,
+                headerAttributes: {
+                    style: "text-align: left; font-size: 12px; ",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    class: "text-left"
+                }
+            },
             {
                 title: "STT",
                 template: "#= ++record #",
@@ -468,24 +485,24 @@ $(document).ready(function () {
                     class: "table-header-cell"
                 }
             },
-             {
-                 field: "DiaChi",
-                 title: "Địa chỉ",
-                 width: "250px",
-                 filterable: {
-                     cell: {
-                         operator: "contains",
-                         showOperators: false,
-                         template: function (e) {
-                             e.element.addClass("k-textbox").css("width", "100%")
-                         }
-                     }
-                 },
-                 headerAttributes: {
-                     style: "text-align: center; font-size: 12px; font-weight:bold",
-                     class: "table-header-cell"
-                 }
-             },
+            {
+                field: "DiaChi",
+                title: "Địa chỉ",
+                width: "250px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
             {
                 field: "PhuHuynh",
                 title: "Tên phụ huynh",
@@ -557,13 +574,26 @@ $(document).ready(function () {
         openEditWindow();
     })
 
+    createGridLichHoc();
+
     LoadGridData();
 
     LoadComboGiaoVien();
 
+    LoadlstCaHoc();
+
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
 
 })
+
+function LoadlstCaHoc() {
+    $.ajax({
+        url: '/DanhMuc/GetAll_CaHoc',
+        type: 'GET'
+    }).done(function (response) {
+        lstCaHoc = response;
+    })
+}
 
 
 function openEditWindow() {
@@ -580,17 +610,13 @@ function openEditWindow() {
         $("#ID").val(selectedItem.ID);
         $("#TenLop").val(selectedItem.TenLop);
         $("#GiaoVienCombo").data("kendoComboBox").value(selectedItem.GiaoVien);
+        LoadGridLichHoc(selectedItem.ID);
         //$(".image-preview").remove();
         //if (selectedItem.SoDoLop != null) {
         //    var preview = $("<img class='image-preview'>").attr("src", "../Images/SoDoLop/" + selectedItem.SoDoLop);
         //    var wrapper = $("#files").data("kendoUpload").wrapper;
         //}
         //wrapper.append(preview);
-        if (selectedItem.LichHoc != null) {
-            $("#LichHocCombo").data("kendoMultiSelect").value(selectedItem.LichHoc.split(','))
-        } else {
-            $("#LichHocCombo").data("kendoMultiSelect").value([])
-        }
     }
 }
 
@@ -627,7 +653,7 @@ function LoadGridData() {
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 50,
         });
         $("#grid").data("kendoGrid").setDataSource(dataSource);
         kendo.ui.progress($("#grid"), false);
@@ -651,6 +677,7 @@ function LoadComboGiaoVien() {
 }
 
 function ThemMoi() {
+    LoadGridLichHoc(0);
     document.getElementById("formChiTiet").reset();
     $("#ID").val('0');
     if ($(window).width() > 800) {
@@ -668,22 +695,32 @@ function Luu() {
         var data = new FormData();
         //var file = $("#files").data("kendoUpload").getFiles()[0];
         //var filename = kendo.toString(new Date(), "yyyymmddhhmmss") + (file ? file.name : "");
+        var lstLichHoc = [];
+        $.each($("#gridLichHoc").data("kendoGrid").dataSource.data(), function (index, item) {
+            lstLichHoc.push({
+                ID: item.ID,
+                Thu: item.Thu,
+                Ca: item.Ca,
+                GhiChu: item.GhiChu ? item.GhiChu : ""
+            })
+        })
         var model = {
             ID: $("#ID").val(),
             TenLop: $("#TenLop").val(),
             GiaoVien: $("#GiaoVienCombo").data("kendoComboBox").value(),
-            LichHoc: $("#LichHocCombo").data("kendoMultiSelect").value().toString(),
-            SoDoLop: ""
+            LichHoc: "",
+            SoDoLop: "",
+            lstLichHoc: lstLichHoc
         }
-        data.append("model", JSON.stringify(model));
+        //data.append("model", JSON.stringify(model));
         //if (file) {
         //    data.append('file', file.rawFile, filename);
         //}
         $.ajax({
             url: '/Lop/CreateOrUpdate',
-            processData: false,
-            contentType: false,
-            data: data,
+            //processData: false,
+            //contentType: false,
+            data: model,
             type: 'POST'
         }).done(function successCallback(response) {
             if (response.status) {
@@ -738,7 +775,7 @@ function LoadHocSinhNgoaiLop(id) {
         url: '/HocSinh/GetAllNgoaiLop?ID_Lop=' + id,
         type: 'GET',
     }).done(function successCallback(response) {
-        kendo.ui.progress($("#gridHocSinhNgoaiLop"), true);
+        //kendo.ui.progress($("#gridHocSinhNgoaiLop"), true);
         var dataSource = new kendo.data.DataSource({
             data: response,
             schema: {
@@ -751,19 +788,25 @@ function LoadHocSinhNgoaiLop(id) {
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 50,
         });
         $("#gridHocSinhNgoaiLop").data("kendoGrid").setDataSource(dataSource);
-        kendo.ui.progress($("#gridHocSinhNgoaiLop"), false);
+        //kendo.ui.progress($("#gridHocSinhNgoaiLop"), false);
+        setTimeout(function () {
+            kendo.ui.progress($("#windowChitiet"), false);
+
+        }, 500)
     });
 }
 
 function LoadHocSinhTrongLop(id) {
+    kendo.ui.progress($("#windowChitiet"), true);
     $.ajax({
         url: '/HocSinh/GetByLop?ID_Lop=' + id,
         type: 'GET',
     }).done(function successCallback(response) {
-        kendo.ui.progress($("#gridHocSinhTrongLop"), true);
+        console.log(response);
+        //kendo.ui.progress($("#gridHocSinhTrongLop"), true);
         lstHocSinhTrongLop = response;
         var dataSource = new kendo.data.DataSource({
             data: response,
@@ -777,11 +820,11 @@ function LoadHocSinhTrongLop(id) {
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 50,
         });
         $("#gridHocSinhTrongLop").data("kendoGrid").setDataSource(dataSource);
         LoadHocSinhNgoaiLop(id);
-        kendo.ui.progress($("#gridHocSinhTrongLop"), false);
+        //kendo.ui.progress($("#gridHocSinhTrongLop"), false);       
     });
 }
 
@@ -795,7 +838,9 @@ function LuuChiTietLop() {
         }
     }).done(function successCallback(response) {
         if (response.status) {
-            notification.show({ kValue: response.msg }, "success");
+            notification.show({ kValue: response.msg }, "success");            
+            LoadHocSinhTrongLop($("#IDLop").val());
+            LoadGridData();
             HuyChiTietLop();
         } else {
             notification.show({ kValue: response.msg }, "error");
@@ -817,7 +862,7 @@ function addPreview(file, wrapper) {
             var preview = $("<img class='image-preview'>").attr("src", this.result);
 
             wrapper.find(".k-file[data-uid='" + file.uid + "'] .k-file-extension-wrapper")
-              .replaceWith(preview);
+                .replaceWith(preview);
         };
 
         reader.readAsDataURL(raw);
@@ -829,6 +874,243 @@ function XuatExcelHocSinh() {
 
     grid.options.excel = {
         fileName: "Danh_Sach_Hoc_Sinh.xlsx",
+        filterable: true,
+        allPages: true
+    }
+    grid.saveAsExcel();
+}
+
+function createGridLichHoc() {
+    if ($("#gridLichHoc").data("kendoGrid") == undefined) {
+        $("#gridLichHoc").kendoGrid({
+            dataSource: new kendo.data.DataSource({
+                data: [],
+                schema: {
+                    model: {
+                        id: "id",
+                        fields: {
+                            ID: { type: 'number', editable: false },
+                            Thu: { type: 'number', editable: true },
+                            Ca: { type: 'number', editable: true },
+                            GhiChu: { type: 'text', editable: true },
+                            TenCa: { type: 'text', editablle: false },
+                            TenBuoi: { type: 'text', editablle: false }
+                        }
+                    }
+                },
+                pageSize: 100
+            }),
+            dataBinding: function () {
+                record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+            },
+            height: 250,
+            editable: true,
+            persistSelection: true,
+            resizable: true,
+            pageable: false,
+            sortable: false,
+            filterable: {
+                mode: "row",
+            },
+            scrollable: true,
+            columns: [
+                {
+                    title: " ",
+                    field: 'ID',
+                    template: function (e) {
+                        return "<i onclick='DeleteRowLichHoc(\"" + e.uid + "\")' style='color:red' class='fa fa-trash'></i>";
+                    },
+                    width: 50,
+                    attributes: {
+                        class: "text-center"
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; ",
+                        class: "table-header-cell"
+                    },
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.parent().html("<a class='k-button' title='Thêm buổi học' style='width:100%; height:25px;' onclick='AddRowLichHoc()'><i class='fa fa-plus'></i></a>")
+                            }
+                        }
+                    },
+                },
+                {
+                    field: "Thu",
+                    title: "Ngày trong tuần",
+                    width: 160,
+                    template: function (e) {
+                        if (e.TenBuoi) {
+                            return e.TenBuoi;
+                        } else {
+                            return '';
+                        }
+                    },
+                    editor: function (container, options) {
+                        $('<input required name="' + options.field + '"/>').appendTo(container).kendoComboBox({
+                            dataTextField: "text",
+                            dataValueField: "value",
+                            autoBind: false,
+                            change: function (e) {
+                                options.model.TenBuoi = e.sender.text();
+                            },
+                            dataSource: new kendo.data.DataSource({
+                                data: [{ text: "Thứ 2", value: 2 },
+                                { text: "Thứ 3", value: 3 },
+                                { text: "Thứ 4", value: 4 },
+                                { text: "Thứ 5", value: 5 },
+                                { text: "Thứ 6", value: 6 },
+                                { text: "Thứ 7", value: 7 },
+                                { text: "Chủ nhật", value: 1 },
+                                ]
+                            }),
+                        })
+                    },
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    attributes: {
+                        class: "text-center"
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    },
+                },
+                {
+                    field: "Ca",
+                    title: "Ca học",
+                    width: 120,
+                    template: function (e) {
+                        if (e.TenCa) {
+                            return e.TenCa;
+                        } else {
+                            return '';
+                        }
+                    },
+                    editor: function (container, options) {
+                        $('<input required name="' + options.field + '"/>').appendTo(container).kendoComboBox({
+                            dataTextField: "TenCa",
+                            dataValueField: "ID",
+                            autoBind: false,
+                            change: function (e) {
+                                options.model.TenCa = e.sender.text();
+                            },
+                            dataSource: new kendo.data.DataSource({
+                                data: lstCaHoc
+                            }),
+                        })
+                    },
+                    attributes: {
+                        class: "text-center"
+                    },
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    },
+                },
+                {
+                    field: "GhiChu",
+                    title: "Ghi chú",
+                    width: 230,
+                    attributes: {
+                        class: "text-center"
+                    },
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    },
+                },
+
+            ]
+        });
+    }
+}
+
+function LoadGridLichHoc(ID_Lop) {
+    $.ajax({
+        url: '/LichHoc/GetLichHocByLop?ID_Lop=' + ID_Lop,
+        type: 'GET'
+    }).done(function (response) {
+        var ds = new kendo.data.DataSource({
+            data: response,
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        ID: { type: 'number', editable: false },
+                        Thu: { type: 'number', editable: true },
+                        Ca: { type: 'number', editable: true },
+                        GhiChu: { type: 'text', editable: true },
+                        TenCa: { type: 'text', editablle: false },
+                        TenBuoi: { type: 'text', editablle: false }
+                    }
+                }
+            },
+            pageSize: 100
+        });
+        $("#gridLichHoc").data("kendoGrid").setDataSource(ds);
+    })
+
+}
+
+function AddRowLichHoc(e) {
+    var grid = $("#gridLichHoc").data("kendoGrid");
+    grid.addRow();
+}
+function DeleteRowLichHoc(uid) {
+    var grid = $("#grid").data("kendoGrid");
+    var selectedItem = grid.dataItem(grid.select());
+    if (selectedItem) {
+        if (selectedItem.trangThai > 0) {
+            openDialog(dialogRoot, "Vui lòng liên hệ bộ phân văn phòng để sửa lịch học");
+            return;
+        }
+    }
+    var dataRow = $('#gridLichHoc').data("kendoGrid").dataSource.getByUid(uid);
+    $('#gridLichHoc').data("kendoGrid").dataSource.remove(dataRow);
+}
+
+function DuyetLop(ID_Lop) {
+    $.ajax({
+        url: '/Lop/DuyetLop?ID_Lop=' + ID_Lop,
+        type: 'GET',
+    }).done(function successCallback(response) {
+        LoadGridData();
+    })
+}
+function XuatExcel() {
+    var grid = $('#grid').data('kendoGrid');
+
+    grid.options.excel = {
+        fileName: "DanhSanhLopHoc.xlsx",
         filterable: true,
         allPages: true
     }

@@ -17,5 +17,8 @@ namespace QLDH.DataAccess.Models
         public string SoDoLop { get; set; }
         public string TenGiaoVien { get; set; }
         public string LichHoc { get; set; }
+        public int ID_NhanVien { get; set; }
+        public List<LichHocModel> lstLichHoc { get; set; }
+        public int ID_ChiNhanh { get; set; }
     }
 }

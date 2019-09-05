@@ -61,24 +61,42 @@
                         class: "table-header-cell"
                     }
                 },
-                 {
-                     field: "TaiKhoan",
-                     title: "Tên tài khoản",
-                     width: "100px",
-                     filterable: {
-                         cell: {
-                             operator: "contains",
-                             showOperators: false,
-                             template: function (e) {
-                                 e.element.addClass("k-textbox").css("width", "100%")
-                             }
-                         }
-                     },
-                     headerAttributes: {
-                         style: "text-align: center; font-size: 12px; font-weight:bold",
-                         class: "table-header-cell"
-                     }
-                 },
+                {
+                    field: "TaiKhoan",
+                    title: "Tên tài khoản",
+                    width: "100px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
+                {
+                    field: "TenChiNhanh",
+                    title: "Chi nhánh",
+                    width: "100px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
                 {
                     field: "Email",
                     title: "Email",
@@ -159,7 +177,7 @@
         });
         $("#window").kendoWindow({
             width: "30%",
-            height: "65%",
+            height: "75%",
             title: "Chi tiết",
             visible: false,
             modal: true,
@@ -186,6 +204,22 @@
             $("#ComboQuyen").kendoComboBox({
                 dataTextField: "text",
                 dataValueField: "value",
+                filter: "contains",
+                suggest: true,
+                delay: 1000,
+                dataSource: dataSource
+            })
+        });
+        $.ajax({
+            url: '/User/GetAllChiNhanh',
+            type: 'GET',
+        }).done(function successCallback(response) {
+            var dataSource = new kendo.data.DataSource({
+                data: response,
+            });
+            $("#ComboChiNhanh").kendoComboBox({
+                dataTextField: "TenChiNhanh",
+                dataValueField: "ID",
                 filter: "contains",
                 suggest: true,
                 delay: 1000,
@@ -221,6 +255,7 @@
                 $("#DienThoai").val(response.DienThoai);
                 $("#DiaChi").val(response.DiaChi);
                 $("#MatKhau").val(response.MatKhau);
+                $("#ComboChiNhanh").data("kendoComboBox").value(response.ID_ChiNhanh);
             });
             if ($(window).width() > 800) {
                 $("#window").data("kendoWindow").center().open();
@@ -275,8 +310,9 @@
         var validtk = SetValidate("TenTaiKhoan");
         var validten = SetValidate("TenDayDu");
         var validmk = SetValidate("MatKhau");
-        var validemail = SetValidate("Email");
-        var valid = validtk && validten && validmk && validemail
+        //var validemail = SetValidate("Email");
+        var validchinhanh = SetValidate("ComboChiNhanh");
+        var valid = validtk && validten && validmk && validchinhanh
         if (valid) {
             $.ajax({
                 url: '/User/CreateOrUpdate',
@@ -289,6 +325,7 @@
                     DienThoai: $("#DienThoai").val(),
                     MatKhau: $("#MatKhau").val(),
                     DiaChi: $("#DiaChi").val(),
+                    ID_ChiNhanh: $("#ComboChiNhanh").data("kendoComboBox").value()
                 }
             }).done(function successCallback(response) {
 
@@ -316,6 +353,7 @@
         document.getElementById("formChiTiet").reset();
         $("#ID").val('');
         $("#window").data("kendoWindow").close();
+        $("#grid").data("kendoGrid").clearSelection();
     }
 
     function Xoa() {
@@ -340,6 +378,7 @@
             type: 'POST'
         }).done(function (response) {
             if (response.status) {
+                $("#grid").data("kendoGrid").clearSelection();
                 LoadGridData();
                 notification.show({ kValue: response.msg }, "success");
             } else {
@@ -413,8 +452,13 @@
             <input id="MatKhau" type="password" class="k-textbox input" />
             <span class="fa fa-exclamation-triangle icon"></span>
         </div>
+        <div class="form-group valid" toggle-valid="ComboChiNhanh">
+            <label style="width:100%">Chi nhánh:<span style="color:red">*</span></label>
+            <input id="ComboChiNhanh" type="text" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
         <div class="form-group valid" toggle-valid="Email">
-            <label style="width:100%">Email: <span style="color:red">*</span></label>
+            <label style="width:100%">Email: </label>
             <input id="Email" type="text" class="k-textbox input" />
             <span class="fa fa-exclamation-triangle icon"></span>
         </div>

@@ -90,6 +90,52 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<HocSinhModel> GetNgoaiLop_HocSinh(int ID_Lop)
+        {
+            List<HocSinhModel> result = new List<HocSinhModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_HocSinh_GetAllNgoaiLop", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_HocSinh_GetAllNgoaiLop " + ex.Message);
+            }
+
+            return result;
+        }
+
+        public List<HocSinhModel> GetByGiaoVien_HocSinh(int ID_GiaoVien)
+        {
+            List<HocSinhModel> result = new List<HocSinhModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_GiaoVien", ID_GiaoVien)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_HocSinh_GetByGiaoVien", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_HocSinh_GetByGiaoVien " + ex.Message);
+            }
+
+            return result;
+        }
+
         public List<HocSinhModel> GetByLop_HocSinh_HocDuoi(int ID_Lop)
         {
             List<HocSinhModel> result = new List<HocSinhModel>();

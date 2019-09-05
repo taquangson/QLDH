@@ -3,6 +3,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/js/diemdanh.js"></script>
+<link href="~/Content/danhsachloptheogiaovien.css" rel="stylesheet" />
+<style type="text/css">
+    .photo {
+        height: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .k-upload {
+        border: none;
+    }
+
+    .k-upload-button {
+        margin: 0 !important;
+        width:100%;
+    }
+</style>
 <style>
     .k-checkbox-label:before {
         width: 25px;
@@ -16,8 +34,7 @@
         height: 40px;
     }
 
-    .image-preview{
-
+    .image-preview {
     }
 
     .sodo {
@@ -34,17 +51,35 @@
         <h2><b>Điểm danh lớp</b></h2>
     </div>
     <div class="row">
-        <div class="col-sm-3">
-            <label style="width:100%">Khối</label>
-            <div style="width:100%" id="comboKhoi"></div>
+        <div class="col-sm-6">
+            <div style="width:50%;float:left;">
+                <label style="width:100%">Khối</label>
+                <div style="width:100%" id="comboKhoi"></div>
+            </div>
+            <div style="width:50%;float:left;padding-left:20px;">
+                <label style="width:100%">Lớp</label>
+                <div style="width:100%" id="comboLop"></div>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <label style="width:100%">Lớp</label>
-            <div style="width:100%" id="comboLop"></div>
+        <div class="col-sm-6">
+            <div style="width:50%;float:left;">
+                <label style="width:100%">Ca học</label>
+                <div style="width:100%" id="comboCa"></div>
+            </div>
+            <div style="width:50%;float:left;padding-left: 20px;">
+                <label style="width:100%"> </label>
+                <button class="k-button bg-blue" onclick="LoadLaiDuLieu()" style="margin-top:5px;"> <i class="fa fa-refresh"> Làm mới dữ liệu </i></button>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <label style="width:100%">Ca học</label>
-            <div style="width:100%" id="comboCa"></div>
+    </div>
+    <div class="row" style="margin-top:15px;">
+        <div class="col-sm-6">
+            <div style="width:50%;float:left;">
+                <input style="width:100%" type="file" id="file" />
+            </div>
+            <div style="width:50%;float:left;padding:0 10px;" id="listAnhDiemDanh">
+
+            </div>
         </div>
     </div>
     <div style="margin-top:20px;" id="gridDiemDanh"></div>
@@ -52,3 +87,6 @@
 <div id="windowSoDo">
     <div id="anhsodo" class="sodo"></div>
 </div>
+<script id="templateTooltip" type="text/x-kendo-template">
+    <img style="max-width:400px" src="#=target.data('title')#" />
+</script>

@@ -1,23 +1,32 @@
 ﻿@{
     ViewBag.Title = "Trang chủ";
 }
+<script src="~/Scripts/js/home.js"></script>
+<style>
+    td{
+        vertical-align:top;
+        padding-left:10px;
+    }
+</style>
 <div class="row" style="height:calc(100vh - 80px);overflow:scroll">
-    <a href="/User/Index" class="col-sm-2 dashboard-box blue">
-        <i class="fa fa-user"></i>
-        <label>Quản lý nhân viên</label>
-    </a>
-    <a href="/HocSinh/Index" class="col-sm-2 dashboard-box blue">
-        <i class="fa fa-book"></i>
-        <label>Quản lý học sinh</label>
-    </a>
-    <a href="/Lop/Index" class="col-sm-2 dashboard-box blue">
-        <i class="fa fa-bookmark"></i>
-        <label>Quản lý lớp học</label>
-    </a>
-    <a href="/PhieuHoc/Index" class="col-sm-2 dashboard-box blue">
-        <i class="fa fa-dollar"></i>
-        <label>Quản lý phiếu học</label>
-    </a>
+    <div class="row">
+        <a href="/User/Index" class="col-sm-2 dashboard-box blue">
+            <i class="fa fa-user"></i>
+            <label>Quản lý nhân viên</label>
+        </a>
+        <a href="/HocSinh/Index" class="col-sm-2 dashboard-box blue">
+            <i class="fa fa-book"></i>
+            <label>Quản lý học sinh</label>
+        </a>
+        <a href="/Lop/Index" class="col-sm-2 dashboard-box blue">
+            <i class="fa fa-bookmark"></i>
+            <label>Quản lý lớp học</label>
+        </a>
+        <a href="/PhieuHoc/Index" class="col-sm-2 dashboard-box blue">
+            <i class="fa fa-dollar"></i>
+            <label>Quản lý phiếu học</label>
+        </a>
+    </div>
     @*<div class="col-sm-2 dashboard-box blue">
             <i class="fa fa-clock-o"></i>
             <label>Quản lý nhân viên</label>
@@ -34,4 +43,47 @@
             <i class="fa fa-dollar"></i>
             <label>Quản lý nhân viên</label>
         </div>*@
+    <h3 style="width:100%;margin-top:50px;text-align:center">Lịch Học</h3>
+    <table style="width:100%;margin-top:20px;" border="1">
+        <tr>
+            <td style="width:12%"></td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Chủ nhật</td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Thứ 2</td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Thứ 3</td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Thứ 4</td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Thứ 5</td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Thứ 6</td>
+            <td style="width:12%;text-align:center;font-weight:600;font-size:16px;">Thứ 7</td>
+        </tr>
+        <tr>
+            <td style="vertical-align:middle;text-align:center;color:coral;font-size:20px;font-weight:600">Sáng</td>
+            <td id="sang1"></td>
+            <td id="sang2"></td>
+            <td id="sang3"></td>
+            <td id="sang4"></td>
+            <td id="sang5"></td>
+            <td id="sang6"></td>
+            <td id="sang7"></td>
+        </tr>
+        <tr>
+            <td style="vertical-align:middle;text-align:center;color:coral;font-size:20px;font-weight:600">Chiều</td>
+            <td id="chieu1"></td>
+            <td id="chieu2"></td>
+            <td id="chieu3"></td>
+            <td id="chieu4"></td>
+            <td id="chieu5"></td>
+            <td id="chieu6"></td>
+            <td id="chieu7"></td>
+        </tr>
+        <tr>
+            <td style="vertical-align:middle;text-align:center;color:coral;font-size:20px;font-weight:600">Tối</td>
+            <td id="toi1"></td>
+            <td id="toi2"></td>
+            <td id="toi3"></td>
+            <td id="toi4"></td>
+            <td id="toi5"></td>
+            <td id="toi6"></td>
+            <td id="toi7"></td>
+        </tr>
+    </table>
 </div>

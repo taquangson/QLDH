@@ -17,6 +17,40 @@ namespace QLDH.Controllers
         {
             return View();
         }
+
+        [SessionExpire]
+        public ActionResult ChangePass()
+        {
+            return View();
+        }
+
+        public class ChangePassModel
+        {
+            public string TenDayDu { get; set; }
+            public string NewPass { get; set; }
+            public string OldPass { get; set; }
+        }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult ThayDoiMatKhau(ChangePassModel model)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            if (tk_dao.CheckLogin(userinfor.TaiKhoan, model.OldPass))
+            {
+                TaiKhoanModel tk = tk_dao.GetByTenTaiKhoanOrEmail(userinfor.TaiKhoan);
+                tk.MatKhau = model.NewPass;
+                tk.TenDayDu = model.TenDayDu;
+                tk_dao.InsertOrUpdate(tk);
+                return Json(new { status = true, msg = "Thay đổi thông tin cá nhân thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Thay đổi thông tin cá nhân thất bại" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         // GET: User
         public ActionResult Login()
         {
@@ -62,6 +96,14 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        public ActionResult GetAllChiNhanh()
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            List<ChiNhanhModels> result = tk_dao.GetDsChiNhanh();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
         public ActionResult GetUserById(int ID)
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();
@@ -81,6 +123,7 @@ namespace QLDH.Controllers
                 item.Email = model.Email;
                 item.DiaChi = model.DiaChi;
                 item.DienThoai = model.DienThoai;
+                item.ID_ChiNhanh = model.ID_ChiNhanh;
                 if (tk_dao.GetByTenTaiKhoanOrEmail(item.Email).ID != item.ID)
                 {
                     return Json(new { status = false, msg = "Email đã được sử dụng cho tài khoản khác" }, JsonRequestBehavior.AllowGet);

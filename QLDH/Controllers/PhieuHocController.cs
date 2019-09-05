@@ -28,17 +28,26 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllByHocSinh_Thang(int ID_HocSinh, int Thang)
+        {
+            PhieuHocDAO hsdao = new PhieuHocDAO();
+            return Json(hsdao.GetByHocSinh_Thang(ID_HocSinh, Thang), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
         [HttpPost]
         public ActionResult CreateOrUpdate(PhieuHocModel model)
         {
             PhieuHocDAO phdao = new PhieuHocDAO();
             SoDuBuoiHocDAO sddao = new SoDuBuoiHocDAO();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            model.ID_ChiNhanh = userinfor.ID_ChiNhanh;
             model.ID_NhanVien = userinfor.ID;
             model.NamHoc = DateTime.Now.Year;
             if(model.ID == 0)
             {
-                int count = phdao.CountBuoiHocTrongThang(model.ID_HocSinh, model.ID_Lop, DateTime.Now.Month, DateTime.Now.Year);
+                int count = phdao.CountBuoiHocTrongThang(model.ID_HocSinh, model.ID_Lop, model.Thang, DateTime.Now.Year);
                 model.SoBuoiDaHoc = count;
             }
             phdao.InsertOrUpdate(model);

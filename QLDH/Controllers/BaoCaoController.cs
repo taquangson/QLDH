@@ -41,5 +41,17 @@ namespace QLDH.Controllers
         {
             return Json(new BaoCaoDAO().GetBaoCaoPhieuHocTheoHocSinh(ID_HocSinh, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
         }
+
+        [SessionExpire]
+        public ActionResult GetData_ThongKePhieuHocTheoHocSinhTheoThang(int ID_HocSinh, int Thang)
+        {
+            return Json(new BaoCaoDAO().GetBaoCaoPhieuHocTheoHocSinh_TheoThang(ID_HocSinh, Thang), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetData_ThongKeSoBuoiTheoHocSinhTheoThang(int ID_HocSinh, DateTime TuNgay, DateTime DenNgay)
+        {
+            return Json(new BaoCaoDAO().GetBaoCaoSoBuoiHoc_HocSinh_Thang(ID_HocSinh, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
+        }
     }
 }

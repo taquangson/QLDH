@@ -49,7 +49,6 @@
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -136,6 +135,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionModeratorRoleAttribute.cs" />
     <Compile Include="App_Start\SessionAdmiRoleAttribute.cs" />
     <Compile Include="App_Start\SessionExpireAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -145,29 +145,41 @@
     <Compile Include="Controllers\DiemDanhController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LichHocController.cs" />
     <Compile Include="Controllers\LopController.cs" />
     <Compile Include="Controllers\PhieuHocController.cs" />
+    <Compile Include="Controllers\PhieuThuController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
     <Compile Include="DataAccess\DAO\BaiKiemTraDAO.cs" />
     <Compile Include="DataAccess\DAO\BaoCaoDAO.cs" />
+    <Compile Include="DataAccess\DAO\LichHocDAO.cs" />
+    <Compile Include="DataAccess\DAO\CaHocDAO.cs" />
     <Compile Include="DataAccess\DAO\DanhMucDAO.cs" />
     <Compile Include="DataAccess\DAO\DiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\Lop_HocSinhDAO.cs" />
     <Compile Include="DataAccess\DAO\LopHocDAO.cs" />
     <Compile Include="DataAccess\DAO\HocSinhDAO.cs" />
     <Compile Include="DataAccess\DAO\PhieuHocDAO.cs" />
+    <Compile Include="DataAccess\DAO\PhieuThuDAO.cs" />
     <Compile Include="DataAccess\DAO\SoDuBuoiHocDAO.cs" />
+    <Compile Include="DataAccess\Models\AnhDiemDanhModel.cs" />
     <Compile Include="DataAccess\Models\AnhBaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
+    <Compile Include="DataAccess\Models\CaHocModel.cs" />
+    <Compile Include="DataAccess\Models\ChiNhanhModels.cs" />
     <Compile Include="DataAccess\Models\DiemDanhModel.cs" />
     <Compile Include="DataAccess\Models\HocSinhModel.cs" />
     <Compile Include="DataAccess\DAO\TaiKhoanDAO.cs" />
     <Compile Include="DataAccess\Helper\DataHelper.cs" />
     <Compile Include="DataAccess\Models\DanhMucLoiModel.cs" />
+    <Compile Include="DataAccess\Models\LichHocModel.cs" />
     <Compile Include="DataAccess\Models\LopHocModel.cs" />
     <Compile Include="DataAccess\Models\Lop_HocSinhModel.cs" />
     <Compile Include="DataAccess\Models\PhieuHocModel.cs" />
+    <Compile Include="DataAccess\Models\PhieuThuModel.cs" />
+    <Compile Include="DataAccess\Models\PhuThuGiamTruModel.cs" />
     <Compile Include="DataAccess\Models\SoDuBuoiHocModel.cs" />
     <Compile Include="DataAccess\Models\TaiKhoanModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -795,6 +807,7 @@
     <Content Include="Assets\kendo\styles\kendo.silver.mobile.min.css.map" />
     <Content Include="Assets\kendo\styles\kendo.uniform.min.css.map" />
     <Content Include="Assets\kendo\styles\kendo.uniform.mobile.min.css.map" />
+    <Content Include="log4net.config" />
     <None Include="Properties\PublishProfiles\Publish_QLDH.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -807,6 +820,8 @@
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihocthohocsinh.js" />
     <Content Include="Scripts\js\danhsachhocsinhtheogiaovien.js" />
+    <Content Include="Scripts\js\home.js" />
+    <Content Include="Scripts\js\phieuthu.js" />
     <Content Include="Scripts\js\quanlydulieudiemdanh.js" />
     <Content Include="Scripts\js\phieuhoc.js" />
     <Content Include="Scripts\js\diemdanh.js" />
@@ -841,10 +856,14 @@
     <Content Include="Views\Lop\DanhSachLopTheoGiaoVien.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoPhieuHocTheoHocSinh.cshtml" />
     <Content Include="Views\DiemDanh\QuanLyDuLieuDiemDanh.cshtml" />
+    <Content Include="Views\User\ChangePass.cshtml" />
+    <Content Include="Views\PhieuThu\Index.cshtml" />
+    <Content Include="Views\PhieuThu\InPhieu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\BaiKiemTra\" />
+    <Folder Include="Views\LichHoc\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

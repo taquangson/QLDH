@@ -1,5 +1,6 @@
 ﻿using QLDH.App_Start;
 using QLDH.DataAccess.DAO;
+using QLDH.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,6 +41,15 @@ namespace QLDH.Controllers
         {
             DanhMucDAO dm_dao = new DanhMucDAO();
             List<DanhMuc> dt = dm_dao.GetAll_DM(TenBang);
+            return Json(dt, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAll_CaHoc()
+        {
+            CaHocDAO dm_dao = new CaHocDAO();
+            List<CaHocModel> dt = dm_dao.GetAll();
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
 

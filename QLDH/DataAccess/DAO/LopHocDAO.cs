@@ -47,12 +47,16 @@ namespace QLDH.DataAccess.DAO
             return obj;
         }
 
-        public List<LopHocModel> GetAll_LopHoc()
+        public List<LopHocModel> GetAll_LopHoc(int ID_ChiNhanh)
         {
             List<LopHocModel> result = new List<LopHocModel>();
             try
             {
-                DataSet ds = helper.ExecuteDataSet("sp_LopHoc_GetAll");
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_ChiNhanh", ID_ChiNhanh)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LopHoc_GetAll", pars);
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -146,10 +150,37 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@TenLop", model.TenLop),
                 new SqlParameter("@GiaoVien", model.GiaoVien),
                 new SqlParameter("@SoDoLop", model.SoDoLop),
-                new SqlParameter("@LichHoc", model.LichHoc)
+                new SqlParameter("@LichHoc", model.LichHoc),
+                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh)
                 };
 
                 object id = helper.ExecuteScalar("sp_LopHoc_InsertOrUpdate", pars);
+                if (id != null)
+                {
+                    return int.Parse(id.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHoc_InsertOrUpdate " + ex.Message);
+            }
+
+            return 0;
+        }
+
+        public int InsertOrUpdateByGiaoVien(LopHocModel model)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID", model.ID),
+                new SqlParameter("@TenLop", model.TenLop),
+                new SqlParameter("@GiaoVien", model.GiaoVien),
+                new SqlParameter("@SoDoLop", model.SoDoLop),
+                new SqlParameter("@LichHoc", model.LichHoc)
+                };
+
+                object id = helper.ExecuteScalar("sp_LopHoc_InsertOrUpdateByGiaoVien", pars);
                 if (id != null)
                 {
                     return int.Parse(id.ToString());
@@ -184,6 +215,31 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_LopHoc_Delete " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool PheDuyet(int ID_Lop)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_Lop",ID_Lop )
+                };
+                int rowaff = helper.ExecuteNonQuery("sp_LopHoc_PheDuyet", pars);
+                if (rowaff > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHoc_PheDuyet " + ex.Message);
                 return false;
             }
         }

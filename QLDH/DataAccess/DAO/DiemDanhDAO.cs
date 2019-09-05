@@ -45,14 +45,15 @@ namespace QLDH.DataAccess.DAO
             return obj;
         }
 
-        public DiemDanhModel GetByHocSinh_Ngay(int ID_Lop, int ID_HocSinh, DateTime Ngay)
+        public DiemDanhModel GetByHocSinh_Ngay(int ID_Lop, int ID_HocSinh, DateTime Ngay, int Ca)
         {
             try
             {
                 SqlParameter[] pars = new SqlParameter[] {
                 new SqlParameter("@ID_Lop", ID_Lop),
                 new SqlParameter("@ID_HocSinh", ID_HocSinh),
-                new SqlParameter("@Ngay", Ngay)
+                new SqlParameter("@Ngay", Ngay),
+                new SqlParameter("@Ca", Ca)
                 };
                 DataSet ds = helper.ExecuteDataSet("sp_DiemDanh_GetByHocSinh_Ngay", pars);
                 DataTable dt = ds.Tables[0];
@@ -103,6 +104,7 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ID_Lop", model.ID_Lop),
                 new SqlParameter("@ID_HocSinh", model.ID_HocSinh),
                 new SqlParameter("@ID_NhanVien", model.ID_NhanVien),
+                new SqlParameter("@Ca", model.Ca),
                 new SqlParameter("@CoPhep", model.CoPhep),
                 new SqlParameter("@GhiChu", model.GhiChu),
                 new SqlParameter("@HocDuoi", model.HocDuoi),

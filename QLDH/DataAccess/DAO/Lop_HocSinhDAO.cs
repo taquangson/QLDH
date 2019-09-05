@@ -51,6 +51,7 @@ namespace QLDH.DataAccess.DAO
         {
             try
             {
+                log.Info("Insert HocSinh_LopHoc: ID_HocSinh=" + model.ID_HocSinh + " - ID_Lop=" + model.ID_Lop);
                 SqlParameter[] pars = new SqlParameter[] {
                     new SqlParameter("@ID_Lop", model.ID_Lop),
                     new SqlParameter("@ID_HocSinh", model.ID_HocSinh),
@@ -96,11 +97,39 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
+        public bool DeleteByLop_HocSinh(int ID_Lop, int ID_HocSinh)
+        {
+            try
+            {
+                log.Info("Delete HocSinh_LopHoc: ID_HocSinh=" + ID_HocSinh + " - ID_Lop=" + ID_Lop);
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_Lop",ID_Lop ),
+                    new SqlParameter("@ID_HocSinh",ID_HocSinh )
+                };
+                int rowaff = helper.ExecuteNonQuery("sp_LopHocSinh_DeleteByLop_HocSinh", pars);
+                if (rowaff > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHocSinh_DeleteByLop_HocSinh " + ex.Message);
+                return false;
+            }
+        }
+
 
         public bool ResetLop(int ID)
         {
             try
             {
+                log.Info("ResetLop: ID=" + ID);
                 SqlParameter[] pars = new SqlParameter[]
                 {
                     new SqlParameter("@ID",ID )

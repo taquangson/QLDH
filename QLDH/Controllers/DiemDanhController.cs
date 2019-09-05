@@ -3,6 +3,7 @@ using QLDH.DataAccess.DAO;
 using QLDH.DataAccess.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,38 +36,10 @@ namespace QLDH.Controllers
             List<HocSinhModel> lhs = new List<HocSinhModel>();
             lhs.AddRange(hsdao.GetByLop_HocSinh(ID_Lop));
             DiemDanhDAO ddao = new DiemDanhDAO();
-            DateTime batdau = DateTime.Now;
-            DateTime ketthuc = DateTime.Now;
+            CaHocModel ca = new CaHocDAO().GetByID(Ca);
             DateTime quagiodiemdanh = DateTime.Now;
             int quagio = 1;
-            switch (Ca)
-            {
-                case 1:
-                    batdau = DateTime.Now.Date + new TimeSpan(7, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(9, 0, 0);
-                    quagiodiemdanh = DateTime.Now.Date + new TimeSpan(7, 30, 0);
-                    break;
-                case 2:
-                    batdau = DateTime.Now.Date + new TimeSpan(9, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(11, 0, 0);
-                    quagiodiemdanh = DateTime.Now.Date + new TimeSpan(9, 30, 0);
-                    break;
-                case 3:
-                    batdau = DateTime.Now.Date + new TimeSpan(14, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(16, 0, 0);
-                    quagiodiemdanh = DateTime.Now.Date + new TimeSpan(14, 30, 0);
-                    break;
-                case 4:
-                    batdau = DateTime.Now.Date + new TimeSpan(16, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(19, 0, 0);
-                    quagiodiemdanh = DateTime.Now.Date + new TimeSpan(17, 30, 0);
-                    break;
-                case 5:
-                    batdau = DateTime.Now.Date + new TimeSpan(19, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(21, 0, 0);
-                    quagiodiemdanh = DateTime.Now.Date + new TimeSpan(19, 30, 0);
-                    break;
-            }
+            quagiodiemdanh = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 45, 0);
             if (DateTime.Compare(DateTime.Now, quagiodiemdanh) < 0 || userinfor.Role == 1)
             {
                 quagio = 0;
@@ -75,7 +48,7 @@ namespace QLDH.Controllers
             {
                 try
                 {
-                    DiemDanhModel dd = ddao.GetByHocSinh_NgayGio(ID_Lop, hs.ID, batdau, ketthuc);
+                    DiemDanhModel dd = ddao.GetByHocSinh_Ngay(ID_Lop, hs.ID, DateTime.Now, Ca);
                     hs.ID_DiemDanh = dd.ID;
                     hs.CoPhep = dd.CoPhep;
                     hs.QuaGioDiemDanh = quagio;
@@ -98,36 +71,37 @@ namespace QLDH.Controllers
             List<HocSinhModel> lhs = new List<HocSinhModel>();
             lhs.AddRange(hsdao.GetByLop_HocSinh(ID_Lop));
             DiemDanhDAO ddao = new DiemDanhDAO();
-            DateTime batdau = Ngay;
-            DateTime ketthuc = Ngay;
-            switch (Ca)
-            {
-                case 1:
-                    batdau = Ngay.Date + new TimeSpan(7, 0, 0);
-                    ketthuc = Ngay.Date + new TimeSpan(9, 0, 0);
-                    break;
-                case 2:
-                    batdau = Ngay.Date + new TimeSpan(9, 0, 0);
-                    ketthuc = Ngay.Date + new TimeSpan(11, 0, 0);
-                    break;
-                case 3:
-                    batdau = Ngay.Date + new TimeSpan(14, 0, 0);
-                    ketthuc = Ngay.Date + new TimeSpan(16, 0, 0);
-                    break;
-                case 4:
-                    batdau = Ngay.Date + new TimeSpan(16, 0, 0);
-                    ketthuc = Ngay.Date + new TimeSpan(19, 0, 0);
-                    break;
-                case 5:
-                    batdau = Ngay.Date + new TimeSpan(19, 0, 0);
-                    ketthuc = Ngay.Date + new TimeSpan(21, 0, 0);
-                    break;
-            }
+            //DateTime batdau = Ngay;
+            //DateTime ketthuc = Ngay;
+            //switch (Ca)
+            //{
+            //    case 1:
+            //        batdau = Ngay.Date + new TimeSpan(7, 0, 0);
+            //        ketthuc = Ngay.Date + new TimeSpan(9, 0, 0);
+            //        break;
+            //    case 2:
+            //        batdau = Ngay.Date + new TimeSpan(9, 0, 0);
+            //        ketthuc = Ngay.Date + new TimeSpan(11, 0, 0);
+            //        break;
+            //    case 3:
+            //        batdau = Ngay.Date + new TimeSpan(14, 0, 0);
+            //        ketthuc = Ngay.Date + new TimeSpan(16, 0, 0);
+            //        break;
+            //    case 4:
+            //        batdau = Ngay.Date + new TimeSpan(16, 0, 0);
+            //        ketthuc = Ngay.Date + new TimeSpan(19, 0, 0);
+            //        break;
+            //    case 5:
+            //        batdau = Ngay.Date + new TimeSpan(19, 0, 0);
+            //        ketthuc = Ngay.Date + new TimeSpan(21, 0, 0);
+            //        break;
+            //}
             foreach (HocSinhModel hs in lhs)
             {
                 try
                 {
-                    DiemDanhModel dd = ddao.GetByHocSinh_NgayGio(ID_Lop, hs.ID, batdau, ketthuc);
+                    //DiemDanhModel dd = ddao.GetByHocSinh_NgayGio(ID_Lop, hs.ID, batdau, ketthuc);
+                    DiemDanhModel dd = ddao.GetByHocSinh_Ngay(ID_Lop, hs.ID, Ngay, Ca);
                     hs.ID_DiemDanh = dd.ID;
                     hs.CoPhep = dd.CoPhep;
                     hs.QuaGioDiemDanh = 0;
@@ -147,35 +121,38 @@ namespace QLDH.Controllers
         {
             DiemDanhDAO ddao = new DiemDanhDAO();
             DateTime batdau = DateTime.Now;
-            DateTime ketthuc = DateTime.Now;
-            switch (d.Ca)
-            {
-                case 1:
-                    batdau = DateTime.Now.Date + new TimeSpan(7, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(9, 0, 0);
-                    d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(8, 0, 0);
-                    break;
-                case 2:
-                    batdau = DateTime.Now.Date + new TimeSpan(9, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(11, 0, 0);
-                    d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(10, 0, 0);
-                    break;
-                case 3:
-                    batdau = DateTime.Now.Date + new TimeSpan(14, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(16, 0, 0);
-                    d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(15, 0, 0);
-                    break;
-                case 4:
-                    batdau = DateTime.Now.Date + new TimeSpan(16, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(19, 0, 0);
-                    d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(18, 0, 0);
-                    break;
-                case 5:
-                    batdau = DateTime.Now.Date + new TimeSpan(19, 0, 0);
-                    ketthuc = DateTime.Now.Date + new TimeSpan(21, 0, 0);
-                    d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(20, 0, 0);
-                    break;
-            }
+            CaHocDAO chdao = new CaHocDAO();
+            CaHocModel ca = chdao.GetByID(d.Ca);
+            d.ThoiGianVaoLop = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 30, 0);
+            //DateTime ketthuc = DateTime.Now;
+            //switch (d.Ca)
+            //{
+            //    case 1:
+            //        batdau = DateTime.Now.Date + new TimeSpan(7, 0, 0);
+            //        ketthuc = DateTime.Now.Date + new TimeSpan(9, 0, 0);
+            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(8, 0, 0);
+            //        break;
+            //    case 2:
+            //        batdau = DateTime.Now.Date + new TimeSpan(9, 0, 0);
+            //        ketthuc = DateTime.Now.Date + new TimeSpan(11, 0, 0);
+            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(10, 0, 0);
+            //        break;
+            //    case 3:
+            //        batdau = DateTime.Now.Date + new TimeSpan(14, 0, 0);
+            //        ketthuc = DateTime.Now.Date + new TimeSpan(16, 0, 0);
+            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(15, 0, 0);
+            //        break;
+            //    case 4:
+            //        batdau = DateTime.Now.Date + new TimeSpan(16, 0, 0);
+            //        ketthuc = DateTime.Now.Date + new TimeSpan(19, 0, 0);
+            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(18, 0, 0);
+            //        break;
+            //    case 5:
+            //        batdau = DateTime.Now.Date + new TimeSpan(19, 0, 0);
+            //        ketthuc = DateTime.Now.Date + new TimeSpan(21, 0, 0);
+            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(20, 0, 0);
+            //        break;
+            //}
             if (DateTime.Compare(d.ThoiGianVaoLop, DateTime.Now) > 0)
             {
                 d.ThoiGianVaoLop = DateTime.Now;
@@ -183,7 +160,7 @@ namespace QLDH.Controllers
             PhieuHocDAO phd = new PhieuHocDAO();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             d.ID_NhanVien = userinfor.ID;
-            DiemDanhModel diemdanhcu = ddao.GetByHocSinh_NgayGio(d.ID_Lop, d.ID_HocSinh, batdau, ketthuc);
+            DiemDanhModel diemdanhcu = ddao.GetByHocSinh_Ngay(d.ID_Lop, d.ID_HocSinh, batdau, d.Ca);
             d.ID = diemdanhcu.ID;
             PhieuHocModel phmodel = phd.GetByHocSinh_Thang_Nam(d.ID_HocSinh, d.ID_Lop, DateTime.Now.Month, DateTime.Now.Year, d.HocDuoi);
             if (diemdanhcu.ID == 0)
@@ -198,7 +175,7 @@ namespace QLDH.Controllers
                             phd.InsertOrUpdate(phmodel);
                         }
                     }
-                }                
+                }
             }
             else
             {
@@ -254,40 +231,43 @@ namespace QLDH.Controllers
         public ActionResult DiemDanhHocSinhByAdmin(DiemDanhModel d)
         {
             DiemDanhDAO ddao = new DiemDanhDAO();
-            DateTime batdau = d.ThoiGianVaoLop;
-            DateTime ketthuc = d.ThoiGianVaoLop;
-            switch (d.Ca)
-            {
-                case 1:
-                    batdau = d.ThoiGianVaoLop.Date + new TimeSpan(7, 0, 0);
-                    ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(9, 0, 0);
-                    d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(8, 0, 0);
-                    break;
-                case 2:
-                    batdau = d.ThoiGianVaoLop.Date + new TimeSpan(9, 0, 0);
-                    ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(11, 0, 0);
-                    d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(10, 0, 0);
-                    break;
-                case 3:
-                    batdau = d.ThoiGianVaoLop.Date + new TimeSpan(14, 0, 0);
-                    ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(16, 0, 0);
-                    d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(15, 0, 0);
-                    break;
-                case 4:
-                    batdau = d.ThoiGianVaoLop.Date + new TimeSpan(16, 0, 0);
-                    ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(19, 0, 0);
-                    d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(18, 0, 0);
-                    break;
-                case 5:
-                    batdau = d.ThoiGianVaoLop.Date + new TimeSpan(19, 0, 0);
-                    ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(21, 0, 0);
-                    d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(20, 0, 0);
-                    break;
-            }
+            CaHocDAO chdao = new CaHocDAO();
+            CaHocModel ca = chdao.GetByID(d.Ca);
+            d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + ca.GioBatDau + new TimeSpan(0, 30, 0);
+            //DateTime batdau = d.ThoiGianVaoLop;
+            //DateTime ketthuc = d.ThoiGianVaoLop;
+            //switch (d.Ca)
+            //{
+            //    case 1:
+            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(7, 0, 0);
+            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(9, 0, 0);
+            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(8, 0, 0);
+            //        break;
+            //    case 2:
+            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(9, 0, 0);
+            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(11, 0, 0);
+            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(10, 0, 0);
+            //        break;
+            //    case 3:
+            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(14, 0, 0);
+            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(16, 0, 0);
+            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(15, 0, 0);
+            //        break;
+            //    case 4:
+            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(16, 0, 0);
+            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(19, 0, 0);
+            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(18, 0, 0);
+            //        break;
+            //    case 5:
+            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(19, 0, 0);
+            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(21, 0, 0);
+            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(20, 0, 0);
+            //        break;
+            //}
             PhieuHocDAO phd = new PhieuHocDAO();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             d.ID_NhanVien = userinfor.ID;
-            DiemDanhModel diemdanhcu = ddao.GetByHocSinh_NgayGio(d.ID_Lop, d.ID_HocSinh, batdau, ketthuc);
+            DiemDanhModel diemdanhcu = ddao.GetByHocSinh_Ngay(d.ID_Lop, d.ID_HocSinh, d.ThoiGianVaoLop, d.Ca);
             d.ID = diemdanhcu.ID;
             PhieuHocModel phmodel = phd.GetByHocSinh_Thang_Nam(d.ID_HocSinh, d.ID_Lop, d.ThoiGianVaoLop.Month, d.ThoiGianVaoLop.Year, d.HocDuoi);
             if (diemdanhcu.ID == 0)
@@ -351,6 +331,59 @@ namespace QLDH.Controllers
             }
             return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [SessionModeratorRole]
+        [HttpGet]
+        public ActionResult GetAnhDiemDanh(int ID_LopHoc, int ID_CaHoc, DateTime Ngay)
+        {
+            AnhDiemDanhDAO add = new AnhDiemDanhDAO();
+            List<AnhDiemDanhModel> lstAnhDiemDanh = add.GetByDiemDanh(ID_LopHoc, ID_CaHoc, Ngay);
+            return Json(lstAnhDiemDanh, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionModeratorRole]
+        [HttpPost]
+        public ActionResult UpAnhDiemDanh(HttpPostedFileBase file, int ID_LopHoc, int ID_CaHoc, DateTime Ngay)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                string Path_Year = DateTime.Now.Year.ToString();
+                string Path_Month = DateTime.Now.Month.ToString();
+                string Path_Day = DateTime.Now.Day.ToString();
+                string p = "/Images/" + "AnhDiemDanh/";
+
+                //if (!System.IO.Directory.Exists(System.Web.HttpContext.Current.Server.MapPath(p)))
+                //{
+                //    System.IO.Directory.CreateDirectory(System.Web.HttpContext.Current.Server.MapPath(p));
+                //}
+                var path = Path.Combine(Server.MapPath(p), Path_Year + "-" + Path_Month + "-" + Path_Day + "-" + ID_LopHoc + fileName);
+                file.SaveAs(path);
+                AnhDiemDanhModel item = new AnhDiemDanhModel();
+                item.DuongDan = p + "/" + Path_Year + "-" + Path_Month + "-" + Path_Day + "-" + ID_LopHoc + fileName;
+                item.ID_LopHoc = ID_LopHoc;
+                item.ID_CaHoc = ID_CaHoc;
+                item.NgayTao = Ngay;
+                AnhDiemDanhDAO dao = new AnhDiemDanhDAO();
+                dao.InsertOrUpdate(item);
+            }
+            return Json(new { status = true, msg = "Cập nhật ảnh điểm danh thành công" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionModeratorRole]
+        [HttpPost]
+        public ActionResult DeleteAnhDiemDanh(int ID)
+        {
+            AnhDiemDanhDAO add = new AnhDiemDanhDAO();
+            if (add.Delete(ID))
+            {
+                return Json(new { status = true, msg = "Xóa ảnh điểm danh thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Xóa ảnh điểm danh thất bại, vui lòng thử lại" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

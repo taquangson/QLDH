@@ -78,27 +78,27 @@
                     style: "text-align: center;",
                 }
             },
-            {
-                field: "SoBuoiDaHoc",
-                title: "Số đã buổi học",
-                width: "100px",
-                filterable: {
-                    cell: {
-                        operator: "contains",
-                        showOperators: false,
-                        template: function (e) {
-                            e.element.addClass("k-textbox").css("width", "100%")
-                        }
-                    }
-                },
-                headerAttributes: {
-                    style: "text-align: center; font-size: 12px; font-weight:bold",
-                    class: "table-header-cell"
-                },
-                attributes: {
-                    style: "text-align: center;",
-                }
-            },
+            //{
+            //    field: "SoBuoiDaHoc",
+            //    title: "Số đã buổi học",
+            //    width: "100px",
+            //    filterable: {
+            //        cell: {
+            //            operator: "contains",
+            //            showOperators: false,
+            //            template: function (e) {
+            //                e.element.addClass("k-textbox").css("width", "100%")
+            //            }
+            //        }
+            //    },
+            //    headerAttributes: {
+            //        style: "text-align: center; font-size: 12px; font-weight:bold",
+            //        class: "table-header-cell"
+            //    },
+            //    attributes: {
+            //        style: "text-align: center;",
+            //    }
+            //},
             {
                 field: "NgayTao",
                 title: "Ngày mua",
@@ -269,8 +269,12 @@
         dataSource: new kendo.data.DataSource({
             data: dataThang
         }),
-        filter: "contains"
+        filter: "contains",
+        change: function (e) {
+            TinhSoBuoiHoc(e.sender.value(), $("#LopHoc").data("kendoComboBox").value());
+        }
     })
+    $("#Thang").data("kendoComboBox").value(new Date().getMonth() + 1);
 
     function onTimKiemClick(e) {
         var grid = $("#gridTimKiemHocSinh").data("kendoGrid");
@@ -363,6 +367,9 @@ function LoadGridLichSuMuaPhieu(ID_HocSinh) {
         url: '/PhieuHoc/GetAllByHocSinh?ID_HocSinh=' + ID_HocSinh,
         type: 'GET',
     }).done(function successCallback(response) {
+        if (typeof response == "string") {
+            location.reload(true);
+        }
         kendo.ui.progress($("#gridLichSuMuaPhieu"), true);
         var dataSource = new kendo.data.DataSource({
             data: response,
@@ -400,23 +407,34 @@ function LoadComboLop(ID_HocSinh) {
                 filter: "startswith",
                 select: function (e) {
                     if (e.dataItem) {
-                        var count = 0;
-                        var lichhoc = e.dataItem.LichHoc.split(',');
-                        var month = new Date().getMonth();
-                        var year = new Date().getFullYear();
-                        if (lichhoc.length > 0) {
-                            $.each(lichhoc, function (index, item) {
-                                var day = parseInt(item) - 1;
-                                console.log(day);
-                                count += countDayInMonth(day, month, year);
-                            })
-                            $("#SoBuoiHoc").val(count);
-                        }
-                        var tien = 400000 / count;
-                        if(Math.floor(tien) == 44444){
-                            tien = 45000
-                        }
-                        $("#GhiChu").val(kendo.toString(tien, 'n0') + " / buổi");
+                        //var count = 0;
+                        //var lichhoc = [];
+                        //$.ajax({
+                        //    url: '/LichHoc/GetLichHocByLop?ID_Lop=' + e.dataItem.ID,
+                        //    type: 'GET'
+                        //}).done(function (response) {
+                        //    $.each(response, function (index, item) {
+                        //        lichhoc.push(item.Thu)
+                        //    })
+                        //    var month = new Date().getMonth();
+                        //    var year = new Date().getFullYear();
+                        //    if (lichhoc.length > 0) {
+                        //        $.each(lichhoc, function (index, item) {
+                        //            var day = parseInt(item) - 1;
+                        //            console.log(day);
+                        //            count += countDayInMonth(day, month, year);
+                        //        })
+                        //        $("#SoBuoiHoc").val(count);
+                        //    }
+                        //    var tien = 400000 / count;
+                        //    if (Math.floor(tien) == 44444) {
+                        //        tien = 45000
+                        //    }
+                        //    $("#GhiChu").val(kendo.toString(tien, 'n0') + " / buổi");
+                        //})
+                        TinhSoBuoiHoc($("#Thang").data("kendoComboBox").value(), e.dataItem.ID);
+
+
                     }
 
                 }
@@ -426,6 +444,37 @@ function LoadComboLop(ID_HocSinh) {
         }
         $("#LopHoc").data("kendoComboBox").value("");
     });
+}
+
+function TinhSoBuoiHoc(month, lop) {
+
+    var count = 0;
+    var lichhoc = [];
+    $.ajax({
+        url: '/LichHoc/GetLichHocByLop?ID_Lop=' + lop,
+        type: 'GET'
+    }).done(function (response) {
+        $.each(response, function (index, item) {
+            lichhoc.push(item.Thu)
+        })
+        var year = new Date().getFullYear();
+        if (lichhoc.length > 0) {
+            $.each(lichhoc, function (index, item) {
+                var day = parseInt(item) - 1;
+                console.log(day);
+                console.log(month);
+                console.log(lop)
+                count += countDayInMonth(day, (parseInt(month) - 1), year);
+                console.log(count);
+            })
+            $("#SoBuoiHoc").val(count);
+        }
+        var tien = 400000 / count;
+        if (Math.floor(tien) == 44444) {
+            tien = 45000
+        }
+        $("#GhiChu").val(kendo.toString(tien, 'n0') + " / buổi");
+    })
 }
 
 function HuyPhieu() {
@@ -497,11 +546,10 @@ function CheckItemCanEdit(item) {
 
 function countDayInMonth(dayofweek, month, year) {
     var day, counter, date;
-
     day = 1;
     counter = 0;
     date = new Date(year, month, day);
-    while (date.getMonth() === month) {
+    while (date.getMonth() === parseInt(month)) {
         if (date.getDay() === dayofweek) { // Sun=0, Mon=1, Tue=2, etc.
             counter += 1;
         }

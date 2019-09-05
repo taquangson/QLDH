@@ -68,6 +68,54 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<PhieuHocModel> GetByPhieuThu(int ID_PhieuThu)
+        {
+            List<PhieuHocModel> result = new List<PhieuHocModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_PhieuThu", ID_PhieuThu)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_PhieuHoc_GetByPhieuThu", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_PhieuHoc_GetByPhieuThu " + ex.Message);
+            }
+
+            return result;
+        }
+
+
+        public List<PhieuHocModel> GetByHocSinh_Thang(int ID_HocSinh, int Thang)
+        {
+            List<PhieuHocModel> result = new List<PhieuHocModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_HocSinh", ID_HocSinh),
+                new SqlParameter("@Thang", Thang)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_PhieuHoc_GetByHocSinh_Thang", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_PhieuHoc_GetByHocSinh " + ex.Message);
+            }
+
+            return result;
+        }
+
         public PhieuHocModel GetByHocSinh_Thang_Nam(int ID_HocSinh, int ID_Lop, int Thang, int Nam, int HocDuoi)
         {
             PhieuHocModel result = new PhieuHocModel();
@@ -151,10 +199,14 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ID_Lop", model.ID_Lop),
                 new SqlParameter("@HocDuoi", model.HocDuoi),
                 new SqlParameter("@SoBuoi", model.SoBuoi),
+                new SqlParameter("@SoTien", model.SoTien),
                 new SqlParameter("@GhiChu", model.GhiChu),
                 new SqlParameter("@Thang", model.Thang),
                 new SqlParameter("@NamHoc", model.NamHoc),
-                new SqlParameter("@SoBuoiDaHoc", model.SoBuoiDaHoc)
+                new SqlParameter("@SoBuoiDaHoc", model.SoBuoiDaHoc),
+                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
+                new SqlParameter("@ID_PhieuThu", model.ID_PhieuThu)
+
                 };
 
                 object id = helper.ExecuteScalar("sp_PhieuHoc_InsertOrUpdate", pars);
@@ -171,7 +223,7 @@ namespace QLDH.DataAccess.DAO
             return 0;
         }
 
-        public bool DeleteDiemDanh(int ID)
+        public bool DeletePhieuHoc(int ID)
         {
             try
             {

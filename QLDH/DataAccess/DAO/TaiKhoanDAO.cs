@@ -44,6 +44,32 @@ namespace QLDH.DataAccess.DAO
             return obj;
         }
 
+        private ChiNhanhModels GetChiNhanhFromDataRow(DataRow dr)
+        {
+            ChiNhanhModels obj = new ChiNhanhModels();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
         public List<TaiKhoanModel> GetAll()
         {
             List<TaiKhoanModel> result = new List<TaiKhoanModel>();
@@ -60,6 +86,27 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_TaiKhoan_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+
+        public List<ChiNhanhModels> GetDsChiNhanh()
+        {
+            List<ChiNhanhModels> result = new List<ChiNhanhModels>();
+            try
+            {
+                DataSet ds = helper.ExecuteDataSet("sp_ChiNhanh_GetAll");
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ChiNhanhModels t = GetChiNhanhFromDataRow(dr);
+                    result.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_ChiNhanh_GetAll " + ex.Message);
             }
 
             return result;
@@ -144,7 +191,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@TenDayDu", model.TenDayDu),
                 new SqlParameter("@DiaChi", model.DiaChi),
                 new SqlParameter("@DienThoai", model.DienThoai),
-                new SqlParameter("@Email", model.Email)
+                new SqlParameter("@Email", model.Email),
+                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh)
                 };
 
                 object id = helper.ExecuteScalar("sp_TaiKhoan_InsertOrUpdate", pars);

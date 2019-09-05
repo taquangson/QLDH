@@ -17,5 +17,8 @@ namespace QLDH.DataAccess.Models
         public int TrangThai { get; set; }
         public int Role { get; set; }
         public string ChucVu { get; set; }
+        public int ID_ChiNhanh { get; set; }
+        public string TenChiNhanh { get; set; }
+        public string DiaChiChiNhanh { get; set; }
     }
 }
