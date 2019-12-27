@@ -23,7 +23,20 @@ namespace QLDH.Controllers
         public ActionResult GetAll()
         {
             HocSinhDAO hsdao = new HocSinhDAO();
-            return Json(hsdao.GetAll_HocSinh(), JsonRequestBehavior.AllowGet);
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            if (userinfor.Role == 2)
+            {
+                return Json(hsdao.GetAll_HocSinhByChiNhanh(userinfor.ID_ChiNhanh), JsonRequestBehavior.AllowGet);
+            }
+            else if (userinfor.Role == 1)
+            {
+                return Json(hsdao.GetAll_HocSinh(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
         [SessionExpire]
@@ -75,6 +88,8 @@ namespace QLDH.Controllers
         public ActionResult CreateOrUpdate(HocSinhModel model)
         {
             HocSinhDAO hsdao = new HocSinhDAO();
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            model.ID_ChiNhanh = userinfor.ID_ChiNhanh;
             int newid = hsdao.InsertOrUpdate(model);
             if (newid > 0)
             {

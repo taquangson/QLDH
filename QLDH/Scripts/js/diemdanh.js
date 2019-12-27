@@ -27,6 +27,7 @@
         }
     });
 
+
     LoadComboCaHoc();
 
     $("#comboKhoi").data("kendoComboBox").value(0);
@@ -42,7 +43,7 @@
         height: function () {
             var height = $(window).height() - 250;
             if (isMobile.any()) {
-                height = height - 100;
+                height = height - 50;
             }
             return height;
         },
@@ -58,13 +59,22 @@
         dataBinding: function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
         },
+        dataBound: function (e) {
+            var grid = $("#gridDiemDanh").data("kendoGrid");
+            var data = grid.dataSource.data();
+            $.each(data, function (i, row) {
+                if (!row.DaMuaPhieu) {
+                    $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ff8e8e");
+                }
+            })
+        },
         columns: [
             {
                 title: "STT",
                 template: "#= ++record #",
                 width: "50px",
                 attributes: {
-                    class: "text-center"
+                    class: "text-center",
                 },
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -151,6 +161,9 @@
                 title: "Tên học sinh",
                 width: "150px",
                 template: function (e) {
+                    if (!e.DaMuaPhieu) {
+                        style = "style='background-color:red'";
+                    }
                     if (e.IsHocDuoi) {
                         return "<span>" + e.TenHocSinh + " <i title='Học sinh học bồi dưỡng hoặc học đuổi' class='fa fa-exclamation-circle'/></span>";
                     } else {
@@ -204,6 +217,13 @@
             {
                 field: "DienThoaiMacDinh",
                 title: "Điện thoại",
+                template: function (e) {
+                    if (e.DienThoaiMacDinh) {
+                        return '<a href="tel:' + e.DienThoaiMacDinh + '">' + e.DienThoaiMacDinh + '</a>'
+                    } else {
+                        return "";
+                    }
+                },
                 width: "100px",
                 filterable: {
                     cell: {
@@ -238,6 +258,17 @@
         select: function (e) {
             PushFormDataFile(e.files[0], $("#comboCa").data("kendoComboBox").value(), $("#comboLop").data("kendoComboBox").value());
         }
+    });
+
+    var signalR = $.connection.diemDanhHub;
+    // Create a function that the hub can call back to display messages.
+    signalR.client.pushDiemDanh = function (ID_Lop) {
+        if ($("#comboLop").data("kendoComboBox").value() == ID_Lop)
+            LoadHocSinhTrongLop(ID_Lop)
+    };
+
+    $.connection.hub.start().done(function () {
+        console.log("Connect signalR OK!");
     });
 })
 
@@ -376,7 +407,7 @@ function LoadHocSinhTrongLop(id) {
         $.ajax({
             url: '/DiemDanh/GetDSHocSinh_DiemDanh?ID_Lop=' + id + "&Ca=" + $("#comboCa").data("kendoComboBox").value(),
             type: 'GET',
-        }).done(function successCallback(response) {          
+        }).done(function successCallback(response) {
             if (typeof response == "string") {
                 location.reload(true);
             }

@@ -71,15 +71,15 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
-        public bool InsertOrUpdate_DM(DanhMuc item, string TenBang)
+        public bool InsertOrUpdate_DM(DanhMuc item, string TenBang, int ChiNhanh)
         {
             try
             {
                 SqlParameter[] pars = new SqlParameter[]
                 {
                     new SqlParameter("@ID",item.value ),
-                    new SqlParameter("@Value",item.text)
-
+                    new SqlParameter("@Value",item.text),
+                    new SqlParameter("@ChiNhanh", ChiNhanh)
                 };
                 int rowaff = helper.ExecuteNonQuery("sp_" + TenBang + "_InsertOrUpdate", pars);
                 if (rowaff > 0)

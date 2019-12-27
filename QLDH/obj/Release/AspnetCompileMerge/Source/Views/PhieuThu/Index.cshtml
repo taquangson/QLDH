@@ -5,14 +5,16 @@
 }
 <script src="~/Scripts/js/phieuthu.js"></script>
 <style>
-    .trang{
-        background-color:#fff;
+    .trang {
+        background-color: #fff;
     }
-    .do{
-        background-color:#fc9595;
+
+    .do {
+        background-color: #fc9595;
     }
-    .xanh{
-        background-color:#78ff51;
+
+    .xanh {
+        background-color: #78ff51;
     }
 </style>
 <div id="rootContainer" style="display:none">
@@ -36,22 +38,29 @@
         <button class="k-button bg-red" onclick="HuyPhieuThu()"> <i class="fa fa-close"> Hủy </i> </button>
     </div>
     <div style="width:100%">
-        <div style="width:48%;float:left;margin-left:2%">
+        <div style="width:63%;float:left;margin-left:2%">
             <h4 style="width:100%;text-align:center;text-transform:uppercase">PHIẾU THANH TOÁN</h4>
             <div>
                 <input id="ID_HocSinh" type="hidden" />
                 <input id="ID_PhieuThu" type="hidden" />
             </div>
             <div style="margin-top:10px">
-                <div style="width:50%;float:left;margin-bottom:10px;">
+                <div style="width:25%;float:left;margin-bottom:10px;">
                     <label style="width:100%">Học sinh:</label>
                     <input id="TenHocSinh" type="text" class="k-textbox" readonly="readonly" />
                 </div>
-                <div style="width:50%;float:left">
+                <div style="width:25%;float:left">
                     <label style="width:100%">Tổng tiền:</label>
                     <input id="TongTien" type="text" class="k-textbox" readonly="readonly" />
                 </div>
-               
+                <div style="width:25%;float:left">
+                    <label style="width:100%">Khách đưa:</label>
+                    <input id="KhachDua"/>
+                </div>
+                <div style="width:25%;float:left">
+                    <label style="width:100%">Trả lại:</label>
+                    <input id="TraLai" type="text" class="k-textbox" readonly="readonly" />
+                </div>
             </div>
             <div style="margin-top:10px">
                 <label style="width:100%">Danh sách phiếu mua:</label>
@@ -68,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div style="width:48%;float:left;margin-left:2%">
+        <div style="width:33%;float:left;margin-left:2%">
             <h4 style="width:100%;text-align:center;text-transform:uppercase">Thống kê tháng trước</h4>
             <div style="margin-top:67px">
                 <label style="width:100%">Thống kê phiếu kể từ tháng trước:</label>
@@ -87,9 +96,6 @@
 
 <script id="rowTemplate" type="text/x-kendo-tmpl">
     <tr class='#= SoBuoiHoc == SoBuoiDaMua ? "trang" : SoBuoiHoc < SoBuoiDaMua ? "xanh" : "do"#'>
-        <td class="text-center">
-            #= ++record #
-        </td>
         <td>
             #= TenLop #
         </td>

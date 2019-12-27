@@ -58,7 +58,8 @@ namespace QLDH.Controllers
         public ActionResult InsertOrUpdate_DanhMuc(DanhMuc item, string TenBang)
         {
             DanhMucDAO dm_dao = new DanhMucDAO();
-            if(dm_dao.InsertOrUpdate_DM(item, TenBang))
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            if (dm_dao.InsertOrUpdate_DM(item, TenBang, userinfor.ID_ChiNhanh))
             {
                 return Json(new { success = true, msg = "Lưu danh mục thành công" }, JsonRequestBehavior.AllowGet);
             }

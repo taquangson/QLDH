@@ -19,9 +19,11 @@
     <link href="~/Assets/custom.min.css" rel="stylesheet" />
     <link href="~/Assets/Common.css" rel="stylesheet" />
 
-    <link href="~/Assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="~/Assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/jszip.js"></script>
 </head>
 @using QLDH.DataAccess.Models
 @{
@@ -56,60 +58,7 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <h3>Danh sách chức năng</h3>
-                            <ul class="nav side-menu">
-                                <li>
-                                    <a>
-                                        <i class="fa fa-home"></i> Danh mục hệ thống <span class="fa fa-chevron-right"></span>
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu">
-                                        @{ if (userinfor.Role == 1)
-                                            {
-                                                <li><a href="/Lop/Index">Danh sách lớp học</a></li>
-                                                <li><a href="/HocSinh/Index">Danh sách học sinh</a></li>
-                                                <li><a href="/User/Index">Danh sách nhân sự</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a href="/Lop/DanhSachLopTheoGiaoVien">Danh sách lớp học</a></li>
-                                            }
-                                        }
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a>
-                                        <i class="fa fa-cogs"></i> Chức năng hệ thống <span class="fa fa-chevron-right"></span>
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="/DiemDanh/Index">Điểm danh học sinh</a></li>
-                                        @{ if (userinfor.Role == 1)
-                                            {
-                                                <li><a href="/DiemDanh/QuanLyDuLieuDiemDanh">Dữ liệu điểm danh học sinh</a></li>
-                                                <li><a href="/PhieuHoc/Index">Quản lý phiếu vào lớp</a></li>
-                                                <li><a href="/PhieuThu/Index">Quản lý thanh toán học phí</a></li>
-                                            }
-                                        }
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a>
-                                        <i class="fa fa-line-chart"></i> Báo cáo hệ thống <span class="fa fa-chevron-right"></span>
-                                        <span class="fa fa-chevron-down"></span>
-                                    </a>
-                                    <ul class="nav child_menu">
-                                        @{ if (userinfor.Role == 1)
-                                            {
-                                                <li><a href="/BaoCao/ThongKeBuoiHocTheoHocSinh">Thống kê buổi học theo học sinh</a></li>
-
-                                                <li><a href="/BaoCao/BaoCaoPhieuHocTheoHocSinh">Báo cáo phiếu học theo học sinh</a></li>
-                                                <li><a href="/BaoCao/Index">Thống kê học sinh sắp hết phiếu</a></li>
-                                            }
-                                        }
-                                        <li><a href="/BaoCao/Index">Thống kê buổi dạy của giáo viên</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <ul id="main-menu" class="nav side-menu"></ul>
                         </div>
                     </div>
                     <!-- /sidebar menu -->
@@ -237,7 +186,7 @@
             </div>
             <!-- /top navigation -->
             <!-- page content -->
-            <div class="right_col" role="main" style="padding-top:20px;overflow:scroll;height:calc(100vh-58px);">
+            <div class="right_col" role="main" style="padding-top:20px;overflow:scroll;">
                 @RenderBody()
             </div>
             <!-- /page content -->
@@ -272,5 +221,76 @@
     </div>
     @Scripts.Render("~/bundles/vendor")
     @RenderSection("scripts", required: false)
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!Notification) {
+                alert('Desktop notifications not available in your browser. Try Chromium.');
+                return;
+            }
+
+            if (Notification.permission !== 'granted')
+                Notification.requestPermission();
+        });
+        var signalR = $.connection.diemDanhHub;
+        signalR.client.pushDesktopDiemDanh = function (ID_Lop, TenLop, TenGiaoVien, Ca) {
+            var lastnoti_arr = [];
+            if (window.sessionStorage.LastNoti == undefined) {
+                let lastnoti = {
+                    ID_Lop: ID_Lop,
+                    TenGiaoVien: TenGiaoVien,
+                    Time: new Date()
+                }
+                lastnoti_arr.push(lastnoti);
+                window.sessionStorage.setItem("LastNoti", JSON.stringify(lastnoti_arr));
+                notifyMe(TenLop, TenGiaoVien, ID_Lop, Ca);
+            } else {
+                lastnoti_arr = JSON.parse(window.sessionStorage.LastNoti);
+                var index_last_noti = -1;
+                $.each(lastnoti_arr, function (index, item) {
+                    if ((parseInt(item.ID_Lop)) == parseInt(ID_Lop)) {
+                        index_last_noti = index;
+                        let last_time_noti = new Date(item.Time);
+                        let seconds = Math.abs(new Date() - last_time_noti) / 60000;
+                        if (seconds > 2) {
+                            item.Time = new Date();
+                            window.sessionStorage.setItem("LastNoti", JSON.stringify(lastnoti_arr));
+                            notifyMe(TenLop, TenGiaoVien, ID_Lop, Ca);
+                        }
+                    }
+                })
+                if (index_last_noti >= 0) {
+
+                } else {
+                    let lastnoti = {
+                        ID_Lop: ID_Lop,
+                        TenGiaoVien: TenGiaoVien,
+                        Time: new Date()
+                    }
+                    lastnoti_arr.push(lastnoti);
+                    window.sessionStorage.setItem("LastNoti", JSON.stringify(lastnoti_arr));
+                    notifyMe(TenLop, TenGiaoVien, ID_Lop, Ca);
+                }
+            }
+        };
+
+        $.connection.hub.start().done(function () {
+            console.log("Connect signalR OK!");
+        });
+
+
+        function notifyMe(TenLop, TenGiaoVien, ID_Lop, Ca) {
+            if (Notification.permission !== 'granted')
+                Notification.requestPermission();
+            else {
+                var notification = new Notification('Thông báo!', {
+                    icon: '/Images/img.jpg',
+                    body: TenGiaoVien + ' đã cập nhật dữ liệu điểm danh lớp ' + TenLop
+                });
+                notification.onclick = function () {
+                    window.open('/DiemDanh/DiemDanhFromNoti?ID_Lop=' + ID_Lop + '&Ca=' + Ca);
+                };
+            }
+        }
+    </script>
 </body>
 </html>

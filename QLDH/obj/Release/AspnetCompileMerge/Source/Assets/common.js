@@ -92,6 +92,7 @@ function SetValidate(input) {
     var valid = true;
     var inputtag = $("#" + input);
     //console.log(input + " = " + inputtag.val());
+
     inputtag.keyup(function () {
         if (inputtag.val() == "" || inputtag.val().trim() == "") {
             inputtag.parents().find("div[toggle-valid='" + input + "']").removeClass("valid").addClass("invalid");
@@ -112,6 +113,17 @@ function SetValidate(input) {
     } else {
         inputtag.parents().find("div[toggle-valid='" + input + "']").removeClass("invalid").addClass("valid");
     }
+    if (inputtag.data("kendoDropDownTree") != undefined) {
+        if (inputtag.data("kendoDropDownTree").value() == "") {
+            valid = false;
+            inputtag.parents().find("div[toggle-valid='" + input + "']").removeClass("valid").addClass("invalid");
+        } else {
+            inputtag.parents().find("div[toggle-valid='" + input + "']").removeClass("invalid").addClass("valid");
+        }
+        return valid;
+    }
+
+
     return valid;
 }
 //Hàm disable validate
@@ -197,7 +209,7 @@ var pageableShort = {
     messages: {
         itemsPerPage: "Bản ghi trên trang",
         display: "Hiển thị {0}-{1} trong số {2} bản ghi",
-        page: "Nhập số trang",
+        page: "Trang",
         of: "/ {0}",
         next: "Trang sau",
         previous: "Trang trước",

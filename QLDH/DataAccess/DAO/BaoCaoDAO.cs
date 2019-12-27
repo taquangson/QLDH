@@ -200,10 +200,14 @@ namespace QLDH.DataAccess.DAO
         {
             public string TenLop { get; set; }
             public int Thang { get; set; }
+            public int Nam { get; set; }
             public int SoBuoiHoc { get; set; }
             public int SoBuoiDaMua { get; set; }
+            public int SoBuoiDaMuaPhuThu { get; set; }
+            public int SoBuoiDaMuaGiamTru { get; set; }
             public int SoBuoiTheoLich { get; set; }
             public int ID_LopHoc { get; set; }
+            public int ID_PhieuHoc { get; set; }
             public List<int> LichHoc { get; set; }
         }
         private BaoCaoSoBuoiHoc_HocSinh_ThangModel GetBaoCaoSoBuoiHoc_HocSinh_ThangModelFromDataRow(DataRow dr)
@@ -249,9 +253,11 @@ namespace QLDH.DataAccess.DAO
                 foreach (DataRow dr in dt.Rows)
                 {
                     BaoCaoSoBuoiHoc_HocSinh_ThangModel item = GetBaoCaoSoBuoiHoc_HocSinh_ThangModelFromDataRow(dr);
+                    item.SoBuoiDaMua += item.SoBuoiDaMuaPhuThu;
+                    item.SoBuoiDaMua -= item.SoBuoiDaMuaGiamTru;
                     item.LichHoc = new List<int>();
                     List<LichHocModel> lich = new LichHocDAO().GetByLop(item.ID_LopHoc);
-                    foreach(LichHocModel l in lich)
+                    foreach (LichHocModel l in lich)
                     {
                         item.LichHoc.Add(l.Thu);
                     }
@@ -262,6 +268,196 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_BaoCao_BaoCaoPhieuHocTheoHocSinh_TheoThang " + ex.Message);
+                return null;
+            }
+        }
+
+        public class ThongKeBuoiHocTheoGiaoVienModel
+        {
+            public DateTime NgayHoc { get; set; }
+            public string TenLop { get; set; }
+            public string TenCa { get; set; }
+            public int SiSo { get; set; }
+            public int ID_Lop { get; set; }
+        }
+
+        private ThongKeBuoiHocTheoGiaoVienModel GetThongKeBuoiHocTheoGiaoVienModelFromDataRow(DataRow dr)
+        {
+            ThongKeBuoiHocTheoGiaoVienModel obj = new ThongKeBuoiHocTheoGiaoVienModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
+        public List<ThongKeBuoiHocTheoGiaoVienModel> GetData_ThongKeBuoiHocTheoGiaoVien(int ID_Lop, int ID_GiaoVien, DateTime TuNgay, DateTime DenNgay)
+        {
+            try
+            {
+                List<ThongKeBuoiHocTheoGiaoVienModel> result = new List<ThongKeBuoiHocTheoGiaoVienModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_GiaoVien",ID_GiaoVien),
+                    new SqlParameter("@ID_Lop",ID_Lop),
+                    new SqlParameter("@TuNgay",TuNgay),
+                    new SqlParameter("@DenNgay",DenNgay)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoSoBuoiHocTheoGiaoVien", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ThongKeBuoiHocTheoGiaoVienModel item = GetThongKeBuoiHocTheoGiaoVienModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BaoCaoSoBuoiHocTheoGiaoVien " + ex.Message);
+                return null;
+
+
+            }
+        }
+
+        public class BaoCaoDoanhThuModel
+        {
+            public DateTime NgayTao { get; set; }
+            public string MaPhieu { get; set; }
+            public DateTime ThoiGianIn { get; set; }
+            public double TongThu { get; set; }
+            public string TenNhanVien { get; set; }
+            public string TenHocSinh { get; set; }
+        }
+
+        private BaoCaoDoanhThuModel GetBaoCaoDoanhThuModelFromDataRow(DataRow dr)
+        {
+            BaoCaoDoanhThuModel obj = new BaoCaoDoanhThuModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
+        public List<BaoCaoDoanhThuModel> GetBaoCaoDoanhThu(int ID_ChiNhanh, int ID_NhanVien, DateTime TuNgay, DateTime DenNgay)
+        {
+            try
+            {
+                List<BaoCaoDoanhThuModel> result = new List<BaoCaoDoanhThuModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_ChiNhanh",ID_ChiNhanh),
+                    new SqlParameter("@ID_NhanVien",ID_NhanVien),
+                    new SqlParameter("@TuNgay",TuNgay),
+                    new SqlParameter("@DenNgay",DenNgay)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoDoanhThu", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BaoCaoDoanhThuModel item = GetBaoCaoDoanhThuModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BaoCaoDoanhThu " + ex.Message);
+                return null;
+            }
+        }
+
+        public class BaoCaoNoPhieuModel
+        {
+            public string TenHocSinh { get; set; }
+            public int SoPhieuNo { get; set; }
+            public string TenLop { get; set; }
+            public int ID_HocSinh { get; set; }
+        }
+
+        private BaoCaoNoPhieuModel GetBaoCaoNoPhieuModelFromDataRow(DataRow dr)
+        {
+            BaoCaoNoPhieuModel obj = new BaoCaoNoPhieuModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
+        public List<BaoCaoNoPhieuModel> GetBaoCaoNoPhieu(int ID_ChiNhanh, int Thang, int Nam)
+        {
+            try
+            {
+                List<BaoCaoNoPhieuModel> result = new List<BaoCaoNoPhieuModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_ChiNhanh",ID_ChiNhanh),
+                    new SqlParameter("@Thang",Thang),
+                    new SqlParameter("@Nam",Nam)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoNoPhieu", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BaoCaoNoPhieuModel item = GetBaoCaoNoPhieuModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BaoCaoNoPhieu " + ex.Message);
                 return null;
             }
         }

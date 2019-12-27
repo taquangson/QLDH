@@ -162,6 +162,56 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
+        public List<LichHocModel> GetAllTuanByCaByLop(string ID_Lop, string GioBatDau, string GioKetThuc)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@GioBatDau", GioBatDau),
+                new SqlParameter("@GioKetThuc", GioKetThuc),
+                new SqlParameter("@ID_Lop", ID_Lop)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LichHoc_GetLichTuanByLop", pars);
+                DataTable dt = ds.Tables[0];
+                List<LichHocModel> result = new List<LichHocModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    LichHocModel l = GetObjFromDataRow(dr);
+                    switch (l.Thu)
+                    {
+                        case 1:
+                            l.TenBuoi = "Chủ nhật";
+                            break;
+                        case 2:
+                            l.TenBuoi = "Thứ 2";
+                            break;
+                        case 3:
+                            l.TenBuoi = "Thứ 3";
+                            break;
+                        case 4:
+                            l.TenBuoi = "Thứ 4";
+                            break;
+                        case 5:
+                            l.TenBuoi = "Thứ 5";
+                            break;
+                        case 6:
+                            l.TenBuoi = "Thứ 6";
+                            break;
+                        case 7:
+                            l.TenBuoi = "Thứ 7";
+                            break;
+
+                    }
+                    result.Add(l);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public LichHocModel GetByID(int ID)
         {
             try

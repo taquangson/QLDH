@@ -1,6 +1,7 @@
 ﻿using QLDH.App_Start;
 using QLDH.DataAccess.DAO;
 using QLDH.DataAccess.Models;
+using QLDH.Hubs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,22 @@ namespace QLDH.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public class DiemDanhFromNotiModel
+        {
+            public int ID_Lop { get; set; }
+            public int Ca { get; set; }
+        }
+
+        [SessionExpire]
+        // GET: DiemDanh
+        public ActionResult DiemDanhFromNoti(int ID_Lop, int Ca)
+        {
+            DiemDanhFromNotiModel model = new DiemDanhFromNotiModel();
+            model.ID_Lop = ID_Lop;
+            model.Ca = Ca;
+            return View("Index", model);
         }
 
         [SessionExpire]
@@ -36,11 +53,12 @@ namespace QLDH.Controllers
             List<HocSinhModel> lhs = new List<HocSinhModel>();
             lhs.AddRange(hsdao.GetByLop_HocSinh(ID_Lop));
             DiemDanhDAO ddao = new DiemDanhDAO();
+            PhieuHocDAO phdao = new PhieuHocDAO();
             CaHocModel ca = new CaHocDAO().GetByID(Ca);
             DateTime quagiodiemdanh = DateTime.Now;
             int quagio = 1;
             quagiodiemdanh = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 45, 0);
-            if (DateTime.Compare(DateTime.Now, quagiodiemdanh) < 0 || userinfor.Role == 1)
+            if (DateTime.Compare(DateTime.Now, quagiodiemdanh) < 0 || userinfor.Role == 1 || userinfor.Role == 2)
             {
                 quagio = 0;
             }
@@ -49,6 +67,15 @@ namespace QLDH.Controllers
                 try
                 {
                     DiemDanhModel dd = ddao.GetByHocSinh_Ngay(ID_Lop, hs.ID, DateTime.Now, Ca);
+                    List<PhieuHocModel> lph = phdao.GetByHocSinh_Thang(hs.ID, DateTime.Now.Month);
+                    if(lph.Find(x => x.ID_Lop == ID_Lop) != null)
+                    {
+                        hs.DaMuaPhieu = true;
+                    }
+                    else
+                    {
+                        hs.DaMuaPhieu = false;
+                    }
                     hs.ID_DiemDanh = dd.ID;
                     hs.CoPhep = dd.CoPhep;
                     hs.QuaGioDiemDanh = quagio;
@@ -167,6 +194,7 @@ namespace QLDH.Controllers
             {
                 if (ddao.InsertOrUpdate(d))
                 {
+                    DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                     if (d.CoPhep != 1)
                     {
                         if (phmodel.ID > 0)
@@ -183,6 +211,7 @@ namespace QLDH.Controllers
                 {
                     if (ddao.Delete(diemdanhcu.ID))
                     {
+                        DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                         if (diemdanhcu.CoPhep != 1)
                         {
                             if (phmodel.ID > 0)
@@ -197,6 +226,7 @@ namespace QLDH.Controllers
                 {
                     if (ddao.InsertOrUpdate(d))
                     {
+                        DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                         if (d.CoPhep == 1)
                         {
                             if (diemdanhcu.CoPhep != 1)
@@ -274,6 +304,7 @@ namespace QLDH.Controllers
             {
                 if (ddao.InsertOrUpdate(d))
                 {
+                    DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                     if (d.CoPhep != 1)
                     {
                         if (phmodel.ID > 0)
@@ -290,6 +321,7 @@ namespace QLDH.Controllers
                 {
                     if (ddao.Delete(diemdanhcu.ID))
                     {
+                        DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                         if (diemdanhcu.CoPhep != 1)
                         {
                             if (phmodel.ID > 0)
@@ -304,6 +336,7 @@ namespace QLDH.Controllers
                 {
                     if (ddao.InsertOrUpdate(d))
                     {
+                        DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                         if (d.CoPhep == 1)
                         {
                             if (diemdanhcu.CoPhep != 1)

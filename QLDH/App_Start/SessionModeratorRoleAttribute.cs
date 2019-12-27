@@ -20,7 +20,7 @@ namespace QLDH.App_Start
             else
             {
                 TaiKhoanModel userinfor = (TaiKhoanModel)HttpContext.Current.Session["UserInfor"];
-                if ((userinfor.Role != 3 && userinfor.Role != 1) || userinfor.TrangThai != 1)
+                if ((userinfor.Role != 2 && userinfor.Role != 1) || userinfor.TrangThai != 1)
                 {
                     filterContext.Result = new RedirectResult("~/User/Login");
                     return;

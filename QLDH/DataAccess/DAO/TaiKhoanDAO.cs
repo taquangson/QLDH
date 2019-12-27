@@ -91,6 +91,78 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<TaiKhoanModel> GetAllByChiNhanh(int ID_ChiNhanh)
+        {
+            List<TaiKhoanModel> result = new List<TaiKhoanModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_ChiNhanh", ID_ChiNhanh)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoan_GetAllByChiNhanh", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TaiKhoanModel t = GetObjFromDataRow(dr);
+                    result.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoan_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+
+        public List<TaiKhoanModel> GetAllByPhongBan(int ID_PhongBan)
+        {
+            List<TaiKhoanModel> result = new List<TaiKhoanModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_PhongBan", ID_PhongBan)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoan_GetAllByPhongBan", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TaiKhoanModel t = GetObjFromDataRow(dr);
+                    result.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoan_GetAllByPhongBan " + ex.Message);
+            }
+
+            return result;
+        }
+
+        public List<TaiKhoanModel> GetAllNgoaiPhongBan(int ID_PhongBan)
+        {
+            List<TaiKhoanModel> result = new List<TaiKhoanModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_PhongBan", ID_PhongBan)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoan_GetAllNgoaiPhongBan", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TaiKhoanModel t = GetObjFromDataRow(dr);
+                    result.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoan_GetAllNgoaiPhongBan " + ex.Message);
+            }
+
+            return result;
+        }
+
         public List<ChiNhanhModels> GetDsChiNhanh()
         {
             List<ChiNhanhModels> result = new List<ChiNhanhModels>();

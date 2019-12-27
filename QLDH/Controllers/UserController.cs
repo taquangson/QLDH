@@ -88,14 +88,38 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
-        public ActionResult GetAllUser()
+        public ActionResult GetAllUser_TrongPhongBan(int ID_PhongBan)
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();
-            List<TaiKhoanModel> result = tk_dao.GetAll();
+            List<TaiKhoanModel> result = tk_dao.GetAllByPhongBan(ID_PhongBan);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpire]
+        public ActionResult GetAllUser_NgoaiPhongBan(int ID_PhongBan)
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            List<TaiKhoanModel> result = tk_dao.GetAllNgoaiPhongBan(ID_PhongBan);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetAllUser()
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            if (userinfor.Role == 1)
+            {
+                List<TaiKhoanModel> result = tk_dao.GetAll();
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<TaiKhoanModel> result = tk_dao.GetAllByChiNhanh(userinfor.ID_ChiNhanh);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult GetAllChiNhanh()
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();

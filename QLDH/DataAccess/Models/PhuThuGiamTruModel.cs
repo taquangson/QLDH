@@ -12,5 +12,11 @@ namespace QLDH.DataAccess.Models
         public string LyDo { get; set; }
         public int Type { get; set; } // 0 = Phụ thu; 1 = Giảm trừ
         public float DonGia { get; set; }
+        public int Nam { get; set; }
+        public int Thang { get; set; }
+        public int SoBuoi { get; set; }
+        public int ID_Lop { get; set; }
+        public string TenLop { get; set; }
+        public int ID_PhieuHoc { get; set; }
     }
 }

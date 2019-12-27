@@ -10,10 +10,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="Assets/Common.css">
-      <publishTime>06/23/2019 11:06:42</publishTime>
+      <publishTime>09/12/2019 11:49:08</publishTime>
     </File>
     <File Include="Assets/common.js">
-      <publishTime>06/05/2019 15:47:21</publishTime>
+      <publishTime>12/27/2019 17:33:02</publishTime>
     </File>
     <File Include="Assets/custom.css">
       <publishTime>04/25/2019 11:41:05</publishTime>
@@ -22,10 +22,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/29/2018 07:38:06</publishTime>
     </File>
     <File Include="Assets/custom.min.css">
-      <publishTime>06/17/2019 11:35:36</publishTime>
+      <publishTime>09/25/2019 14:11:53</publishTime>
     </File>
     <File Include="Assets/custom.min.js">
-      <publishTime>04/21/2018 22:45:05</publishTime>
+      <publishTime>09/23/2019 16:48:19</publishTime>
     </File>
     <File Include="Assets/fonts/glyphicons-halflings-regular.eot">
       <publishTime>02/16/2019 07:44:34</publishTime>
@@ -52,7 +52,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2018 21:42:06</publishTime>
     </File>
     <File Include="Assets/kendo/kendo.all.min.js">
-      <publishTime>06/28/2019 16:59:39</publishTime>
+      <publishTime>09/24/2019 14:27:37</publishTime>
     </File>
     <File Include="Assets/kendo/kendo.ext.css">
       <publishTime>12/02/2018 21:40:40</publishTime>
@@ -1260,6 +1260,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Assets/kendo/styles/Uniform/sprite_kpi_2x.png">
       <publishTime>12/02/2018 21:40:41</publishTime>
     </File>
+    <File Include="Assets/tracuulichhoc.css">
+      <publishTime>09/21/2019 11:40:02</publishTime>
+    </File>
     <File Include="Assets/vendors/bootstrap/.bower.json">
       <publishTime>03/29/2018 07:38:06</publishTime>
     </File>
@@ -1771,16 +1774,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>08/30/2019 19:20:35</publishTime>
+      <publishTime>12/27/2019 19:15:45</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>08/30/2019 19:20:35</publishTime>
+      <publishTime>12/27/2019 19:15:45</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>03/08/2017 19:26:22</publishTime>
     </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>04/03/2019 00:30:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.pdb">
+      <publishTime>04/03/2019 07:19:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>04/03/2019 00:30:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.pdb">
+      <publishTime>04/03/2019 07:20:50</publishTime>
+    </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>06/15/2015 02:06:24</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>01/13/2014 16:11:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>01/13/2014 16:11:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>01/13/2014 16:11:08</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>04/23/2012 15:23:58</publishTime>
@@ -1788,11 +1812,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/03/2014 20:33:56</publishTime>
     </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/13/2012 12:19:34</publishTime>
+    </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>08/30/2019 19:20:28</publishTime>
+      <publishTime>12/27/2019 19:15:33</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>08/30/2019 19:20:28</publishTime>
+      <publishTime>12/27/2019 19:15:33</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -1879,7 +1906,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/05/2019 09:04:35</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>02/16/2019 07:44:28</publishTime>
+      <publishTime>12/14/2019 16:15:51</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>02/16/2019 07:44:34</publishTime>
@@ -1895,6 +1922,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Global.asax">
       <publishTime>02/16/2019 07:44:28</publishTime>
+    </File>
+    <File Include="Images/AnhDiemDanh/2019-8-26-144get-up-client-wants-more-changes-please-let-me-die-40938494.png">
+      <publishTime>08/26/2019 11:34:35</publishTime>
+    </File>
+    <File Include="Images/AnhDiemDanh/2019/8/24/144/983794168.jpg">
+      <publishTime>08/24/2019 20:56:26</publishTime>
+    </File>
+    <File Include="Images/AnhDiemDanh/2019/8/24/144/get-up-client-wants-more-changes-please-let-me-die-40938494.png">
+      <publishTime>08/24/2019 20:48:24</publishTime>
+    </File>
+    <File Include="Images/AnhDiemDanh/2019/8/25/144/983794168.jpg">
+      <publishTime>08/25/2019 09:11:14</publishTime>
+    </File>
+    <File Include="Images/AnhDiemDanh/2019/8/26/144/get-up-client-wants-more-changes-please-let-me-die-40938494.png">
+      <publishTime>08/26/2019 11:19:12</publishTime>
     </File>
     <File Include="Images/background.jpg">
       <publishTime>04/23/2018 17:44:24</publishTime>
@@ -1984,10 +2026,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/11/2019 17:09:15</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>08/11/2019 17:06:08</publishTime>
+      <publishTime>10/15/2019 15:49:24</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>08/30/2019 19:20:30</publishTime>
+      <publishTime>12/27/2019 19:15:36</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>02/16/2019 07:44:34</publishTime>
@@ -2004,6 +2046,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery-1.10.2.min.map">
       <publishTime>02/16/2019 07:44:34</publishTime>
     </File>
+    <File Include="Scripts/jquery.signalR-2.4.1.js">
+      <publishTime>10/15/2019 15:49:22</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.4.1.min.js">
+      <publishTime>10/15/2019 15:49:22</publishTime>
+    </File>
     <File Include="Scripts/jquery.validate.js">
       <publishTime>02/16/2019 07:44:40</publishTime>
     </File>
@@ -2016,8 +2064,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
       <publishTime>02/16/2019 07:44:41</publishTime>
     </File>
+    <File Include="Scripts/js/baocao_js/baocaodoanhthubanphieu.js">
+      <publishTime>11/19/2019 16:42:55</publishTime>
+    </File>
+    <File Include="Scripts/js/baocao_js/baocaohocsinhnophieu.js">
+      <publishTime>11/19/2019 17:28:29</publishTime>
+    </File>
+    <File Include="Scripts/js/baocao_js/thongkebuoihoctheogiaovien.js">
+      <publishTime>09/24/2019 19:01:03</publishTime>
+    </File>
     <File Include="Scripts/js/baocao_js/thongkebuoihocthohocsinh.js">
-      <publishTime>08/10/2019 20:36:40</publishTime>
+      <publishTime>11/02/2019 21:32:34</publishTime>
     </File>
     <File Include="Scripts/js/baocao_js/thongkephieuhoctheohocsinh.js">
       <publishTime>07/03/2019 18:44:35</publishTime>
@@ -2026,19 +2083,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2019 20:28:32</publishTime>
     </File>
     <File Include="Scripts/js/diemdanh.js">
-      <publishTime>08/28/2019 19:08:29</publishTime>
+      <publishTime>12/27/2019 17:37:19</publishTime>
     </File>
     <File Include="Scripts/js/home.js">
-      <publishTime>07/29/2019 16:44:55</publishTime>
+      <publishTime>10/15/2019 16:53:15</publishTime>
     </File>
     <File Include="Scripts/js/lop.js">
-      <publishTime>08/22/2019 16:09:39</publishTime>
+      <publishTime>11/19/2019 15:55:03</publishTime>
     </File>
     <File Include="Scripts/js/phieuhoc.js">
       <publishTime>08/28/2019 19:07:22</publishTime>
     </File>
     <File Include="Scripts/js/phieuthu.js">
-      <publishTime>08/30/2019 19:18:06</publishTime>
+      <publishTime>12/27/2019 19:10:30</publishTime>
+    </File>
+    <File Include="Scripts/js/phongban.js">
+      <publishTime>09/18/2019 11:21:51</publishTime>
     </File>
     <File Include="Scripts/js/quanlydulieudiemdanh.js">
       <publishTime>07/20/2019 09:15:45</publishTime>
@@ -2055,8 +2115,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/_references.js">
       <publishTime>07/03/2019 18:32:15</publishTime>
     </File>
+    <File Include="TraCuuLichHoc/index.html">
+      <publishTime>09/20/2019 19:14:54</publishTime>
+    </File>
+    <File Include="Views/BaoCao/BaoCaoDoanhThuBanPhieu.cshtml">
+      <publishTime>11/19/2019 15:51:14</publishTime>
+    </File>
+    <File Include="Views/BaoCao/BaoCaoHocSinhNoPhieu.cshtml">
+      <publishTime>11/19/2019 17:26:37</publishTime>
+    </File>
     <File Include="Views/BaoCao/BaoCaoPhieuHocTheoHocSinh.cshtml">
       <publishTime>07/10/2019 18:35:45</publishTime>
+    </File>
+    <File Include="Views/BaoCao/BaoCaoSoBuoiHocTheoGiaoVien.cshtml">
+      <publishTime>09/24/2019 22:28:14</publishTime>
     </File>
     <File Include="Views/BaoCao/ThongKeBuoiHocTheoHocSinh.cshtml">
       <publishTime>07/02/2019 20:12:21</publishTime>
@@ -2068,13 +2140,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/25/2019 11:11:47</publishTime>
     </File>
     <File Include="Views/DiemDanh/Index.cshtml">
-      <publishTime>08/25/2019 10:01:21</publishTime>
+      <publishTime>11/04/2019 19:18:18</publishTime>
     </File>
     <File Include="Views/DiemDanh/QuanLyDuLieuDiemDanh.cshtml">
       <publishTime>07/10/2019 18:39:59</publishTime>
     </File>
     <File Include="Views/HocSinh/Index.cshtml">
-      <publishTime>07/03/2019 19:29:06</publishTime>
+      <publishTime>12/08/2019 16:06:08</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>02/16/2019 07:44:28</publishTime>
@@ -2083,37 +2155,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/16/2019 07:44:28</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>07/29/2019 17:03:04</publishTime>
+      <publishTime>10/15/2019 16:21:33</publishTime>
+    </File>
+    <File Include="Views/LichHoc/TraCuuLichHoc.cshtml">
+      <publishTime>10/03/2019 16:55:42</publishTime>
     </File>
     <File Include="Views/Lop/DanhSachLopTheoGiaoVien.cshtml">
       <publishTime>07/17/2019 20:26:08</publishTime>
     </File>
     <File Include="Views/Lop/Index.cshtml">
-      <publishTime>08/07/2019 11:23:17</publishTime>
+      <publishTime>10/26/2019 10:13:32</publishTime>
     </File>
     <File Include="Views/PhieuHoc/Index.cshtml">
-      <publishTime>07/01/2019 16:28:10</publishTime>
+      <publishTime>10/06/2019 10:43:45</publishTime>
     </File>
     <File Include="Views/PhieuThu/Index.cshtml">
-      <publishTime>08/30/2019 19:13:33</publishTime>
+      <publishTime>12/26/2019 18:27:51</publishTime>
     </File>
     <File Include="Views/PhieuThu/InPhieu.cshtml">
-      <publishTime>08/25/2019 10:18:03</publishTime>
+      <publishTime>09/05/2019 17:56:31</publishTime>
+    </File>
+    <File Include="Views/PhongBan/Index.cshtml">
+      <publishTime>09/16/2019 15:39:15</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>02/16/2019 07:44:28</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>08/14/2019 14:55:17</publishTime>
+      <publishTime>11/04/2019 19:00:20</publishTime>
     </File>
     <File Include="Views/User/ChangePass.cshtml">
       <publishTime>08/12/2019 10:28:58</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
-      <publishTime>08/12/2019 08:54:44</publishTime>
+      <publishTime>09/19/2019 15:23:36</publishTime>
     </File>
     <File Include="Views/User/Login.cshtml">
-      <publishTime>02/26/2019 22:34:04</publishTime>
+      <publishTime>09/22/2019 16:10:06</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>02/16/2019 07:44:28</publishTime>
@@ -2122,7 +2200,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/16/2019 07:44:28</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/25/2019 10:18:16</publishTime>
+      <publishTime>11/04/2019 19:21:01</publishTime>
     </File>
   </ItemGroup>
 </Project>

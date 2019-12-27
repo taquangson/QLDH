@@ -67,6 +67,29 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<HocSinhModel> GetAll_HocSinhByChiNhanh(int ID_ChiNhanh)
+        {
+            List<HocSinhModel> result = new List<HocSinhModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_ChiNhanh", ID_ChiNhanh)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_HocSinh_GetAllByChiNhanh", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_HocSinh_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+
         public List<HocSinhModel> GetByLop_HocSinh(int ID_Lop)
         {
             List<HocSinhModel> result = new List<HocSinhModel>();
@@ -178,7 +201,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ID_Truong", model.ID_Truong),
                 new SqlParameter("@NgaySinh", ((model.NgaySinh.Year == 1 || model.NgaySinh == null) ? (object)DBNull.Value : model.NgaySinh)),
                 new SqlParameter("@PhuHuynh", model.PhuHuynh),
-                new SqlParameter("@TenHocSinh", model.TenHocSinh)
+                new SqlParameter("@TenHocSinh", model.TenHocSinh),
+                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh)
                 };
 
                 object id = helper.ExecuteScalar("sp_HocSinh_InsertOrUpdate", pars);

@@ -95,3 +95,17 @@ E:\QLDH_git\QLDH\obj\Debug\QLDH.csproj.CoreCompileInputs.cache
 E:\QLDH_git\QLDH\obj\Debug\QLDH.csproj.CopyComplete
 E:\QLDH_git\QLDH\obj\Debug\QLDH.dll
 E:\QLDH_git\QLDH\obj\Debug\QLDH.pdb
+E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\QLDH_git\QLDH\bin\Microsoft.Owin.dll
+E:\QLDH_git\QLDH\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\QLDH_git\QLDH\bin\Microsoft.Owin.Security.dll
+E:\QLDH_git\QLDH\bin\Owin.dll
+E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.Core.pdb
+E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\QLDH_git\QLDH\bin\Microsoft.Owin.xml
+E:\QLDH_git\QLDH\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\QLDH_git\QLDH\bin\Microsoft.Owin.Security.xml
+E:\QLDH_git\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache

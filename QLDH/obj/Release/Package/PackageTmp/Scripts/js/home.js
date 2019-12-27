@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     $.ajax({
         url: '/LichHoc/GetLichTuan',
         data: {
@@ -85,4 +86,5 @@
             $("#toi" + i).html(html);
         }
     })
+
 })

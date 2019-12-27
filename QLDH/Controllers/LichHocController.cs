@@ -19,6 +19,11 @@ namespace QLDH.Controllers
             return View();
         }
 
+        public ActionResult TraCuuLichHoc()
+        {
+            return View();
+        }
+
         [SessionExpire]
         [HttpGet]
         public ActionResult GetLichHocByLop(int ID_Lop)
@@ -35,9 +40,31 @@ namespace QLDH.Controllers
             List<LichHocModel> lst = lhdao.GetAllTuanByCa(GioBatDau, GioKetThuc);
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             List<LopHocModel> lstLop = new LopHocDAO().GetByGiaoVien(userinfor.ID);
-            if (userinfor.Role == 2)
+            if (userinfor.Role == 3)
             {
                 lst = lst.Where(x => lstLop.Find(l => l.ID == x.ID_Lop) != null).ToList();
+            }
+            else if(userinfor.Role == 2)
+            {
+                lst = lst.Where(x => x.ID_ChiNhanh == userinfor.ID_ChiNhanh).ToList();
+            }
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+        public class TraCuuLichModel
+        {
+            public List<int> ID_Lop { get; set; }
+            public string GioBatDau { get; set; }
+            public string GioKetThuc { get; set; }
+        }
+
+        [HttpPost]
+        public ActionResult TraCuuLich(TraCuuLichModel model)
+        {
+            LichHocDAO lhdao = new LichHocDAO();
+            List<LichHocModel> lst = new List<LichHocModel>();
+            if (model.ID_Lop != null)
+            {
+                lst = lhdao.GetAllTuanByCaByLop(string.Join(",", model.ID_Lop), model.GioBatDau, model.GioKetThuc);
             }
             return Json(lst, JsonRequestBehavior.AllowGet);
         }

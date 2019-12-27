@@ -209,7 +209,12 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ID_PhieuThu", model.ID_PhieuThu),
                 new SqlParameter("@LyDo", model.LyDo),
                 new SqlParameter("@Type", model.Type),
-                new SqlParameter("@DonGia", model.DonGia)
+                new SqlParameter("@DonGia", model.DonGia),
+                new SqlParameter("@ID_Lop", model.ID_Lop),
+                new SqlParameter("@SoBuoi", model.SoBuoi),
+                new SqlParameter("@Thang", model.Thang),
+                new SqlParameter("@Nam", model.Nam),
+                new SqlParameter("@ID_PhieuHoc", model.ID_PhieuHoc)
                 };
 
                 object id = helper.ExecuteScalar("sp_PhuThuGiamTru_InsertOrUpdate", pars);

@@ -8,6 +8,10 @@
         height: 100px;
         object-fit: contain;
     }
+    .k-dropdown-wrap.k-state-default, .k-multiselect-wrap
+    {
+        border-color:#929090;
+    }
 </style>
 <div id="dialogRoot"></div>
 <div class="row">
@@ -41,6 +45,10 @@
             <label style="width:100%">Giáo viên: <span style="color:red">*</span></label>
             <input id="GiaoVienCombo" class="input" />
             <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="GiaoVienCombo">
+            <label style="width:100%">Quản sinh: </label>
+            <input id="QuanSinhCombo" class="input" />
         </div>
         <div class="form-group">
             <label style="width:100%">Lịch học: </label>

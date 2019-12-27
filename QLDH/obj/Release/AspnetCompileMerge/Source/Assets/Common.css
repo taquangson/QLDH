@@ -407,39 +407,23 @@ input:read-only {
 
 /*tabstrip-------------------------------*/
 .k-panelbar .k-tabstrip > .k-content, .k-tabstrip > .k-content {
-    margin: 2px !important;
+    /*margin: 2px !important;*/
     padding: 4px !important;
 }
 
+.k-tabstrip-items .k-state-active .k-link, .k-panelbar > li.k-state-default > .k-link, .k-tabstrip-items .k-state-default .k-link, .k-tabstrip-items .k-state-hover .k-link {
+    color: #3b5773
+}
+
 .k-tabstrip-items .k-item.k-state-active, .k-tabstrip-items .k-item:hover {
-    background: linear-gradient(#73c8f7,#1e8de2);
+    background: white;
     font-weight: bold !important;
     border: 0px solid #eee;
-    border-bottom-color: #eee;
+    border-bottom-color: white;
     border-bottom-width: 3px;
     margin-bottom: 0px;
 }
 
-.k-tabstrip-items .k-state-active .k-link {
-    color: white;
-}
-
-.k-tabstrip-items .k-item.k-state-active {
-    border-bottom-color: #025196 !important;
-}
-
-.k-tabstrip-items .k-item {
-    background: linear-gradient(#EBEBEB, #EBEBEB);
-    padding: 10px;
-    padding-bottom: 4px !important;
-}
-
-    .k-tabstrip-items .k-item:focus, .k-tabstrip-items .k-item:hover {
-        outline: none;
-        outline-color: #f5f5f5;
-        outline-style: auto;
-        outline-width: none;
-    }
 
 .k-tabstrip > .k-content.tab-k-state, .tab-k-state {
     padding: 0px !important;

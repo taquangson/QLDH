@@ -34,11 +34,11 @@ namespace QLDH.Controllers
         {
             LopHocDAO hsdao = new LopHocDAO();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
-            if (userinfor.Role == 2)
+            if (userinfor.Role == 3)
             {
                 return Json(hsdao.GetByGiaoVien(userinfor.ID), JsonRequestBehavior.AllowGet);
             }
-            else if (userinfor.Role == 3)
+            else if (userinfor.Role == 2)
             {
                 return Json(hsdao.GetAll_LopHoc(userinfor.ID_ChiNhanh), JsonRequestBehavior.AllowGet);
             }
@@ -50,6 +50,15 @@ namespace QLDH.Controllers
             {
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
+        }
+
+
+        [HttpGet]
+        public ActionResult GetAllByChiNhanh(int ID_ChiNhanh)
+        {
+            LopHocDAO hsdao = new LopHocDAO();
+            return Json(hsdao.GetAll_LopHoc(ID_ChiNhanh), JsonRequestBehavior.AllowGet);
+
         }
 
         [SessionExpire]
@@ -75,6 +84,14 @@ namespace QLDH.Controllers
             LopHocDAO hsdao = new LopHocDAO();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             return Json(hsdao.GetByGiaoVien(userinfor.ID), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllLop_ByGiaoVien(int ID_GiaoVien)
+        {
+            LopHocDAO hsdao = new LopHocDAO();
+            return Json(hsdao.GetByGiaoVien(ID_GiaoVien), JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpire]

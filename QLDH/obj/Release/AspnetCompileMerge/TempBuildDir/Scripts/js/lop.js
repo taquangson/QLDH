@@ -673,6 +673,13 @@ function LoadComboGiaoVien() {
             dataValueField: 'ID',
             dataSource: dataSource
         });
+
+        $("#QuanSinhCombo").kendoMultiSelect({
+            dataTextField: 'TenDayDu',
+            dataValueField: 'ID',
+            autoClose: false,
+            dataSource: dataSource
+        });
     });
 }
 
@@ -838,10 +845,10 @@ function LuuChiTietLop() {
         }
     }).done(function successCallback(response) {
         if (response.status) {
-            notification.show({ kValue: response.msg }, "success");            
-            LoadHocSinhTrongLop($("#IDLop").val());
+            notification.show({ kValue: response.msg }, "success");
+            //LoadHocSinhTrongLop($("#IDLop").val());
             LoadGridData();
-            HuyChiTietLop();
+            //HuyChiTietLop();
         } else {
             notification.show({ kValue: response.msg }, "error");
         }

@@ -50,16 +50,38 @@ namespace QLDH.Controllers
                     ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
                     ph.ID_NhanVien = userinfor.ID;
                     ph.ID_PhieuThu = idnew;
-                    ph.NamHoc = DateTime.Now.Year;
-                    int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, DateTime.Now.Year);
+                    ph.NamHoc = ph.NamHoc;
+                    int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
                     ph.SoBuoiDaHoc = count;
                     phdao.InsertOrUpdate(ph);
                 }
                 foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)
                 {
-                    phuthu.Type = 0;
-                    phuthu.ID_PhieuThu = idnew;
-                    ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
+                    int ID_PhieuHoc = 0;
+                    if (phuthu.ID_PhieuHoc == 0 && phuthu.ID_Lop > 0)
+                    {
+                        PhieuHocModel p = new PhieuHocModel();
+                        p.ID_HocSinh = model.ID_HocSinh;
+                        p.HocDuoi = 0;
+                        p.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                        p.ID_Lop = phuthu.ID_Lop;
+                        p.ID_PhieuThu = idnew;
+                        p.SoBuoi = phuthu.SoBuoi;
+                        p.SoTien = phuthu.DonGia;
+                        p.Thang = phuthu.Thang;
+                        p.NamHoc = phuthu.Nam;
+                        p.SoBuoiDaHoc = p.SoBuoi;
+                        p.ID_NhanVien = userinfor.ID;
+                        ID_PhieuHoc = phdao.InsertOrUpdate(p);
+
+                    }
+                    else
+                    {
+                        phuthu.Type = 0;
+                        phuthu.ID_PhieuThu = idnew;
+                        ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
+                    }
+
                 }
                 foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)
                 {
@@ -86,8 +108,7 @@ namespace QLDH.Controllers
                     ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
                     ph.ID_NhanVien = userinfor.ID;
                     ph.ID_PhieuThu = idnew;
-                    ph.NamHoc = DateTime.Now.Year;
-                    int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, DateTime.Now.Year);
+                    int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
                     ph.SoBuoiDaHoc = count;
                     phdao.InsertOrUpdate(ph);
                 }
@@ -106,6 +127,7 @@ namespace QLDH.Controllers
                         ptdao.DeletePhuThuGiamTru(ptgt.ID);
                     }
                 }
+                
                 foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)// Thêm lại ds phụ thu
                 {
                     phuthu.Type = 0;
