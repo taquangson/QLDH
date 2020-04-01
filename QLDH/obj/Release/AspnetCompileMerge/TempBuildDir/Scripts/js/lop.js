@@ -23,7 +23,10 @@ $(document).ready(function () {
         resizable: false,
         actions: [
             "Close"
-        ]
+        ],
+        close: function () {
+            $("#IDLop").val(0);
+        }
     });
 
     $("#files").kendoUpload({

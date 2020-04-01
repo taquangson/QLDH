@@ -141,11 +141,79 @@
 
 
 
-    .login-main-text h2 {
-        font-weight: 300;
-    }
+.login-main-text h2 {
+    font-weight: 300;
+}
 
 .btn-black {
-    background-color: #356065 !important;
+    background-color: #356065;
     color: #fff;
+}
+
+/*Css tết 2020*/
+
+.logo-login {
+    display: none;
+}
+
+.main {
+    height: 100vh;
+    background-color: #fbf9b2;
+}
+
+.login-form {
+    color: #960001;
+}
+
+.btn-black {
+    background-color: #9c0202;
+    color: #f0ed9e;
+}
+
+@media screen and (max-height: 450px){
+    .background-login {
+        background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20190916/pngtree-merry-christmas-happy-chinese-new-year-2020-image_314717.jpg);
+        background-position: top;
+        opacity: 1;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .sidenav {
+        height: 100%;
+        background-color: #950101;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+    .login-main-text {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .background-login {
+        background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20190916/pngtree-merry-christmas-happy-chinese-new-year-2020-image_314717.jpg);
+        background-position: top;
+        opacity: 1;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .sidenav {
+        height: 100%;
+        background-color: #950101;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+    .login-main-text {
+        visibility: hidden;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .background-login {
+        background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20190916/pngtree-merry-christmas-happy-chinese-new-year-2020-image_314717.jpg);
+        background-position: top;
+        opacity: 1;
+        background-size: unset;
+    }
+
 }

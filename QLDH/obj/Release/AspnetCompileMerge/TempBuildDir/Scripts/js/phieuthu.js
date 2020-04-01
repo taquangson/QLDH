@@ -696,6 +696,7 @@
                 var vlthang = e.values.TextThang.text;
                 e.model.Thang = vlthang.split("/")[0];
                 e.model.Nam = vlthang.split("/")[1];
+                console.log(e);
             }
             setTimeout(function () {
                 e.sender.refresh();
@@ -926,7 +927,7 @@
             if (e.values.TextThang) {
                 var vlthang = e.values.TextThang.text;
                 e.model.Thang = vlthang.split("/")[0];
-                e.model.Nam = vlthang.split("/")[1];
+                e.model.Nam = vlthang.split("/")[1];                
             }
             setTimeout(function () {
                 e.sender.refresh();
@@ -1163,6 +1164,13 @@
             {
                 title: "Tháng",
                 field: "Thang",
+                template: function (e) {
+                    if (e.Thang != null) {
+                        return e.Thang + "/" + e.Nam;
+                    } else {
+                        return "";
+                    }
+                },
                 width: "70px",
                 attributes: {
                     class: "text-right"
@@ -1742,7 +1750,7 @@ function countDayInMonth(dayofweek, month, year) {
 function LoadGridThongKePhieuCu(id) {
     $.ajax({
         url: '/BaoCao/GetData_ThongKePhieuHocTheoHocSinh?ID_HocSinh=' + id
-            + "&TuNgay=" + new Date().getFullYear() + "-" + new Date().getMonth() + "-01 00:00:00" + "&DenNgay=" + kendo.toString(new Date(), "yyyy-MM-dd") + " 23:59:00",
+            + "&TuNgay=2019-01-01 00:00:00" + "&DenNgay=" + kendo.toString(new Date(), "yyyy-MM-dd") + " 23:59:00",
         type: 'GET',
     }).done(function successCallback(response) {
         if (typeof response == "string") {
@@ -1765,7 +1773,7 @@ function LoadGridThongKePhieuCu(id) {
 function LoadGridThongKeSoBuoiHocThangTruoc(id) {
     $.ajax({
         url: '/BaoCao/GetData_ThongKeSoBuoiTheoHocSinhTheoThang?ID_HocSinh=' + id
-            + "&TuNgay=" + new Date().getFullYear() + "-01-01 00:00:00" + "&DenNgay=" + kendo.toString(new Date(), "yyyy-MM-dd 23:59:59"),
+            + "&TuNgay=2019-01-01 00:00:00" + "&DenNgay=" + kendo.toString(new Date(), "yyyy-MM-dd 23:59:59"),
         type: 'GET',
     }).done(function successCallback(response) {
         var dataSource = new kendo.data.DataSource({
@@ -1820,7 +1828,7 @@ function LuuPhieuThu() {
             Thang: item.Thang,
             ThangText: "Tháng " + item.Thang + "/" + item.Nam,
             ID_Lop: item.ID_LopHoc,
-            Nam: new Date().getFullYear(),
+            Nam: item.Nam,
             ID_PhieuHoc: item.ID_PhieuHoc
         })
     })
@@ -1835,7 +1843,7 @@ function LuuPhieuThu() {
             Thang: item.Thang,
             ThangText: "Tháng " + item.Thang + "/" + item.Nam,
             ID_Lop: item.ID_LopHoc,
-            Nam: new Date().getFullYear(),
+            Nam: item.Nam,
             ID_PhieuHoc: item.ID_PhieuHoc
         })
     })

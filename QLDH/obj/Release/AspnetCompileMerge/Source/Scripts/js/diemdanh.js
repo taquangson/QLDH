@@ -52,6 +52,7 @@
         autoFitColumn: true,
         resizable: true,
         sortable: true,
+        editable: true,
         filterable: {
             mode: "row",
         },
@@ -184,19 +185,44 @@
                     class: "table-header-cell"
                 }
             },
+            //{
+            //    field: "NgaySinh",
+            //    title: "Ngày sinh",
+            //    template: function (e) {
+            //        var dateString = e.NgaySinh.substr(6);
+            //        var currentTime = new Date(parseInt(dateString));
+            //        if (currentTime.getFullYear() != 1) {
+            //            return kendo.toString(currentTime, "dd/MM/yyyy");
+            //        } else {
+            //            return "";
+            //        }
+            //    },
+            //    width: "100px",
+            //    filterable: {
+            //        cell: {
+            //            operator: "contains",
+            //            showOperators: false,
+            //            template: function (e) {
+            //                e.element.addClass("k-textbox").css("width", "100%")
+            //            }
+            //        }
+            //    },
+            //    headerAttributes: {
+            //        style: "text-align: center; font-size: 12px; font-weight:bold",
+            //        class: "table-header-cell"
+            //    },
+            //    attributes: {
+            //        style: "text-align: center;",
+            //    }
+            //},
+
             {
-                field: "NgaySinh",
-                title: "Ngày sinh",
-                template: function (e) {
-                    var dateString = e.NgaySinh.substr(6);
-                    var currentTime = new Date(parseInt(dateString));
-                    if (currentTime.getFullYear() != 1) {
-                        return kendo.toString(currentTime, "dd/MM/yyyy");
-                    } else {
-                        return "";
-                    }
-                },
+                field: "GhiChu",
+                title: "Nhận xét",
                 width: "100px",
+                editor: function (container, options) {
+                    $('<textarea row="2" class="k-textbox" style="width:100%;border:none" name="' + options.field + '"></textarea').appendTo(container);
+                },
                 filterable: {
                     cell: {
                         operator: "contains",
@@ -211,7 +237,7 @@
                     class: "table-header-cell"
                 },
                 attributes: {
-                    style: "text-align: center;",
+                    style: "text-align: left;white-space:pre-wrap",
                 }
             },
             {
@@ -416,10 +442,13 @@ function LoadHocSinhTrongLop(id) {
                 schema: {
                     model: {
                         id: "ID",
-                        field: {
+                        fields: {
                             NgaySinh: {
-                                type: 'date'
-                            }
+                                type: 'date', editable: false
+                            },
+                            GhiChu: { type: 'text', editable: true },
+                            TenHocSinh: { type: 'text', editable: false },
+                            DienThoaiMacDinh: { type: 'text', editable: false },
                         }
                     }
                 },

@@ -61,6 +61,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -165,6 +169,7 @@
     <Compile Include="Controllers\DiemDanhController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HoTroController.cs" />
     <Compile Include="Controllers\LichHocController.cs" />
     <Compile Include="Controllers\LopController.cs" />
     <Compile Include="Controllers\PhieuHocController.cs" />
@@ -209,6 +214,7 @@
     <Compile Include="DataAccess\Models\PhuThuGiamTruModel.cs" />
     <Compile Include="DataAccess\Models\QuanSinhLopHocModel.cs" />
     <Compile Include="DataAccess\Models\SoDuBuoiHocModel.cs" />
+    <Compile Include="DataAccess\Models\SortByMarketcapModel.cs" />
     <Compile Include="DataAccess\Models\TaiKhoanModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +231,7 @@
     <Content Include="Assets\custom.js" />
     <Content Include="Assets\custom.min.css" />
     <Content Include="Assets\custom.min.js" />
+    <Content Include="Assets\kendo\jszip.min.js" />
     <Content Include="Assets\kendo\kendo-multi-calendar.js" />
     <Content Include="Assets\kendo\kendo-multi-calendar.min.js" />
     <Content Include="Assets\kendo\kendo-multi-date-select.js" />
@@ -583,6 +590,7 @@
     <Content Include="Assets\vendors\font-awesome\css\font-awesome.min.css" />
     <Content Include="Assets\vendors\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\vendors\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Assets\xlsx.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\danhsachloptheogiaovien.css" />
@@ -906,9 +914,12 @@
     <Content Include="Views\BaoCao\BaoCaoSoBuoiHocTheoGiaoVien.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoDoanhThuBanPhieu.cshtml" />
     <Content Include="Views\BaoCao\BaoCaoHocSinhNoPhieu.cshtml" />
+    <Content Include="Views\HoTro\HoTroDuongDe.cshtml" />
+    <Content Include="Views\HoTro\HoTroDuongDev2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\HoTro\" />
     <Folder Include="Views\BaiKiemTra\" />
     <Folder Include="Views\ChucNang\" />
   </ItemGroup>
@@ -919,6 +930,26 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

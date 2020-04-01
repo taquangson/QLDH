@@ -108,7 +108,14 @@
             </tbody>
         </table>
         <p class="text-right"><b>Tổng:  @Model.PhieuThu.TongThu.ToString("N0") VNĐ</b></p>
-        <p class="text-center" style="border-top:dashed 1px; font-size:10px;vertical-align:top">
+        @if (Model.TaiKhoan.ID_ChiNhanh == 1)
+        {
+            <p class="text-center" style="border-top:dashed 1px; font-size:10px;vertical-align:top">
+                Chuyển khoản: 48310000576200 - Tạ Thị Thanh Nga - BIDV TP Ninh Bình
+            </p>
+
+        }
+        <p class="text-center" style="font-size:10px;vertical-align:top">
             <b>Vui lòng kiểm tra phiếu trước khi rời văn phòng!</b>
         </p>
     </div>

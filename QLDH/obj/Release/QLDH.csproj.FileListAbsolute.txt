@@ -109,3 +109,4 @@ E:\QLDH_git\QLDH\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.Host.SystemWeb.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.Security.xml
+E:\QLDH_git\QLDH\obj\Release\QLDH.csproj.ResolveComReference.cache
