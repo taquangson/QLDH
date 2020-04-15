@@ -162,6 +162,7 @@
     <Compile Include="App_Start\SessionAdmiRoleAttribute.cs" />
     <Compile Include="App_Start\SessionExpireAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BaiKiemTraController.cs" />
     <Compile Include="Controllers\BaoCaoController.cs" />
     <Compile Include="Controllers\ChucNangController.cs" />
