@@ -57,7 +57,11 @@ namespace QLDH.Controllers
             CaHocModel ca = new CaHocDAO().GetByID(Ca);
             DateTime quagiodiemdanh = DateTime.Now;
             int quagio = 1;
-            quagiodiemdanh = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 45, 0);
+            if(ca.GioBatDau.TotalHours >= 17)
+            {
+                ca.GioBatDau = ca.GioBatDau.Add(TimeSpan.FromHours(1));
+            }
+            quagiodiemdanh = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 45, 0);            
             if (DateTime.Compare(DateTime.Now, quagiodiemdanh) < 0 || userinfor.Role == 1 || userinfor.Role == 2)
             {
                 quagio = 0;
