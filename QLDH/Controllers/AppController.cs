@@ -33,7 +33,7 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
-                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, model.Current_Device))
+                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, model.Current_Device, model.NotifyID))
                 {
                     UserAppModel tk = tk_dao.GetAppUserInfoByName(model.UserName);
                     if (tk == null)
@@ -71,7 +71,7 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
-                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, model.Current_Device))
+                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, model.Current_Device, model.NotifyID))
                     response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = true });
                 else
                     response = Request.CreateResponse(HttpStatusCode.NotModified, new { loginSuccess = false });

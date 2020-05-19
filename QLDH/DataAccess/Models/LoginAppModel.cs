@@ -13,6 +13,7 @@ namespace QLDH.DataAccess.Models
         public bool Remember { get; set; }
         public string Current_Imei { get; set; }
         public string Current_Device { get; set; }
-        public int EmployeeType {get;set;}
+        public int EmployeeType { get; set; }
+        public string NotifyID { get; set; }
     }
 }

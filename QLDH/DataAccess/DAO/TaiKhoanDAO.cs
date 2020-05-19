@@ -239,7 +239,7 @@ namespace QLDH.DataAccess.DAO
         }
 
         
-        public bool CheckLogin_App(string UserName, string Password, string Current_Imei, string Current_Device)
+        public bool CheckLogin_App(string UserName, string Password, string Current_Imei, string Current_Device,string NotifyID)
         {
             try
             {
@@ -247,7 +247,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@UserName", UserName),
                 new SqlParameter("@Password", Password),
                 new SqlParameter("@Current_Imei", Current_Imei),
-                new SqlParameter("@Current_Device", Current_Device)
+                new SqlParameter("@Current_Device", Current_Device),
+                new SqlParameter("@NotifyID", NotifyID)
                 };
                 object id = helper.ExecuteScalar("sp_TaiKhoan_CheckLoginApp", pars);                
                 if (id != null)
