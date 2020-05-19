@@ -1780,10 +1780,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:08</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>05/19/2020 09:57:32</publishTime>
+      <publishTime>05/19/2020 14:04:14</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>05/19/2020 09:57:32</publishTime>
+      <publishTime>05/19/2020 14:04:14</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>04/15/2020 12:47:09</publishTime>
@@ -1831,10 +1831,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>05/19/2020 09:57:26</publishTime>
+      <publishTime>05/19/2020 14:04:09</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>05/19/2020 09:57:26</publishTime>
+      <publishTime>05/19/2020 14:04:09</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -2047,7 +2047,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:59:40</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>05/19/2020 09:57:27</publishTime>
+      <publishTime>05/19/2020 14:04:10</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>04/15/2020 12:47:06</publishTime>

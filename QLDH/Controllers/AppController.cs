@@ -553,12 +553,12 @@ namespace QLDH.Controllers
 
         [HttpPost]
         [Route("uploadanhdiemdanh")]
-        public async Task<string> uploadanhdiemdanh()
+        public async Task<HttpResponseMessage> uploadanhdiemdanh()
         {
             log4net.ILog log = log4net.LogManager.GetLogger(typeof(AppController));
             try
             {
-               var provider = new MultipartMemoryStreamProvider();
+                var provider = new MultipartMemoryStreamProvider();
                 await Request.Content.ReadAsMultipartAsync(provider);
                 log.Info("Đoc file từ request");
                 var files = new Dictionary<string, HttpPostedFile>(StringComparer.InvariantCultureIgnoreCase);
@@ -566,9 +566,9 @@ namespace QLDH.Controllers
                 //var fileNameParam = provider.Contents[0].Headers.ContentDisposition.Parameters
                 //    .FirstOrDefault(p => p.Name.ToLower() == "filename");
                 //log.Info("Lấy tên file : " + fileNameParam);
-                var fileName = await provider.Contents[1].ReadAsStringAsync();
-                //string fileName = (fileNameParam == null) ? "" : fileNameParam.Trim('"');
-                //fileName = DateTime.Now.ToString("ddMMyyyyhhmmssss") + "." + fileName.Split('/')[1];
+                var fileNameParam = await provider.Contents[1].ReadAsStringAsync();
+                string fileName = (fileNameParam == null) ? "" : fileNameParam.Trim('"');
+                fileName = DateTime.Now.ToString("ddMMyyyyhhmmssss") + fileNameParam;
                 log.Info("Tạo filename : " + fileName);
                 byte[] file = await provider.Contents[0].ReadAsByteArrayAsync();
                 log.Info("Đọc byte : " + file.Length);
@@ -578,7 +578,7 @@ namespace QLDH.Controllers
                 log.Info("Ghi file");
                 File.WriteAllBytes(filePath, file);
                 string result = "/Images/" + "AnhDiemDanh/" + fileName;
-                return result;
+                return Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" }); ;
             }
             catch (Exception ex)
             {
