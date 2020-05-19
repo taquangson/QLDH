@@ -164,7 +164,7 @@
 }
 
 .left_col {
-    background: #2A3F54;
+    /*background: #2A3F54;*/
 }
 
 .nav-sm .container.body .col-md-3.left_col {
@@ -833,7 +833,7 @@ a {
 }
 
 .nav > li > a {
-    padding: 13px 15px 12px;
+    padding: 13px 10px 12px;
 }
 
 .nav.side-menu > li.active, .nav.side-menu > li.current-page {
@@ -921,7 +921,7 @@ a {
     float: left;
     margin: 0;
     padding-top: 16px;
-    width: 70px;
+    width: 50px;
 }
 
     .toggle a {
@@ -4681,6 +4681,7 @@ ul.notifications {
     padding: 10px;
     margin: 10px 20px 0px 20px;
     border-radius: 8px;
+    display:block;
 }
 
     .dashboard-box i {
@@ -4712,4 +4713,112 @@ span.fa-chevron-down{
 
 span.fa-chevron-right{
     display:block;
+}
+
+/*CSS tết 2020*/
+.main_menu_side {
+    padding: 20px 0px;
+    margin: 0px 8px;
+    background-color: #ce4a3a;
+    border: solid 1px;
+    border-radius: 64px;
+    border-image-slice: 100 80 100 80;
+    border-image-width: 30px 30px 30px 30px;
+    border-image-outset: 0px 0px 0px 0px;
+    border-image-repeat: round round;
+    border-image-source: url(https://mdn.mozillademos.org/files/6017/border-image-6.svg);
+}
+.left_col {
+    background-image: url(https://images.cdn1.stockunlimited.net/clipart450/chinese-pattern-background_1577039.jpg);
+    background-size: contain;
+}
+
+.blue {
+    border: solid 1px #ff9191;
+    background-color: #ffecec;
+}
+
+.blue {
+    color: #d6bc00;
+}
+
+.nav_menu {
+    float: left;
+    background: #fbffd6;
+    border-bottom: 1px solid #D9DEE4;
+    margin-bottom: 10px;
+    width: 100%;
+    position: relative;
+}
+
+body {
+    color: #73879C;
+    background: #942617;
+    font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.471;
+}
+
+.nav_title {
+    width: 230px;
+    float: left;
+    background: #942617;
+    border-radius: 0;
+    height: 57px;
+}
+
+body .container.body .right_col {
+    background: #fbffd6;
+}
+
+.nav.side-menu > li.active > a {
+    text-shadow: rgba(0,0,0,.25) 0 -1px 0;
+    background: linear-gradient(#942617,#ce4a3a),#2A3F54;
+    margin-left: 9px;
+    box-shadow: rgba(0,0,0,.25) 0 1px 0, inset rgba(255,255,255,.16) 0 1px 0;
+}
+
+.nav-sm ul.nav.child_menu {
+    background: #ce4a3a;
+}
+
+.nav.side-menu > li.active, .nav.side-menu > li.current-page {
+    border-right: 5px solid transparent;
+}
+
+.nav-md ul.nav.child_menu li:before {
+    background: #fbffd6;
+    bottom: auto;
+    content: "";
+    height: 8px;
+    left: 23px;
+    margin-top: 15px;
+    position: absolute;
+    right: auto;
+    width: 8px;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.nav-md ul.nav.child_menu li:after {
+    border-left: 1px solid #942617;
+    bottom: 0;
+    content: "";
+    left: 27px;
+    position: absolute;
+    top: 0;
+}
+
+.menu_section h3 {
+    padding-left: 15px;
+    color: #f4b20d;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-weight: 700;
+    font-size: 11px;
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 0;
+    text-shadow: 1px 1px #000;
 }

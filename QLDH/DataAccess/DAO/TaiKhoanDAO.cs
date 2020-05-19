@@ -43,6 +43,32 @@ namespace QLDH.DataAccess.DAO
             }
             return obj;
         }
+        private UserAppModel GetAppObjFromDataRow(DataRow dr)
+        {
+            UserAppModel obj = new UserAppModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
 
         private ChiNhanhModels GetChiNhanhFromDataRow(DataRow dr)
         {
@@ -212,6 +238,34 @@ namespace QLDH.DataAccess.DAO
             return false;
         }
 
+        
+        public bool CheckLogin_App(string UserName, string Password, string Current_Imei, string Current_Device)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@UserName", UserName),
+                new SqlParameter("@Password", Password),
+                new SqlParameter("@Current_Imei", Current_Imei),
+                new SqlParameter("@Current_Device", Current_Device)
+                };
+                object id = helper.ExecuteScalar("sp_TaiKhoan_CheckLoginApp", pars);                
+                if (id != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoan_CheckLoginApp " + ex.Message);
+            }
+            return false;
+        }
+
         public TaiKhoanModel GetByTenTaiKhoanOrEmail(string TenTaiKhoan)
         {
             try
@@ -231,6 +285,26 @@ namespace QLDH.DataAccess.DAO
 
             return null;
         }
+        public UserAppModel GetAppUserInfoByName(string TenTaiKhoan)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@TaiKhoan", TenTaiKhoan)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoanApp_GetByUserName", pars);
+                DataTable dt = ds.Tables[0];
+                UserAppModel t = GetAppObjFromDataRow(dt.Rows[0]);
+                return t;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_GetByUserName " + ex.Message);
+            }
+
+            return null;
+        }
+
 
         public TaiKhoanModel GetById(int ID)
         {

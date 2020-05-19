@@ -118,9 +118,38 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<LopHocModel> GetLopChuaDangKy_ByHocSinh(int ID_HocSinh)
+        {
+            List<LopHocModel> result = new List<LopHocModel>();
+            LichHocDAO lich = new LichHocDAO();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_HocSinh", ID_HocSinh),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LopHoc_GetByHocSinhChuaDangKy", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    LopHocModel lop = GetObjFromDataRow(dr);
+                    lop.lstLichHoc = lich.GetByLop(lop.ID);
+                    result.Add(lop);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHoc_GetByHocSinhChuaDangKy " + ex.Message);
+            }
+
+            return result;
+        }
+
+        
+
         public List<LopHocModel> GetAll_ByHocSinh(int ID_HocSinh)
         {
             List<LopHocModel> result = new List<LopHocModel>();
+            LichHocDAO lich = new LichHocDAO();
             try
             {
                 SqlParameter[] pars = new SqlParameter[] {
@@ -130,7 +159,9 @@ namespace QLDH.DataAccess.DAO
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
-                    result.Add(GetObjFromDataRow(dr));
+                    LopHocModel lop = GetObjFromDataRow(dr);
+                    lop.lstLichHoc = lich.GetByLop(lop.ID);
+                    result.Add(lop);
                 }
             }
             catch (Exception ex)

@@ -12,7 +12,7 @@ namespace QLDH.DataAccess.Models
         public int ID_HocSinh { get; set; }
         public DateTime ThoiGianVaoLop { get; set; }
         public int ID_NhanVien { get; set; }
-        public int CoPhep { get; set; } // -1: Nghỉ ko phéo; 0: Có mặt; 1: Nghỉ có phép
+        public int CoPhep { get; set; } // -1: Nghỉ ko phép; 0: Có mặt; 1: Nghỉ có phép
         public string GhiChu { get; set; }
         public int HocDuoi { get; set; }
         public int Ca { get; set; }

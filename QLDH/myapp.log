@@ -3083,3 +3083,523 @@ Error Number:-1,State:0,Class:20
 2019-11-19 18:10:12,534 [67] INFO QLDH.DataAccess.DAO.Lop_HocSinhDAO - Delete HocSinh_LopHoc: ID_HocSinh=626 - ID_Lop=144
 2019-11-19 18:10:12,535 [67] INFO QLDH.DataAccess.DAO.Lop_HocSinhDAO - Delete HocSinh_LopHoc: ID_HocSinh=627 - ID_Lop=144
 2019-11-19 18:10:12,536 [67] INFO QLDH.DataAccess.DAO.Lop_HocSinhDAO - Delete HocSinh_LopHoc: ID_HocSinh=628 - ID_Lop=144
+2020-04-15 13:43:31,344 [6] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_GetByTenTaiKhoanOrEmail There is no row at position 0.
+2020-04-15 13:43:54,308 [10] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_GetByTenTaiKhoanOrEmail There is no row at position 0.
+2020-04-15 13:44:31,314 [6] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_GetByTenTaiKhoanOrEmail There is no row at position 0.
+2020-04-15 13:46:29,619 [9] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_GetByTenTaiKhoanOrEmail There is no row at position 0.
+2020-04-19 09:13:55,467 [26] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_TaiKhoanApp_GetByUserName' expects parameter '@UserName', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:0aad2722-8e10-4e64-b11c-92899246b8c2
+Error Number:201,State:4,Class:16
+2020-04-19 09:13:55,495 [26] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByUserName Cannot find table 0.
+2020-04-19 09:14:29,675 [19] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_TaiKhoanApp_GetByUserName' expects parameter '@UserName', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:a3b719ec-0e4d-403f-8b63-8663074e306b
+Error Number:201,State:4,Class:16
+2020-04-19 09:14:29,704 [19] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByUserName Cannot find table 0.
+2020-04-19 09:14:49,392 [5] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_TaiKhoanApp_GetByUserName' expects parameter '@UserName', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:a3b719ec-0e4d-403f-8b63-8663074e306b
+Error Number:201,State:4,Class:16
+2020-04-19 09:14:49,406 [5] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByUserName Cannot find table 0.
+2020-04-19 09:54:15,114 [96] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_HocSinh_GetBySDT
+2020-04-19 09:54:15,123 [96] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_HocSinh_GetBySDT' expects parameter '@SDT', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String strQuery) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 502
+ClientConnectionId:bfea2279-5589-4a25-9c05-5d291e30bd61
+Error Number:201,State:4,Class:16
+2020-04-19 09:54:15,140 [96] ERROR QLDH.DataAccess.DAO.HocSinhDAO - sp_HocSinh_GetBySDT Cannot find table 0.
+2020-04-19 09:54:24,271 [72] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_HocSinh_GetBySDT
+2020-04-19 09:54:24,271 [72] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_HocSinh_GetBySDT' expects parameter '@SDT', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String strQuery) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 502
+ClientConnectionId:bfea2279-5589-4a25-9c05-5d291e30bd61
+Error Number:201,State:4,Class:16
+2020-04-19 09:54:24,272 [72] ERROR QLDH.DataAccess.DAO.HocSinhDAO - sp_HocSinh_GetBySDT Cannot find table 0.
+2020-04-19 09:55:13,330 [6] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_HocSinh_GetBySDT
+2020-04-19 09:55:13,337 [6] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_HocSinh_GetBySDT' expects parameter '@SDT', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String strQuery) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 502
+ClientConnectionId:95330c0d-5317-4d8c-b161-e0ee9ccfb441
+Error Number:201,State:4,Class:16
+2020-04-19 09:55:13,353 [6] ERROR QLDH.DataAccess.DAO.HocSinhDAO - sp_HocSinh_GetBySDT Cannot find table 0.
+2020-04-19 09:55:48,047 [6] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_HocSinh_GetBySDT
+2020-04-19 09:55:48,047 [6] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_HocSinh_GetBySDT' expects parameter '@SDT', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String strQuery) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 502
+ClientConnectionId:95330c0d-5317-4d8c-b161-e0ee9ccfb441
+Error Number:201,State:4,Class:16
+2020-04-19 09:56:11,115 [6] ERROR QLDH.DataAccess.DAO.HocSinhDAO - sp_HocSinh_GetBySDT Cannot find table 0.
+2020-04-20 00:28:49,175 [24] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_LopHoc_GetByHocSinhChuaDangKy'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:8e9074c1-ee17-4bf5-977a-9a0b662e4c36
+Error Number:2812,State:62,Class:16
+2020-04-20 00:28:49,201 [24] ERROR QLDH.DataAccess.DAO.LopHocDAO - sp_LopHoc_GetByHocSinhChuaDangKy Cannot find table 0.
+2020-04-20 00:29:15,874 [6] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_LopHoc_GetByHocSinhChuaDangKy'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:8e9074c1-ee17-4bf5-977a-9a0b662e4c36
+Error Number:2812,State:62,Class:16
+2020-04-20 00:29:20,342 [6] ERROR QLDH.DataAccess.DAO.LopHocDAO - sp_LopHoc_GetByHocSinhChuaDangKy Cannot find table 0.
+2020-04-28 08:26:22,662 [13] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_DangKyHoc_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@ID_Lop:81|@User_DangKy:0942523523|@TrangThai:1|
+2020-04-28 08:26:22,670 [13] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_DangKyHoc_InsertOrUpdate'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:92f45fa5-30da-44b9-924b-49712a807785
+Error Number:2812,State:62,Class:16
+2020-04-28 08:26:36,749 [9] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_DangKyHoc_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@ID_Lop:81|@User_DangKy:0942523523|@TrangThai:1|
+2020-04-28 08:26:36,749 [9] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_DangKyHoc_InsertOrUpdate'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:92f45fa5-30da-44b9-924b-49712a807785
+Error Number:2812,State:62,Class:16
+2020-04-28 08:26:57,220 [10] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_DangKyHoc_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@ID_Lop:81|@User_DangKy:0942523523|@TrangThai:1|
+2020-04-28 08:26:57,220 [10] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_DangKyHoc_InsertOrUpdate'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:92f45fa5-30da-44b9-924b-49712a807785
+Error Number:2812,State:62,Class:16
+2020-04-28 08:27:22,659 [10] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_DangKyHoc_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@ID_Lop:81|@User_DangKy:0942523523|@TrangThai:1|
+2020-04-28 08:27:22,659 [10] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_DangKyHoc_InsertOrUpdate'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:92f45fa5-30da-44b9-924b-49712a807785
+Error Number:2812,State:62,Class:16
+2020-04-28 08:27:59,830 [6] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_DangKyHoc_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@ID_Lop:81|@User_DangKy:0942523523|@TrangThai:1|
+2020-04-28 08:27:59,830 [6] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_DangKyHoc_InsertOrUpdate'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:92f45fa5-30da-44b9-924b-49712a807785
+Error Number:2812,State:62,Class:16
+2020-04-28 08:29:44,204 [7] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_DangKyHoc_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@ID_Lop:81|@User_DangKy:0942523523|@TrangThai:1|
+2020-04-28 08:29:44,205 [7] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_DangKyHoc_InsertOrUpdate'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:92f45fa5-30da-44b9-924b-49712a807785
+Error Number:2812,State:62,Class:16
+2020-04-28 08:30:59,582 [10] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_CheckLoginApp Object reference not set to an instance of an object.
+2020-04-28 08:31:22,605 [48] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_CheckLoginApp Object reference not set to an instance of an object.
+2020-04-28 08:32:30,385 [10] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoan_CheckLoginApp Object reference not set to an instance of an object.
+2020-04-28 08:40:03,061 [18] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:28/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:40:03,084 [18] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'XinNghiPhep'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:208,State:1,Class:16
+2020-04-28 08:40:03,150 [18] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:29/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:40:03,150 [18] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'XinNghiPhep'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:208,State:1,Class:16
+2020-04-28 08:40:03,206 [18] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:30/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:40:03,206 [18] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'XinNghiPhep'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:208,State:1,Class:16
+2020-04-28 08:40:38,779 [30] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:28/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:40:38,779 [30] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'XinNghiPhep'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:208,State:1,Class:16
+2020-04-28 08:40:38,836 [30] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:29/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:40:38,836 [30] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'XinNghiPhep'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:208,State:1,Class:16
+2020-04-28 08:40:38,892 [30] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:30/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:40:38,892 [30] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'XinNghiPhep'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:208,State:1,Class:16
+2020-04-28 08:44:45,825 [64] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:28/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:44:45,825 [64] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'ID', table 'luyenthiduongho_qldhdata.dbo.XinNghiPhep'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:515,State:2,Class:16
+2020-04-28 08:44:45,882 [64] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:29/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:44:45,882 [64] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'ID', table 'luyenthiduongho_qldhdata.dbo.XinNghiPhep'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:515,State:2,Class:16
+2020-04-28 08:44:45,938 [64] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:0|@ID_HocSinh:759|@NgayNghi:30/04/2020 12:00:00 SA|@LyDoNghi:Ngh? ?m|
+2020-04-28 08:44:45,938 [64] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'ID', table 'luyenthiduongho_qldhdata.dbo.XinNghiPhep'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:4a6078d8-84c7-4284-9c20-53fe4d37fd0f
+Error Number:515,State:2,Class:16
+2020-05-05 17:28:05,863 [50] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_TaiKhoanApp_GetByUserName' expects parameter '@TaiKhoan', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:18042e70-23cc-4dcc-ba49-ae38009c81cf
+Error Number:201,State:4,Class:16
+2020-05-05 17:28:05,882 [50] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByUserName Cannot find table 0.
+2020-05-05 17:28:05,942 [50] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_TinNhan_InsertOrUpdate,Command Parameter:@ID:0|@ID_TaiKhoan:942523523|@ID_User:|@Loai:0|@DaTraLoi:0|@NoiDung:a b c d e f g h ?|@DaXem:0|@ID_ChiNhanh:0|
+2020-05-05 17:28:05,942 [50] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_TinNhan_InsertOrUpdate' expects parameter '@ID_User', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+ClientConnectionId:18042e70-23cc-4dcc-ba49-ae38009c81cf
+Error Number:201,State:4,Class:16
+2020-05-14 09:23:26,593 [16] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_AnhDiemDanh_InsertOrUpdate,Command Parameter:@ID_LopHoc:11|@ID_CaHoc:2|@Ngay:01/01/0001 12:00:00 SA|@DuongDan:/Images/AnhDiemDanh/logo14052020091529.jpg|
+2020-05-14 09:23:26,605 [16] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+   at System.Data.SqlClient.TdsParser.TdsExecuteRPC(SqlCommand cmd, _SqlRPC[] rpcArray, Int32 timeout, Boolean inSchema, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj, Boolean isCommandProc, Boolean sync, TaskCompletionSource`1 completion, Int32 startRpc, Int32 startParam)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteNonQuery(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 137
+2020-05-14 09:23:26,624 [16] ERROR QLDH.DataAccess.DAO.HocSinhDAO - sp_AnhDiemDanh_InsertOrUpdate SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+2020-05-17 14:58:38,037 [13] INFO QLDH.Controllers.AppController - Ðoc file t? request
+2020-05-17 14:58:38,045 [13] INFO QLDH.Controllers.AppController - L?y file
+2020-05-17 14:58:38,045 [13] INFO QLDH.Controllers.AppController - L?y tên file : filename="logo.jpg"
+2020-05-17 14:58:38,045 [13] INFO QLDH.Controllers.AppController - T?o filename : logo17052020025838.jpg
+2020-05-17 14:58:38,045 [13] INFO QLDH.Controllers.AppController - Ð?c byte : 7010
+2020-05-17 14:58:38,045 [13] INFO QLDH.Controllers.AppController - Filepath: C:\Users\quang\Source\Repos\qldh\QLDH\FileUpload\Images\logo17052020025838.jpg
+2020-05-17 14:58:49,120 [9] INFO QLDH.Controllers.AppController - Ðoc file t? request
+2020-05-17 14:58:49,120 [9] INFO QLDH.Controllers.AppController - L?y file
+2020-05-17 14:58:49,120 [9] INFO QLDH.Controllers.AppController - L?y tên file : filename="a6.jpg"
+2020-05-17 14:58:49,120 [9] INFO QLDH.Controllers.AppController - T?o filename : a617052020025849.jpg
+2020-05-17 14:58:49,120 [9] INFO QLDH.Controllers.AppController - Ð?c byte : 16552
+2020-05-17 14:58:49,120 [9] INFO QLDH.Controllers.AppController - Filepath: C:\Users\quang\Source\Repos\qldh\QLDH\FileUpload\Images\a617052020025849.jpg
+2020-05-17 14:59:07,991 [22] INFO QLDH.Controllers.AppController - Ðoc file t? request
+2020-05-17 14:59:07,991 [22] INFO QLDH.Controllers.AppController - L?y file
+2020-05-17 14:59:07,991 [22] INFO QLDH.Controllers.AppController - L?y tên file : filename="logo.jpg"
+2020-05-17 14:59:07,991 [22] INFO QLDH.Controllers.AppController - T?o filename : logo17052020025907.jpg
+2020-05-17 14:59:07,991 [22] INFO QLDH.Controllers.AppController - Ð?c byte : 7010
+2020-05-17 14:59:07,991 [22] INFO QLDH.Controllers.AppController - Filepath: C:\Users\quang\Source\Repos\qldh\QLDH\FileUpload\Images\logo17052020025907.jpg
+2020-05-17 14:59:45,551 [9] INFO QLDH.Controllers.AppController - Ðoc file t? request
+2020-05-17 14:59:47,260 [9] INFO QLDH.Controllers.AppController - L?y file
+2020-05-17 14:59:48,685 [9] INFO QLDH.Controllers.AppController - L?y tên file : filename="logo.jpg"
+2020-05-17 14:59:50,066 [9] INFO QLDH.Controllers.AppController - T?o filename : logo17052020025949.jpg
+2020-05-17 14:59:51,107 [9] INFO QLDH.Controllers.AppController - Ð?c byte : 7010
+2020-05-17 14:59:52,205 [9] INFO QLDH.Controllers.AppController - Filepath: C:\Users\quang\Source\Repos\qldh\QLDH\FileUpload\Images\logo17052020025949.jpg
+2020-05-17 15:01:05,657 [29] INFO QLDH.Controllers.AppController - Ðoc file t? request
+2020-05-17 15:01:05,664 [29] INFO QLDH.Controllers.AppController - L?y file
+2020-05-17 15:01:05,664 [29] INFO QLDH.Controllers.AppController - L?y tên file : filename="logo.jpg"
+2020-05-17 15:01:05,664 [29] INFO QLDH.Controllers.AppController - T?o filename : logo17052020030105.jpg
+2020-05-17 15:01:05,664 [29] INFO QLDH.Controllers.AppController - Ð?c byte : 7010
+2020-05-17 15:01:05,664 [29] INFO QLDH.Controllers.AppController - Filepath: C:\Users\quang\Source\Repos\qldh\QLDH\Images\AnhDiemDanh\logo17052020030105.jpg
+2020-05-17 15:01:05,666 [29] INFO QLDH.Controllers.AppController - Ghi file
