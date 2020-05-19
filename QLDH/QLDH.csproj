@@ -61,6 +61,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.5.0\lib\net45\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.5.0\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.5.0\lib\net45\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -80,6 +89,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.5.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -161,6 +173,7 @@
     <Compile Include="App_Start\SessionModeratorRoleAttribute.cs" />
     <Compile Include="App_Start\SessionAdmiRoleAttribute.cs" />
     <Compile Include="App_Start\SessionExpireAttribute.cs" />
+    <Compile Include="App_Start\TokenValidationHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BaiKiemTraController.cs" />
@@ -179,6 +192,9 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
+    <Compile Include="DataAccess\DAO\TinNhanDAO.cs" />
+    <Compile Include="DataAccess\DAO\XinNghiPhepDAO.cs" />
+    <Compile Include="DataAccess\DAO\DangKyHocDAO.cs" />
     <Compile Include="DataAccess\DAO\BaiKiemTraDAO.cs" />
     <Compile Include="DataAccess\DAO\BaoCaoDAO.cs" />
     <Compile Include="DataAccess\DAO\ChucNangDAO.cs" />
@@ -194,18 +210,21 @@
     <Compile Include="DataAccess\DAO\PhongBanDAO.cs" />
     <Compile Include="DataAccess\DAO\QuanSinh_LopHocDAO.cs" />
     <Compile Include="DataAccess\DAO\SoDuBuoiHocDAO.cs" />
+    <Compile Include="DataAccess\Helper\AuthorHelper.cs" />
     <Compile Include="DataAccess\Models\AnhDiemDanhModel.cs" />
     <Compile Include="DataAccess\Models\AnhBaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\CaHocModel.cs" />
     <Compile Include="DataAccess\Models\ChiNhanhModels.cs" />
     <Compile Include="DataAccess\Models\ChucNangModel.cs" />
+    <Compile Include="DataAccess\Models\DangKyHocModel.cs" />
     <Compile Include="DataAccess\Models\DiemDanhModel.cs" />
     <Compile Include="DataAccess\Models\HocSinhModel.cs" />
     <Compile Include="DataAccess\DAO\TaiKhoanDAO.cs" />
     <Compile Include="DataAccess\Helper\DataHelper.cs" />
     <Compile Include="DataAccess\Models\DanhMucLoiModel.cs" />
     <Compile Include="DataAccess\Models\LichHocModel.cs" />
+    <Compile Include="DataAccess\Models\LoginAppModel.cs" />
     <Compile Include="DataAccess\Models\LopHocModel.cs" />
     <Compile Include="DataAccess\Models\Lop_HocSinhModel.cs" />
     <Compile Include="DataAccess\Models\NhomChucNangModel.cs" />
@@ -217,6 +236,8 @@
     <Compile Include="DataAccess\Models\SoDuBuoiHocModel.cs" />
     <Compile Include="DataAccess\Models\SortByMarketcapModel.cs" />
     <Compile Include="DataAccess\Models\TaiKhoanModel.cs" />
+    <Compile Include="DataAccess\Models\TinNhanModel.cs" />
+    <Compile Include="DataAccess\Models\XinNghiPhepModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

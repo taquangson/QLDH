@@ -9,6 +9,16 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnRedirectTraCuu").on("click touchstart", function () {
+                window.location.href = '/LichHoc/TraCuuLichHoc'
+            });
+            //document.getElementById("btnRedirectTraCuu").addEventListener("touchstart", RedirectTraCuu);
+        })
+
+/**/</script>
 </head>
 <body>
     <div class="sidenav">
@@ -36,6 +46,7 @@
                         <input class="checkbox" name="Remember" style="float:left;width:20px" type="checkbox" /><span style="line-height:25px;vertical-align:bottom">Lưu mật khẩu</span>
                     </div>
                     <button type="submit" class="btn btn-black">Đăng nhập</button>
+                    <button type="button" id="btnRedirectTraCuu" class="btn btn-black">Tra cứu lịch học</button>
                     <b class="btn-danger">@ViewBag.Error</b>
                 </form>
             </div>

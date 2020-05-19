@@ -61,24 +61,42 @@
                         class: "table-header-cell"
                     }
                 },
-                 {
-                     field: "TaiKhoan",
-                     title: "Tên tài khoản",
-                     width: "100px",
-                     filterable: {
-                         cell: {
-                             operator: "contains",
-                             showOperators: false,
-                             template: function (e) {
-                                 e.element.addClass("k-textbox").css("width", "100%")
-                             }
-                         }
-                     },
-                     headerAttributes: {
-                         style: "text-align: center; font-size: 12px; font-weight:bold",
-                         class: "table-header-cell"
-                     }
-                 },
+                {
+                    field: "TaiKhoan",
+                    title: "Tên tài khoản",
+                    width: "100px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
+                {
+                    field: "TenChiNhanh",
+                    title: "Chi nhánh",
+                    width: "100px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
                 {
                     field: "Email",
                     title: "Email",
@@ -159,7 +177,7 @@
         });
         $("#window").kendoWindow({
             width: "30%",
-            height: "65%",
+            height: "75%",
             title: "Chi tiết",
             visible: false,
             modal: true,
@@ -186,6 +204,22 @@
             $("#ComboQuyen").kendoComboBox({
                 dataTextField: "text",
                 dataValueField: "value",
+                filter: "contains",
+                suggest: true,
+                delay: 1000,
+                dataSource: dataSource
+            })
+        });
+        $.ajax({
+            url: '/User/GetAllChiNhanh',
+            type: 'GET',
+        }).done(function successCallback(response) {
+            var dataSource = new kendo.data.DataSource({
+                data: response,
+            });
+            $("#ComboChiNhanh").kendoComboBox({
+                dataTextField: "TenChiNhanh",
+                dataValueField: "ID",
                 filter: "contains",
                 suggest: true,
                 delay: 1000,
@@ -221,6 +255,7 @@
                 $("#DienThoai").val(response.DienThoai);
                 $("#DiaChi").val(response.DiaChi);
                 $("#MatKhau").val(response.MatKhau);
+                $("#ComboChiNhanh").data("kendoComboBox").value(response.ID_ChiNhanh);
             });
             if ($(window).width() > 800) {
                 $("#window").data("kendoWindow").center().open();
@@ -253,6 +288,7 @@
     }
 
     function ThemMoi() {
+        Huy();
         if ($(window).width() > 800) {
             $("#window").data("kendoWindow").center().open();
         } else {
@@ -262,6 +298,7 @@
 
     function openPhanQuyen(id) {
         $("#ID_TaiKhoan").val(id);
+        GetQuyen();
         if ($(window).width() > 800) {
             $("#windowPhanQuyen").data("kendoWindow").center().open();
         } else {
@@ -273,8 +310,9 @@
         var validtk = SetValidate("TenTaiKhoan");
         var validten = SetValidate("TenDayDu");
         var validmk = SetValidate("MatKhau");
-        var validemail = SetValidate("Email");
-        var valid = validtk && validten && validmk && validemail
+        //var validemail = SetValidate("Email");
+        var validchinhanh = SetValidate("ComboChiNhanh");
+        var valid = validtk && validten && validmk && validchinhanh
         if (valid) {
             $.ajax({
                 url: '/User/CreateOrUpdate',
@@ -287,6 +325,7 @@
                     DienThoai: $("#DienThoai").val(),
                     MatKhau: $("#MatKhau").val(),
                     DiaChi: $("#DiaChi").val(),
+                    ID_ChiNhanh: $("#ComboChiNhanh").data("kendoComboBox").value()
                 }
             }).done(function successCallback(response) {
 
@@ -314,6 +353,7 @@
         document.getElementById("formChiTiet").reset();
         $("#ID").val('');
         $("#window").data("kendoWindow").close();
+        $("#grid").data("kendoGrid").clearSelection();
     }
 
     function Xoa() {
@@ -338,10 +378,38 @@
             type: 'POST'
         }).done(function (response) {
             if (response.status) {
+                $("#grid").data("kendoGrid").clearSelection();
                 LoadGridData();
                 notification.show({ kValue: response.msg }, "success");
             } else {
                 notification.show({ kValue: response.msg }, "error");
+            }
+        })
+    }
+
+    function LuuQuyen() {
+        $.ajax({
+            url: '/User/ThemQuyen?ID_TaiKhoan=' + $("#ID_TaiKhoan").val() + "&ID_Quyen=" + $("#ComboQuyen").data("kendoComboBox").value(),
+            type: 'POST'
+        }).done(function (response) {
+            if (response.status) {
+                $("#windowPhanQuyen").data("kendoWindow").close();
+                notification.show({ kValue: response.msg }, "success");
+            } else {
+                notification.show({ kValue: response.msg }, "error");
+            }
+        })
+    }
+
+    function GetQuyen() {
+        $.ajax({
+            url: '/User/GetQuyen?ID_TaiKhoan=' + $("#ID_TaiKhoan").val(),
+            type: 'GET'
+        }).done(function (response) {
+            if (response.ID_Quyen > 0) {
+                $("#ComboQuyen").data("kendoComboBox").value(response.ID_Quyen);
+            } else {
+                $("#ComboQuyen").data("kendoComboBox").value("");
             }
         })
     }
@@ -384,8 +452,13 @@
             <input id="MatKhau" type="password" class="k-textbox input" />
             <span class="fa fa-exclamation-triangle icon"></span>
         </div>
+        <div class="form-group valid" toggle-valid="ComboChiNhanh">
+            <label style="width:100%">Chi nhánh:<span style="color:red">*</span></label>
+            <input id="ComboChiNhanh" type="text" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
         <div class="form-group valid" toggle-valid="Email">
-            <label style="width:100%">Email: <span style="color:red">*</span></label>
+            <label style="width:100%">Email: </label>
             <input id="Email" type="text" class="k-textbox input" />
             <span class="fa fa-exclamation-triangle icon"></span>
         </div>
@@ -401,8 +474,8 @@
 </div>
 <div id="windowPhanQuyen">
     <div class="toolBarMenu">
-        <button class="k-button bg-blue" onclick="Luu()"> <i class="fa fa-plus-square"> Lưu </i></button>
-        <button class="k-button bg-red" onclick="Huy()"> <i class="fa fa-close"> Hủy</i> </button>
+        <button class="k-button bg-blue" onclick="LuuQuyen()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="HuyQuyen()"> <i class="fa fa-close"> Hủy</i> </button>
     </div>
     <div class="form-group">
         <input id="ID_TaiKhoan" type="hidden" />

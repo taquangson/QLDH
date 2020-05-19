@@ -156,7 +156,7 @@
                 width: "100px",
                 template: function (e) {
                     var date = new Date(parseInt(e.ThoiGianVaoLop.replace("/Date(", "").replace(")/", ""), 10))
-                    return kendo.toString(date, "dd/MM/yyyy");
+                    return kendo.toString(date, "dd/MM/yyyy HH:mm");
                 },
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -375,7 +375,7 @@ function TimKiem() {
                     id: "ID"
                 }
             },
-            pageSize: 20
+            pageSize: 50
         });
 
         $("#gridData").data("kendoGrid").setDataSource(dataSource);

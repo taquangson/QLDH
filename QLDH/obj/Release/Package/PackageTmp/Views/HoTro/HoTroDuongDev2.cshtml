@@ -104,9 +104,7 @@
                             let L1 = P1 - P2;
                             let C1 = Math.round(L1 * B / 2);
                             let C2 = Math.round(L1 * (B - 1) / 2);
-                            let X1 = P2 + C2;
-                            let X2 = P2 + C1;
-                            sortData = sortData.slice(X1, X2).sort(compareValues('MB', 'desc'));
+                            sortData = sortData.slice(C2, C1).sort(compareValues('MB', 'desc'));
                             let L3 = C1 - C2;
                             let Y1 = Math.round(L3 * 0.3);
                             let Y2 = Math.round(L3 * 0.7);
@@ -168,12 +166,12 @@
                                 value: 1,
                                 lstChild: [
                                     {
-                                        text: "Big",
+                                        text: "Small",
                                         value: 11,
                                         lstChild: null
                                     },
                                     {
-                                        text: "Small",
+                                        text: "Big",
                                         value: 12,
                                         lstChild: null
                                     }
@@ -184,12 +182,12 @@
                                 value: 2,
                                 lstChild: [
                                     {
-                                        text: "Big",
+                                        text: "Small",
                                         value: 21,
                                         lstChild: null
                                     },
                                     {
-                                        text: "Small",
+                                        text: "Big",
                                         value: 22,
                                         lstChild: null
                                     }
@@ -200,12 +198,12 @@
                                 value: 3,
                                 lstChild: [
                                     {
-                                        text: "Big",
+                                        text: "Small",
                                         value: 31,
                                         lstChild: null
                                     },
                                     {
-                                        text: "Small",
+                                        text: "Big",
                                         value: 32,
                                         lstChild: null
                                     }
