@@ -109,4 +109,3 @@ E:\QLDH_git\QLDH\bin\Microsoft.Owin.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.Host.SystemWeb.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.Security.xml
 E:\QLDH_git\QLDH\obj\Debug\QLDH.csproj.ResolveComReference.cache
-E:\QLDH_git\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache
