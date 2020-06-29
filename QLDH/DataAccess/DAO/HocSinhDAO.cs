@@ -67,6 +67,29 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public HocSinhModel GetById(int ID)
+        {
+            HocSinhModel result = new HocSinhModel();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID", ID)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_HocSinh_GetByID",pars);
+                DataTable dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    return GetObjFromDataRow(dt.Rows[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_HocSinh_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+
         public List<HocSinhModel> GetAllBySDT(string SDT)
         {
             List<HocSinhModel> result = new List<HocSinhModel>();
@@ -79,7 +102,12 @@ namespace QLDH.DataAccess.DAO
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
-                    result.Add(GetObjFromDataRow(dr));
+                    HocSinhModel hs = GetObjFromDataRow(dr);
+                    if(hs.NgaySinh.Year == 1)
+                    {
+                        hs.NgaySinh.AddYears(1900);
+                    }
+                    result.Add(hs);
                 }
             }
             catch (Exception ex)

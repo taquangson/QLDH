@@ -70,6 +70,28 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
+        public DiemDanhModel GetById(long ID)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID", ID)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_DiemDanh_GetByID", pars);
+                DataTable dt = ds.Tables[0];
+                DiemDanhModel result = new DiemDanhModel();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result = GetObjFromDataRow(dr);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new DiemDanhModel();
+            }
+        }
+
         public DiemDanhModel GetByHocSinh_NgayGio(int ID_Lop, int ID_HocSinh, DateTime BatDau, DateTime KetThuc)
         {
             try
@@ -95,7 +117,7 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
-        public bool InsertOrUpdate(DiemDanhModel model)
+        public long InsertOrUpdate(DiemDanhModel model)
         {
             try
             {
@@ -107,14 +129,15 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@Ca", model.Ca),
                 new SqlParameter("@CoPhep", model.CoPhep),
                 new SqlParameter("@GhiChu", model.GhiChu),
+                new SqlParameter("@Diem", model.Diem),
                 new SqlParameter("@HocDuoi", model.HocDuoi),
                 new SqlParameter("@ThoiGianVaoLop", model.ThoiGianVaoLop != null ? model.ThoiGianVaoLop : DateTime.Now)
                 };
 
-                int rowaff = helper.ExecuteNonQuery("sp_DiemDanh_InsertOrUpdate", pars);
-                if (rowaff > 0)
+                object result = helper.ExecuteScalar("sp_DiemDanh_InsertOrUpdate", pars);
+                if (result != null)
                 {
-                    return true;
+                    return long.Parse(result.ToString());
                 }
             }
             catch (Exception ex)
@@ -122,7 +145,7 @@ namespace QLDH.DataAccess.DAO
                 log.Error("sp_DiemDanh_InsertOrUpdate " + ex.Message);
             }
 
-            return false;
+            return 0;
         }
 
         public bool Delete(long ID)

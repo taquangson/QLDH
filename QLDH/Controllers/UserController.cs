@@ -24,6 +24,12 @@ namespace QLDH.Controllers
             return View();
         }
 
+        [SessionExpire]
+        public ActionResult TaiKhoanApp()
+        {
+            return View();
+        }
+
         public class ChangePassModel
         {
             public string TenDayDu { get; set; }
@@ -120,6 +126,14 @@ namespace QLDH.Controllers
             }
         }
 
+        [SessionExpire]
+        public ActionResult GetAllAppUser()
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            List<UserAppModel> result = tk_dao.GetAllUserApp();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetAllChiNhanh()
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();
@@ -172,6 +186,39 @@ namespace QLDH.Controllers
                     return Json(new { status = false, msg = "Email đã được sử dụng" }, JsonRequestBehavior.AllowGet);
                 }
                 if (tk_dao.InsertOrUpdate(model) > 0)
+                {
+                    return Json(new { status = true, msg = "Thêm thông tin thành công" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, msg = "Thêm thông tin thất bại" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult CreateOrUpdate_AppUser(UserAppModel model)
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            if (model.ID > 0)
+            {
+                UserAppModel item = tk_dao.GetAppUserInfoByName(model.UserName);
+                item.ExpriedTime = model.ExpriedTime;
+                item.Status = model.Status;
+                item.EmployeeType = model.EmployeeType;
+                if (tk_dao.InsertOrUpdate_AppUser(item) > 0)
+                {
+                    return Json(new { status = true, msg = "Câp nhật thông tin thành công" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = false, msg = "Câp nhật thông tin thất bại" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                if (tk_dao.InsertOrUpdate_AppUser(model) > 0)
                 {
                     return Json(new { status = true, msg = "Thêm thông tin thành công" }, JsonRequestBehavior.AllowGet);
                 }

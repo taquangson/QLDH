@@ -219,7 +219,7 @@ namespace QLDH.Controllers
                         giamtru.ID_PhieuHoc = p.ID;
                     }
                     giamtru.Type = 1;
-                    giamtru.ID_PhieuThu = idnew;                    
+                    giamtru.ID_PhieuThu = idnew;
                     ptdao.InsertOrUpdatePhuThuGiamTru(giamtru);
                 }
             }
@@ -228,10 +228,95 @@ namespace QLDH.Controllers
 
 
         [SessionModeratorRole]
+        [HttpPost]
+        public ActionResult CreateOrUpdate_Temp(PhieuThuModel model)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            PhieuHocDAO phdao = new PhieuHocDAO();
+            int ID_PhieuThu = model.ID;
+            if (model.lstPhuThu == null)
+            {
+                model.lstPhuThu = new List<PhuThuGiamTruModel>();
+            }
+            if (model.lstGiamTru == null)
+            {
+                model.lstGiamTru = new List<PhuThuGiamTruModel>();
+            }
+            if (model.lstPhieuHoc == null)
+            {
+                model.lstPhieuHoc = new List<PhieuHocModel>();
+            }
+
+
+
+            model.ID_NhanVien = userinfor.ID;
+            model.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+            model.MaPhieu = "PTDHTT-" + DateTime.Now.ToString("yyyyMMddhhmmss");
+            int idnew = ptdao.InsertOrUpdatePhieuThuTemp(model);
+            ID_PhieuThu = idnew;
+            foreach (PhieuHocModel ph in model.lstPhieuHoc)
+            {
+                ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                ph.ID_NhanVien = userinfor.ID;
+                ph.ID_PhieuThu = idnew;
+                ph.NamHoc = ph.NamHoc;
+                int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
+                ph.SoBuoiDaHoc = count;
+                phdao.InsertOrUpdateTemp(ph);
+            }
+            foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)
+            {
+                phuthu.Type = 0;
+                phuthu.ID_PhieuThu = idnew;
+                ptdao.InsertOrUpdatePhuThuGiamTruTemp(phuthu);
+            }
+            foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)
+            {
+                if (giamtru.ID_PhieuHoc == 0)
+                {
+                    PhieuHocModel p = new PhieuHocModel();
+                    p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 0);
+                    if (p.ID != 0)
+                    {
+
+                    }
+                    else
+                    {
+                        p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 1);
+                    }
+                    giamtru.ID_PhieuHoc = p.ID;
+                }
+                giamtru.Type = 1;
+                giamtru.ID_PhieuThu = idnew;
+                ptdao.InsertOrUpdatePhuThuGiamTruTemp(giamtru);
+            }
+
+
+
+            return Json(new { status = true, msg = "Lưu dữ liệu tạm tính thành công", ID_Phieu = ID_PhieuThu }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [SessionModeratorRole]
         public ActionResult GetbyHocSinh(int ID_HocSinh)
         {
             PhieuThuDAO ptdao = new PhieuThuDAO();
             return Json(ptdao.GetAllByHocSinh(ID_HocSinh), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionModeratorRole]
+        public ActionResult GetTempbyHocSinh(int ID_HocSinh)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            return Json(ptdao.GetAllTempByHocSinh(ID_HocSinh), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionModeratorRole]
+        public ActionResult GetTempbyID(int ID)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            return Json(ptdao.GetTempById(ID), JsonRequestBehavior.AllowGet);
         }
 
         public class InPhieuModel
@@ -250,6 +335,17 @@ namespace QLDH.Controllers
             InPhieuModel model = new InPhieuModel();
             model.PhieuThu = pt;
             model.TaiKhoan = userinfor;
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ThongBaoHocPhi(int ID_PhieuThu)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            PhieuThuModel pt = ptdao.GetTempById(ID_PhieuThu);
+            InPhieuModel model = new InPhieuModel();
+            model.PhieuThu = pt;
+            model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);
             return View(model);
         }
 

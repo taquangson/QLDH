@@ -109,8 +109,6 @@ E:\QLDH_git\QLDH\bin\Microsoft.Owin.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.Host.SystemWeb.xml
 E:\QLDH_git\QLDH\bin\Microsoft.Owin.Security.xml
 E:\QLDH_git\QLDH\obj\Debug\QLDH.csproj.ResolveComReference.cache
-<<<<<<< HEAD
-=======
 E:\QLDH_git\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache
 C:\Users\quang\Source\Repos\qldh\QLDH\obj\Debug\QLDH.csproj.ResolveComReference.cache
 C:\Users\quang\Source\Repos\qldh\QLDH\obj\Debug\QLDH.csproj.CoreCompileInputs.cache
@@ -183,4 +181,27 @@ C:\Users\quang\Source\Repos\qldh\QLDH\bin\System.Net.Http.Formatting.xml
 C:\Users\quang\Source\Repos\qldh\QLDH\bin\System.Web.Http.xml
 C:\Users\quang\Source\Repos\qldh\QLDH\bin\System.Web.Http.WebHost.xml
 C:\Users\quang\Source\Repos\qldh\QLDH\obj\Debug\QLDH.csproj.CopyComplete
->>>>>>> 9a0a74847cec9c045683b51200861351e534b693
+C:\Users\quang\source\repos\qldh\QLDH\bin\FirebaseAdmin.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Api.Gax.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Api.Gax.Rest.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Auth.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Auth.PlatformServices.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Core.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.PlatformServices.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\System.Collections.Immutable.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\System.Interactive.Async.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\FirebaseAdmin.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Api.Gax.pdb
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Api.Gax.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Api.Gax.Rest.pdb
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Api.Gax.Rest.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.pdb
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Auth.pdb
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Auth.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Core.pdb
+C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Core.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\System.Collections.Immutable.xml
+C:\Users\quang\source\repos\qldh\QLDH\bin\System.Interactive.Async.xml
+C:\Users\quang\source\repos\qldh\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache

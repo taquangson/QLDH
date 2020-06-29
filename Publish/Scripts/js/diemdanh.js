@@ -69,6 +69,52 @@
                 }
             })
         },
+        save: function (e) {
+            if (e.values.GhiChu) {
+                if (e.model.ID_DiemDanh > 0) {
+                    $.ajax({
+                        url: '/DiemDanh/UpdateGhiChuDiemDanh',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            ID: e.model.ID_DiemDanh,
+                            GhiChu: e.values.GhiChu,
+                            Diem: e.model.Diem
+                        }),
+                        contentType: "application/json; charset=utf-8"
+                    }).done(function successCallback(response) {
+                        if (typeof response == "string") {
+                            location.reload(true);
+                        }
+                    })
+                }
+                e.model.GhiChu = e.values.GhiChu;
+                //e.model.Diem = e.values.Diem;
+            }
+            else if (e.values.Diem) {
+                if (e.model.ID_DiemDanh > 0) {
+                    console.log(e.values.Diem);
+                    $.ajax({
+                        url: '/DiemDanh/UpdateGhiChuDiemDanh',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            ID: e.model.ID_DiemDanh,
+                            GhiChu: e.model.GhiChu,
+                            Diem: e.values.Diem
+                        }),
+                        contentType: "application/json; charset=utf-8"
+                    }).done(function successCallback(response) {
+                        if (typeof response == "string") {
+                            location.reload(true);
+                        }
+                    })
+                }
+                //e.model.GhiChu = e.values.GhiChu;
+                e.model.Diem = e.values.Diem;
+            }
+            setTimeout(function () {
+                e.sender.refresh();
+            })
+        },
         columns: [
             {
                 title: "STT",
@@ -98,10 +144,10 @@
                     }
                     else {
                         if (e.ID_DiemDanh > 0 && e.CoPhep == 0) {
-                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" checked="checked" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
                         } else {
-                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
                         }
                     }
@@ -123,10 +169,10 @@
                     }
                     else {
                         if (e.ID_DiemDanh > 0 && e.CoPhep == -1) {
-                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" checked="checked" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
                         } else {
-                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
                         }
                     }
@@ -148,10 +194,10 @@
                     }
                     else {
                         if (e.ID_DiemDanh > 0 && e.CoPhep == 1) {
-                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" checked="checked" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
                         } else {
-                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
                         }
                     }
@@ -222,6 +268,30 @@
                 width: "100px",
                 editor: function (container, options) {
                     $('<textarea row="2" class="k-textbox" style="width:100%;border:none" name="' + options.field + '"></textarea').appendTo(container);
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: left;white-space:pre-wrap",
+                }
+            },
+            {
+                field: "Diem",
+                title: "Điểm kiểm tra",
+                width: "100px",
+                editor: function (container, options) {
+                    $('<input lass="k-textbox" type="number" step="0.1" style="width:100%" name="' + options.field + '"></textarea').appendTo(container);
                 },
                 filterable: {
                     cell: {
@@ -447,6 +517,7 @@ function LoadHocSinhTrongLop(id) {
                                 type: 'date', editable: false
                             },
                             GhiChu: { type: 'text', editable: true },
+                            Diem: { type: 'text', editable: true },
                             TenHocSinh: { type: 'text', editable: false },
                             DienThoaiMacDinh: { type: 'text', editable: false },
                         }
@@ -461,20 +532,23 @@ function LoadHocSinhTrongLop(id) {
     }
 }
 
-function DiemDanh(ID_HocSinh, HocDuoi) {
+function DiemDanh(ID_HocSinh, HocDuoi, GhiChu, Diem) {
     kendo.ui.progress($("#gridDiemDanh"), true);
+    let data = {
+        ID: 0,
+        ID_Lop: $("#comboLop").data("kendoComboBox").value(),
+        ID_HocSinh: ID_HocSinh,
+        CoPhep: 0,
+        Diem: Diem,
+        GhiChu: GhiChu == "null" ? "" : GhiChu,
+        HocDuoi: HocDuoi ? 1 : 0,
+        Ca: $("#comboCa").data("kendoComboBox").value()
+    }
     $.ajax({
         url: '/DiemDanh/DiemDanhHocSinh',
         type: 'POST',
-        data: {
-            ID: 0,
-            ID_Lop: $("#comboLop").data("kendoComboBox").value(),
-            ID_HocSinh: ID_HocSinh,
-            CoPhep: 0,
-            GhiChu: '',
-            HocDuoi: HocDuoi ? 1 : 0,
-            Ca: $("#comboCa").data("kendoComboBox").value()
-        }
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8"
     }).done(function successCallback(response) {
         if (typeof response == "string") {
             location.reload(true);
@@ -484,20 +558,23 @@ function DiemDanh(ID_HocSinh, HocDuoi) {
         kendo.ui.progress($("#gridDiemDanh"), false);
     })
 }
-function CoPhep(ID_HocSinh, HocDuoi) {
+function CoPhep(ID_HocSinh, HocDuoi, GhiChu, Diem) {
     kendo.ui.progress($("#gridDiemDanh"), true);
+    let data = {
+        ID: 0,
+        ID_Lop: $("#comboLop").data("kendoComboBox").value(),
+        ID_HocSinh: ID_HocSinh,
+        CoPhep: 1,
+        Diem: Diem,
+        GhiChu: GhiChu == "null" ? "" : GhiChu,
+        HocDuoi: HocDuoi ? 1 : 0,
+        Ca: $("#comboCa").data("kendoComboBox").value()
+    };
     $.ajax({
         url: '/DiemDanh/DiemDanhHocSinh',
         type: 'POST',
-        data: {
-            ID: 0,
-            ID_Lop: $("#comboLop").data("kendoComboBox").value(),
-            ID_HocSinh: ID_HocSinh,
-            CoPhep: 1,
-            GhiChu: '',
-            HocDuoi: HocDuoi ? 1 : 0,
-            Ca: $("#comboCa").data("kendoComboBox").value()
-        }
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8"
     }).done(function successCallback(response) {
         if (typeof response == "string") {
             location.reload(true);
@@ -512,20 +589,23 @@ function CoPhep(ID_HocSinh, HocDuoi) {
     })
 
 }
-function VangMat(ID_HocSinh, HocDuoi) {
+function VangMat(ID_HocSinh, HocDuoi, GhiChu, Diem) {
     kendo.ui.progress($("#gridDiemDanh"), true);
+    let data = {
+        ID: 0,
+        ID_Lop: $("#comboLop").data("kendoComboBox").value(),
+        ID_HocSinh: ID_HocSinh,
+        CoPhep: -1,
+        Diem: Diem,
+        GhiChu: GhiChu == "null" ? "" : GhiChu,
+        HocDuoi: HocDuoi ? 1 : 0,
+        Ca: $("#comboCa").data("kendoComboBox").value()
+    };
     $.ajax({
         url: '/DiemDanh/DiemDanhHocSinh',
         type: 'POST',
-        data: {
-            ID: 0,
-            ID_Lop: $("#comboLop").data("kendoComboBox").value(),
-            ID_HocSinh: ID_HocSinh,
-            CoPhep: -1,
-            GhiChu: '',
-            HocDuoi: HocDuoi ? 1 : 0,
-            Ca: $("#comboCa").data("kendoComboBox").value()
-        }
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8"
     }).done(function successCallback(response) {
         if (typeof response == "string") {
             location.reload(true);

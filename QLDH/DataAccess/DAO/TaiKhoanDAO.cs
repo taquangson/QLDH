@@ -238,8 +238,8 @@ namespace QLDH.DataAccess.DAO
             return false;
         }
 
-        
-        public bool CheckLogin_App(string UserName, string Password, string Current_Imei, string Current_Device,string NotifyID)
+
+        public bool CheckLogin_App(string UserName, string Password, string Current_Imei, string Current_Device, string NotifyID)
         {
             try
             {
@@ -250,7 +250,7 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@Current_Device", Current_Device),
                 new SqlParameter("@NotifyID", NotifyID)
                 };
-                object id = helper.ExecuteScalar("sp_TaiKhoan_CheckLoginApp", pars);                
+                object id = helper.ExecuteScalar("sp_TaiKhoan_CheckLoginApp", pars);
                 if (id != null)
                 {
                     return true;
@@ -306,6 +306,48 @@ namespace QLDH.DataAccess.DAO
             return null;
         }
 
+        public List<UserAppModel> GetAllUserApp()
+        {
+            List<UserAppModel> result = new List<UserAppModel>();
+            try
+            {
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoanApp_GetAll");
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    UserAppModel t = GetAppObjFromDataRow(dr);
+                    result.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+
+        public bool ChangeAppUserPassword(string Username, string Password)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                    new SqlParameter("@Username", Username),
+                new SqlParameter("@Password", Password)
+                };
+                int ds = helper.ExecuteNonQuery("sp_TaiKhoanApp_GChangeAppUserPassword", pars);
+                if (ds > 0)
+                    return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_GChangeAppUserPassword " + ex.Message);
+            }
+
+            return false;
+        }
+
 
         public TaiKhoanModel GetById(int ID)
         {
@@ -355,6 +397,32 @@ namespace QLDH.DataAccess.DAO
 
             return 0;
         }
+        public int InsertOrUpdate_AppUser(UserAppModel model)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID", model.ID),
+                new SqlParameter("@UserName", model.UserName),
+                new SqlParameter("@Status", model.Status),
+                new SqlParameter("@EmployeeType", model.EmployeeType),
+                new SqlParameter("@ExpriedTime", model.ExpriedTime)
+                };
+
+                object id = helper.ExecuteScalar("sp_TaiKhoanApp_InsertOrUpdate", pars);
+                if (id != null)
+                {
+                    return int.Parse(id.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_InsertOrUpdate " + ex.Message);
+            }
+
+            return 0;
+        }
+
 
         public int LockOrUnlock(int ID, int TrangThai)
         {

@@ -16,6 +16,10 @@
     .xanh {
         background-color: #78ff51;
     }
+
+    .k-dialog-buttongroup .k-button {
+        width: 50%;
+    }
 </style>
 <div id="rootContainer" style="display:none">
     <div id="dialogRoot"></div>
@@ -33,9 +37,13 @@
 
 <div id="windowLapPhieuThu">
     <div class="toolBarMenu">
-        @*<button class="k-button bg-blue" onclick="LuuPhieuThu()"> <i class="fa fa-plus-square"> Lưu </i></button>*@
-        <button class="k-button bg-green" onclick="LuuPhieuThu()"> <i class="fa fa-print"> In </i></button>
+        <button class="k-button bg-green" onclick="TaoPhieuThu()"> <i class="fa fa-print"> In </i></button>
+        <button class="k-button bg-blue" onclick="LuuTamTinh()"> <i class="fa fa-plus-square"> Lưu tạm tính</i></button>
+        <button class="k-button bg-blue" onclick="ThongBaoHocPhi()"> <i class="fa fa-paper-plane"> Gửi thông báo học phí</i></button>
         <button class="k-button bg-red" onclick="HuyPhieuThu()"> <i class="fa fa-close"> Hủy </i> </button>
+        <div style="float:right">
+            <span style="color:#3e835a">Phiếu tạm tính: </span><div style="width:300px;" id="combotamtinh"></div>
+        </div>
     </div>
     <div style="width:100%">
         <div style="width:63%;float:left;margin-left:2%">
@@ -55,7 +63,7 @@
                 </div>
                 <div style="width:25%;float:left">
                     <label style="width:100%">Khách đưa:</label>
-                    <input id="KhachDua"/>
+                    <input id="KhachDua" />
                 </div>
                 <div style="width:25%;float:left">
                     <label style="width:100%">Trả lại:</label>

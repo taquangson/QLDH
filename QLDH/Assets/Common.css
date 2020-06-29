@@ -43,7 +43,7 @@ body {
 }
 
 .table-header-cell.k-header {
-    background: #950101;
+    background: #2a3f54;
     color: white !important;
     min-height: 23px !important;
     font-weight: bold !important;
@@ -52,7 +52,7 @@ body {
 }
 
 .table-header-cell-checkbox.k-header {
-    background: #950101;
+    background: #2a3f54;
     color: white !important;
     min-height: 23px !important;
     font-weight: bold !important;
@@ -481,4 +481,31 @@ input:read-only {
 .k-grid-content {
     font-size: 11px;
     font-family: Tahoma;
+}
+
+/*CSS Xa Lánh*/
+
+
+.table-header-cell-checkbox.k-header {
+    background: #5e987b;
+    color: white !important;
+    min-height: 23px !important;
+    font-weight: bold !important;
+    line-height: 20px;
+}
+.table-header-cell.k-header {
+    background: #5e987b;
+    color: white !important;
+    min-height: 23px !important;
+    font-weight: bold !important;
+    line-height: 20px;
+    text-align: center;
+}
+.k-window-titlebar.k-header {
+    background: linear-gradient(#3e9661, #8ac3a6);
+    color: white !important;
+    min-height: 23px !important;
+    font-weight: bold !important;
+    line-height: 20px;
+    /* margin-bottom: 10px; */
 }

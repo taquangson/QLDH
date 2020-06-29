@@ -2,12 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\QLDH",
-    "\\QLDH\\Controllers",
     "\\QLDH\\DataAccess",
     "\\QLDH\\DataAccess\\DAO",
     "\\QLDH\\Scripts",
-    "\\QLDH\\Scripts\\js"
+    "\\QLDH\\Scripts\\js",
+    "\\QLDH\\Scripts\\js\\baocao_js",
+    "\\QLDH\\Views",
+    "\\QLDH\\Views\\PhieuThu",
+    "\\QLDH\\Views\\ThongBaoApp"
   ],
-  "SelectedNode": "\\QLDH\\Controllers\\AppController.cs",
+  "SelectedNode": "\\QLDH\\Scripts\\js\\phieuthu.js",
   "PreviewInSolutionExplorer": false
 }

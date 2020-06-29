@@ -81,6 +81,8 @@ namespace QLDH.Controllers
                         hs.DaMuaPhieu = false;
                     }
                     hs.ID_DiemDanh = dd.ID;
+                    hs.GhiChu = dd.GhiChu;
+                    hs.Diem = dd.Diem;
                     hs.CoPhep = dd.CoPhep;
                     hs.QuaGioDiemDanh = quagio;
                 }
@@ -155,6 +157,7 @@ namespace QLDH.Controllers
             CaHocDAO chdao = new CaHocDAO();
             CaHocModel ca = chdao.GetByID(d.Ca);
             d.ThoiGianVaoLop = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 30, 0);
+            long iddiemdanh = 0;
             //DateTime ketthuc = DateTime.Now;
             //switch (d.Ca)
             //{
@@ -196,7 +199,8 @@ namespace QLDH.Controllers
             PhieuHocModel phmodel = phd.GetByHocSinh_Thang_Nam(d.ID_HocSinh, d.ID_Lop, DateTime.Now.Month, DateTime.Now.Year, d.HocDuoi);
             if (diemdanhcu.ID == 0)
             {
-                if (ddao.InsertOrUpdate(d))
+                iddiemdanh = ddao.InsertOrUpdate(d);
+                if (iddiemdanh > 0)
                 {
                     DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                     if (d.CoPhep != 1)
@@ -228,7 +232,8 @@ namespace QLDH.Controllers
                 }
                 else
                 {
-                    if (ddao.InsertOrUpdate(d))
+                    iddiemdanh = ddao.InsertOrUpdate(d);
+                    if (iddiemdanh > 0)
                     {
                         DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                         if (d.CoPhep == 1)
@@ -256,8 +261,19 @@ namespace QLDH.Controllers
                     }
                 }
             }
-            return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = true, msg = "Lưu dữ liệu thành công", id = iddiemdanh }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpPost]
+        public ActionResult UpdateGhiChuDiemDanh(DiemDanhModel d)
+        {
+            DiemDanhDAO ddao = new DiemDanhDAO();
+            DiemDanhModel diemdanhcu = ddao.GetById(d.ID);
+            diemdanhcu.GhiChu = d.GhiChu;
+            diemdanhcu.Diem = d.Diem;
+            ddao.InsertOrUpdate(diemdanhcu);
+            return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
         }
 
         [SessionAdminRole]
@@ -267,6 +283,7 @@ namespace QLDH.Controllers
             DiemDanhDAO ddao = new DiemDanhDAO();
             CaHocDAO chdao = new CaHocDAO();
             CaHocModel ca = chdao.GetByID(d.Ca);
+            long iddiemdanh = 0;
             d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + ca.GioBatDau + new TimeSpan(0, 30, 0);
             //DateTime batdau = d.ThoiGianVaoLop;
             //DateTime ketthuc = d.ThoiGianVaoLop;
@@ -306,7 +323,8 @@ namespace QLDH.Controllers
             PhieuHocModel phmodel = phd.GetByHocSinh_Thang_Nam(d.ID_HocSinh, d.ID_Lop, d.ThoiGianVaoLop.Month, d.ThoiGianVaoLop.Year, d.HocDuoi);
             if (diemdanhcu.ID == 0)
             {
-                if (ddao.InsertOrUpdate(d))
+                iddiemdanh = ddao.InsertOrUpdate(d);
+                if (iddiemdanh > 0)
                 {
                     DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                     if (d.CoPhep != 1)
@@ -338,7 +356,8 @@ namespace QLDH.Controllers
                 }
                 else
                 {
-                    if (ddao.InsertOrUpdate(d))
+                    iddiemdanh = ddao.InsertOrUpdate(d);
+                    if (iddiemdanh > 0)
                     {
                         DiemDanhHub.updateDiemDanh(d.ID_Lop, userinfor.TenDayDu, d.Ca);
                         if (d.CoPhep == 1)

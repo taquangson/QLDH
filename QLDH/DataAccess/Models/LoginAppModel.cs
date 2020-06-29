@@ -15,5 +15,8 @@ namespace QLDH.DataAccess.Models
         public string Current_Device { get; set; }
         public int EmployeeType { get; set; }
         public string NotifyID { get; set; }
+        public int Status { get; set; }
+        public DateTime ExpriedTime { get; set; }
+        public DateTime Last_LoginTime { get; set; }
     }
 }

@@ -210,6 +210,14 @@ namespace QLDH.DataAccess.DAO
             public int ID_PhieuHoc { get; set; }
             public List<int> LichHoc { get; set; }
         }
+
+        public class BaoCaoSoBuoiHoc_HocSinh_ThangModel_ByDate
+        {
+            public int Thang { get; set; }
+            public int Nam { get; set; }
+            public List<BaoCaoSoBuoiHoc_HocSinh_ThangModel> data { get; set; }
+        }
+
         private BaoCaoSoBuoiHoc_HocSinh_ThangModel GetBaoCaoSoBuoiHoc_HocSinh_ThangModelFromDataRow(DataRow dr)
         {
             BaoCaoSoBuoiHoc_HocSinh_ThangModel obj = new BaoCaoSoBuoiHoc_HocSinh_ThangModel();

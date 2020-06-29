@@ -47,6 +47,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FirebaseAdmin, Version=1.12.0.0, Culture=neutral, PublicKeyToken=97c8d00c348326ed, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebaseAdmin.1.12.0\lib\net45\FirebaseAdmin.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax, Version=2.7.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.2.7.0\lib\net45\Google.Api.Gax.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax.Rest, Version=2.7.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.Rest.2.7.0\lib\net45\Google.Api.Gax.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.40.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.40.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.40.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.40.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.40.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.40.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.40.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.40.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.40.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.40.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -83,14 +107,23 @@
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.5.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Interactive.Async, Version=3.2.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.2.0\lib\net45\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -153,9 +186,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Formatting">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -181,6 +211,7 @@
     <Compile Include="Controllers\ChucNangController.cs" />
     <Compile Include="Controllers\DanhMucController.cs" />
     <Compile Include="Controllers\DiemDanhController.cs" />
+    <Compile Include="Controllers\FBNotificationController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HoTroController.cs" />
@@ -189,9 +220,13 @@
     <Compile Include="Controllers\PhieuHocController.cs" />
     <Compile Include="Controllers\PhieuThuController.cs" />
     <Compile Include="Controllers\PhongBanController.cs" />
+    <Compile Include="Controllers\ThongBaoAppController.cs" />
+    <Compile Include="Controllers\TinNhanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
+    <Compile Include="DataAccess\DAO\LichSuThongBaoDAO.cs" />
+    <Compile Include="DataAccess\DAO\ThongBaoAppDAO.cs" />
     <Compile Include="DataAccess\DAO\TinNhanDAO.cs" />
     <Compile Include="DataAccess\DAO\XinNghiPhepDAO.cs" />
     <Compile Include="DataAccess\DAO\DangKyHocDAO.cs" />
@@ -224,6 +259,7 @@
     <Compile Include="DataAccess\Helper\DataHelper.cs" />
     <Compile Include="DataAccess\Models\DanhMucLoiModel.cs" />
     <Compile Include="DataAccess\Models\LichHocModel.cs" />
+    <Compile Include="DataAccess\Models\LichSuThongBaoModel.cs" />
     <Compile Include="DataAccess\Models\LoginAppModel.cs" />
     <Compile Include="DataAccess\Models\LopHocModel.cs" />
     <Compile Include="DataAccess\Models\Lop_HocSinhModel.cs" />
@@ -236,6 +272,7 @@
     <Compile Include="DataAccess\Models\SoDuBuoiHocModel.cs" />
     <Compile Include="DataAccess\Models\SortByMarketcapModel.cs" />
     <Compile Include="DataAccess\Models\TaiKhoanModel.cs" />
+    <Compile Include="DataAccess\Models\ThongBaoAppModel.cs" />
     <Compile Include="DataAccess\Models\TinNhanModel.cs" />
     <Compile Include="DataAccess\Models\XinNghiPhepModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -617,7 +654,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\danhsachloptheogiaovien.css" />
     <Content Include="Content\login.css" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\AnhDiemDanh\2019-8-26-144get-up-client-wants-more-changes-please-let-me-die-40938494.png" />
@@ -639,7 +675,9 @@
     <Content Include="Images\bbg.jpg" />
     <Content Include="Images\computer-folder-icon.jpg" />
     <Content Include="Images\img.jpg" />
+    <Content Include="Images\img.png" />
     <Content Include="Images\logodh.jpg" />
+    <Content Include="Images\logodh.png" />
     <Content Include="Images\new-folder-add.png" />
     <Content Include="Images\SoDoLop\20190030050012Emerald5.jpg" />
     <Content Include="Images\SoDoLop\20190930050904Emerald12.jpg" />
@@ -653,6 +691,7 @@
     <Content Include="Images\SoDoLop\20194930044959Emerald6.jpg" />
     <Content Include="Images\SoDoLop\20195930045906Emerald5.jpg" />
     <Content Include="Images\SoDoLop\Emerald6.jpg" />
+    <Content Include="img_OX2_icon.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Assets\vendors\bootstrap\.bower.json" />
@@ -873,7 +912,8 @@
     <Content Include="Assets\kendo\styles\kendo.uniform.min.css.map" />
     <Content Include="Assets\kendo\styles\kendo.uniform.mobile.min.css.map" />
     <Content Include="log4net.config" />
-    <None Include="Properties\PublishProfiles\Publish_QLDH.pubxml" />
+    <Content Include="Assets\serviceAccount.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -896,6 +936,7 @@
     <Content Include="Scripts\js\quanlydulieudiemdanh.js" />
     <Content Include="Scripts\js\phieuhoc.js" />
     <Content Include="Scripts\js\diemdanh.js" />
+    <Content Include="Scripts\js\quanlythongbaoapp.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -938,12 +979,16 @@
     <Content Include="Views\BaoCao\BaoCaoHocSinhNoPhieu.cshtml" />
     <Content Include="Views\HoTro\HoTroDuongDe.cshtml" />
     <Content Include="Views\HoTro\HoTroDuongDev2.cshtml" />
+    <Content Include="Views\ThongBaoApp\Index.cshtml" />
+    <Content Include="Views\TinNhan\Index.cshtml" />
+    <Content Include="Views\User\TaiKhoanApp.cshtml" />
+    <Content Include="Views\PhieuThu\ThongBaoHocPhi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\AnhHocSinh\" />
+    <Folder Include="Images\AnhThongBao\" />
     <Folder Include="Images\HoTro\" />
-    <Folder Include="Views\BaiKiemTra\" />
-    <Folder Include="Views\ChucNang\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

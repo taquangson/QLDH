@@ -51,6 +51,15 @@ namespace QLDH.Controllers
 
         [SessionExpire]
         [HttpGet]
+        public ActionResult GetByTaiKhoan(string TaiKhoan)
+        {
+            HocSinhDAO hsdao = new HocSinhDAO();
+            List<HocSinhModel> result = hsdao.GetAllBySDT(TaiKhoan);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
         public ActionResult GetByLop(int ID_Lop)
         {
             HocSinhDAO hsdao = new HocSinhDAO();

@@ -14,6 +14,7 @@ namespace QLDH.DataAccess.Models
         public int ID_NhanVien { get; set; }
         public int CoPhep { get; set; } // -1: Nghỉ ko phép; 0: Có mặt; 1: Nghỉ có phép
         public string GhiChu { get; set; }
+        public double Diem { get; set; }
         public int HocDuoi { get; set; }
         public int Ca { get; set; }
     }

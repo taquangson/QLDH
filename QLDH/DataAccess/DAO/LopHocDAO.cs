@@ -98,6 +98,7 @@ namespace QLDH.DataAccess.DAO
         public List<LopHocModel> GetByGiaoVien(int ID_GiaoVien)
         {
             List<LopHocModel> result = new List<LopHocModel>();
+            LichHocDAO lich = new LichHocDAO();
             try
             {
                 SqlParameter[] pars = new SqlParameter[]{
@@ -107,7 +108,9 @@ namespace QLDH.DataAccess.DAO
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
-                    result.Add(GetObjFromDataRow(dr));
+                    LopHocModel lop = GetObjFromDataRow(dr);
+                    lop.lstLichHoc = lich.GetByLop(lop.ID);
+                    result.Add(lop);
                 }
             }
             catch (Exception ex)

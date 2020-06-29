@@ -334,10 +334,10 @@
             $("#ID").val(selectedItem.ID);
             $("#TenHocSinh").val(selectedItem.TenHocSinh);
             $("#DiaChi").val(selectedItem.DiaChi);
-            $("#PhuHuynh").val(selectedItem.PhuHuynh);
             $("#DienThoai1").val(selectedItem.DienThoai1);
             $("#DienThoai2").val(selectedItem.DienThoai2);
             $("#DienThoai3").val(selectedItem.DienThoai3);
+            $("#PhuHuynh").val(selectedItem.PhuHuynh);
             $("#TruongHoc").data("kendoComboBox").value(selectedItem.ID_Truong);
             $("#GioiTinh").data("kendoComboBox").value(selectedItem.GioiTinh);
             $("#NgaySinh").data("kendoDatePicker").value(toDate(selectedItem.NgaySinh));
@@ -389,8 +389,8 @@
 
     function Luu() {
         var validten = SetValidate("TenHocSinh");
-        var validphuhuynh = SetValidate("PhuHuynh");
-        var valid = validten && validphuhuynh;
+        var validdienthoai = SetValidate("DienThoai1");
+        var valid = validten && validdienthoai;
         if (valid) {
             $.ajax({
                 url: '/HocSinh/CreateOrUpdate',
@@ -683,14 +683,15 @@
             <textarea id="DiaChi" type="text" placeholder="Địa chỉ" style="width:100%" class="k-textbox"></textarea>
         </div>
         <div class="form-group">
-            <label style="width:100%">Phụ huynh:<span style="color:red">*</span></label>
+            <label style="width:100%">Phụ huynh:</label>
             <input id="PhuHuynh" placeholder="Tên phụ huynh học sinh" type="text" style="width:100%" class="k-textbox" />
         </div>
-        <div class="form-group">
-            <label style="width:100%">Điện thoại liên hệ:</label>
-            <input id="DienThoai1" type="text" placeholder="Số điện thoại 1" style="width:32.3%" class="k-textbox" />
+        <div class="form-group valid" toggle-valid="DienThoai1">
+            <label style="width:100%">Điện thoại liên hệ: <span style="color:red">*</span></label>
+            <input id="DienThoai1" type="text" placeholder="Số điện thoại 1" style="width:32.3%" class="k-textbox input" />
             <input id="DienThoai2" type="text" placeholder="Số điện thoại 2" style="width:32.3%" class="k-textbox" />
             <input id="DienThoai3" type="text" placeholder="Số điện thoại 3" style="width:32.3%" class="k-textbox" />
+            <span class="fa fa-exclamation-triangle icon"></span>
         </div>
     </form>
 </div>
