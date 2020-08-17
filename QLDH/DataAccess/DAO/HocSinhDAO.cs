@@ -164,6 +164,32 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<HocSinhModel> GetByBoLocTinNhan(int ID_Lop, int NamSinh, string DienThoai, int Loai)
+        {
+            List<HocSinhModel> result = new List<HocSinhModel>();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop),
+                new SqlParameter("@NamSinh", NamSinh),
+                new SqlParameter("@DienThoai", DienThoai),
+                new SqlParameter("@Loai", Loai)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_HocSinh_GetByBoLocGuiTin", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_HocSinh_GetByBoLocGuiTin " + ex.Message);
+            }
+
+            return result;
+        }
+
         public List<HocSinhModel> GetNgoaiLop_HocSinh(int ID_Lop)
         {
             List<HocSinhModel> result = new List<HocSinhModel>();

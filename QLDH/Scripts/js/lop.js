@@ -66,7 +66,7 @@ $(document).ready(function () {
         dataBinding: function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
         },
-        excelexcel: {
+        excel: {
             filterable: true
         },
         excelExport: function (e) {

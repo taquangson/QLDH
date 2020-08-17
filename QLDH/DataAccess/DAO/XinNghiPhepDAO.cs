@@ -45,15 +45,16 @@ namespace QLDH.DataAccess.DAO
             }
             return obj;
         }
-        public List<XinNghiPhepModel> GetByLop(int ID_Lop, DateTime Ngay)
+        public List<XinNghiPhepModel> GetByLop(int ID_Lop, DateTime TuNgay, DateTime DenNgay)
         {
             try
             {
                 SqlParameter[] pars = new SqlParameter[] {
                 new SqlParameter("@ID_Lop", ID_Lop),
-                new SqlParameter("@NgayNghi", Ngay)
+                new SqlParameter("@TuNgay", TuNgay),
+                new SqlParameter("@DenNgay", DenNgay)
                 };
-                DataSet ds = helper.ExecuteDataSet("sp_DangKyHoc_GetByLop", pars);
+                DataSet ds = helper.ExecuteDataSet("sp_XinNghiPhep_GetByLop", pars);
                 DataTable dt = ds.Tables[0];
                 List<XinNghiPhepModel> result = new List<XinNghiPhepModel>();
                 foreach (DataRow dr in dt.Rows)

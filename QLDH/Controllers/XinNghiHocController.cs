@@ -1,0 +1,32 @@
+﻿using QLDH.App_Start;
+using QLDH.DataAccess.DAO;
+using QLDH.DataAccess.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+
+namespace QLDH.Controllers
+{
+    public class XinNghiHocController : Controller
+    {
+        [SessionExpire]
+        // GET: XinNghiHoc
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllLichNghi(int ID_Lop, DateTime TuNgay, DateTime DenNgay)
+        {
+            XinNghiPhepDAO lhdao = new XinNghiPhepDAO();
+            return Json(lhdao.GetByLop(ID_Lop, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
+        }
+    }
+}

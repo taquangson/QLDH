@@ -74,6 +74,7 @@ namespace QLDH.Controllers
                         if (p.ID != 0)
                         {
                             p.SoBuoi += phuthu.SoBuoi;
+                            phdao.InsertOrUpdate(p);
                         }
                         else
                         {
@@ -91,12 +92,11 @@ namespace QLDH.Controllers
                             ID_PhieuHoc = phdao.InsertOrUpdate(p);
                         }
                     }
-                    else
-                    {
-                        phuthu.Type = 0;
-                        phuthu.ID_PhieuThu = idnew;
-                        ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
-                    }
+
+                    phuthu.Type = 0;
+                    phuthu.ID_PhieuThu = idnew;
+                    ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
+
 
                 }
                 foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)
@@ -176,6 +176,7 @@ namespace QLDH.Controllers
                         if (p.ID != 0)
                         {
                             p.SoBuoi += phuthu.SoBuoi;
+                            phdao.InsertOrUpdate(p);
                         }
                         else
                         {
@@ -193,12 +194,9 @@ namespace QLDH.Controllers
                             phdao.InsertOrUpdate(p);
                         }
                     }
-                    else
-                    {
-                        phuthu.Type = 0;
-                        phuthu.ID_PhieuThu = idnew;
-                        ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
-                    }
+                    phuthu.Type = 0;
+                    phuthu.ID_PhieuThu = idnew;
+                    ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
 
                 }
 
