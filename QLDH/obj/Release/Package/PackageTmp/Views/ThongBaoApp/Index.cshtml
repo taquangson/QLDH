@@ -67,8 +67,9 @@
         margin: 0 !important;
         width: 100%;
     }
-    .k-dialog-buttongroup .k-button{
-        width:50%;
+
+    .k-dialog-buttongroup .k-button {
+        width: 50%;
     }
 </style>
 <script src="~/Scripts/js/quanlythongbaoapp.js"></script>
@@ -120,13 +121,13 @@
             <div style="margin-top:10px">
                 <div style="width:100%;float:left;margin-bottom:10px;">
                     <label style="width:100%">Tiêu đề:</label>
-                    <input id="TieuDe" style="width:100%;" type="text" class="k-textbox">
+                    <input onkeyup="updateTitle()" id="TieuDe" style="width:100%;" type="text" class="k-textbox">
                 </div>
             </div>
             <div style="margin-top:10px">
                 <div style="width:100%;float:left;margin-bottom:10px;">
                     <label style="width:100%">Nội dung:</label>
-                    <textarea id="NoiDung" rows="2" style="width:100%;height:80px;padding:5px;" class="k-textbox"></textarea>
+                    <textarea onkeyup="updateContent()" id="NoiDung" rows="2" style="width:100%;height:80px;padding:5px;" class="k-textbox"></textarea>
                 </div>
             </div>
             <div style="margin-top:10px">
@@ -154,15 +155,14 @@
         </div>
         <div style="width:50%;float:left;padding:30px 10px">
 
-            <div class="smartphone">
-                <div class="content">
-
-                </div>
+            <div class="smartphone" style="background-image: url(../../Images/app1.jpg);background-size: cover;">
+                <b id="titleapp1" style="margin-top: 120px; font-size: 7px; margin-left: 10px; color: white; display: block;"></b>
+                <p style="font-size: 7px; margin-left: 10px; color: white;" id="contentapp1"></p>
             </div>
-            <div class="smartphone">
-                <div class="content">
-
-                </div>
+            <div class="smartphone" style="background-image: url(../../Images/app2.jpg);background-size: cover;">
+                <p id="titleapp2" style="margin-top: 50px; font-size: 9px; margin-left: 10px;"></p>
+                <p id="thoigian" style="font-size: 7px; margin-left: 10px;"></p>
+                <p style="font-size: 9px;margin-left: 10px;width: 180px;" id="contentapp2"></p>
             </div>
 
         </div>

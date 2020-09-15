@@ -12,6 +12,9 @@ namespace QLDH.DataAccess.Models
         public DateTime NgayNghi { get; set; }
         public string LyDoNghi { get; set; }
         public DateTime NgayXinPhep { get; set; }
+        public string TenHocSinh { get; set; }
+        public string PhuHuynh { get; set; }
+        public string DienThoai { get; set; }
     }
 
     public class XinNghiPhepAppModel

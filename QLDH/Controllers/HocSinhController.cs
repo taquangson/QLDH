@@ -68,6 +68,14 @@ namespace QLDH.Controllers
 
         [SessionExpire]
         [HttpGet]
+        public ActionResult GetByBoLocTinNhan(int ID_Lop, int NamSinh, string DienThoai, int Loai)
+        {
+            HocSinhDAO hsdao = new HocSinhDAO();
+            return Json(hsdao.GetByBoLocTinNhan(ID_Lop, NamSinh, DienThoai, Loai), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
         public ActionResult GetByGiaoVien()
         {
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];

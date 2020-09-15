@@ -25,6 +25,11 @@ namespace QLDH.Controllers
             return View();
         }
 
+        public ActionResult HoTroDuongDev3()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult UploadExcelData(HttpPostedFileBase file, string filter)
         {

@@ -366,7 +366,18 @@ $(document).ready(function () {
             }
         }
     });
+
+    setInterval(function () { $("#thoigian").text(kendo.toString(new Date(), 'HH:mm dd/MM/yyyy')); }, 1000);
 })
+
+function updateTitle() {
+    $("#titleapp1").text($("#TieuDe").val());
+    $("#titleapp2").text($("#TieuDe").val());
+}
+function updateContent() {
+    $("#contentapp1").text($("#NoiDung").val().substring(0, 50));
+    $("#contentapp2").text($("#NoiDung").val());
+}
 
 function LoadHocSinhTrongLop(id) {
     kendo.ui.progress($("#windowChitiet"), true);
