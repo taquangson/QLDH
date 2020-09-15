@@ -153,7 +153,7 @@ namespace QLDH.Controllers
 
         [HttpPost]
         [Route("capNhatDuLieuHocSinh")]
-        public HttpResponseMessage capNhatDuLieuHocSinh([FromBody]HocSinhModel model)
+        public HttpResponseMessage capNhatDuLieuHocSinh([FromBody] HocSinhModel model)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
@@ -169,7 +169,10 @@ namespace QLDH.Controllers
                 {
                     HocSinhDAO hsdao = new HocSinhDAO();
                     HocSinhModel item = hsdao.GetById(model.ID);
-                    item.NgaySinh = model.NgaySinh;
+                    if (model.NgaySinh.Year != DateTime.Now.Year)
+                    {
+                        item.NgaySinh = model.NgaySinh;
+                    }
                     item.AnhDaiDien = model.AnhDaiDien;
                     item.DiaChi = model.DiaChi;
                     item.GioiTinh = model.GioiTinh;
@@ -259,7 +262,7 @@ namespace QLDH.Controllers
 
         [HttpGet]
         [Route("getAllLichTrongNgayByHocSinh")]
-        public HttpResponseMessage getAllLichTrongNgayByHocSinh([FromUri]int ID_HocSinh)
+        public HttpResponseMessage getAllLichTrongNgayByHocSinh([FromUri] int ID_HocSinh)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
@@ -282,7 +285,7 @@ namespace QLDH.Controllers
                         LichHocModel lich = lop.lstLichHoc.Where(x => (x.Thu - 1) == (int)DateTime.Now.DayOfWeek).FirstOrDefault();
                         if (lich != null)
                         {
-                            lop.LichHoc = lich.TenCa;                            
+                            lop.LichHoc = lich.TenCa;
                             result.Add(lop);
                         }
                     }
@@ -588,7 +591,7 @@ namespace QLDH.Controllers
 
         [HttpGet]
         [Route("danhsachhocsinhtronglop")]
-        public HttpResponseMessage danhsachhocsinhtronglop([FromUri]int? ID_Lop, int Ca)
+        public HttpResponseMessage danhsachhocsinhtronglop([FromUri] int? ID_Lop, int Ca)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
@@ -981,7 +984,7 @@ namespace QLDH.Controllers
 
         [HttpGet]
         [Route("getallthongbaobyuser")]
-        public HttpResponseMessage getallthongbaobyuser([FromUri]string ThongBao)
+        public HttpResponseMessage getallthongbaobyuser([FromUri] string ThongBao)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
@@ -996,7 +999,7 @@ namespace QLDH.Controllers
                 else
                 {
                     ThongBaoAppDAO tndao = new ThongBaoAppDAO();
-                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.GetByUser(userinfo.UserName,ThongBao) });
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.GetByUser(userinfo.UserName, ThongBao) });
                 }
             }
             catch (Exception ex)
