@@ -138,6 +138,8 @@ namespace QLDH.Controllers
                     hs.ID_DiemDanh = dd.ID;
                     hs.CoPhep = dd.CoPhep;
                     hs.QuaGioDiemDanh = 0;
+                    hs.GhiChu = dd.GhiChu;
+                    hs.Diem = dd.Diem;
                 }
                 catch (Exception ex)
                 {

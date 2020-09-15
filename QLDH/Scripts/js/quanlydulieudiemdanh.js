@@ -4,7 +4,7 @@
         format: 'dd/MM/yyyy',
         dateInput: false,
         change: function (e) {
-            LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+            LoadHocSinhTrongLop();
         }
     })
     $("#comboKhoi").kendoComboBox({
@@ -44,9 +44,10 @@
         visible: false
     })
 
+
     $("#gridDiemDanh").kendoGrid({
         height: function () {
-            var height = $(window).height() - 200;
+            var height = $(window).height() - 250;
             if (isMobile.any()) {
                 height = height - 50;
             }
@@ -57,6 +58,7 @@
         autoFitColumn: true,
         resizable: true,
         sortable: true,
+        editable: true,
         filterable: {
             mode: "row",
         },
@@ -64,13 +66,68 @@
         dataBinding: function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
         },
+        dataBound: function (e) {
+            var grid = $("#gridDiemDanh").data("kendoGrid");
+            var data = grid.dataSource.data();
+            $.each(data, function (i, row) {
+                if (!row.DaMuaPhieu) {
+                    $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ff8e8e");
+                }
+            })
+        },
+        save: function (e) {
+            if (e.values.GhiChu) {
+                if (e.model.ID_DiemDanh > 0) {
+                    $.ajax({
+                        url: '/DiemDanh/UpdateGhiChuDiemDanh',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            ID: e.model.ID_DiemDanh,
+                            GhiChu: e.values.GhiChu,
+                            Diem: e.model.Diem
+                        }),
+                        contentType: "application/json; charset=utf-8"
+                    }).done(function successCallback(response) {
+                        if (typeof response == "string") {
+                            location.reload(true);
+                        }
+                    })
+                }
+                e.model.GhiChu = e.values.GhiChu;
+                //e.model.Diem = e.values.Diem;
+            }
+            else if (e.values.Diem) {
+                if (e.model.ID_DiemDanh > 0) {
+                    console.log(e.values.Diem);
+                    $.ajax({
+                        url: '/DiemDanh/UpdateGhiChuDiemDanh',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            ID: e.model.ID_DiemDanh,
+                            GhiChu: e.model.GhiChu,
+                            Diem: e.values.Diem
+                        }),
+                        contentType: "application/json; charset=utf-8"
+                    }).done(function successCallback(response) {
+                        if (typeof response == "string") {
+                            location.reload(true);
+                        }
+                    })
+                }
+                //e.model.GhiChu = e.values.GhiChu;
+                e.model.Diem = e.values.Diem;
+            }
+            setTimeout(function () {
+                e.sender.refresh();
+            })
+        },
         columns: [
             {
                 title: "STT",
                 template: "#= ++record #",
                 width: "50px",
                 attributes: {
-                    class: "text-center"
+                    class: "text-center",
                 },
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -93,10 +150,10 @@
                     }
                     else {
                         if (e.ID_DiemDanh > 0 && e.CoPhep == 0) {
-                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" checked="checked" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
                         } else {
-                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                            return '<input type="checkbox" id="comat' + e.ID + '" onchange="DiemDanh(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="comat' + e.ID + '"></label>';
                         }
                     }
@@ -118,10 +175,10 @@
                     }
                     else {
                         if (e.ID_DiemDanh > 0 && e.CoPhep == -1) {
-                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" checked="checked" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
                         } else {
-                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                            return '<input type="checkbox" id="vangmat' + e.ID + '" onchange="VangMat(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="vangmat' + e.ID + '"></label>';
                         }
                     }
@@ -143,10 +200,10 @@
                     }
                     else {
                         if (e.ID_DiemDanh > 0 && e.CoPhep == 1) {
-                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" checked="checked" class="k-checkbox">'
+                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" checked="checked" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
                         } else {
-                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ')" class="k-checkbox">'
+                            return '<input type="checkbox" id="cophep' + e.ID + '"  onchange="CoPhep(' + e.ID + ',' + e.IsHocDuoi + ',\'' + e.GhiChu + '\',' + e.Diem + ')" class="k-checkbox">'
                                 + '<label class="k-checkbox-label" for="cophep' + e.ID + '"></label>';
                         }
                     }
@@ -157,6 +214,9 @@
                 title: "Tên học sinh",
                 width: "150px",
                 template: function (e) {
+                    if (!e.DaMuaPhieu) {
+                        style = "style='background-color:red'";
+                    }
                     if (e.IsHocDuoi) {
                         return "<span>" + e.TenHocSinh + " <i title='Học sinh học bồi dưỡng hoặc học đuổi' class='fa fa-exclamation-circle'/></span>";
                     } else {
@@ -177,19 +237,44 @@
                     class: "table-header-cell"
                 }
             },
+            //{
+            //    field: "NgaySinh",
+            //    title: "Ngày sinh",
+            //    template: function (e) {
+            //        var dateString = e.NgaySinh.substr(6);
+            //        var currentTime = new Date(parseInt(dateString));
+            //        if (currentTime.getFullYear() != 1) {
+            //            return kendo.toString(currentTime, "dd/MM/yyyy");
+            //        } else {
+            //            return "";
+            //        }
+            //    },
+            //    width: "100px",
+            //    filterable: {
+            //        cell: {
+            //            operator: "contains",
+            //            showOperators: false,
+            //            template: function (e) {
+            //                e.element.addClass("k-textbox").css("width", "100%")
+            //            }
+            //        }
+            //    },
+            //    headerAttributes: {
+            //        style: "text-align: center; font-size: 12px; font-weight:bold",
+            //        class: "table-header-cell"
+            //    },
+            //    attributes: {
+            //        style: "text-align: center;",
+            //    }
+            //},
+
             {
-                field: "NgaySinh",
-                title: "Ngày sinh",
-                template: function (e) {
-                    var dateString = e.NgaySinh.substr(6);
-                    var currentTime = new Date(parseInt(dateString));
-                    if (currentTime.getFullYear() != 1) {
-                        return kendo.toString(currentTime, "dd/MM/yyyy");
-                    } else {
-                        return "";
-                    }
-                },
+                field: "GhiChu",
+                title: "Nhận xét",
                 width: "100px",
+                editor: function (container, options) {
+                    $('<textarea row="2" class="k-textbox" style="width:100%;border:none" name="' + options.field + '"></textarea').appendTo(container);
+                },
                 filterable: {
                     cell: {
                         operator: "contains",
@@ -204,12 +289,43 @@
                     class: "table-header-cell"
                 },
                 attributes: {
-                    style: "text-align: center;",
+                    style: "text-align: left;white-space:pre-wrap",
+                }
+            },
+            {
+                field: "Diem",
+                title: "Điểm kiểm tra",
+                width: "100px",
+                editor: function (container, options) {
+                    $('<input lass="k-textbox" type="number" step="0.1" style="width:100%" name="' + options.field + '"></textarea').appendTo(container);
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: left;white-space:pre-wrap",
                 }
             },
             {
                 field: "DienThoaiMacDinh",
                 title: "Điện thoại",
+                template: function (e) {
+                    if (e.DienThoaiMacDinh) {
+                        return '<a href="tel:' + e.DienThoaiMacDinh + '">' + e.DienThoaiMacDinh + '</a>'
+                    } else {
+                        return "";
+                    }
+                },
                 width: "100px",
                 filterable: {
                     cell: {
@@ -254,7 +370,7 @@ function LoadComboCaHoc() {
                     data: response
                 }),
                 change: function (e) {
-                    LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+                    LoadHocSinhTrongLop();
                 }
             });
         } else {
@@ -285,13 +401,14 @@ function LoadComboLop(khoi) {
             clearButton: false,
             dataSource: dataSource,
             change: function (e) {
-                LoadHocSinhTrongLop(e.sender.value());
+                LoadHocSinhTrongLop();
             }
         })
     });
 }
 
-function LoadHocSinhTrongLop(id) {
+function LoadHocSinhTrongLop() {
+    var id = $("#comboLop").data("kendoComboBox").value();
     console.log(kendo.toString($("#comboNgay").data("kendoDatePicker").value(), 'yyyy/MM/dd'))
     if (id > 0) {
         $.ajax({

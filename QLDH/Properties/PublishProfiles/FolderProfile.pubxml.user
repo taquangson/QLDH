@@ -1855,10 +1855,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>06/27/2020 01:44:10</publishTime>
+      <publishTime>09/11/2020 19:28:06</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>06/27/2020 01:44:10</publishTime>
+      <publishTime>09/11/2020 19:28:06</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -2143,7 +2143,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Scripts/js/quanlydulieudiemdanh.js">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>09/11/2020 19:20:04</publishTime>
     </File>
     <File Include="Scripts/js/quanlythongbaoapp.js">
       <publishTime>06/09/2020 01:01:09</publishTime>
