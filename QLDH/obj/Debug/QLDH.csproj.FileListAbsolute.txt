@@ -204,7 +204,6 @@ C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Core.pdb
 C:\Users\quang\source\repos\qldh\QLDH\bin\Google.Apis.Core.xml
 C:\Users\quang\source\repos\qldh\QLDH\bin\System.Collections.Immutable.xml
 C:\Users\quang\source\repos\qldh\QLDH\bin\System.Interactive.Async.xml
-C:\Users\quang\source\repos\qldh\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache
 E:\QLDH\QLDH\bin\roslyn\csc.exe
 E:\QLDH\QLDH\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 E:\QLDH\QLDH\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -300,3 +299,9 @@ E:\QLDH\QLDH\obj\Debug\QLDH.csproj.CopyComplete
 E:\QLDH\QLDH\obj\Debug\QLDH.dll
 E:\QLDH\QLDH\obj\Debug\QLDH.pdb
 E:\QLDH\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.Common.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.Facility.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketBase.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketEngine.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperWebSocket.dll
+C:\Users\quang\source\repos\qldh\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache

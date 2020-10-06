@@ -151,7 +151,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@NoiDungHtml", model.NoiDungHtml),
                 new SqlParameter("@AnhDaiDien", model.AnhDaiDien),
                 new SqlParameter("@Data", model.Data),
-                new SqlParameter("@NoiDungRieng", model.NoiDungRieng)
+                new SqlParameter("@NoiDungRieng", model.NoiDungRieng),
+                new SqlParameter("@TrangThai", model.TrangThai)
                 };
 
                 object id = helper.ExecuteScalar("sp_ThongBaoApp_InsertOrUpdate", pars);

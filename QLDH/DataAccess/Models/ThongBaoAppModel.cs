@@ -16,5 +16,6 @@ namespace QLDH.DataAccess.Models
         public int Loai { get; set; }
         public DateTime NgayTao { get; set; }
         public string Data { get; set; }
+        public int TrangThai { get; set; }
     }
 }

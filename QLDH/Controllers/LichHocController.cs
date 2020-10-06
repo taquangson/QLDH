@@ -44,7 +44,7 @@ namespace QLDH.Controllers
             {
                 lst = lst.Where(x => lstLop.Find(l => l.ID == x.ID_Lop) != null).ToList();
             }
-            else if(userinfor.Role == 2)
+            else if (userinfor.Role == 2)
             {
                 lst = lst.Where(x => x.ID_ChiNhanh == userinfor.ID_ChiNhanh).ToList();
             }
@@ -56,6 +56,8 @@ namespace QLDH.Controllers
             public string GioBatDau { get; set; }
             public string GioKetThuc { get; set; }
         }
+
+
 
         [HttpPost]
         public ActionResult TraCuuLich(TraCuuLichModel model)

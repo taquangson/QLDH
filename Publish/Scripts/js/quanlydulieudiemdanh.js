@@ -4,7 +4,7 @@
         format: 'dd/MM/yyyy',
         dateInput: false,
         change: function (e) {
-            LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+            LoadHocSinhTrongLop();
         }
     })
     $("#comboKhoi").kendoComboBox({
@@ -370,7 +370,7 @@ function LoadComboCaHoc() {
                     data: response
                 }),
                 change: function (e) {
-                    LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value());
+                    LoadHocSinhTrongLop();
                 }
             });
         } else {
@@ -401,13 +401,14 @@ function LoadComboLop(khoi) {
             clearButton: false,
             dataSource: dataSource,
             change: function (e) {
-                LoadHocSinhTrongLop(e.sender.value());
+                LoadHocSinhTrongLop();
             }
         })
     });
 }
 
-function LoadHocSinhTrongLop(id) {
+function LoadHocSinhTrongLop() {
+    var id = $("#comboLop").data("kendoComboBox").value();
     console.log(kendo.toString($("#comboNgay").data("kendoDatePicker").value(), 'yyyy/MM/dd'))
     if (id > 0) {
         $.ajax({

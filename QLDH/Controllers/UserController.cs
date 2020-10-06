@@ -134,6 +134,14 @@ namespace QLDH.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [SessionExpire]
+        public ActionResult GetUserOnline_TinNhanMoi()
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            List<UserAppModel> result = tk_dao.GetUserOnline_TinNhanMoi();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetAllChiNhanh()
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();
@@ -207,6 +215,7 @@ namespace QLDH.Controllers
                 item.ExpriedTime = model.ExpriedTime;
                 item.Status = model.Status;
                 item.EmployeeType = model.EmployeeType;
+                item.UserName = item.UserName.Trim();
                 if (tk_dao.InsertOrUpdate_AppUser(item) > 0)
                 {
                     return Json(new { status = true, msg = "Câp nhật thông tin thành công" }, JsonRequestBehavior.AllowGet);

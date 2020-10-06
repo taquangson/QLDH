@@ -71,6 +71,29 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<KhoiModel> GetAll_Khoi()
+        {
+            List<KhoiModel> result = new List<KhoiModel>();
+            try
+            {
+                DataSet ds = helper.ExecuteDataSet("sp_Khoi_GetAll");
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    KhoiModel item = new KhoiModel();
+                    item.ID = int.Parse(dr["ID"].ToString());
+                    item.TenKhoi = dr["TenKhoi"].ToString();
+                    result.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_Khoi_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+
         public LopHocModel GetById_LopHoc(int ID)
         {
             LopHocModel result = new LopHocModel();
@@ -185,7 +208,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@GiaoVien", model.GiaoVien),
                 new SqlParameter("@SoDoLop", model.SoDoLop),
                 new SqlParameter("@LichHoc", model.LichHoc),
-                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh)
+                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
+                new SqlParameter("@ID_Khoi", model.ID_Khoi)
                 };
 
                 object id = helper.ExecuteScalar("sp_LopHoc_InsertOrUpdate", pars);

@@ -16,6 +16,9 @@ namespace QLDH.DataAccess.Models
         public string TenCa { get; set; }
         public string TenBuoi { get; set; }
         public string TenLop { get; set; }
+        public string TenGiaoVien { get; set; }
         public int ID_ChiNhanh { get; set; }
+        public DateTime NgayHocDuKien { get; set; }
+        public GiaoAnModel GiaoAn { get; set; }
     }
 }

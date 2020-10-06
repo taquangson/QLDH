@@ -126,7 +126,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@DaTraLoi", model.DaTraLoi),
                 new SqlParameter("@NoiDung", model.NoiDung),
                 new SqlParameter("@DaXem", model.DaXem),
-                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh)
+                new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
+                new SqlParameter("@Session", model.Session)
                 };
 
                 object id = helper.ExecuteScalar("sp_TinNhan_InsertOrUpdate", pars);
@@ -141,6 +142,31 @@ namespace QLDH.DataAccess.DAO
             }
 
             return 0;
+        }
+
+        public bool UpdateDaXem(string ID_User)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_User",ID_User ),
+                };
+                int rowaff = helper.ExecuteNonQuery("sp_TinNhan_UpdateDaXem", pars);
+                if (rowaff > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TinNhan_UpdateDaXem " + ex.Message);
+                return false;
+            }
         }
 
         public bool Delete(int ID)

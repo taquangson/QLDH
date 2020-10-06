@@ -18,5 +18,6 @@ namespace QLDH.DataAccess.Models
         public int Status { get; set; }
         public DateTime ExpriedTime { get; set; }
         public DateTime Last_LoginTime { get; set; }
+        public string DanhSachHocSinh { get; set; }
     }
 }

@@ -23,13 +23,13 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
-        [SessionAdminRoleAttribute]
+        [SessionAdminRole]
         public ActionResult DanhMucLoi()
         {
             return View();
         }
 
-        [SessionAdminRoleAttribute]
+        [SessionAdminRole]
         public ActionResult DanhMucTruongHoc()
         {
             return PartialView("DanhMucTruongHoc");

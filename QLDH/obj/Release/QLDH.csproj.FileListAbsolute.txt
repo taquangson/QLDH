@@ -176,7 +176,6 @@ C:\Users\quang\source\repos\qldh\QLDH\bin\Newtonsoft.Json.xml
 C:\Users\quang\source\repos\qldh\QLDH\bin\System.Net.Http.Formatting.xml
 C:\Users\quang\source\repos\qldh\QLDH\bin\System.Web.Http.xml
 C:\Users\quang\source\repos\qldh\QLDH\bin\System.Web.Http.WebHost.xml
-C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csprojAssemblyReference.cache
 C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csproj.ResolveComReference.cache
 C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csproj.CoreCompileInputs.cache
 C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csproj.CopyComplete
@@ -300,3 +299,9 @@ E:\QLDH\QLDH\obj\Release\QLDH.csproj.CoreCompileInputs.cache
 E:\QLDH\QLDH\obj\Release\QLDH.csproj.CopyComplete
 E:\QLDH\QLDH\obj\Release\QLDH.dll
 E:\QLDH\QLDH\obj\Release\QLDH.pdb
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.Common.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.Facility.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketBase.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketEngine.dll
+C:\Users\quang\source\repos\qldh\QLDH\bin\SuperWebSocket.dll
+C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csprojAssemblyReference.cache

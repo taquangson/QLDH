@@ -17,6 +17,7 @@ namespace QLDH.DataAccess.Models
         public int ID_ChiNhanh { get; set; }
         public string TenNhanVien { get; set; }
         public DateTime NgayGui { get; set; }
+        public string Session { get; set; }
 
     }
 }
