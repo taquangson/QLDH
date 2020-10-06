@@ -1,4 +1,5 @@
 ﻿var cur_user = "";
+var cur_idtaikhoan = "";
 $(document).ready(function () {
 
     //$("#DenNgay").kendoDatePicker({
@@ -33,7 +34,7 @@ $(document).ready(function () {
                 title: "Tài khoản",
                 width: "150px",
                 template: function (e) {
-                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(' + e.UserName + ')"><div style="width:10%;;padding:2%;float:left">' +
+                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(' + e.UserName + ',' + e.ID + ')"><div style="width:10%;;padding:2%;float:left">' +
                         '<img src = "/Images/user_image.png" alt = "' + e.UserName + '" class="img-responsive img-circle" />' +
                         '</div >' +
                         '<div style="width:70%;float:left">' +
@@ -82,7 +83,7 @@ $(document).ready(function () {
                 title: "Tài khoản",
                 width: "150px",
                 template: function (e) {
-                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(' + e.UserName + ')"><div style="width:10%;padding:2%;float:left">' +
+                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(' + e.UserName + ',' + e.ID + ')"><div style="width:10%;padding:2%;float:left">' +
                         '<img src = "/Images/user_image.png" alt = "' + e.UserName + '" class="img-responsive img-circle" />' +
                         '</div >' +
                         '<div style="width:70%;float:left">' +
@@ -113,13 +114,30 @@ $(document).ready(function () {
 
     var signalR_tinnhan = $.connection.tinNhanHub;
     signalR_tinnhan.client.pushTinNhan = function (DienThoai) {
-        notifyTinNhan(DienThoai);
+        //notifyTinNhan(DienThoai);
+        LoadListSession();
+        if (DienThoai == "0" + cur_user)
+            LoadTinNhanByUser(DienThoai);
     }
 
     $.connection.hub.start().done(function () {
         console.log("Connect signalR OK!");
     });
 })
+function SendMessage() {
+    $.ajax({
+        url: '/ChatMessage/SendMesage',
+        data: {
+            ID_TaiKhoan: cur_idtaikhoan,
+            MessageContent: $("#btn-input").val(),
+            BotChat: 0
+        },
+        type: 'GET',
+    }).done(function successCallback(response) {
+        LoadTinNhanByUser("0" + cur_user);
+        $("#btn-input").val("");
+    });
+}
 
 function notifyTinNhan(DienThoai) {
     //if (Notification.permission !== 'granted')
@@ -153,8 +171,9 @@ function LoadListSession() {
 
 }
 
-function ChatWithUser(UserName) {
-    cur_user = UserName;    
+function ChatWithUser(UserName, ID) {
+    cur_user = UserName;
+    cur_idtaikhoan = ID
     LoadTinNhanByUser("0" + UserName);
     $.ajax({
         url: '/ChatMessage/UpdateDaXem?Username=' + UserName,
@@ -203,9 +222,7 @@ function LoadTinNhanByUser(UserName) {
                     + '</div>';
             } else if (item.Loai == 1) {
                 html += '<div class="row msg_container base_sent">'
-                    + '<div class="col-md-2 col-xs-2 avatar" >'
-                    + '<img src="/Images/user_image.png" class="img-responsive" />'
-                    + '</div>'
+
                     + '<div class="col-md-10 col-xs-10">'
                     + '<div class="messages msg_receive">'
                     + '<p>'
@@ -213,6 +230,9 @@ function LoadTinNhanByUser(UserName) {
                     + '</p>'
                     + '<time datetime="' + kendo.toString(myDate, 'dd/MM/yyyy hh:mm') + '">' + item.ID_User + ' - ' + kendo.toString(myDate, 'dd/MM/yyyy hh:mm') + '</time>'
                     + '</div>'
+                    + '</div>'
+                    + '<div class="col-md-2 col-xs-2 avatar" >'
+                    + '<img src="/Images/img.png" class="img-responsive" />'
                     + '</div>'
                     + '</div>';
             }
