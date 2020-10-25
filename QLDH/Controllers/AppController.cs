@@ -72,7 +72,7 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
-                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ","_")), model.NotifyID))
+                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")), model.NotifyID))
                     response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = true });
                 else
                     response = Request.CreateResponse(HttpStatusCode.NotModified, new { loginSuccess = false });
@@ -172,7 +172,7 @@ namespace QLDH.Controllers
                     item.AnhDaiDien = model.AnhDaiDien;
                     item.DiaChi = model.DiaChi;
                     item.GioiTinh = model.GioiTinh;
-                    item.NgaySinh = model.NgaySinh;                    
+                    item.NgaySinh = model.NgaySinh;
                     int newid = hsdao.InsertOrUpdate(item);
                     if (newid > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Cập nhật thông tin thành công" });
@@ -985,11 +985,24 @@ namespace QLDH.Controllers
                 }
                 else
                 {
-                    DiemDanhDAO ddao = new DiemDanhDAO();
-                    DiemDanhModel diemdanhcu = ddao.GetById(d.ID);
-                    diemdanhcu.GhiChu = d.GhiChu;
-                    diemdanhcu.Diem = d.Diem;
-                    ddao.InsertOrUpdate(diemdanhcu);
+                    try
+                    {
+                        DiemDanhDAO ddao = new DiemDanhDAO();
+                        DiemDanhModel diemdanhcu = ddao.GetById(d.ID);
+                        if (!string.IsNullOrWhiteSpace(d.GhiChu))
+                        {
+                            diemdanhcu.GhiChu = d.GhiChu;
+                        }
+                        else
+                        {
+                            diemdanhcu.GhiChu = "";
+                        }
+                        diemdanhcu.Diem = d.Diem;
+                        ddao.InsertOrUpdate(diemdanhcu);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     response = Request.CreateResponse(HttpStatusCode.Created, new { success = true, message = "OK" });
                 }
             }

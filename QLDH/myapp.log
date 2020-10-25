@@ -6822,3 +6822,7 @@ Error Number:2812,State:62,Class:16
 2020-10-07 01:29:24,042 [60] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByID There is no row at position 0.
 2020-10-07 01:30:19,865 [76] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByID There is no row at position 0.
 2020-10-07 01:31:49,043 [53] ERROR QLDH.DataAccess.DAO.TaiKhoanDAO - sp_TaiKhoanApp_GetByID There is no row at position 0.
+2020-10-18 21:07:05,219 [1] DEBUG WebSocketServer-10523083 - Listener (0.0.0.0:8088) was started
+2020-10-18 21:07:05,228 [1] INFO WebSocketServer-10523083 - The server instance WebSocketServer-10523083 has been started!
+2020-10-18 21:12:56,703 [34] DEBUG WebSocketServer-28699359 - Listener (0.0.0.0:8088) was started
+2020-10-18 21:12:56,711 [34] INFO WebSocketServer-28699359 - The server instance WebSocketServer-28699359 has been started!

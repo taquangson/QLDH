@@ -14,6 +14,7 @@ namespace QLDH.App_Start
     public class SocketChatServer
     {
         private static WebSocketServer server;
+        
         public class MessageJson
         {
             public int ID_TaiKhoan { get; set; }
@@ -71,13 +72,22 @@ namespace QLDH.App_Start
             catch (Exception ex)
             {
                 session.Send("Error: Tin nhan khong dung dinh dang");
+                log4net.ILog log = log4net.LogManager.GetLogger(typeof(SocketChatServer));
+                log.Info("Error: Tin nhan khong dung dinh dang");
             }
         }
 
         private static void Server_NewSessionConnected(WebSocketSession session)
         {
+            try
+            {
+                Console.WriteLine("Server_NewSessionConnected");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error");
 
-            Console.WriteLine("Server_NewSessionConnected");
+            }
         }
 
         public static void Server_SendNewMessageToClient(MessageJson msg)
