@@ -215,6 +215,7 @@ namespace QLDH.DataAccess.DAO
         {
             public int Thang { get; set; }
             public int Nam { get; set; }
+            public bool NoHocPhi { get; set; }
             public List<BaoCaoSoBuoiHoc_HocSinh_ThangModel> data { get; set; }
         }
 

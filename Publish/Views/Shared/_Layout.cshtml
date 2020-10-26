@@ -232,6 +232,11 @@
                 Notification.requestPermission();
         });
         var signalR = $.connection.diemDanhHub;
+        var signalR_tinnhan = $.connection.tinNhanHub;
+        signalR_tinnhan.client.pushTinNhan = function (DienThoai) {
+            notifyTinNhan(DienThoai);
+        }
+
         signalR.client.pushDesktopDiemDanh = function (ID_Lop, TenLop, TenGiaoVien, Ca) {
             var lastnoti_arr = [];
             if (window.sessionStorage.LastNoti == undefined) {
@@ -288,6 +293,20 @@
                 });
                 notification.onclick = function () {
                     window.open('/DiemDanh/DiemDanhFromNoti?ID_Lop=' + ID_Lop + '&Ca=' + Ca);
+                };
+            }
+        }
+
+        function notifyTinNhan(DienThoai) {
+            if (Notification.permission !== 'granted')
+                Notification.requestPermission();
+            else {
+                var notification = new Notification('Thông báo tin nhắn mới!', {
+                    icon: '/Images/sms.png',
+                    body: "Có tin nhắn mới được gửi từ số: " + DienThoai
+                });
+                notification.onclick = function () {
+                    window.open('/ChatMessage/Index');
                 };
             }
         }

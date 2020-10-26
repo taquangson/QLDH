@@ -34,7 +34,7 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
-                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, model.Current_Device, model.NotifyID))
+                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")), model.NotifyID))
                 {
                     UserAppModel tk = tk_dao.GetAppUserInfoByName(model.UserName);
                     if (tk == null)
@@ -43,7 +43,7 @@ namespace QLDH.Controllers
                     }
                     else
                     {
-                        string token = createToken(model.UserName, model.Current_Imei, model.Current_Device);
+                        string token = createToken(model.UserName, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")));
                         TokenResult result = new TokenResult();
                         result.token = token;
                         result.UserInfo = tk;
@@ -72,7 +72,7 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
-                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, model.Current_Device, model.NotifyID))
+                if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")), model.NotifyID))
                     response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = true });
                 else
                     response = Request.CreateResponse(HttpStatusCode.NotModified, new { loginSuccess = false });
@@ -169,13 +169,10 @@ namespace QLDH.Controllers
                 {
                     HocSinhDAO hsdao = new HocSinhDAO();
                     HocSinhModel item = hsdao.GetById(model.ID);
-                    if (model.NgaySinh.Year != DateTime.Now.Year)
-                    {
-                        item.NgaySinh = model.NgaySinh;
-                    }
                     item.AnhDaiDien = model.AnhDaiDien;
                     item.DiaChi = model.DiaChi;
                     item.GioiTinh = model.GioiTinh;
+                    item.NgaySinh = model.NgaySinh;
                     int newid = hsdao.InsertOrUpdate(item);
                     if (newid > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Cập nhật thông tin thành công" });
@@ -209,6 +206,90 @@ namespace QLDH.Controllers
                 {
                     LopHocDAO hsdao = new LopHocDAO();
                     List<LopHocModel> result = hsdao.GetAll_ByHocSinh(ID_HocSinh);
+                    response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getAllLopChuaHocByHocSinh")]
+        public HttpResponseMessage getAllLopChuaHocByHocSinh([FromUri] int ID_HocSinh)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LopHocDAO hsdao = new LopHocDAO();
+                    List<LopHocModel> result = hsdao.GetLopChuaDangKy_ByHocSinh(ID_HocSinh);
+                    response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getAllDanhyMucKhoi")]
+        public HttpResponseMessage getAllDanhyMucKhoi()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LopHocDAO hsdao = new LopHocDAO();
+                    List<KhoiModel> result = hsdao.GetAll_Khoi();
+                    response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getAllDanhyMucCa")]
+        public HttpResponseMessage getAllDanhyMucCa()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    CaHocDAO hsdao = new CaHocDAO();
+                    List<CaHocModel> result = hsdao.GetAll();
                     response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
                 }
             }
@@ -410,6 +491,7 @@ namespace QLDH.Controllers
                         item.Nam = date.Year;
                         item.Thang = date.Month;
                         item.data = data.Where(x => x.Nam == item.Nam && x.Thang == item.Thang).ToList();
+                        item.NoHocPhi = item.data.Find(x => x.SoBuoiDaMua + x.SoBuoiDaMuaPhuThu - x.SoBuoiDaMuaGiamTru < x.SoBuoiHoc) != null;
                         result.Add(item);
                     }
                     response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
@@ -507,15 +589,15 @@ namespace QLDH.Controllers
                 {
                     TaiKhoanDAO tk_dao = new TaiKhoanDAO();
                     UserAppModel tk = tk_dao.GetAppUserInfoByName(userinfo.UserName);
-                    tk_dao.ChangeAppUserPassword(userinfo.UserName, model.NewPass);
-                    if (tk_dao.CheckLogin(userinfo.UserName, model.OldPass))
+                    if (tk_dao.CheckLogin_AppForChangePass(userinfo.UserName, model.OldPass))
                     {
-                        TaiKhoanModel tkk = tk_dao.GetByTenTaiKhoanOrEmail(userinfo.UserName);
-                        tkk.MatKhau = model.NewPass;
-                        tkk.TenDayDu = model.TenDayDu;
-                        tk_dao.InsertOrUpdate(tkk);
+                        tk_dao.ChangeAppUserPassword(userinfo.UserName, model.NewPass);
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Đổi mật khẩu thành công!" });
                     }
-                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Đổi mật khẩu thành công!" });
+                    else
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Mật khẩu cũ không đúng. Vui lòng kiểm tra lại!" });
+                    }
 
                 }
             }
@@ -615,9 +697,8 @@ namespace QLDH.Controllers
                     {
                         lhs.AddRange(hsdao.GetByLop_HocSinh((int)ID_Lop));
 
-                        DateTime quagiodiemdanh = DateTime.Now;
-                        quagiodiemdanh = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 45, 0);
-                        if (DateTime.Compare(DateTime.Now, quagiodiemdanh) < 0 || userinfo.EmployeeType != 0)
+                        DateTime quagiodiemdanh = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(2, 0, 0);
+                        if (DateTime.Compare(DateTime.Now, quagiodiemdanh) < 0)
                         {
                             quagio = 0;
                         }
@@ -904,11 +985,24 @@ namespace QLDH.Controllers
                 }
                 else
                 {
-                    DiemDanhDAO ddao = new DiemDanhDAO();
-                    DiemDanhModel diemdanhcu = ddao.GetById(d.ID);
-                    diemdanhcu.GhiChu = d.GhiChu;
-                    diemdanhcu.Diem = d.Diem;
-                    ddao.InsertOrUpdate(diemdanhcu);
+                    try
+                    {
+                        DiemDanhDAO ddao = new DiemDanhDAO();
+                        DiemDanhModel diemdanhcu = ddao.GetById(d.ID);
+                        if (!string.IsNullOrWhiteSpace(d.GhiChu))
+                        {
+                            diemdanhcu.GhiChu = d.GhiChu;
+                        }
+                        else
+                        {
+                            diemdanhcu.GhiChu = "";
+                        }
+                        diemdanhcu.Diem = d.Diem;
+                        ddao.InsertOrUpdate(diemdanhcu);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     response = Request.CreateResponse(HttpStatusCode.Created, new { success = true, message = "OK" });
                 }
             }
@@ -922,7 +1016,7 @@ namespace QLDH.Controllers
 
         [HttpGet]
         [Route("getalltinnhan")]
-        public HttpResponseMessage getalltinnhan()
+        public HttpResponseMessage getalltinnhan([FromUri]int Page)
         {
             HttpResponseMessage response = new HttpResponseMessage();
             response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
@@ -937,7 +1031,36 @@ namespace QLDH.Controllers
                 else
                 {
                     TinNhanDAO tndao = new TinNhanDAO();
-                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.GetByUser(userinfo.UserName) });
+                    List<TinNhanModel> data = tndao.GetByUser(userinfo.UserName);
+                    List<TinNhanModel> result = data.Skip(Page * 50).Take(50).ToList();
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getallchatbot")]
+        public HttpResponseMessage getallchatbot()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    ChatBotDAO tndao = new ChatBotDAO();
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.GetAll() });
                 }
             }
             catch (Exception ex)
@@ -967,6 +1090,7 @@ namespace QLDH.Controllers
                     TinNhanDAO tndao = new TinNhanDAO();
                     if (tndao.InsertOrUpdate(model) > 0)
                     {
+                        TinNhanHub.updateTinNhan(model.ID_User);
                         response = Request.CreateResponse(HttpStatusCode.Created, new { success = true, message = "OK" });
                     }
                     else
@@ -1000,6 +1124,190 @@ namespace QLDH.Controllers
                 {
                     ThongBaoAppDAO tndao = new ThongBaoAppDAO();
                     response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.GetByUser(userinfo.UserName, ThongBao) });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("updatethongbao")]
+        public HttpResponseMessage updatethongbao([FromUri] int ID, int TrangThai)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    ThongBaoAppDAO bktdao = new ThongBaoAppDAO();
+                    ThongBaoAppModel item = bktdao.GetByID(ID);
+                    item.TrangThai = TrangThai;
+                    bktdao.InsertOrUpdate(item);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Lưu thông báo thành công" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+
+        [HttpPost]
+        [Route("themsuagiaoan")]
+        public HttpResponseMessage themsuagiaoan([FromBody] GiaoAnModel ga)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    GiaoAnDAO gadao = new GiaoAnDAO();
+                    GiaoAnModel item = new GiaoAnModel();
+                    if (ga.ID > 0)
+                    {
+                        item = gadao.GetByLichHoc(ga.ID_Lop, ga.ID_Ca, ga.NgayHoc);
+                        item.BaiTap = ga.BaiTap;
+                        item.TenBai = ga.TenBai;
+                    }
+                    else
+                    {
+                        item = ga;
+                    }
+                    item.ID_NhanVien = userinfo.ID;
+                    if (gadao.InsertOrUpdate(ga))
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, message = "Cập nhật bài giảng thành công" });
+                    else
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, message = "Cập nhật bài giảng thất bại" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpPost]
+        [Route("getlichhocbylopforapp")]
+        public HttpResponseMessage getlichhocbylopforapp([FromUri] int ID_Lop, DateTime TuNgay, DateTime DenNgay)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LichHocDAO lhdao = new LichHocDAO();
+                    List<LichHocModel> lst = new List<LichHocModel>();
+                    lst = lhdao.GetLichAppByLop(ID_Lop, TuNgay, DenNgay);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpPost]
+        [Route("getlichhocbygiaovienforapp")]
+        public HttpResponseMessage getlichhocbygiaovienforapp([FromUri] DateTime TuNgay, DateTime DenNgay)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+                TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+                TaiKhoanModel user = tk_dao.GetByTenTaiKhoanOrEmail(userinfo.UserName);
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LichHocDAO lhdao = new LichHocDAO();
+                    List<LichHocModel> lst = new List<LichHocModel>();
+                    lst = lhdao.GetLichAppByGiaoVien(user.ID, TuNgay, DenNgay);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getlichhocbyhocsinhforapp")]
+        public HttpResponseMessage getlichhocbyhocsinhforapp([FromUri] int ID_HocSinh, DateTime TuNgay, DateTime DenNgay)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LichHocDAO lhdao = new LichHocDAO();
+                    List<LichHocModel> lst = new List<LichHocModel>();
+                    lst = lhdao.GetLichByHocSinh(ID_HocSinh, TuNgay, DenNgay);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getdonnghihocbyhocsinh")]
+        public HttpResponseMessage getdonnghihocbyhocsinh([FromUri] int ID_HocSinh)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    XinNghiPhepDAO lhdao = new XinNghiPhepDAO();
+                    List<XinNghiPhepModel> lst = new List<XinNghiPhepModel>();
+                    lst = lhdao.GetByHocSinh(ID_HocSinh);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst });
                 }
             }
             catch (Exception ex)

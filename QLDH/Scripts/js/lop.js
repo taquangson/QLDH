@@ -3,7 +3,7 @@ var lstCaHoc = []
 $(document).ready(function () {
     $("#window").kendoWindow({
         width: "680px",
-        height: "470px",
+        height: "570px",
         title: "Chi tiết",
         visible: false,
         modal: true,
@@ -118,6 +118,24 @@ $(document).ready(function () {
                 field: "TenLop",
                 title: "Tên lớp",
                 width: "130px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "TenKhoi",
+                title: "Tên khối",
+                width: "100px",
                 filterable: {
                     cell: {
                         operator: "contains",
@@ -583,6 +601,8 @@ $(document).ready(function () {
 
     LoadComboGiaoVien();
 
+    LoadComboKhoi();
+
     LoadlstCaHoc();
 
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
@@ -609,10 +629,12 @@ function openEditWindow() {
         } else {
             $("#window").data("kendoWindow").center().maximize().open();
         }
+        console.log(selectedItem);
         var selectedItem = $("#grid").data("kendoGrid").dataItem($("#grid").data("kendoGrid").select());
         $("#ID").val(selectedItem.ID);
         $("#TenLop").val(selectedItem.TenLop);
         $("#GiaoVienCombo").data("kendoComboBox").value(selectedItem.GiaoVien);
+        $("#KhoiCombo").data("kendoComboBox").value(selectedItem.ID_Khoi);
         LoadGridLichHoc(selectedItem.ID);
         //$(".image-preview").remove();
         //if (selectedItem.SoDoLop != null) {
@@ -686,6 +708,22 @@ function LoadComboGiaoVien() {
     });
 }
 
+
+function LoadComboKhoi() {
+    $.ajax({
+        url: '/Lop/GetAllKhoi',
+        type: 'GET',
+    }).done(function successCallback(response) {
+        var dataSource = new kendo.data.DataSource({
+            data: response
+        });
+        $("#KhoiCombo").kendoComboBox({
+            dataTextField: 'TenKhoi',
+            dataValueField: 'ID',
+            dataSource: dataSource
+        });
+    });
+} 
 function ThemMoi() {
     LoadGridLichHoc(0);
     document.getElementById("formChiTiet").reset();
@@ -700,7 +738,8 @@ function ThemMoi() {
 function Luu() {
     var validten = SetValidate("TenLop");
     var validgv = SetValidate("GiaoVienCombo");
-    var valid = validten && validgv;
+    var validkhoi = SetValidate("KhoiCombo");
+    var valid = validten && validgv && validkhoi;
     if (valid) {
         var data = new FormData();
         //var file = $("#files").data("kendoUpload").getFiles()[0];
@@ -718,6 +757,7 @@ function Luu() {
             ID: $("#ID").val(),
             TenLop: $("#TenLop").val(),
             GiaoVien: $("#GiaoVienCombo").data("kendoComboBox").value(),
+            ID_Khoi: $("#KhoiCombo").data("kendoComboBox").value(),
             LichHoc: "",
             SoDoLop: "",
             lstLichHoc: lstLichHoc

@@ -1,5 +1,8 @@
 ﻿var lstHocSinhTrongLop = [];
 var lstCaHoc = []
+var lstMauTinNhanHas = [];
+var numOfParam = 0;
+var maGuiTin = "";
 $(document).ready(function () {
 
     $("#grid").kendoGrid({
@@ -15,6 +18,7 @@ $(document).ready(function () {
         filterable: {
             mode: "row",
         },
+        editable: true,
         excel: {
             filterable: true
         },
@@ -44,7 +48,38 @@ $(document).ready(function () {
         dataBinding: function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
         },
+        save: function (e) {
+            if (e.values) {
+                let noidung = "";
+                for (var i = 0; i < numOfParam; i++) {
+                    let data = "";
+                    if (e.values["ThamSo[" + i + "]"])
+                        data = e.values["ThamSo[" + i + "]"];
+                    else
+                        data = e.model.ThamSo[i];
+
+                    if (data != "") {
+                        noidung += lstMauTinNhanHas[i] + data;
+                    } else {
+                        noidung += lstMauTinNhanHas[i];
+                    }
+                }
+                noidung += lstMauTinNhanHas[numOfParam];
+                e.model.NoiDungTinNhan = noidung;
+            }
+            setTimeout(function () {
+                e.sender.refresh();
+            })
+        },
         columns: [
+            {
+                width: "30px",
+                selectable: true,
+                headerAttributes: {
+                    style: "text-align:left",
+                    class: "table-header-cell-checkbox"
+                }
+            },
             {
                 title: "STT",
                 template: "#= ++record #",
@@ -127,6 +162,38 @@ $(document).ready(function () {
                 }
             },
             {
+                field: "ThamSo",
+                width: "150px",
+                title: "Tham số",
+                filterable: false,
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                },
+                template: function (e) {
+                    if (e.ThamSo) {
+                        let html = "";
+                        $.each(e.ThamSo, function (index, item) {
+                            html += item + "<br/>"
+                        })
+                        return html;
+                    } else {
+                        return "";
+                    }
+                },
+                editor: function (container, options) {
+                    let html = '<div style="width:120px">';
+                    for (var i = 0; i < numOfParam; i++) {
+                        html += '<input style="width:100%;float:left" name="' + options.field + '[' + i + ']" />'
+                    }
+                    html += '</div>'
+                    $(html).appendTo(container);
+                },
+            },
+            {
                 field: "NoiDungTinNhan",
                 title: "Nội dung tin nhắn",
                 filterable: false,
@@ -136,7 +203,10 @@ $(document).ready(function () {
                 },
                 attributes: {
                     style: "text-align: center;",
-                }
+                },
+                editor: function (container, options) {
+                    $('<textarea style="width:100%" required name="' + options.field + '" row="3" ></textarea>').appendTo(container)
+                },
             }
 
         ]
@@ -144,7 +214,7 @@ $(document).ready(function () {
 
     //LoadGridData();
     LoadComboLop();
-    //LoadComboMauTinNhan();
+    LoadComboMauTinNhan();
 
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
 
@@ -174,6 +244,15 @@ function ApDungTinNhan() {
     }).done(function successCallback(response) {
         $.each(response, function (index, item) {
             item.NoiDungTinNhan = $("#noiDungTinNhan").val();
+            item.ThamSo = [];
+            for (var i = 0; i < numOfParam; i++) {
+                let data = $("#param" + (i + 1)).val();
+                if (data != "") {
+                    item.ThamSo.push(data);
+                } else {
+                    item.ThamSo.push("");
+                }
+            }
         });
         kendo.ui.progress($("#grid"), true);
         var dataSource = new kendo.data.DataSource({
@@ -184,7 +263,9 @@ function ApDungTinNhan() {
                     field: {
                         NgayTao: {
                             type: 'date'
-                        }
+                        },
+                        NoiDungTinNhan: { type: 'text', editablle: true },
+                        ThamSo: { type: 'text', editablle: true }
                     }
                 }
             },
@@ -223,7 +304,9 @@ function LoadGridData() {
                     field: {
                         NgayTao: {
                             type: 'date'
-                        }
+                        },
+                        NoiDungTinNhan: { type: 'text', editablle: false },
+                        ThamSo: { type: 'text', editablle: false }
                     }
                 }
             },
@@ -264,17 +347,60 @@ function LoadComboLop() {
             dataValueField: 'value',
             dataSource: new kendo.data.DataSource({
                 data: [{ text: "Tất cả", value: 0 },
-                    { text: "Có học tại trung tâm", value: 1 },
-                    { text: "Không học tại trung tâm", value: 2 }]
+                { text: "Có học tại trung tâm", value: 1 },
+                { text: "Không học tại trung tâm", value: 2 }]
             })
         });
 
-        $("#comboMauTinNhan").kendoComboBox({
-            dataTextField: 'TenDayDu',
-            dataValueField: 'ID',
-            dataSource: []
-        });
+
     });
+}
+
+function LoadComboMauTinNhan() {
+    for (var i = 0; i <= 10; i++) {
+        $("#param" + i).hide();
+    }
+    $.ajax({
+        url: '/TinNhan/GetAllMauTin',
+        type: 'GET',
+    }).done(function successCallback(response) {
+        var dataSource = new kendo.data.DataSource({
+            data: response
+        });
+        $("#comboMauTinNhan").kendoComboBox({
+            dataTextField: 'TenMauTinNhan',
+            dataValueField: 'ID',
+            valuePrimitive: true,
+            dataSource: response,
+            select: function (e) {
+                numOfParam = e.dataItem.SoLuongThamSo;
+                maGuiTin = e.dataItem.MaGuiTin;
+                lstMauTinNhanHas = e.dataItem.NoiDungMau.split('THAMSO');
+                $("#noiDungTinNhan").val(e.dataItem.NoiDungMau);
+                for (var i = 0; i <= 10; i++) {
+                    if (i <= e.dataItem.SoLuongThamSo) {
+                        $("#param" + i).show();
+                    } else {
+                        $("#param" + i).hide();
+                    }
+                }
+            }
+        });
+    })
+}
+
+function updateParam() {
+    var noidung = "";
+    for (var i = 0; i < numOfParam; i++) {
+        let data = $("#param" + (i + 1)).val();
+        if (data != "") {
+            noidung += lstMauTinNhanHas[i] + data;
+        } else {
+            noidung += lstMauTinNhanHas[i];
+        }
+    }
+    noidung += lstMauTinNhanHas[numOfParam];
+    $("#noiDungTinNhan").val(noidung);
 }
 
 function GuiTinNhan() {
@@ -293,7 +419,7 @@ function GuiTinNhan() {
     $.ajax({
         url: '/TinNhan/GuiTinNhan',
         type: 'POST',
-        data: { data: requestData }
+        data: { data: requestData, maguitin: maGuiTin }
     }).done(function successCallback(response) {
         if (response.thanhcong.length > 0) {
             var succ = [];
@@ -303,7 +429,51 @@ function GuiTinNhan() {
             notification.show({ kValue: "Gửi thành công tới số: " + succ.join(', ') }, "success");
             $("#guithanhcong").text("Gửi thành công tới số: " + succ.join(', '));
         }
-        if (response.thatbai.length > 0) {   
+        if (response.thatbai.length > 0) {
+            var err = [];
+            $.each(response.thatbai, function (index, item) {
+                err.push(item.SoDienThoai);
+            })
+            notification.show({ kValue: "Gửi thất bại tới số: " + err.join(', ') }, "error");
+            $("#guithatbai").text("Gửi thất bại tới số: " + err.join(', '));
+        }
+    })
+}
+
+function GuiTinNhanTheoMau() {
+    $("#guithanhcong").text('');
+    $("#guithatbai").text('');
+    let requestData = [];
+    let data = $("#grid").data("kendoGrid").dataSource.data();
+    let selectItems = $("#grid").data("kendoGrid").select()
+    $.each(selectItems, function (index, value) {
+        let item = $("#grid").data("kendoGrid").dataItem(value);
+        var thamso = [];
+        $.each(item.ThamSo, function (index, item) {
+            thamso.push(item);
+        })
+        requestData.push({
+            SoDienThoai: item.DienThoaiMacDinh,
+            ID_HocSinh: item.ID,
+            NoiDungTinNhan: item.NoiDungTinNhan,
+            TrangThai: 0,
+            ThamSo: thamso
+        })
+    })
+    $.ajax({
+        url: '/TinNhan/GuiTinNhanTheoMau',
+        type: 'POST',
+        data: { data: requestData, maguitin: maGuiTin }
+    }).done(function successCallback(response) {
+        if (response.thanhcong.length > 0) {
+            var succ = [];
+            $.each(response.thanhcong, function (index, item) {
+                succ.push(item.SoDienThoai);
+            })
+            notification.show({ kValue: "Gửi thành công tới số: " + succ.join(', ') }, "success");
+            $("#guithanhcong").text("Gửi thành công tới số: " + succ.join(', '));
+        }
+        if (response.thatbai.length > 0) {
             var err = [];
             $.each(response.thatbai, function (index, item) {
                 err.push(item.SoDienThoai);

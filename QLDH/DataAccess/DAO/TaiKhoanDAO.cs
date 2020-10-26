@@ -267,6 +267,33 @@ namespace QLDH.DataAccess.DAO
             return false;
         }
 
+        public bool CheckLogin_AppForChangePass(string UserName, string Password)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@UserName", UserName),
+                new SqlParameter("@Password", Password)
+                };
+                object id = helper.ExecuteScalar("sp_TaiKhoan_CheckLoginAppForChangePass", pars);
+                if (id != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoan_CheckLoginAppForChangePass " + ex.Message);
+            }
+            return false;
+        }
+
+        
+
         public TaiKhoanModel GetByTenTaiKhoanOrEmail(string TenTaiKhoan)
         {
             try
@@ -306,6 +333,26 @@ namespace QLDH.DataAccess.DAO
             return null;
         }
 
+        public UserAppModel GetAppUserByID(int ID)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID", ID)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoanApp_GetByID", pars);
+                DataTable dt = ds.Tables[0];
+                UserAppModel t = GetAppObjFromDataRow(dt.Rows[0]);
+                return t;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_GetByID " + ex.Message);
+            }
+
+            return null;
+        }
+
         public List<UserAppModel> GetAllUserApp()
         {
             List<UserAppModel> result = new List<UserAppModel>();
@@ -322,6 +369,26 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_TaiKhoanApp_GetAll " + ex.Message);
+            }
+
+            return result;
+        }
+        public List<UserAppModel> GetUserOnline_TinNhanMoi()
+        {
+            List<UserAppModel> result = new List<UserAppModel>();
+            try
+            {
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoanApp_GetUserOnline_TinNhanMoi");
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    UserAppModel t = GetAppObjFromDataRow(dr);
+                    result.Add(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_GetUserOnline_TinNhanMoi " + ex.Message);
             }
 
             return result;

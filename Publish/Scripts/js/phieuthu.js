@@ -1859,6 +1859,7 @@ function LuuPhieuThu() {
         lstGiamTru: lstGiamTru,
         TongThu: Tong
     }
+    console.log(data);
     $.ajax({
         url: '/PhieuThu/CreateOrUpdate',
         type: 'POST',
@@ -2008,7 +2009,7 @@ function LoadGridLichSuTamTinh(ID_HocSinh) {
                     }).done(function successCallback(response) {
                         let item = response;
                         $("#ID_HocSinh").val(item.ID_HocSinh);
-                        $("#ID_PhieuThu").val(item.ID);
+                        //$("#ID_PhieuThu").val(item.ID);
                         $("#TenHocSinh").val(item.TenHocSinh);
                         $("#TongTien").val(kendo.toString(item.TongThu, 'n0'));
                         var lstGiamTru = [];
@@ -2016,11 +2017,10 @@ function LoadGridLichSuTamTinh(ID_HocSinh) {
                         var lstPhieuMua = [];
                         $("#TraLai").val(0);
                         $("#KhachDua").data("kendoNumericTextBox").value(0);
-                        console.log(item)
                         $.each(item.lstGiamTru, function (index, i) {
                             lstGiamTru.push({
                                 DonGia: i.DonGia,
-                                ID: i.ID,
+                                ID: 0,
                                 ID_PhieuThu: i.ID_PhieuThu,
                                 LyDo: i.LyDo,
                                 Type: i.Type,
@@ -2036,7 +2036,7 @@ function LoadGridLichSuTamTinh(ID_HocSinh) {
                         $.each(item.lstPhuThu, function (index, i) {
                             lstPhuThu.push({
                                 DonGia: i.DonGia,
-                                ID: i.ID,
+                                ID: 0,
                                 ID_PhieuThu: i.ID_PhieuThu,
                                 LyDo: i.LyDo,
                                 Type: i.Type,
@@ -2053,7 +2053,7 @@ function LoadGridLichSuTamTinh(ID_HocSinh) {
                             lstPhieuMua.push({
                                 GhiChu: i.GhiChu,
                                 HocDuoi: i.HocDuoi,
-                                ID: i.ID,
+                                ID: 0,
                                 ID_LopHoc: i.ID_Lop,
                                 SoBuoi: i.SoBuoi,
                                 DonGia: i.SoTien,

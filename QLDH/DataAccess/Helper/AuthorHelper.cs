@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
+using QLDH.Helper;
 namespace QLDH.DataAccess.Helper
 {
     public static class AuthorHelper
@@ -28,7 +29,10 @@ namespace QLDH.DataAccess.Helper
 
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
                 UserAppModel tk = tk_dao.GetAppUserInfoByName(username);
-                if(tk.Current_Device == Device && tk.Current_Imei == Imei)
+                if (
+                    (tk.Current_Device == StringHelper.RemoveVietNameseSign(Device.Trim().Replace(" ", "_")) || tk.Current_Device == Device)
+                    && tk.Current_Imei == Imei
+                    )
                 {
                     return tk;
                 }

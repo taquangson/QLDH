@@ -70,6 +70,29 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
+        public List<XinNghiPhepModel> GetByHocSinh(int ID_HocSinh)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_HocSinh", ID_HocSinh)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_XinNghiPhep_GetByHocSinh", pars);
+                DataTable dt = ds.Tables[0];
+                List<XinNghiPhepModel> result = new List<XinNghiPhepModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    XinNghiPhepModel model = GetObjFromDataRow(dr);
+                    result.Add(model);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public int InsertOrUpdate(XinNghiPhepModel model)
         {
             try

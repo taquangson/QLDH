@@ -48,5 +48,16 @@ namespace QLDH.Controllers
             return Json(new { status = true, msg = "Lưu thông báo thành công" }, JsonRequestBehavior.AllowGet);
         }
 
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult UpdateTrangThai(int ID, int TrangThai)
+        {
+            ThongBaoAppDAO bktdao = new ThongBaoAppDAO();
+            ThongBaoAppModel item = bktdao.GetByID(ID);
+            item.TrangThai = TrangThai;
+            bktdao.InsertOrUpdate(item);
+            return Json(new { status = true, msg = "Lưu thông báo thành công" }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

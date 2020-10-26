@@ -52,6 +52,14 @@ namespace QLDH.Controllers
             }
         }
 
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllKhoi()
+        {
+            LopHocDAO hsdao = new LopHocDAO();
+            return Json(hsdao.GetAll_Khoi(), JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpGet]
         public ActionResult GetAllByChiNhanh(int ID_ChiNhanh)
