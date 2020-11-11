@@ -305,3 +305,8 @@ C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketBase.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketEngine.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\SuperWebSocket.dll
 C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csprojAssemblyReference.cache
+E:\QLDH\QLDH\bin\SuperSocket.Common.dll
+E:\QLDH\QLDH\bin\SuperSocket.Facility.dll
+E:\QLDH\QLDH\bin\SuperSocket.SocketBase.dll
+E:\QLDH\QLDH\bin\SuperSocket.SocketEngine.dll
+E:\QLDH\QLDH\bin\SuperWebSocket.dll

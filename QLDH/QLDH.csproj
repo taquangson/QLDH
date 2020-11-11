@@ -1025,6 +1025,7 @@
     <Content Include="Views\XinNghiHoc\Index.cshtml" />
     <Content Include="Views\HoTro\HoTroDuongDev3.cshtml" />
     <Content Include="Views\ChatMessage\Index.cshtml" />
+    <Content Include="Views\HoTro\GiaoVan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

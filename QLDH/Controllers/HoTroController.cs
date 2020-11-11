@@ -25,6 +25,12 @@ namespace QLDH.Controllers
             return View();
         }
 
+
+        public ActionResult GiaoVan()
+        {
+            return View();
+        }
+
         public ActionResult HoTroDuongDev3()
         {
             return View();
