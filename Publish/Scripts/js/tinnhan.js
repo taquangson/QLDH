@@ -111,6 +111,34 @@ $(document).ready(function () {
                 }
             },
             {
+                field: "NotifyID",
+                title: "Cài app",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                template: function (e) {
+                    if (e.NotifyID != null) {
+                        return "<i style='color:green;font-size:25px;' class='fa fa-check'></i>"
+                    } else {
+                        return "";
+                    }
+                },
+                attributes: {
+                    style: "text-align: center"
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
                 field: "NgaySinh",
                 title: "Ngày sinh",
                 template: function (e) {

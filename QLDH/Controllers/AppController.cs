@@ -359,6 +359,7 @@ namespace QLDH.Controllers
                 {
                     LopHocDAO hsdao = new LopHocDAO();
                     TaiKhoanDAO tkdao = new TaiKhoanDAO();
+                    GiaoAnDAO gadao = new GiaoAnDAO();
                     List<LopHocModel> lstlop = hsdao.GetAll_ByHocSinh(ID_HocSinh);
                     List<LopHocModel> result = new List<LopHocModel>();
                     foreach (LopHocModel lop in lstlop)
@@ -366,6 +367,7 @@ namespace QLDH.Controllers
                         LichHocModel lich = lop.lstLichHoc.Where(x => (x.Thu - 1) == (int)DateTime.Now.DayOfWeek).FirstOrDefault();
                         if (lich != null)
                         {
+                            lop.GiaoAn = gadao.GetByLichHoc(lich.ID_Lop, lich.Ca, DateTime.Now);
                             lop.LichHoc = lich.TenCa;
                             result.Add(lop);
                         }
@@ -491,7 +493,7 @@ namespace QLDH.Controllers
                         item.Nam = date.Year;
                         item.Thang = date.Month;
                         item.data = data.Where(x => x.Nam == item.Nam && x.Thang == item.Thang).ToList();
-                        item.NoHocPhi = item.data.Find(x => x.SoBuoiDaMua + x.SoBuoiDaMuaPhuThu - x.SoBuoiDaMuaGiamTru < x.SoBuoiHoc) != null;
+                        item.NoHocPhi = item.data.Find(x => x.SoBuoiDaMua < x.SoBuoiHoc) != null;
                         result.Add(item);
                     }
                     response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
@@ -631,6 +633,7 @@ namespace QLDH.Controllers
                         item.NgayNghi = ngaynghi;
                         item.LyDoNghi = model.LyDo;
                         item.ID_HocSinh = model.ID_HocSinh;
+                        item.TrangThai = 0;
                         np_dao.InsertOrUpdate(item);
                     }
                     response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Cảm ơn quý phụ huynh đã thông báo lịch nghỉ phép!" });

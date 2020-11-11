@@ -167,6 +167,31 @@ $(document).ready(function () {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
                 }
+            },
+            {
+                field: "TrangThai",
+                title: "Trạng thái",
+                width: "100px",
+                template: function (e) {
+                    if (e.TrangThai == 1) {
+                        return "<button class='k-button' style='color:green' onclick='UpdateTrangThai(0," + e.ID + ")'><i class='fa fa-refresh' style='margin-right:2px'></i> Đã xử lý</button>"
+                    } else {
+                        return "<button class='k-button' style='color:red' onclick='UpdateTrangThai(1," + e.ID + ")'><i class='fa fa-refresh' style='margin-right:2px'></i> Chưa xử lý</button>"
+                    }
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
             }
         ]
     });
@@ -203,6 +228,30 @@ function LoadLichXinPhep() {
         $("#gridHocSinhTrongLop").data("kendoGrid").setDataSource(dataSource);
         kendo.ui.progress($("#gridHocSinhTrongLop"), false);
     });
+}
+
+function UpdateTrangThai(TrangThai, ID) {
+    kendo.ui.progress($("#gridHocSinhTrongLop"), true);
+    var item = $("#gridHocSinhTrongLop").data("kendoGrid").dataSource.get(ID);
+    var model = {
+        ID: item.ID,
+        ID_HocSinh: item.ID_HocSinh,
+        LyDoNghi: item.LyDoNghi,
+        NgayNghi: kendo.toString(new Date(parseInt(item.NgayNghi.substr(6))),'yyyy-MM-dd HH:mm:ss'),
+        NgayXinPhep: kendo.toString(new Date(parseInt(item.NgayXinPhep.substr(6))), 'yyyy-MM-dd HH:mm:ss'),
+        TrangThai: TrangThai
+    }
+    //console.log(model);
+    $.ajax({
+        url: '/XinNghiHoc/UpdateTrangThaiNghiPhep',
+        type: 'POST',
+        data: {
+            item: model
+        }
+    }).done(function successCallback(response) {
+        LoadLichXinPhep();
+    });
+
 }
 function LoadComboLop(khoi) {
     $.ajax({

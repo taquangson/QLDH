@@ -164,7 +164,7 @@ $(document).ready(function () {
             {
                 field: "TenHocSinh",
                 title: "Tên học sinh",
-                width: "250px",
+                width: "200px",
                 filterable: {
                     cell: {
                         operator: "contains",
@@ -173,6 +173,34 @@ $(document).ready(function () {
                             e.element.addClass("k-textbox").css("width", "100%")
                         }
                     }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "NotifyID",
+                title: "Đã cài app",
+                width: "50px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                template: function (e) {
+                    if (e.NotifyID != null) {
+                        return "<i style='color:green;font-size:25px;' class='fa fa-check'></i>"
+                    } else {
+                        return "";
+                    }
+                },
+                attributes: {
+                    style: "text-align: center"
                 },
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",

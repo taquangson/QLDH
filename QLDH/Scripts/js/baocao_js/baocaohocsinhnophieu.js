@@ -121,8 +121,26 @@
                 }
             },
             {
-                title: "Tên lớp",
+                title: "Tên lớp còn nợ phiếu",
                 field: "TenLop",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+            },
+            {
+                title: "Tên lớp đã mua phiếu",
+                field: "TenLopDaMua",
+                width: "250px",
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
