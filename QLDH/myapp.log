@@ -6826,3 +6826,17 @@ Error Number:2812,State:62,Class:16
 2020-10-18 21:07:05,228 [1] INFO WebSocketServer-10523083 - The server instance WebSocketServer-10523083 has been started!
 2020-10-18 21:12:56,703 [34] DEBUG WebSocketServer-28699359 - Listener (0.0.0.0:8088) was started
 2020-10-18 21:12:56,711 [34] INFO WebSocketServer-28699359 - The server instance WebSocketServer-28699359 has been started!
+2020-10-28 23:34:45,536 [1] DEBUG WebSocketServer-10523083 - Listener (0.0.0.0:8088) was started
+2020-10-28 23:34:45,544 [1] INFO WebSocketServer-10523083 - The server instance WebSocketServer-10523083 has been started!
+2020-10-29 00:10:48,151 [18] DEBUG WebSocketServer-10527138 - Listener (0.0.0.0:8088) was started
+2020-10-29 00:10:48,159 [18] INFO WebSocketServer-10527138 - The server instance WebSocketServer-10527138 has been started!
+2020-10-29 00:17:24,016 [7] ERROR QLDH.DataAccess.Helper.DataHelper - Command:sp_XinNghiPhep_InsertOrUpdate,Command Parameter:@ID:511|@ID_HocSinh:1189|@NgayNghi:01/01/0001 12:00:00 SA|@LyDoNghi:Xin ngh? l?p 10 Lý A1 do di thi gi?a k? ? tru?ng v? mu?n, c?m on trung tâm!|@TrangThai:1|
+2020-10-29 00:17:24,017 [7] ERROR QLDH.DataAccess.Helper.DataHelper - System.Data.SqlTypes.SqlTypeException: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+   at System.Data.SqlClient.TdsParser.TdsExecuteRPC(SqlCommand cmd, _SqlRPC[] rpcArray, Int32 timeout, Boolean inSchema, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj, Boolean isCommandProc, Boolean sync, TaskCompletionSource`1 completion, Int32 startRpc, Int32 startParam)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+2020-11-12 00:01:03,662 [1] DEBUG WebSocketServer-10523083 - Listener (0.0.0.0:8088) was started
+2020-11-12 00:01:03,670 [1] INFO WebSocketServer-10523083 - The server instance WebSocketServer-10523083 has been started!

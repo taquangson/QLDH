@@ -22,5 +22,6 @@ namespace QLDH.DataAccess.Models
         public int ID_ChiNhanh { get; set; }
         public int ID_Khoi { get; set; }
         public string TenKhoi { get; set; }
+        public GiaoAnModel GiaoAn { get; set; }
     }
 }

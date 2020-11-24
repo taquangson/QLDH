@@ -415,6 +415,7 @@ namespace QLDH.DataAccess.DAO
             public string TenHocSinh { get; set; }
             public int SoPhieuNo { get; set; }
             public string TenLop { get; set; }
+            public string TenLopDaMua { get; set; }
             public int ID_HocSinh { get; set; }
         }
 

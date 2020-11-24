@@ -15,6 +15,7 @@ namespace QLDH.DataAccess.Models
         public string TenHocSinh { get; set; }
         public string PhuHuynh { get; set; }
         public string DienThoai { get; set; }
+        public int TrangThai { get; set; }
     }
 
     public class XinNghiPhepAppModel

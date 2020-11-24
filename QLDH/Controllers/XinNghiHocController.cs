@@ -28,5 +28,14 @@ namespace QLDH.Controllers
             XinNghiPhepDAO lhdao = new XinNghiPhepDAO();
             return Json(lhdao.GetByLop(ID_Lop, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
         }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult UpdateTrangThaiNghiPhep(XinNghiPhepModel item)
+        {
+            XinNghiPhepDAO lhdao = new XinNghiPhepDAO();
+            int ID = lhdao.InsertOrUpdate(item);
+            return Json(new { status = (ID > 0 ? true : false) }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

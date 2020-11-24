@@ -359,6 +359,7 @@ namespace QLDH.Controllers
                 {
                     LopHocDAO hsdao = new LopHocDAO();
                     TaiKhoanDAO tkdao = new TaiKhoanDAO();
+                    GiaoAnDAO gadao = new GiaoAnDAO();
                     List<LopHocModel> lstlop = hsdao.GetAll_ByHocSinh(ID_HocSinh);
                     List<LopHocModel> result = new List<LopHocModel>();
                     foreach (LopHocModel lop in lstlop)
@@ -366,6 +367,7 @@ namespace QLDH.Controllers
                         LichHocModel lich = lop.lstLichHoc.Where(x => (x.Thu - 1) == (int)DateTime.Now.DayOfWeek).FirstOrDefault();
                         if (lich != null)
                         {
+                            lop.GiaoAn = gadao.GetByLichHoc(lich.ID_Lop, lich.Ca, DateTime.Now);
                             lop.LichHoc = lich.TenCa;
                             result.Add(lop);
                         }
@@ -491,7 +493,7 @@ namespace QLDH.Controllers
                         item.Nam = date.Year;
                         item.Thang = date.Month;
                         item.data = data.Where(x => x.Nam == item.Nam && x.Thang == item.Thang).ToList();
-                        item.NoHocPhi = item.data.Find(x => x.SoBuoiDaMua + x.SoBuoiDaMuaPhuThu - x.SoBuoiDaMuaGiamTru < x.SoBuoiHoc) != null;
+                        item.NoHocPhi = item.data.Find(x => x.SoBuoiDaMua < x.SoBuoiHoc) != null;
                         result.Add(item);
                     }
                     response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
@@ -555,6 +557,36 @@ namespace QLDH.Controllers
                         response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Đăng ký học thành công. Bộ phận văn phòng sẽ liên hệ trực tiếp với quý phụ huynh để hoàn tất thủ tục! Xin chân thành cảm ơn!" });
                     else
                         response = Request.CreateResponse(HttpStatusCode.NotModified, new { success = false, msg = "Đăng ký học không thành công. Vui lòng liên hệ với văn phòng trung tâm!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+
+        [HttpPost]
+        [Route("dangkyevent")]
+        public HttpResponseMessage dangkyevent([FromUri] int ID)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    //if (tk_dao.InsertOrUpdate(model) > 0)
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Đăng ký thành công. Bộ phận văn phòng sẽ liên hệ trực tiếp với quý phụ huynh để hoàn tất thủ tục! Xin chân thành cảm ơn!" });
+                    //else
+                        //response = Request.CreateResponse(HttpStatusCode.NotModified, new { success = false, msg = "Đăng ký không thành công. Vui lòng liên hệ với văn phòng trung tâm!" });
                 }
             }
             catch (Exception ex)
@@ -631,6 +663,7 @@ namespace QLDH.Controllers
                         item.NgayNghi = ngaynghi;
                         item.LyDoNghi = model.LyDo;
                         item.ID_HocSinh = model.ID_HocSinh;
+                        item.TrangThai = 0;
                         np_dao.InsertOrUpdate(item);
                     }
                     response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Cảm ơn quý phụ huynh đã thông báo lịch nghỉ phép!" });
