@@ -1855,10 +1855,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>10/29/2020 00:10:41</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>10/29/2020 00:10:41</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -2234,6 +2234,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
+    </File>
+    <File Include="Views/HoTro/GiaoVan.cshtml">
+      <publishTime>11/11/2020 23:58:16</publishTime>
     </File>
     <File Include="Views/HoTro/HoTroDuongDe.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>

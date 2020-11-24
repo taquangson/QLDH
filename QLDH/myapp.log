@@ -6838,3 +6838,5 @@ Error Number:2812,State:62,Class:16
    at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
    at System.Data.SqlClient.SqlCommand.ExecuteScalar()
    at QLDH.DataAccess.Helper.DataHelper.ExecuteScalar(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 275
+2020-11-12 00:01:03,662 [1] DEBUG WebSocketServer-10523083 - Listener (0.0.0.0:8088) was started
+2020-11-12 00:01:03,670 [1] INFO WebSocketServer-10523083 - The server instance WebSocketServer-10523083 has been started!

@@ -566,6 +566,36 @@ namespace QLDH.Controllers
             return response;
         }
 
+
+        [HttpPost]
+        [Route("dangkyevent")]
+        public HttpResponseMessage dangkyevent([FromUri] int ID)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    //if (tk_dao.InsertOrUpdate(model) > 0)
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Đăng ký thành công. Bộ phận văn phòng sẽ liên hệ trực tiếp với quý phụ huynh để hoàn tất thủ tục! Xin chân thành cảm ơn!" });
+                    //else
+                        //response = Request.CreateResponse(HttpStatusCode.NotModified, new { success = false, msg = "Đăng ký không thành công. Vui lòng liên hệ với văn phòng trung tâm!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
         public class ChangePassModel
         {
             public string TenDayDu { get; set; }
