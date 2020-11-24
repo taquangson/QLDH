@@ -226,6 +226,7 @@
     <Compile Include="Controllers\BaoCaoController.cs" />
     <Compile Include="Controllers\ChatMessageController.cs" />
     <Compile Include="Controllers\ChucNangController.cs" />
+    <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DanhMucController.cs" />
     <Compile Include="Controllers\DiemDanhController.cs" />
     <Compile Include="Controllers\FBNotificationController.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
     <Compile Include="DataAccess\DAO\ChatSessionDAO.cs" />
+    <Compile Include="DataAccess\DAO\DangKyEventDAO.cs" />
     <Compile Include="DataAccess\DAO\GiaoAnDAO.cs" />
     <Compile Include="DataAccess\DAO\LichSuThongBaoDAO.cs" />
     <Compile Include="DataAccess\DAO\ThongBaoAppDAO.cs" />
@@ -273,6 +275,7 @@
     <Compile Include="DataAccess\Models\AnhBaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\ChatSessionModel.cs" />
+    <Compile Include="DataAccess\Models\DangKyEventModel.cs" />
     <Compile Include="DataAccess\Models\GiaoAnModel.cs" />
     <Compile Include="DataAccess\Models\CaHocModel.cs" />
     <Compile Include="DataAccess\Models\ChiNhanhModels.cs" />
@@ -1026,6 +1029,8 @@
     <Content Include="Views\HoTro\HoTroDuongDev3.cshtml" />
     <Content Include="Views\ChatMessage\Index.cshtml" />
     <Content Include="Views\HoTro\GiaoVan.cshtml" />
+    <Content Include="Views\DangKy\DangKyHoc.cshtml" />
+    <Content Include="Views\DangKy\DangKyEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

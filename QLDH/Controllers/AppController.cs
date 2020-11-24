@@ -583,10 +583,13 @@ namespace QLDH.Controllers
                 }
                 else
                 {
-                    //if (tk_dao.InsertOrUpdate(model) > 0)
+                    DangKyEventDAO dao = new DangKyEventDAO();
+                    DangKyEventModel model = new DangKyEventModel();
+                    model.ID_TaiKhoan = ID;
+                    if (dao.Insert(model))
                         response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Đăng ký thành công. Bộ phận văn phòng sẽ liên hệ trực tiếp với quý phụ huynh để hoàn tất thủ tục! Xin chân thành cảm ơn!" });
-                    //else
-                        //response = Request.CreateResponse(HttpStatusCode.NotModified, new { success = false, msg = "Đăng ký không thành công. Vui lòng liên hệ với văn phòng trung tâm!" });
+                    else
+                        response = Request.CreateResponse(HttpStatusCode.NotModified, new { success = false, msg = "Đăng ký không thành công. Vui lòng liên hệ với văn phòng trung tâm!" });
                 }
             }
             catch (Exception ex)
