@@ -36,6 +36,36 @@ namespace QLDH.Controllers
             return View();
         }
 
+        public ActionResult QRCodeScanResult(int ID_HocSinh)
+        {
+            CheckInSuKienDAO cdao = new CheckInSuKienDAO();
+            List<CheckInSuKienModel> rs = cdao.GetByHocSinh(ID_HocSinh, DateTime.Now);
+            ViewBag.Student = new HocSinhDAO().GetById(ID_HocSinh);
+            ViewBag.CheckInLanDau = rs.FirstOrDefault();
+            CheckInSuKienModel newitem = new CheckInSuKienModel();
+            DiemDanhDAO ddao = new DiemDanhDAO();
+            DiemDanhModel diemdanhcu = ddao.GetByHocSinh_Ngay(479, ID_HocSinh, DateTime.Now, 3);
+            if (diemdanhcu.ID == 0)
+            {
+                DiemDanhModel dmodel = new DiemDanhModel();
+                dmodel.ID = 0;
+                dmodel.ID_Lop = 479;
+                dmodel.ID_HocSinh = ID_HocSinh;
+                dmodel.ThoiGianVaoLop = DateTime.Now;
+                dmodel.Ca = 3;
+                dmodel.ID_NhanVien = 1;
+                dmodel.HocDuoi = 0;
+                dmodel.CoPhep = 0;
+                dmodel.GhiChu = "";
+                ddao.InsertOrUpdate(dmodel);
+            }
+            newitem.ID_HocSinh = ID_HocSinh;
+            newitem.ThoiGianCheckIn = DateTime.Now;
+            newitem.NgayToChucSuKien = DateTime.Now;
+            cdao.Insert(newitem);
+            return View();
+        }
+
         [HttpPost]
         public ActionResult UploadExcelData(HttpPostedFileBase file, string filter)
         {

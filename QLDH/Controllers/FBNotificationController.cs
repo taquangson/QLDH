@@ -17,6 +17,7 @@ namespace QLDH.Controllers
 {
     public class FBNotificationController : Controller
     {
+        log4net.ILog log = log4net.LogManager.GetLogger(typeof(FBNotificationController));
         public class NotifyModel
         {
             public List<string> Users { get; set; }
@@ -39,18 +40,35 @@ namespace QLDH.Controllers
             {
                 Title = model.TieuDe,
                 Body = model.NoiDung,
-                ImageUrl = baseUrl + "AnhThongBao/" +  model.AnhDaiDien
+                ImageUrl = baseUrl + "Images/" +  model.AnhDaiDien
             };
+            var androidconfig = new AndroidConfig()
+            {
+                Notification = new AndroidNotification()
+                {
+                    Sound = "default",
+                    ImageUrl = baseUrl + "Images/" + model.AnhDaiDien,
+                    Title = model.TieuDe
+
+                }
+            };
+
+            var apns = new ApnsConfig()
+            {
+
+                Aps = new Aps()
+                {
+                    Sound = "default",
+                    Badge = 1
+                }
+            };
+
             var message = new MulticastMessage()
             {
-                Data = new Dictionary<string, string>()
-                {
-                    { "ID", "1" },
-                    { "Value", "thongbao" },
-                },
                 Notification = notification,
-                Tokens = model.Tokens,
-
+                Android = androidconfig,
+                Apns = apns,
+                Tokens = model.Tokens
             };
             ThongBaoAppDAO tbdao = new ThongBaoAppDAO();
             ThongBaoAppModel tb = new ThongBaoAppModel();
@@ -77,7 +95,7 @@ namespace QLDH.Controllers
             {
                 // Send a message to the device corresponding to the provided
                 // registration token.
-                var response = await FirebaseMessaging.DefaultInstance.SendMulticastAsync(message);
+                BatchResponse response = await FirebaseMessaging.DefaultInstance.SendMulticastAsync(message);
                 // Response is a message ID string.
                 if (response.FailureCount > 0)
                 {
@@ -87,9 +105,10 @@ namespace QLDH.Controllers
                         {
                             // The order of responses corresponds to the order of the registration tokens.
                             failedTokens.Add(model.Tokens[i]);
+                            log.Error("Fail noti for: " + model.Tokens[i] + " - " + response.Responses[i].Exception.Message);
                         }
                     }
-                }
+                }                
             }
             return Json(new { status = true, msg = "Gửi thông báo thành công", data = failedTokens }, JsonRequestBehavior.AllowGet);
         }

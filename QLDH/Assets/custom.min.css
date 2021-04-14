@@ -4825,7 +4825,7 @@ body .container.body .right_col {
 
 
 /*CSS Xa lánh*/
-body {
+/*body {
     color: #73879C;
     background: #5e987b;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
@@ -4875,6 +4875,69 @@ body {
 .blue {
     color: #eaeaea;
 }
+a:focus, a:hover {
+    color: #fff;
+    text-decoration: underline;
+}*/
+
+/*CSS Xanh Dương*/
+body {
+    color: #73879C;
+    background: #355593;
+    font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.471;
+}
+
+.nav.side-menu > li.active > a {
+    text-shadow: rgba(0,0,0,.25) 0 -1px 0;
+    background: linear-gradient(#5f7489,#355593),#2A3F54;
+    box-shadow: rgba(0,0,0,.25) 0 1px 0, inset rgba(255,255,255,.16) 0 1px 0;
+}
+.nav.side-menu > li.active, .nav.side-menu > li.current-page {
+    border-right: 5px solid #7ea2e6;
+}
+.nav-md ul.nav.child_menu li:before {
+    background: #f9f9f9;
+    bottom: auto;
+    content: "";
+    height: 8px;
+    left: 23px;
+    margin-top: 15px;
+    position: absolute;
+    right: auto;
+    width: 8px;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.nav-md ul.nav.child_menu li:after {
+    border-left: 1px solid #ffffff;
+    bottom: 0;
+    content: "";
+    left: 27px;
+    position: absolute;
+    top: 0;
+}
+
+.nav_title {
+    width: 230px;
+    float: left;
+    background: #355593;
+    border-radius: 0;
+    height: 57px;
+}
+
+.blue {
+    border: solid 1px #162137;
+    background-color: #355593;
+}
+
+.blue {
+    color: #eaeaea;
+}
+
 a:focus, a:hover {
     color: #fff;
     text-decoration: underline;

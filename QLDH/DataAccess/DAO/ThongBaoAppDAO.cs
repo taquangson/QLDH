@@ -69,7 +69,24 @@ namespace QLDH.DataAccess.DAO
                 return null;
             }
         }
-
+        public int CountUnReadByUser(string UserName)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_User", UserName)
+                };
+                object count = helper.ExecuteScalar("sp_ThongBaoApp_CountUnReadByUser", pars);
+                if(count != null)
+                return int.Parse(count.ToString());
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_ThongBaoApp_CountUnReadByUser " + ex.Message);
+                return 0;
+            }
+        }
         public List<ThongBaoAppModel> GetByLop(int ID_Lop)
         {
             try

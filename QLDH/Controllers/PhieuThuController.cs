@@ -336,6 +336,18 @@ namespace QLDH.Controllers
             return View(model);
         }
 
+        [SessionModeratorRole]
+        public ActionResult InPhieuTamTinh(int ID_PhieuTamTinh)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            PhieuThuModel pt = ptdao.GetTempById(ID_PhieuTamTinh);
+            InPhieuModel model = new InPhieuModel();
+            model.PhieuThu = pt;
+            model.TaiKhoan = userinfor;
+            return View(model);
+        }
+
         [AllowAnonymous]
         public ActionResult ThongBaoHocPhi(int ID_PhieuThu)
         {

@@ -49,6 +49,18 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        public ActionResult BieuDoDiem()
+        {
+            return View();
+        }
+
+        [SessionExpire]
+        public ActionResult BieuDoDiemTrungBinh_TheoLop()
+        {
+            return View();
+        }
+
+        [SessionExpire]
         public ActionResult GetData_ThongKeBuoiHocTheoHocSinh(int ID_Lop, int ID_HocSinh, DateTime TuNgay, DateTime DenNgay)
         {
             return Json(new BaoCaoDAO().ThongKeBuoiHocTheoHocSinh(ID_Lop, ID_HocSinh, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
@@ -84,6 +96,20 @@ namespace QLDH.Controllers
         {
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             return Json(new BaoCaoDAO().GetBaoCaoNoPhieu(userinfor.ID_ChiNhanh, Thang, Nam), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetData_BieuDoDiem(DateTime from, DateTime to, int ID_HocSinh, int ID_Lop)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            return Json(new BaoCaoDAO().GetBieuDoDiem(ID_Lop, ID_HocSinh, from, to), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetData_BieuDoDiemTrungBinh_TheoLop(DateTime from, DateTime to, int ID_Lop)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            return Json(new BaoCaoDAO().GetBieuDoDiemTrungBinh_TheoLop(ID_Lop, from, to), JsonRequestBehavior.AllowGet);
         }
 
         public class BaoCaoSoBuoiHocTheoGiaoVienData
@@ -133,6 +159,17 @@ namespace QLDH.Controllers
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveFile_BieuDoDiem(string contentType, string base64, string fileName)
+        {
+            byte[] fileContents = Convert.FromBase64String(base64);
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + @"Images\BaiKiemTra" + @"\" + fileName;
+            System.IO.File.WriteAllBytes(filePath, fileContents);
+            return RedirectToAction("BieuDoDiem");
+            //return Json(filePath, JsonRequestBehavior.AllowGet);
         }
 
     }

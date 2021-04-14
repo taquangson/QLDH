@@ -1798,6 +1798,10 @@ function TaoPhieuThu() {
     openConfirm(dialogRoot, "<b style='line-height:40px;'>Bạn có chắc chắn muốn tạo và in phiếu thu?</b>", function () { LuuPhieuThu(); }, function () { });
 }
 
+function InTamTinh() {
+    openConfirm(dialogRoot, "<b style='line-height:40px;'>Bạn có chắc chắn muốn tạo và in phiếu tạm tính?</b>", function () { InPhieuTamTinh(); }, function () { });
+}
+
 function LuuPhieuThu() {
     kendo.ui.progress($("#windowLapPhieuThu"), true);
     var lstPhieuHoc = [];
@@ -1859,7 +1863,6 @@ function LuuPhieuThu() {
         lstGiamTru: lstGiamTru,
         TongThu: Tong
     }
-    console.log(data);
     $.ajax({
         url: '/PhieuThu/CreateOrUpdate',
         type: 'POST',
@@ -2009,7 +2012,7 @@ function LoadGridLichSuTamTinh(ID_HocSinh) {
                     }).done(function successCallback(response) {
                         let item = response;
                         $("#ID_HocSinh").val(item.ID_HocSinh);
-                        //$("#ID_PhieuThu").val(item.ID);
+                        $("#ID_PhieuTamTinh").val(item.ID);
                         $("#TenHocSinh").val(item.TenHocSinh);
                         $("#TongTien").val(kendo.toString(item.TongThu, 'n0'));
                         var lstGiamTru = [];
@@ -2302,36 +2305,46 @@ function InPhieuThu() {
     });
 }
 
+function InPhieuTamTinh() {
+    var ID_PhieuThu = $("#ID_PhieuTamTinh").val();
+    window.open('/PhieuThu/InPhieuTamTinh?ID_PhieuTamTinh=' + ID_PhieuThu, '_blank');
+}
+
 function ThongBaoHocPhi() {
     openConfirm(dialogRoot, "<b style='line-height:40px;'>Bạn có chắc chắn muốn gửi thông báo học phí đến phụ huynh?</b>", function () { GuiThongBao(); }, function () { });
 }
 
 function GuiThongBao() {
-    let hocsinh = $("#gridTimKiemHocSinh").data("kendoGrid").dataSource.get($("#ID_HocSinh").val());
-    let link = "http://" + window.location.host + "/PhieuThu/ThongBaoHocPhi?ID_PhieuThu=" + $("#combotamtinh").data("kendoComboBox").value();
-    let html = "<a style='display:block;width:100%;text-align:center;font-size:6em;text-decoration:none;' href='" + link + "'>Bấm để mở</a>"
-    let model = {
-        Users: [],
-        Tokens: [],
-        TieuDe: "Trung Tâm Luyện Thi Dương Hòa",
-        NoiDung: "Thông báo học phí",
-        NoiDungHTML: html,
-        NoiDungRieng: "",
-        AnhDaiDien: "logodh.png"
-    };
-    model.Users.push(hocsinh.DienThoaiMacDinh);
-    model.Tokens.push(hocsinh.NotifyID);
-    console.log(model);
-    $.ajax({
-        url: '/FBNotification/PushNotify',
-        data: model,
-        type: 'POST'
-    }).done(function successCallback(response) {
-        if (response.status) {
-            notification.show({ kValue: response.msg }, "success");
-        } else {
-            notification.show({ kValue: response.msg }, "error");
-        }
-    });
+    var idphieutamtinh = $("#ID_PhieuTamTinh").val();
+    if (idphieutamtinh > 0) {
+        let hocsinh = $("#gridTimKiemHocSinh").data("kendoGrid").dataSource.get($("#ID_HocSinh").val());
+        let link = "http://" + window.location.host + "/PhieuThu/ThongBaoHocPhi?ID_PhieuThu=" + idphieutamtinh;
+        let html = "<a style='display:block;width:100%;text-align:center;font-size:6em;text-decoration:none;' href='" + link + "'>Bấm để mở</a>"
+        let model = {
+            Users: [],
+            Tokens: [],
+            TieuDe: "Trung Tâm Luyện Thi Dương Hòa",
+            NoiDung: "Thông báo học phí",
+            NoiDungHTML: html,
+            NoiDungRieng: "",
+            AnhDaiDien: "logodh.png"
+        };
+        model.Users.push(hocsinh.DienThoaiMacDinh);
+        model.Tokens.push(hocsinh.NotifyID);
+        console.log(model);
+        $.ajax({
+            url: '/FBNotification/PushNotify',
+            data: model,
+            type: 'POST'
+        }).done(function successCallback(response) {
+            if (response.status) {
+                notification.show({ kValue: response.msg }, "success");
+            } else {
+                notification.show({ kValue: response.msg }, "error");
+            }
+        });
+    } else {
+        notification.show({ kValue: "Vui lòng chọn phiếu tạm tính cần gửi" }, "error");
+    }
 }
 

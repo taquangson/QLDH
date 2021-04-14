@@ -10,7 +10,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="Assets/Common.css">
-      <publishTime>06/07/2020 09:58:55</publishTime>
+      <publishTime>01/02/2021 12:28:30</publishTime>
     </File>
     <File Include="Assets/common.js">
       <publishTime>04/15/2020 12:47:05</publishTime>
@@ -22,7 +22,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:05</publishTime>
     </File>
     <File Include="Assets/custom.min.css">
-      <publishTime>06/07/2020 09:58:11</publishTime>
+      <publishTime>01/02/2021 12:27:55</publishTime>
     </File>
     <File Include="Assets/custom.min.js">
       <publishTime>04/15/2020 12:47:05</publishTime>
@@ -1855,10 +1855,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>04/06/2021 15:07:37</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>04/06/2021 15:07:37</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -1963,7 +1963,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Content/login.css">
-      <publishTime>06/07/2020 10:03:14</publishTime>
+      <publishTime>01/02/2021 12:21:02</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2035,16 +2035,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Images/img.jpg">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>01/02/2021 12:31:25</publishTime>
     </File>
     <File Include="Images/img.png">
-      <publishTime>05/29/2020 13:25:21</publishTime>
+      <publishTime>01/02/2021 12:16:40</publishTime>
     </File>
     <File Include="Images/logodh.jpg">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>01/02/2021 12:31:11</publishTime>
     </File>
     <File Include="Images/logodh.png">
-      <publishTime>05/29/2020 13:25:21</publishTime>
+      <publishTime>01/02/2021 12:16:40</publishTime>
     </File>
     <File Include="Images/new-folder-add.png">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2092,10 +2092,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2020 13:42:01</publishTime>
     </File>
     <File Include="img_OX2_icon.ico">
-      <publishTime>05/29/2020 13:27:48</publishTime>
+      <publishTime>01/02/2021 12:36:19</publishTime>
     </File>
     <File Include="log4net.config">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>01/01/2021 01:17:59</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>09/28/2020 13:58:34</publishTime>
@@ -2139,6 +2139,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/js/baocao_js/baocaohocsinhnophieu.js">
       <publishTime>10/28/2020 19:58:32</publishTime>
     </File>
+    <File Include="Scripts/js/baocao_js/bieudodiem.js">
+      <publishTime>01/26/2021 11:42:51</publishTime>
+    </File>
+    <File Include="Scripts/js/baocao_js/bieudodiemtrungbinhtheolop.js">
+      <publishTime>01/13/2021 17:24:30</publishTime>
+    </File>
     <File Include="Scripts/js/baocao_js/thongkebuoihoctheogiaovien.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
@@ -2164,7 +2170,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Scripts/js/phieuthu.js">
-      <publishTime>09/15/2020 10:07:17</publishTime>
+      <publishTime>01/05/2021 21:37:35</publishTime>
     </File>
     <File Include="Scripts/js/phongban.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2208,14 +2214,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/BaoCao/BaoCaoSoBuoiHocTheoGiaoVien.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Views/BaoCao/BieuDoDiem.cshtml">
+      <publishTime>01/26/2021 11:14:11</publishTime>
+    </File>
+    <File Include="Views/BaoCao/BieuDoDiemTrungBinh_TheoLop.cshtml">
+      <publishTime>01/13/2021 16:36:24</publishTime>
+    </File>
     <File Include="Views/BaoCao/ThongKeBuoiHocTheoHocSinh.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Views/ChatMessage/Index.cshtml">
-      <publishTime>10/07/2020 01:24:40</publishTime>
+      <publishTime>01/05/2021 21:47:10</publishTime>
     </File>
     <File Include="Views/ChatMessage/testchat.html">
       <publishTime>09/28/2020 13:41:49</publishTime>
+    </File>
+    <File Include="Views/DangKy/DangKyEvent.cshtml">
+      <publishTime>11/25/2020 03:53:10</publishTime>
+    </File>
+    <File Include="Views/DangKy/DangKyHoc.cshtml">
+      <publishTime>11/25/2020 03:53:10</publishTime>
     </File>
     <File Include="Views/DanhMuc/DanhMucLoi.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2247,6 +2265,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/HoTro/HoTroDuongDev3.cshtml">
       <publishTime>09/15/2020 10:07:17</publishTime>
     </File>
+    <File Include="Views/HoTro/QRCodeScanResult.cshtml">
+      <publishTime>03/10/2021 10:56:53</publishTime>
+    </File>
     <File Include="Views/LichHoc/TraCuuLichHoc.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
@@ -2260,13 +2281,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Views/PhieuThu/Index.cshtml">
-      <publishTime>06/11/2020 13:10:36</publishTime>
+      <publishTime>01/05/2021 21:34:01</publishTime>
     </File>
     <File Include="Views/PhieuThu/InPhieu.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Views/PhieuThu/InPhieuTamTinh.cshtml">
+      <publishTime>01/05/2021 21:28:30</publishTime>
+    </File>
     <File Include="Views/PhieuThu/ThongBaoHocPhi.cshtml">
-      <publishTime>06/11/2020 13:32:14</publishTime>
+      <publishTime>01/05/2021 21:45:56</publishTime>
     </File>
     <File Include="Views/PhongBan/Index.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2275,7 +2299,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/16/2020 00:51:30</publishTime>
+      <publishTime>01/30/2021 11:08:17</publishTime>
     </File>
     <File Include="Views/ThongBaoApp/Index.cshtml">
       <publishTime>09/15/2020 10:07:17</publishTime>
@@ -2305,7 +2329,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/29/2020 00:20:44</publishTime>
+      <publishTime>03/10/2021 10:57:32</publishTime>
     </File>
   </ItemGroup>
 </Project>

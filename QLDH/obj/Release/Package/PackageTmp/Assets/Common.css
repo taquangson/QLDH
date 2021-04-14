@@ -486,7 +486,7 @@ input:read-only {
 /*CSS Xa Lánh*/
 
 
-.table-header-cell-checkbox.k-header {
+/*.table-header-cell-checkbox.k-header {
     background: #5e987b;
     color: white !important;
     min-height: 23px !important;
@@ -507,5 +507,30 @@ input:read-only {
     min-height: 23px !important;
     font-weight: bold !important;
     line-height: 20px;
-    /* margin-bottom: 10px; */
+}*/
+
+/*CSS Xanh Dương*/
+.table-header-cell-checkbox.k-header {
+    background: #355593;
+    color: white !important;
+    min-height: 23px !important;
+    font-weight: bold !important;
+    line-height: 20px;
+}
+
+.table-header-cell.k-header {
+    background: #355593;
+    color: white !important;
+    min-height: 23px !important;
+    font-weight: bold !important;
+    line-height: 20px;
+    text-align: center;
+}
+
+.k-window-titlebar.k-header {
+    background: linear-gradient(#1b2b4a, #456cb6);
+    color: white !important;
+    min-height: 23px !important;
+    font-weight: bold !important;
+    line-height: 20px;
 }

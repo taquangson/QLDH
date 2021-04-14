@@ -245,6 +245,7 @@
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
     <Compile Include="DataAccess\DAO\ChatSessionDAO.cs" />
+    <Compile Include="DataAccess\DAO\CheckInSuKienDAO.cs" />
     <Compile Include="DataAccess\DAO\DangKyEventDAO.cs" />
     <Compile Include="DataAccess\DAO\GiaoAnDAO.cs" />
     <Compile Include="DataAccess\DAO\LichSuThongBaoDAO.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="DataAccess\Models\AnhBaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\ChatSessionModel.cs" />
+    <Compile Include="DataAccess\Models\CheckInSuKienModel.cs" />
     <Compile Include="DataAccess\Models\DangKyEventModel.cs" />
     <Compile Include="DataAccess\Models\GiaoAnModel.cs" />
     <Compile Include="DataAccess\Models\CaHocModel.cs" />
@@ -698,16 +700,6 @@
     <Content Include="Images\app1.jpg" />
     <Content Include="Images\app2.jpg" />
     <Content Include="Images\background.jpg" />
-    <Content Include="Images\BaiKiemTra\03052018051440MB_LONG_BIEN.jpg" />
-    <Content Include="Images\BaiKiemTra\05052018103926566A2_VA_688A2.jpg" />
-    <Content Include="Images\BaiKiemTra\07052018083444manh_kieu2.JPG" />
-    <Content Include="Images\BaiKiemTra\Emerald.jpg" />
-    <Content Include="Images\BaiKiemTra\Emerald2.jpg" />
-    <Content Include="Images\BaiKiemTra\Emerald26.jpg" />
-    <Content Include="Images\BaiKiemTra\Emerald27.jpg" />
-    <Content Include="Images\BaiKiemTra\Emerald28.jpg" />
-    <Content Include="Images\BaiKiemTra\Emerald3.jpg" />
-    <Content Include="Images\BaiKiemTra\Emerald4.jpg" />
     <Content Include="Images\bbg.jpg" />
     <Content Include="Images\computer-folder-icon.jpg" />
     <Content Include="Images\img.jpg" />
@@ -963,6 +955,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\baocao_js\baocaohocsinhnophieu.js" />
+    <Content Include="Scripts\js\baocao_js\bieudodiemtrungbinhtheolop.js" />
+    <Content Include="Scripts\js\baocao_js\bieudodiem.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihoctheogiaovien.js" />
     <Content Include="Scripts\js\baocao_js\baocaodoanhthubanphieu.js" />
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
@@ -1031,11 +1025,16 @@
     <Content Include="Views\HoTro\GiaoVan.cshtml" />
     <Content Include="Views\DangKy\DangKyHoc.cshtml" />
     <Content Include="Views\DangKy\DangKyEvent.cshtml" />
+    <Content Include="Views\PhieuThu\InPhieuTamTinh.cshtml" />
+    <Content Include="Views\BaoCao\BieuDoDiem.cshtml" />
+    <Content Include="Views\BaoCao\BieuDoDiemTrungBinh_TheoLop.cshtml" />
+    <Content Include="Views\HoTro\QRCodeScanResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\AnhHocSinh\" />
     <Folder Include="Images\AnhThongBao\" />
+    <Folder Include="Images\BaiKiemTra\" />
     <Folder Include="Images\HoTro\" />
   </ItemGroup>
   <ItemGroup>

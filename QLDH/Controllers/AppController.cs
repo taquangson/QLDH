@@ -151,6 +151,25 @@ namespace QLDH.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("getAllHocSinhByTenTaikhoan")]
+        public HttpResponseMessage getAllHocSinhByTenTaikhoan([FromUri]string UserName)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                HocSinhDAO hsdao = new HocSinhDAO();
+                List<HocSinhModel> result = hsdao.GetAllBySDT(UserName);
+                response = Request.CreateResponse(HttpStatusCode.Created, new { data = result, message = "OK" });
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
         [HttpPost]
         [Route("capNhatDuLieuHocSinh")]
         public HttpResponseMessage capNhatDuLieuHocSinh([FromBody] HocSinhModel model)
@@ -755,6 +774,7 @@ namespace QLDH.Controllers
                                 hs.ID_DiemDanh = dd.ID;
                                 hs.CoPhep = dd.CoPhep;
                                 hs.QuaGioDiemDanh = quagio;
+                                hs.YeuCauTraoDoi = dd.YeuCauTraoDoi;
                                 hs.GhiChu = dd.GhiChu;
                                 hs.Diem = dd.Diem > 0 ? (double?)dd.Diem : null;
                             }
@@ -1034,6 +1054,7 @@ namespace QLDH.Controllers
                             diemdanhcu.GhiChu = "";
                         }
                         diemdanhcu.Diem = d.Diem;
+                        diemdanhcu.YeuCauTraoDoi = d.YeuCauTraoDoi;
                         ddao.InsertOrUpdate(diemdanhcu);
                     }
                     catch (Exception ex)
@@ -1160,6 +1181,32 @@ namespace QLDH.Controllers
                 {
                     ThongBaoAppDAO tndao = new ThongBaoAppDAO();
                     response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.GetByUser(userinfo.UserName, ThongBao) });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+        [HttpGet]
+        [Route("countthongbaochuadocbyuser")]
+        public HttpResponseMessage countthongbaochuadocbyuser()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.NotFound, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    ThongBaoAppDAO tndao = new ThongBaoAppDAO();
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = tndao.CountUnReadByUser(userinfo.UserName) });
                 }
             }
             catch (Exception ex)

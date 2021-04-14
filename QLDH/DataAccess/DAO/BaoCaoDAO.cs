@@ -471,5 +471,93 @@ namespace QLDH.DataAccess.DAO
                 return null;
             }
         }
+
+        public class BieuDoDiemModel
+        {
+            public string TenHocSinh { get; set; }
+            public float Diem { get; set; }
+            public string ThoiGianVaoLop { get; set; }
+        }
+
+        private BieuDoDiemModel GetBieuDoDiemModelFromDataRow(DataRow dr)
+        {
+            BieuDoDiemModel obj = new BieuDoDiemModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
+        public List<BieuDoDiemModel> GetBieuDoDiem(int ID_Lop, int ID_HocSinh, DateTime from, DateTime to)
+        {
+            try
+            {
+                List<BieuDoDiemModel> result = new List<BieuDoDiemModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_Lop",ID_Lop),
+                    new SqlParameter("@ID_HocSinh",ID_HocSinh),
+                    new SqlParameter("@from",from),
+                    new SqlParameter("@to",to)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BieuDoDiem", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BieuDoDiemModel item = GetBieuDoDiemModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BieuDoDiem " + ex.Message);
+                return null;
+            }
+        }
+
+        public List<BieuDoDiemModel> GetBieuDoDiemTrungBinh_TheoLop(int ID_Lop, DateTime from, DateTime to)
+        {
+            try
+            {
+                List<BieuDoDiemModel> result = new List<BieuDoDiemModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_Lop",ID_Lop),
+                    new SqlParameter("@from",from),
+                    new SqlParameter("@to",to)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BieuDoDiemTrungBinh_TheoLop", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BieuDoDiemModel item = GetBieuDoDiemModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BieuDoDiemTrungBinh_TheoLop " + ex.Message);
+                return null;
+            }
+        }
     }
 }

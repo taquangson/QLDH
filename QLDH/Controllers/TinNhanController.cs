@@ -82,6 +82,7 @@ namespace QLDH.Controllers
         [HttpPost]
         public ActionResult GuiTinNhanTheoMau(List<TinNhanModel> data, string maguitin)
         {
+            log4net.ILog log = log4net.LogManager.GetLogger(typeof(TinNhanController));
             if (data != null)
             {
                 List<TinNhanModel> thanhcong = new List<TinNhanModel>();
@@ -98,6 +99,7 @@ namespace QLDH.Controllers
                     }
                     else
                     {
+                        log.Info(err_code + " - " + err_des);
                         thatbai.Add(tn);
                     }
                 }

@@ -11,7 +11,7 @@
 
 .sidenav {
     height: 100%;
-    background-color: #356065;
+    background-color: #8894a5;
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -146,7 +146,7 @@
 }
 
 .btn-black {
-    background-color: #356065;
+    background-color: #355593;
     color: #fff;
 }
 
@@ -219,7 +219,7 @@
 }*/
 
 /*CSS Xa Lánh*/
-.btn-black {
+/*.btn-black {
     background-color: #6dad87;
     color: #fff;
 }
@@ -229,4 +229,4 @@
     background-color: #62af7a;
     overflow-x: hidden;
     padding-top: 20px;
-}
+}*/

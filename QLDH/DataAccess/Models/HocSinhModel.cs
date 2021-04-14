@@ -29,6 +29,7 @@ namespace QLDH.DataAccess.Models
         public bool DaMuaPhieu { get; set; }
         public string GhiChu { get; set; }
         public double? Diem { get; set; }
+        public int YeuCauTraoDoi { get; set; }
         public string AnhDaiDien { get; set; }
         public string NotifyID { get; set; }
     }

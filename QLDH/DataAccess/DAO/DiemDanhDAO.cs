@@ -131,6 +131,7 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@GhiChu", model.GhiChu),
                 new SqlParameter("@Diem", model.Diem),
                 new SqlParameter("@HocDuoi", model.HocDuoi),
+                new SqlParameter("@YeuCauTraoDoi", model.YeuCauTraoDoi),
                 new SqlParameter("@ThoiGianVaoLop", model.ThoiGianVaoLop != null ? model.ThoiGianVaoLop : DateTime.Now)
                 };
 

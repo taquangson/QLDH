@@ -19,5 +19,8 @@ namespace QLDH.DataAccess.Models
         public DateTime ExpriedTime { get; set; }
         public DateTime Last_LoginTime { get; set; }
         public string DanhSachHocSinh { get; set; }
+        public int ShowPopup { get; set; }
+        public int ShowButton { get; set; }
+        public string PopupImage { get; set; }
     }
 }
