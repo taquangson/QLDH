@@ -209,7 +209,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@SoDoLop", model.SoDoLop),
                 new SqlParameter("@LichHoc", model.LichHoc),
                 new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
-                new SqlParameter("@ID_Khoi", model.ID_Khoi)
+                new SqlParameter("@ID_Khoi", model.ID_Khoi),
+                new SqlParameter("@PhongHoc", model.PhongHoc)
                 };
 
                 object id = helper.ExecuteScalar("sp_LopHoc_InsertOrUpdate", pars);

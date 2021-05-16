@@ -169,7 +169,28 @@
             {
                 title: "Tên người bán",
                 field: "TenNhanVien",
-                width: "180px",
+                width: "120px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                title: "Hình thức thanh toán",
+                field: "HinhThucThanhToan",
+                width: "120px",
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"

@@ -1362,6 +1362,16 @@
         format: "n0",
         change: CalcTongTien
     })
+    $("#HinhThuc").kendoComboBox({
+        dataTextField: 'text',
+        dataValueField: 'value',
+        dataSource: new kendo.data.DataSource({
+            data: [
+                { text: 'Tiền mặt', value: 0 },
+                { text: 'Chuyển khoản', value: 1 }
+            ]
+        })
+    })
     LoadGridDataTimKiemHocSinh();
 })
 
@@ -1534,6 +1544,7 @@ function openLapPhieuThu(id, ten) {
     $("#ID_PhieuThu").val(0);
     $("#TongTien").val(0);
     $("#KhachDua").val(0);
+    $("#HinhThuc").data("kendoComboBox").value(0);
     $("#TraLai").val(0);
     kendo.ui.progress($("#windowLapPhieuThu"), true);
     ClearInputGrid();
@@ -1861,7 +1872,8 @@ function LuuPhieuThu() {
         lstPhieuHoc: lstPhieuHoc,
         lstPhuThu: lstPhuThu,
         lstGiamTru: lstGiamTru,
-        TongThu: Tong
+        TongThu: Tong,
+        HinhThucThanhToan: $("#HinhThuc").data("kendoComboBox").value()
     }
     $.ajax({
         url: '/PhieuThu/CreateOrUpdate',
@@ -2020,6 +2032,7 @@ function LoadGridLichSuTamTinh(ID_HocSinh) {
                         var lstPhieuMua = [];
                         $("#TraLai").val(0);
                         $("#KhachDua").data("kendoNumericTextBox").value(0);
+                        $("#HinhThuc").data("kendoComboBox").value(item.HinhThucThanhToan);
                         $.each(item.lstGiamTru, function (index, i) {
                             lstGiamTru.push({
                                 DonGia: i.DonGia,
@@ -2170,6 +2183,7 @@ function openSuaPhieuThu(id) {
     var lstPhieuMua = [];
     $("#TraLai").val(0);
     $("#KhachDua").data("kendoNumericTextBox").value(0);
+    $("#HinhThuc").data("kendoComboBox").value(item.HinhThucThanhToan);
     console.log(item)
     $.each(item.lstGiamTru, function (index, i) {
         lstGiamTru.push({

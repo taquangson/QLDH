@@ -26,7 +26,7 @@ namespace QLDH.DataAccess.Models
         public string NguoiSuaCuoi { get; set; }
         public string NguoiInCuoi { get; set; }
         public string TenHocSinh { get; set; }
-
+        public int HinhThucThanhToan { get; set; }
         public List<PhieuHocModel> lstPhieuHoc { get; set; }
         public List<PhuThuGiamTruModel> lstPhuThu { get; set; }
         public List<PhuThuGiamTruModel> lstGiamTru { get; set; }

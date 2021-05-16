@@ -1855,10 +1855,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>04/06/2021 15:07:37</publishTime>
+      <publishTime>05/15/2021 12:06:49</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>04/06/2021 15:07:37</publishTime>
+      <publishTime>05/15/2021 12:06:49</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -2134,7 +2134,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Scripts/js/baocao_js/baocaodoanhthubanphieu.js">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>05/04/2021 21:08:37</publishTime>
     </File>
     <File Include="Scripts/js/baocao_js/baocaohocsinhnophieu.js">
       <publishTime>10/28/2020 19:58:32</publishTime>
@@ -2163,14 +2163,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/js/home.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Scripts/js/khocauhoi.js">
+      <publishTime>05/14/2021 14:26:03</publishTime>
+    </File>
+    <File Include="Scripts/js/khodethi.js">
+      <publishTime>05/14/2021 21:48:45</publishTime>
+    </File>
     <File Include="Scripts/js/lop.js">
-      <publishTime>09/20/2020 14:45:54</publishTime>
+      <publishTime>05/12/2021 06:32:29</publishTime>
     </File>
     <File Include="Scripts/js/phieuhoc.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Scripts/js/phieuthu.js">
-      <publishTime>01/05/2021 21:37:35</publishTime>
+      <publishTime>03/05/2021 12:10:24</publishTime>
     </File>
     <File Include="Scripts/js/phongban.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2182,7 +2188,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/28/2020 23:36:33</publishTime>
     </File>
     <File Include="Scripts/js/tinnhan.js">
-      <publishTime>10/28/2020 23:39:27</publishTime>
+      <publishTime>04/27/2021 01:04:19</publishTime>
     </File>
     <File Include="Scripts/js/tinnhanphuhuynh.js">
       <publishTime>10/07/2020 01:45:33</publishTime>
@@ -2275,13 +2281,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Views/Lop/Index.cshtml">
-      <publishTime>09/20/2020 14:37:38</publishTime>
+      <publishTime>03/05/2021 11:56:54</publishTime>
     </File>
     <File Include="Views/PhieuHoc/Index.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Views/PhieuThu/Index.cshtml">
-      <publishTime>01/05/2021 21:34:01</publishTime>
+      <publishTime>03/05/2021 12:06:57</publishTime>
     </File>
     <File Include="Views/PhieuThu/InPhieu.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2307,6 +2313,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/TinNhan/Index.cshtml">
       <publishTime>09/24/2020 23:47:55</publishTime>
     </File>
+    <File Include="Views/TracNghiem/KhoCauHoi.cshtml">
+      <publishTime>05/12/2021 21:49:45</publishTime>
+    </File>
+    <File Include="Views/TracNghiem/KhoDeThi.cshtml">
+      <publishTime>05/14/2021 21:55:14</publishTime>
+    </File>
     <File Include="Views/User/ChangePass.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
@@ -2329,7 +2341,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/10/2021 10:57:32</publishTime>
+      <publishTime>05/15/2021 10:06:55</publishTime>
     </File>
   </ItemGroup>
 </Project>

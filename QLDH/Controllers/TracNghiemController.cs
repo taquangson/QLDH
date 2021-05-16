@@ -1,0 +1,281 @@
+﻿using Newtonsoft.Json.Linq;
+using QLDH.App_Start;
+using QLDH.DataAccess.DAO;
+using QLDH.DataAccess.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+
+namespace QLDH.Controllers
+{
+    public class TracNghiemController : Controller
+    {
+        [SessionExpire]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [SessionExpire]
+        public ActionResult KhoCauHoi()
+        {
+            return View();
+        }
+
+        [SessionExpire]
+        public ActionResult KhoDeThi()
+        {
+            return View();
+        }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult UploadAnh(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/Images/AnhCauHoi"), fileName);
+                file.SaveAs(path);
+                return Json(new { status = true, msg = fileName }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult UploadAnhDapAn(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/Images/AnhDapAn"), fileName);
+                file.SaveAs(path);
+                return Json(new { status = true, msg = fileName }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetDeThiByMonHoc(int ID_MonHoc)
+        {
+            DeThiDAO dtdao = new DeThiDAO();
+            return Json(dtdao.GetDeThi_GetByMonHoc(ID_MonHoc), JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllDeThi()
+        {
+            DeThiDAO dtdao = new DeThiDAO();
+            return Json(dtdao.GetAllDeThi(), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetCauHoiByDanhMuc(int ID_DanhMuc)
+        {
+            CauHoiDAO chdao = new CauHoiDAO();
+            return Json(chdao.GetCauHoi_GetByDanhMuc(ID_DanhMuc), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost, ValidateInput(false)]
+        [SessionExpire]
+        public ActionResult CauHoi_InsertOrUpdate(CauHoiModel item)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            item.ID_TaiKhoan = userinfor.ID;
+            item.SoDapAn = item.lstDapAn.Count;
+            item.SoDapAnDung = item.lstDapAn.Count(x => x.IsDapAnDung == 1);
+            CauHoiDAO dao = new CauHoiDAO();
+            int ID_CauHoi = dao.InsertOrUpdate_CauHoi(item);
+            if (ID_CauHoi > 0)
+            {
+                if (item.ID > 0)
+                {
+                    List<DapAnModel> dapan_old = dao.GetDapAn_ByCauHoi(ID_CauHoi);
+                    if (dapan_old.Count > 0)
+                    {
+                        foreach (DapAnModel da in dapan_old)
+                        {
+                            if (item.lstDapAn.FirstOrDefault(x => x.ID == da.ID) == null)
+                            {
+                                dao.Delete_DapAn(da.ID);
+                            }
+                        }
+                    }
+                }
+
+                foreach (DapAnModel d in item.lstDapAn)
+                {
+                    d.ID_CauHoi = ID_CauHoi;
+                    dao.InsertOrUpdate_DapAn(d);
+                }
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpPost]
+        [SessionExpire]
+        public ActionResult DeThi_InsertOrUpdate(DeThiModel item)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            item.ID_TaiKhoan = userinfor.ID;
+            DeThiDAO dao = new DeThiDAO();
+            int ID_DeThi = dao.InsertOrUpdate_DeThi(item);
+            if (ID_DeThi > 0)
+            {
+                if (item.ID > 0)
+                {
+                    List<DeThi_CauHoiModel> cauhoi_old = dao.GetCauHoiDeThi_GetByDeThi(ID_DeThi);
+                    if (cauhoi_old.Count > 0)
+                    {
+                        foreach (DeThi_CauHoiModel ch in cauhoi_old)
+                        {
+                            if (item.lstDeThiCauHoi.FirstOrDefault(x => x.ID == ch.ID) == null)
+                            {
+                                dao.Delete_DeThiCauHoi(ch.ID);
+                            }
+                        }
+                    }
+
+                    List<DeThi_ChiTietModel> chitiet_old = dao.GetChiTietDeThi_GetByDeThi(ID_DeThi);
+                    if (cauhoi_old.Count > 0)
+                    {
+                        foreach (DeThi_ChiTietModel ct in chitiet_old)
+                        {
+                            if (item.lstChiTiet.FirstOrDefault(x => x.ID == ct.ID) == null)
+                            {
+                                dao.Delete_DeThiChiTiet(ct.ID);
+                            }
+                        }
+                    }
+                }
+                if (item.lstDeThiCauHoi != null)
+                {
+                    foreach (DeThi_CauHoiModel c in item.lstDeThiCauHoi)
+                    {
+                        c.ID_DeThi = ID_DeThi;
+                        dao.InsertOrUpdate_DeThiCauHoi(c);
+                    }
+                }
+                if (item.lstChiTiet != null)
+                {
+                    foreach (DeThi_ChiTietModel t in item.lstChiTiet)
+                    {
+                        t.ID_DeThi = ID_DeThi;
+                        dao.InsertOrUpdate_DeThiChiTiet(t);
+                    }
+                }
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public class TreeDanhMucCauHoi
+        {
+            public int ID { get; set; }
+            public int ID_Cha { get; set; }
+            public string TenDanhMucCauHoi { get; set; }
+            public List<TreeDanhMucCauHoi> lstDanhMuc { get; set; }
+
+        }
+        [SessionExpire]
+        public ActionResult GetTreeDanhMucCauHoi()
+        {
+            DanhMucCauHoiDAO dmchdao = new DanhMucCauHoiDAO();
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            List<DanhMucCauHoiModel> lcn = dmchdao.GetAll();
+            List<TreeDanhMucCauHoi> list = new List<TreeDanhMucCauHoi>();
+
+            foreach (DanhMucCauHoiModel obj in lcn)
+            {
+                IEnumerable<DanhMucCauHoiModel> findCha = lcn.Where(person => person.ID == obj.ID_Cha);
+
+                bool flag = true;
+                foreach (DanhMucCauHoiModel i in findCha)
+                {
+                    flag = false;
+                    break;
+                }
+
+                if (flag)
+                {
+                    TreeDanhMucCauHoi resultObj = new TreeDanhMucCauHoi();
+
+                    TaoNhom(obj, lcn, resultObj);
+
+                    list.Add(resultObj);
+                }
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        protected void TaoNhom(DanhMucCauHoiModel obj, List<DanhMucCauHoiModel> lstDanhMuc, TreeDanhMucCauHoi resultObj)
+        {
+            resultObj.ID = obj.ID;
+            resultObj.TenDanhMucCauHoi = obj.TenDanhMucCauHoi;
+            resultObj.ID_Cha = obj.ID_Cha;
+            var query1 = lstDanhMuc.Where(person => person.ID_Cha == obj.ID);
+
+            List<TreeDanhMucCauHoi> li = new List<TreeDanhMucCauHoi>();
+            foreach (DanhMucCauHoiModel obj1 in query1)
+            {
+                TreeDanhMucCauHoi objcon = new TreeDanhMucCauHoi();
+                TaoNhom(obj1, lstDanhMuc, objcon);
+                li.Add(objcon);
+            }
+            resultObj.lstDanhMuc = li;
+        }
+
+        [HttpPost]
+        public ActionResult DanhMucCauHoi_InsertOrUpdate(DanhMucCauHoiModel item)
+        {
+            DanhMucCauHoiDAO pbdao = new DanhMucCauHoiDAO();
+            if (pbdao.InsertOrUpdate_DanhMucCauHoi(item) > 0)
+            {
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DanhMucCauHoi_Delete(int ID_DanhMucCauHoi)
+        {
+            DanhMucCauHoiDAO pbdao = new DanhMucCauHoiDAO();
+            if (pbdao.Delete_DanhMucCauHoi(ID_DanhMucCauHoi))
+            {
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+    }
+}

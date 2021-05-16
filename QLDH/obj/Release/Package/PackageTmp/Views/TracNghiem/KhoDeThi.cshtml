@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Kho dữ liệu đề thi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #treeview {
+        height: calc( 100vh - 40px) !important;
+        width: 100%;
+        /*overflow-y: scroll;*/
+        /*overflow-x: scroll;*/
+        float: left;
+        border-color: grey;
+        border: 1px solid #d9d9d9 !important;
+        line-height: 30px !important;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    .k-treeview .k-group {
+        padding: 5px;
+    }
+
+    .photo {
+        height: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    #listviewcauhoi{
+        border:none;
+        box-shadow:none;
+    }
+</style>
+<script src="~/Scripts/js/khodethi.js"></script>
+<div id="dialogRoot"></div>
+<div id="rootContainer" style="display:none">
+    <div class="row">
+        <h2><b>Kho đề thi</b></h2>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <div class="toolBarMenu">
+            <button class="k-button bg-blue" onclick="ThemDeThi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+            <button class="k-button bg-orange" onclick="SuaDeThi()"> <i class="fa fa-wrench"> Sửa</i> </button>
+            <button class="k-button bg-red" onclick="XoaDeThi()"> <i class="fa fa-close"> Xóa</i> </button>
+        </div>
+        <div id="gridDeThi"></div>
+    </div>
+</div>
+<div id="windowDeThi">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="LuuDeThi()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="HuyDeThi()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <div style="width:100%">
+        <form id="formDeThi">
+            <input type="hidden" id="ID_DeThi" />
+            <div style="width:30%;float:left;margin-left:1%">
+                <div style="margin-top:10px;" class="valid" toggle-valid="TenDeThi">
+                    <label style="width:100%">Tên đề thi: <span style="color:red">*</span></label>
+                    <input id="TenDeThi" type="text" class="k-textbox input" />
+                    <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+                </div>
+                <div class="valid" toggle-valid="ThoiGian">
+                    <label style="width:100%;margin-top:7px;">Thời gian thi (phút): <span style="color:red">*</span></label>
+                    <input id="ThoiGian" class="input" />
+                    <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+                </div>
+            </div>
+            <div style="width:30%;float:left;margin-left:3%">
+                <div class="valid" toggle-valid="comboKhoi">
+                    <label style="width:100%;margin-top:7px;">Khối lớp: <span style="color:red">*</span></label>
+                    <input id="comboKhoi" class="input" />
+                    <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+                </div>
+
+                <div class="valid" toggle-valid="ThangDiem">
+                    <label style="width:100%;margin-top:7px;">Thang điểm: <span style="color:red">*</span></label>
+                    <input id="ThangDiem" class="input" />
+                    <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+                </div>
+            </div>
+            <div style="width:30%;float:left;margin-left:3%">
+                <div class="valid" toggle-valid="comboMonHoc">
+                    <label style="width:100%;margin-top:7px;">Môn học: <span style="color:red">*</span></label>
+                    <input id="comboMonHoc" class="input" />
+                    <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="width:100%;">
+        <label style="width:100%;margin-top:7px;">Chọn câu hỏi thủ công: </label>
+        <div id="gridCauHoi"></div>
+    </div>
+    <div style="width:100%;">
+        <label style="width:100%;margin-top:7px;">Chọn câu hỏi tự động: </label>
+        <div id="gridCauHoiTuDong"></div>
+    </div>
+</div>
+
+<div id="windowChonCauHoi">
+    <div style="width:100%;">
+        <div style="width:20%;float:left">
+            <div id="treeview"></div>
+        </div>
+        <div style="width:80%;float:left;">
+            <div id="gridChonCauHoi"></div>
+        </div>
+    </div>
+</div>
+<div id="windowXemDeThi" style="background-color:rgb(0 0 0 / 30%)">
+    <div style="width:70%;margin-left:15%;text-align:center;line-height:25px;float:left;background-color:#fff">
+        <div style="width:50%;float:left;padding-top:10px;">
+            <div class="photo" style="background-image: url('../../Images/logodh.png')">
+            </div>
+            <b>Trung Tâm TNHH Giáo Dục CLC Dương Hòa</b>
+        </div>
+        <div style="width:50%;float:left;padding-top:30px;">
+            <b id="TenDe"></b>
+            <p>Môn Thi: <span id="TenMon"></span> </p>
+            <p>Thời gian làm bài: <span id="ThoiGianLamBai"></span> phút</p>
+        </div>
+    </div>
+    <div style="width:70%;margin-left:15%;float:left;margin-top:20px;background-color:#fff">
+        <div id="listviewcauhoi" style="padding:10px;"></div>
+    </div>
+</div>
+
+<script type="text/x-kendo-tmpl" id="templatecauhoi">    
+    <b style="display:block;width:3.8%;float:left;padding-top:10px;">Câu #: (count++)# : </b> 
+    <div style="width:90%;padding-top:10px;">
+        <b>#= htmlDecode(NoiDungCauHoi)#</b>
+        # $.each(lstDapAn, function(index, item){#
+        <div style="width:46%;float:left;padding:1%">
+            #: Ans[index] #. #: item.DapAn#
+            #if(item.AnhDapAn != null){#
+            <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
+            #}#
+        </div>
+        #})#
+    </div>
+</script>

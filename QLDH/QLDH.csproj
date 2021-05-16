@@ -240,13 +240,17 @@
     <Compile Include="Controllers\PhongBanController.cs" />
     <Compile Include="Controllers\ThongBaoAppController.cs" />
     <Compile Include="Controllers\TinNhanController.cs" />
+    <Compile Include="Controllers\TracNghiemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\XinNghiHocController.cs" />
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
+    <Compile Include="DataAccess\DAO\CauHoiDAO.cs" />
     <Compile Include="DataAccess\DAO\ChatSessionDAO.cs" />
     <Compile Include="DataAccess\DAO\CheckInSuKienDAO.cs" />
     <Compile Include="DataAccess\DAO\DangKyEventDAO.cs" />
+    <Compile Include="DataAccess\DAO\DanhMucCauHoiDAO.cs" />
+    <Compile Include="DataAccess\DAO\DeThiDAO.cs" />
     <Compile Include="DataAccess\DAO\GiaoAnDAO.cs" />
     <Compile Include="DataAccess\DAO\LichSuThongBaoDAO.cs" />
     <Compile Include="DataAccess\DAO\ThongBaoAppDAO.cs" />
@@ -275,9 +279,17 @@
     <Compile Include="DataAccess\Models\AnhDiemDanhModel.cs" />
     <Compile Include="DataAccess\Models\AnhBaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
+    <Compile Include="DataAccess\Models\BaiLamTracNghiemModel.cs" />
+    <Compile Include="DataAccess\Models\BaiLamTracNghiem_ChiTietModel.cs" />
+    <Compile Include="DataAccess\Models\CauHoiModel.cs" />
     <Compile Include="DataAccess\Models\ChatSessionModel.cs" />
     <Compile Include="DataAccess\Models\CheckInSuKienModel.cs" />
     <Compile Include="DataAccess\Models\DangKyEventModel.cs" />
+    <Compile Include="DataAccess\Models\DanhMucCauHoiModel.cs" />
+    <Compile Include="DataAccess\Models\DapAnModel.cs" />
+    <Compile Include="DataAccess\Models\DeThiModel.cs" />
+    <Compile Include="DataAccess\Models\DeThi_CauHoiModel.cs" />
+    <Compile Include="DataAccess\Models\DeThi_ChiTietModel.cs" />
     <Compile Include="DataAccess\Models\GiaoAnModel.cs" />
     <Compile Include="DataAccess\Models\CaHocModel.cs" />
     <Compile Include="DataAccess\Models\ChiNhanhModels.cs" />
@@ -291,9 +303,11 @@
     <Compile Include="DataAccess\Models\KhoiModel.cs" />
     <Compile Include="DataAccess\Models\LichHocModel.cs" />
     <Compile Include="DataAccess\Models\LichSuThongBaoModel.cs" />
+    <Compile Include="DataAccess\Models\LichSu_BaiLamTracNghiemModel.cs" />
     <Compile Include="DataAccess\Models\LoginAppModel.cs" />
     <Compile Include="DataAccess\Models\LopHocModel.cs" />
     <Compile Include="DataAccess\Models\Lop_HocSinhModel.cs" />
+    <Compile Include="DataAccess\Models\MonHocModel.cs" />
     <Compile Include="DataAccess\Models\NhomChucNangModel.cs" />
     <Compile Include="DataAccess\Models\PhieuHocModel.cs" />
     <Compile Include="DataAccess\Models\PhieuThuModel.cs" />
@@ -961,6 +975,8 @@
     <Content Include="Scripts\js\baocao_js\baocaodoanhthubanphieu.js" />
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihocthohocsinh.js" />
+    <Content Include="Scripts\js\khocauhoi.js" />
+    <Content Include="Scripts\js\khodethi.js" />
     <Content Include="Scripts\js\tinnhan.js" />
     <Content Include="Scripts\js\phongban.js" />
     <Content Include="Scripts\js\danhsachhocsinhtheogiaovien.js" />
@@ -1029,6 +1045,8 @@
     <Content Include="Views\BaoCao\BieuDoDiem.cshtml" />
     <Content Include="Views\BaoCao\BieuDoDiemTrungBinh_TheoLop.cshtml" />
     <Content Include="Views\HoTro\QRCodeScanResult.cshtml" />
+    <Content Include="Views\TracNghiem\KhoCauHoi.cshtml" />
+    <Content Include="Views\TracNghiem\KhoDeThi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

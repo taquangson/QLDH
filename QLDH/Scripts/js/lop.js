@@ -190,6 +190,24 @@ $(document).ready(function () {
                 }
             },
             {
+                field: "PhongHoc",
+                title: "Phòng học",
+                width: "130px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
                 field: "NamHoc",
                 title: "Năm học",
                 width: "100px",
@@ -633,6 +651,7 @@ function openEditWindow() {
         var selectedItem = $("#grid").data("kendoGrid").dataItem($("#grid").data("kendoGrid").select());
         $("#ID").val(selectedItem.ID);
         $("#TenLop").val(selectedItem.TenLop);
+        $("#PhongHoc").val(selectedItem.PhongHoc);
         $("#GiaoVienCombo").data("kendoComboBox").value(selectedItem.GiaoVien);
         $("#KhoiCombo").data("kendoComboBox").value(selectedItem.ID_Khoi);
         LoadGridLichHoc(selectedItem.ID);
@@ -756,6 +775,7 @@ function Luu() {
         var model = {
             ID: $("#ID").val(),
             TenLop: $("#TenLop").val(),
+            PhongHoc: $("#PhongHoc").val(),
             GiaoVien: $("#GiaoVienCombo").data("kendoComboBox").value(),
             ID_Khoi: $("#KhoiCombo").data("kendoComboBox").value(),
             LichHoc: "",

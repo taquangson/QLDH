@@ -354,6 +354,7 @@ namespace QLDH.DataAccess.DAO
             public double TongThu { get; set; }
             public string TenNhanVien { get; set; }
             public string TenHocSinh { get; set; }
+            public string HinhThucThanhToan { get; set; }
         }
 
         private BaoCaoDoanhThuModel GetBaoCaoDoanhThuModelFromDataRow(DataRow dr)
