@@ -1,9 +1,10 @@
 ﻿var selectedDanhMuc;
 var lstCauHoiTrongDe = [];
 var lstIDCauHoiTrongDe = [];
+var lstIDHocSinhTrongDe = [];
 var dataSourceCombo;
 var count = 1;
-var Ans = ['A','B','C','D','E','F','G','H','I']
+var Ans = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 $(document).ready(function () {
     $("#rootContainer").show();
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
@@ -61,6 +62,33 @@ $(document).ready(function () {
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
+                }
+            },
+            {
+                title: "Số câu hỏi",
+                width: "100px",
+                template: function (e) {
+                    let count = e.lstCauHoi.length;
+                    $.each(e.lstChiTiet, function (index, item) {
+                        count += item.SoLuongCauHoi;
+                    });
+                    return count;
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
                 }
             },
             {
@@ -206,6 +234,30 @@ $(document).ready(function () {
                 attributes: {
                     style: "text-align: center;",
                 }
+            },
+            {
+                title: "Danh sách thí sinh",
+                template: function (e) {
+                    return "<i onclick='openGiaoDeThi(\"" + e.uid + "\"," + e.ID + ")' style='color:blue;width:100%;height:15px;cursor:pointer' class='fa fa-list-ul'></i>";
+                },
+                width: "120px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;"
+                }
+
             }
         ]
 
@@ -588,7 +640,7 @@ $(document).ready(function () {
                 title: " ",
                 template: function (e) {
                     if (lstIDCauHoiTrongDe.includes(e.ID)) {
-                        return "<i onclick='XoaCauHoiKhoiDe(\"" + e.uid + "\"," + e.ID + ")' style='color:red;width:100%;height:15px;cursor:pointer' class='fa fa-trash'></i>";
+                        return "<i onclick='XoaCauHoiKhoiDe(" + e.ID + ")' style='color:red;width:100%;height:15px;cursor:pointer' class='fa fa-trash'></i>";
                     } else {
                         return "<i onclick='ThemCauHoiVaoDe(\"" + e.uid + "\"," + e.ID + ")' style='color:green;width:100%;height:15px;cursor:pointer' class='fa fa-plus'></i>";
                     }
@@ -714,6 +766,14 @@ $(document).ready(function () {
         visible: false,
         title: "Thông tin đề thi"
     });
+    $("#windowGiaoDeThi").kendoWindow({
+        width: 400,
+        height: 200,
+        modal: true,
+        resizable: false,
+        visible: false,
+        title: "Thông tin đề thi"
+    });
     $("#windowChonCauHoi").kendoWindow({
         width: 400,
         height: 200,
@@ -730,7 +790,7 @@ $(document).ready(function () {
         visible: false,
         title: "Xem đề thi"
     });
-    
+
     $("#comboKhoi").kendoComboBox({
         dataTextField: 'text',
         dataValueField: 'value',
@@ -784,6 +844,386 @@ $(document).ready(function () {
         $("#gridDeThi").data("kendoGrid").select(row);
         openEditWindow();
     });
+
+    $("#gridChonCauHoi").kendoTooltip({
+        autoHide: true,
+        filter: "tr[role='row']",
+        content: function (e) {
+            var dataItem = $("#gridChonCauHoi").data("kendoGrid").dataItem(e.target.closest("tr"));
+            var temp = kendo.template($("#templateCauHoiTooltip").html());
+            return temp(dataItem);
+        }
+    });
+    $("#gridCauHoi").kendoTooltip({
+        autoHide: true,
+        filter: "tr[role='row']",
+        content: function (e) {
+            var dataItem = $("#gridCauHoi").data("kendoGrid").dataItem(e.target.closest("tr"));
+            var temp = kendo.template($("#templateCauHoiTooltip").html());
+            return temp(dataItem);
+        }
+    });
+    $("#gridHocSinh").kendoGrid({
+        height: function () {
+            var height = $(window).height() - 50;
+            return height;
+        },
+        scrollable: true,
+        persistSelection: true,
+        autoFitColumn: true,
+        resizable: true,
+        sortable: true,
+        filterable: {
+            mode: "row",
+        },
+        pageable: pageableShort,
+        dataBinding: function () {
+            record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        },
+        columns: [
+            {
+                title: "STT",
+                template: "#= ++record #",
+                width: "50px",
+                attributes: {
+                    class: "text-center"
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                title: " ",
+                template: function (e) {
+                    if (lstIDHocSinhTrongDe.includes(e.ID)) {
+                        //return "<i onclick='XoaHocSinhKhoiDe(\"" + e.uid + "\"," + e.ID + ")' style='color:red;width:100%;height:15px;cursor:pointer' class='fa fa-trash'></i>";
+                        return "";
+                    } else {
+                        return "<i onclick='ThemHocSinhVaoDe(\"" + e.uid + "\"," + e.ID + ")' style='color:green;width:100%;height:15px;cursor:pointer' class='fa fa-plus'></i>";
+                    }
+                },
+                width: 60,
+                attributes: {
+                    class: "text-center"
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; ",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "TenHocSinh",
+                title: "Tên học sinh",
+                width: "250px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "NgaySinh",
+                title: "Ngày sinh",
+                template: function (e) {
+                    var dateString = e.NgaySinh.substr(6);
+                    var currentTime = new Date(parseInt(dateString));
+                    if (currentTime.getFullYear() != 1) {
+                        return kendo.toString(currentTime, "dd/MM/yyyy");
+                    } else {
+                        return "";
+                    }
+                },
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "DiaChi",
+                title: "Địa chỉ",
+                width: "250px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "PhuHuynh",
+                title: "Tên phụ huynh",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "DienThoaiMacDinh",
+                title: "Điện thoại",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "TenTruong",
+                title: "Tên trường học",
+                width: "200px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            }
+        ]
+    });
+    $("#gridHocSinhDaGiao").kendoGrid({
+        height: function () {
+            var height = $(window).height() - 50;
+            return height;
+        },
+        scrollable: true,
+        persistSelection: true,
+        autoFitColumn: true,
+        resizable: true,
+        sortable: true,
+        filterable: {
+            mode: "row",
+        },
+        pageable: pageableShort,
+        dataBinding: function () {
+            record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        },
+        columns: [
+            {
+                title: "STT",
+                template: "#= ++record #",
+                width: "50px",
+                attributes: {
+                    class: "text-center"
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                title: " ",
+                template: function (e) {
+                    return "<i onclick='XoaHocSinhKhoiDe(\"" + e.uid + "\"," + e.ID + ")' style='color:red;width:100%;height:15px;cursor:pointer' class='fa fa-trash'></i>";
+                },
+                width: 60,
+                attributes: {
+                    class: "text-center"
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; ",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "TenHocSinh",
+                title: "Tên học sinh",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "NgaySinh",
+                title: "Ngày sinh",
+                template: function (e) {
+                    var dateString = e.NgaySinh.substr(6);
+                    var currentTime = new Date(parseInt(dateString));
+                    if (currentTime.getFullYear() != 1) {
+                        return kendo.toString(currentTime, "dd/MM/yyyy");
+                    } else {
+                        return "";
+                    }
+                },
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "DienThoaiMacDinh",
+                title: "Điện thoại",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "SoLanLam",
+                title: "Số lần làm",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "ThoiGianBatDau",
+                title: "Lần cuối làm bài",
+                width: "120px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "Diem",
+                title: "Điểm",
+                template: function (e) {
+                    if (e.Diem > 0) {
+                        return e.Diem;
+                    } else {
+                        return "";
+                    }
+                },
+                width: "80px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            }
+        ]
+    });
     $("#listviewcauhoi").kendoListView({
         template: kendo.template($("#templatecauhoi").html())
     });
@@ -823,21 +1263,22 @@ function openEditWindow() {
             pageSize: 100
         });
         $("#gridCauHoiTuDong").data("kendoGrid").setDataSource(ds);
-
+        lstCauHoiTrongDe = [];
         $.each(selectedItem.lstCauHoi, function (index, item) {
-            var item = {
-                ID_CauHoi: dataRow.ID,
-                ID_DanhMucCauHoi: dataRow.ID_DanhMucCauHoi,
-                ID_TaiKhoan: dataRow.ID_TaiKhoan,
-                NoiDungCauHoi: dataRow.NoiDungCauHoi,
-                SoDapAn: dataRow.SoDapAn,
-                SoDapAnDung: dataRow.SoDapAnDung,
-                TenDanhMucCauHoi: dataRow.TenDanhMucCauHoi,
-                TenTaiKhoan: dataRow.TenTaiKhoan,
-                TrangThai: dataRow.TrangThai,
-                lstDapAn: dataRow.lstDapAn
+            var ch = {
+                ID_CauHoi: item.ID,
+                ID_DanhMucCauHoi: item.ID_DanhMucCauHoi,
+                ID_TaiKhoan: item.ID_TaiKhoan,
+                NoiDungCauHoi: item.NoiDungCauHoi,
+                SoDapAn: item.SoDapAn,
+                SoDapAnDung: item.SoDapAnDung,
+                TenDanhMucCauHoi: item.TenDanhMucCauHoi,
+                TenTaiKhoan: item.TenTaiKhoan,
+                TrangThai: item.TrangThai,
+                lstDapAn: item.lstDapAn
             }
-            lstCauHoiTrongDe.push(item);
+            lstIDCauHoiTrongDe.push(item.ID);
+            lstCauHoiTrongDe.push(ch);
         })
         LoadDataGridCauHoi();
     }
@@ -949,8 +1390,8 @@ function ThemCauHoiVaoDe(uid, id) {
 function XoaCauHoiKhoiDe(id) {
     if (lstIDCauHoiTrongDe.includes(id)) {
         let index = lstIDCauHoiTrongDe.indexOf(id);
-        lstIDCauHoiTrongDe.splice(index);
-        lstCauHoiTrongDe.splice(index);
+        lstIDCauHoiTrongDe.splice(index, 1);
+        lstCauHoiTrongDe.splice(index, 1);
     }
     setTimeout(function () {
         $("#gridChonCauHoi").data("kendoGrid").refresh();
@@ -961,8 +1402,8 @@ function XoaCauHoiKhoiDe(id) {
 function XoaCauHoi(uid, id) {
     if (lstIDCauHoiTrongDe.includes(id)) {
         let index = lstIDCauHoiTrongDe.indexOf(id);
-        lstIDCauHoiTrongDe.splice(index);
-        lstCauHoiTrongDe.splice(index);
+        lstIDCauHoiTrongDe.splice(index, 1);
+        lstCauHoiTrongDe.splice(index, 1);
     }
     setTimeout(function () {
         var dataRow = $('#gridCauHoi').data("kendoGrid").dataSource.getByUid(uid);
@@ -1099,4 +1540,98 @@ function XemTruocDeThi(uid, id) {
 
 function htmlDecode(value) {
     return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+}
+
+function openGiaoDeThi(uid, id) {
+    $("#ID_De").val(id);
+    $("#windowGiaoDeThi").data("kendoWindow").open().maximize();
+    LoadGridDataHocSinh();
+    LoadGridDataHocSinhTrongDe();
+}
+
+function LoadGridDataHocSinh() {
+    $.ajax({
+        url: '/HocSinh/GetAll',
+        type: 'GET',
+    }).done(function successCallback(response) {
+        kendo.ui.progress($("#gridHocSinh"), true);
+        var dataSource = new kendo.data.DataSource({
+            data: response,
+            schema: {
+                model: {
+                    id: "ID",
+                    field: {
+                        NgaySinh: {
+                            type: 'date'
+                        }
+                    }
+                }
+            },
+            pageSize: 30,
+        });
+        $("#gridHocSinh").data("kendoGrid").setDataSource(dataSource);
+        kendo.ui.progress($("#gridHocSinh"), false);
+    });
+}
+
+function LoadGridDataHocSinhTrongDe() {
+    lstIDHocSinhTrongDe = [];
+    $.ajax({
+        url: '/TracNghiem/GetAllBaiLamTracNghiem_ByDeThi?ID_DeThi=' + $("#ID_De").val(),
+        type: 'GET',
+    }).done(function successCallback(response) {
+        $.each(response, function (index, item) {
+            lstIDHocSinhTrongDe.push(item.ID_HocSinh);
+            item.SoLanLam = item.lstLichsu.length;
+        })
+        kendo.ui.progress($("#gridHocSinhDaGiao"), true);
+        var dataSource = new kendo.data.DataSource({
+            data: response,
+            schema: {
+                model: {
+                    id: "ID",
+                    field: {
+                        NgaySinh: {
+                            type: 'date'
+                        }
+                    }
+                }
+            },
+            pageSize: 30,
+        });
+        $("#gridHocSinhDaGiao").data("kendoGrid").setDataSource(dataSource);
+        setTimeout(function () {
+            $("#gridHocSinh").data("kendoGrid").refresh();
+        })
+        kendo.ui.progress($("#gridHocSinhDaGiao"), false);
+    });
+}
+
+function ThemHocSinhVaoDe(uid, id) {
+    if (!lstIDHocSinhTrongDe.includes(id)) {
+        var dataRow = $('#gridHocSinh').data("kendoGrid").dataSource.getByUid(uid);
+        var item = {
+            ID: 0,
+            ID_DeThi: $("#ID_De").val(),
+            ID_HocSinh: id,
+            TrangThai: 1
+        }
+        $.ajax({
+            url: '/TracNghiem/DeThi_GiaoDeChoHocSinh',
+            type: 'POST',
+            data: item
+        }).done(function successCallback(response) {
+            LoadGridDataHocSinhTrongDe();
+        })
+    }
+}
+
+function XoaHocSinhKhoiDe(uid, id) {
+    var dataRow = $('#gridHocSinhDaGiao').data("kendoGrid").dataSource.getByUid(uid);
+    $.ajax({
+        url: '/TracNghiem/DeThi_XoaDeChoHocSinh?ID_BailamTracNghiem=' + id,
+        type: 'POST'
+    }).done(function successCallback(response) {
+        LoadGridDataHocSinhTrongDe();
+    })
 }

@@ -38,7 +38,7 @@ namespace QLDH.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                string fileName = Path.GetFileName(file.FileName);
+                string fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + Path.GetFileName(file.FileName);
                 string path = Path.Combine(Server.MapPath("~/Images/AnhCauHoi"), fileName);
                 file.SaveAs(path);
                 return Json(new { status = true, msg = fileName }, JsonRequestBehavior.AllowGet);
@@ -55,7 +55,7 @@ namespace QLDH.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                string fileName = Path.GetFileName(file.FileName);
+                string fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + Path.GetFileName(file.FileName);
                 string path = Path.Combine(Server.MapPath("~/Images/AnhDapAn"), fileName);
                 file.SaveAs(path);
                 return Json(new { status = true, msg = fileName }, JsonRequestBehavior.AllowGet);
@@ -277,5 +277,123 @@ namespace QLDH.Controllers
                 return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        [SessionExpire]
+        public ActionResult DeThi_GiaoDeChoHocSinh(BaiLamTracNghiemModel item)
+        {          
+            BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
+            item.NgayGiao = DateTime.Now;
+            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(item);
+            if (ID_BaiLamTracNghiem > 0)
+            {               
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [SessionExpire]
+        public ActionResult DeThi_XoaDeChoHocSinh(int ID_BailamTracNghiem)
+        {
+            BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
+            BaiLamTracNghiemModel item = dao.GetBaiLamByID(ID_BailamTracNghiem);
+            bool success = false;
+            if(item.lstChitiet.Count == 0 && item.lstLichsu.Count == 0)
+            {
+                success = dao.Delete_BaiLamTracNghiem(ID_BailamTracNghiem);
+            }
+            else
+            {
+                item.TrangThai = 0;
+                if(dao.InsertOrUpdate_BaiLamTracNghiem(item) > 0)
+                {
+                    success = true;
+                }
+            }         
+            if (success)
+            {
+                return Json(new { status = true, msg = "Cập nhật dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Cập nhật dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [SessionExpire]
+        public ActionResult BaiLamTracNghiem_BatDauLamBai(BaiLamTracNghiemModel item)
+        {
+            BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
+            item.TrangThai = 2;
+            item.ThoiGianBatDau = DateTime.Now;
+            if (item.ID > 0)
+            {
+                BaiLamTracNghiemModel old = dao.GetBaiLamByID(item.ID);
+                List<BaiLamTracNghiem_ChiTietModel> lstchitiet_old = dao.GetBaiLamChiTiet(old.ID);
+                string jsonchitiet = new JavaScriptSerializer().Serialize(lstchitiet_old);
+                LichSu_BaiLamTracNghiemModel his = new LichSu_BaiLamTracNghiemModel();
+                his.ChiTiet = jsonchitiet;
+                his.Diem = old.Diem;
+                his.ID_BaiLamTracNghiem = old.ID;
+                his.ThoiGianBatDau = (DateTime)old.ThoiGianBatDau;
+                his.ThoiGianKetThuc = (DateTime)old.ThoiGianKetThuc;
+                dao.InsertOrUpdate_LichSuBaiLamTracNghiem(his);
+            }
+            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(item);
+            dao.Delete_BaiLamTracNghiemChiTiet(ID_BaiLamTracNghiem);
+            if (ID_BaiLamTracNghiem > 0)
+            {
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [SessionExpire]
+        public ActionResult BaiLamTracNghiem_KetThucLamBai(BaiLamTracNghiemModel item)
+        {
+            BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
+            item.TrangThai = 3;
+            item.ThoiGianKetThuc = DateTime.Now;           
+            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(item);
+            if (ID_BaiLamTracNghiem > 0)
+            {
+                foreach(BaiLamTracNghiem_ChiTietModel c in item.lstChitiet)
+                {
+                    c.ID_BaiLamTracNghiem = ID_BaiLamTracNghiem;                    
+                    dao.InsertOrUpdate_BaiLamTracNghiemChiTiet(c);
+                }
+                return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = false, msg = "Lưu dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllBaiLamTracNghiem_ByHocSinh(int ID_HocSinh)
+        {
+            BaiLamTracNghiemDAO dtdao = new BaiLamTracNghiemDAO();
+            return Json(dtdao.GetBaiLamByHocSinh(ID_HocSinh), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllBaiLamTracNghiem_ByDeThi(int ID_DeThi)
+        {
+            BaiLamTracNghiemDAO dtdao = new BaiLamTracNghiemDAO();
+            return Json(dtdao.GetBaiLamByDeThi(ID_DeThi), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

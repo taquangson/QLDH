@@ -245,6 +245,7 @@
     <Compile Include="Controllers\XinNghiHocController.cs" />
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
+    <Compile Include="DataAccess\DAO\BaiLamTracNghiemDAO.cs" />
     <Compile Include="DataAccess\DAO\CauHoiDAO.cs" />
     <Compile Include="DataAccess\DAO\ChatSessionDAO.cs" />
     <Compile Include="DataAccess\DAO\CheckInSuKienDAO.cs" />

@@ -27,9 +27,16 @@
         background-repeat: no-repeat;
         background-position: center center;
     }
-    #listviewcauhoi{
-        border:none;
-        box-shadow:none;
+
+    #listviewcauhoi {
+        border: none;
+        box-shadow: none;
+    }
+
+    .k-widget.k-tooltip {
+        background-color: #8c9ebf;
+        border-color: #111;
+        width: 700px;
     }
 </style>
 <script src="~/Scripts/js/khodethi.js"></script>
@@ -127,17 +134,44 @@
     </div>
 </div>
 
-<script type="text/x-kendo-tmpl" id="templatecauhoi">    
-    <b style="display:block;width:3.8%;float:left;padding-top:10px;">Câu #: (count++)# : </b> 
-    <div style="width:90%;padding-top:10px;">
+<script type="text/x-kendo-tmpl" id="templatecauhoi">
+    <div style="width:100%;float:left">
+        <b style="display:block;width:3.8%;float:left;padding-top:10px;">Câu #: (count++)# : </b>
+        <div style="width:90%;padding-top:10px;">
+            <b>#= htmlDecode(NoiDungCauHoi)#</b>
+            # $.each(lstDapAn, function(index, item){#
+            <div style="width:46%;float:left;padding:1%">
+                #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
+                #if(item.AnhDapAn != null){#
+                <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
+                #}#
+            </div>
+            #})#
+        </div>
+    </div>
+</script>
+
+
+<div id="templateCauHoiTooltip" style="display:none">
+    <div style="width:100%;padding-top:10px;">
         <b>#= htmlDecode(NoiDungCauHoi)#</b>
         # $.each(lstDapAn, function(index, item){#
-        <div style="width:46%;float:left;padding:1%">
-            #: Ans[index] #. #: item.DapAn#
+        <div style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
+            #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
             #if(item.AnhDapAn != null){#
             <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
             #}#
         </div>
         #})#
     </div>
-</script>
+</div>
+
+<div id="windowGiaoDeThi">
+    <input type="hidden" id="ID_De" />
+    <div style="width:40%;float:left">
+        <div id="gridHocSinhDaGiao"></div>
+    </div>
+    <div style="width:60%;float:left">
+        <div id="gridHocSinh"></div>
+    </div>
+</div>

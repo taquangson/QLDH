@@ -141,7 +141,7 @@
             <b>#= htmlDecode(NoiDungCauHoi)#</b>
             # $.each(lstDapAn, function(index, item){#
             <div style="width:46%;float:left;padding:1%">
-                #: Ans[index] #. #: item.DapAn#
+                #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
                 #if(item.AnhDapAn != null){#
                 <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
                 #}#
@@ -157,11 +157,21 @@
         <b>#= htmlDecode(NoiDungCauHoi)#</b>
         # $.each(lstDapAn, function(index, item){#
         <div style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
-            #: Ans[index] #. #: item.DapAn#
+            #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
             #if(item.AnhDapAn != null){#
             <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
             #}#
         </div>
         #})#
+    </div>
+</div>
+
+<div id="windowGiaoDeThi">
+    <input type="hidden" id="ID_De" />
+    <div style="width:40%;float:left">
+        <div id="gridHocSinhDaGiao"></div>
+    </div>
+    <div style="width:60%;float:left">
+        <div id="gridHocSinh"></div>
     </div>
 </div>

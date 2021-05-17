@@ -153,6 +153,37 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public DeThiModel GetDeThiById(int ID)
+        {
+            DeThiModel result = new DeThiModel();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[]
+               {
+                    new SqlParameter("@ID", ID)
+               };
+                DataSet ds = helper.ExecuteDataSet("sp_DeThi_GetByID", pars);
+                DataTable dt = ds.Tables[0];
+                CauHoiDAO chdao = new CauHoiDAO();
+                if (dt.Rows.Count > 0)
+                {
+                    DeThiModel item = GetDeThiFromDataRow(dt.Rows[0]);
+                    item.lstChiTiet = GetChiTietDeThi_GetByDeThi(item.ID);
+                    item.lstCauHoi = chdao.GetCauHoi_GetByDeThi(item.ID);
+                    foreach (DeThi_ChiTietModel i in item.lstChiTiet)
+                    {
+                        item.lstCauHoi.AddRange(chdao.GetRanDomCauHoi_GetByDanhMuc(i.SoLuongCauHoi, i.ID_DanhMucCauHoi));
+                    }
+                    result = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_DeThi_GetByID " + ex.Message);
+            }
+            return result;
+        }
+
         public List<DeThi_ChiTietModel> GetChiTietDeThi_GetByDeThi(int ID_DeThi)
         {
             List<DeThi_ChiTietModel> result = new List<DeThi_ChiTietModel>();
@@ -268,7 +299,7 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@Diem", model.Diem),
                 new SqlParameter("@ID_CauHoi", model.ID_CauHoi),
                 new SqlParameter("@ID_DeThi", model.ID_DeThi),
-                new SqlParameter("@STT", model.STT)               
+                new SqlParameter("@STT", model.STT)
                 };
 
                 object id = helper.ExecuteScalar("sp_DeThiCauHoi_InsertOrUpdate", pars);

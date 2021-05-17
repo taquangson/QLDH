@@ -98,6 +98,33 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public CauHoiModel GetCauHoi_GetByID(long ID)
+        {
+            CauHoiModel result = new CauHoiModel();
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID", ID)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_CauHoi_GetByID", pars);
+                DataTable dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dt.Rows[0]);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result = item;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_CauHoi_GetByID " + ex.Message);
+            }
+
+            return result;
+        }
+
         public List<CauHoiModel> GetRanDomCauHoi_GetByDanhMuc(int SoLuong, int ID_DanhMuc)
         {
             List<CauHoiModel> result = new List<CauHoiModel>();

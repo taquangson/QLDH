@@ -32,13 +32,18 @@
     }
 
         .k-upload-sync .k-upload-button span {
-            line-height:13px;
+            line-height: 13px;
         }
 
     #gridDapAn > div.k-grid-content.k-auto-scrollable > table > tbody > tr > td:nth-child(4) > div {
         border: none;
         background-color: transparent;
     }
+     .k-widget.k-tooltip{
+         background-color:#8c9ebf;
+         border-color:#111;
+         width:700px;
+     }
 </style>
 <script src="~/Scripts/js/khocauhoi.js"></script>
 <div id="dialogRoot"></div>
@@ -114,4 +119,19 @@
             </div>
         </div>
     </form>
+</div>
+
+
+<div id="templateCauHoiTooltip" style="display:none">
+    <div style="width:100%;padding-top:10px;">
+        <b>#= htmlDecode(NoiDungCauHoi)#</b>
+        # $.each(lstDapAn, function(index, item){#
+        <div style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
+            #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
+            #if(item.AnhDapAn != null){#
+            <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
+            #}#
+        </div>
+        #})#
+    </div>
 </div>

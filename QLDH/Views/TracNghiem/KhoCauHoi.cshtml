@@ -127,7 +127,7 @@
         <b>#= htmlDecode(NoiDungCauHoi)#</b>
         # $.each(lstDapAn, function(index, item){#
         <div style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
-            #: Ans[index] #. #: item.DapAn#
+            #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
             #if(item.AnhDapAn != null){#
             <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
             #}#

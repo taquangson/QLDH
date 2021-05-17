@@ -1,4 +1,5 @@
 ﻿var selectedDanhMuc;
+var Ans = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 $(document).ready(function () {
     $("#rootContainer").show();
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
@@ -474,6 +475,15 @@ $(document).ready(function () {
         }
     });
     loadTreeview();
+    $("#gridCauHoi").kendoTooltip({
+        autoHide: true,
+        filter: "tr[role='row']",
+        content: function (e) {
+            var dataItem = $("#gridCauHoi").data("kendoGrid").dataItem(e.target.closest("tr"));
+            var temp = kendo.template($("#templateCauHoiTooltip").html());
+            return temp(dataItem);
+        }
+    });
 })
 
 function ThemDanhMuc() {
@@ -750,4 +760,8 @@ function openEditWindow() {
         });
         $("#gridDapAn").data("kendoGrid").setDataSource(ds);
     }
+}
+
+function htmlDecode(value) {
+    return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 }
