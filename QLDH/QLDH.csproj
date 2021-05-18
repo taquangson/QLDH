@@ -977,6 +977,7 @@
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihocthohocsinh.js" />
     <Content Include="Scripts\js\khocauhoi.js" />
+    <Content Include="Scripts\js\danhsachdethitheohocsinh.js" />
     <Content Include="Scripts\js\khodethi.js" />
     <Content Include="Scripts\js\tinnhan.js" />
     <Content Include="Scripts\js\phongban.js" />
@@ -1048,6 +1049,8 @@
     <Content Include="Views\HoTro\QRCodeScanResult.cshtml" />
     <Content Include="Views\TracNghiem\KhoCauHoi.cshtml" />
     <Content Include="Views\TracNghiem\KhoDeThi.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\TracNghiem\DanhSachDeThiTheoHocSinh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

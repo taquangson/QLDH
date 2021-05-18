@@ -323,6 +323,7 @@ namespace QLDH.DataAccess.DAO
                 DataSet ds = helper.ExecuteDataSet("sp_TaiKhoanApp_GetByUserName", pars);
                 DataTable dt = ds.Tables[0];
                 UserAppModel t = GetAppObjFromDataRow(dt.Rows[0]);
+                t.lstHocSinh = new HocSinhDAO().GetAllBySDT(TenTaiKhoan);
                 return t;
             }
             catch (Exception ex)

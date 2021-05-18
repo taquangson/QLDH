@@ -33,6 +33,12 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        public ActionResult DanhSachDeThiTheoHocSinh()
+        {
+            return View();
+        }
+
+        [SessionExpire]
         [HttpPost]
         public ActionResult UploadAnh(HttpPostedFileBase file)
         {

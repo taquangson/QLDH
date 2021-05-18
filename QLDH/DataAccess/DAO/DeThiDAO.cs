@@ -127,6 +127,7 @@ namespace QLDH.DataAccess.DAO
 
             return result;
         }
+
         public List<DeThiModel> GetAllDeThi()
         {
             List<DeThiModel> result = new List<DeThiModel>();

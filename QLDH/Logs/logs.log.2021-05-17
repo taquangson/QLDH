@@ -1,0 +1,40 @@
+﻿2021/05/17 13:09:59,524 DEBUG 1 WebSocketServer-20917673 - Listener (0.0.0.0:8088) was started
+2021/05/17 13:09:59,532 INFO 1 WebSocketServer-20917673 - The server instance WebSocketServer-20917673 has been started!
+2021/05/17 14:48:57,250 DEBUG 1 WebSocketServer-52136226 - Listener (0.0.0.0:8088) was started
+2021/05/17 14:48:57,256 INFO 1 WebSocketServer-52136226 - The server instance WebSocketServer-52136226 has been started!
+2021/05/17 16:01:20,350 DEBUG 129 WebSocketServer-65775233 - Listener (0.0.0.0:8088) was started
+2021/05/17 16:01:20,356 INFO 129 WebSocketServer-65775233 - The server instance WebSocketServer-65775233 has been started!
+2021/05/17 16:06:29,255 ERROR 114 QLDH.DataAccess.Helper.DataHelper - Command:sp_BaiLamTracNghiem_Delete,Command Parameter:@ID_BaiLamTracNgihem:4|
+2021/05/17 16:06:29,256 ERROR 114 QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_BaiLamTracNghiem_Delete' expects parameter '@ID_BaiLamTracNghiem', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteNonQuery(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 137
+ClientConnectionId:f71f0839-05b7-4cad-a1af-e7e06c73d5f6
+Error Number:201,State:4,Class:16
+2021/05/17 16:06:29,285 ERROR 114 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiem_Delete Procedure or function 'sp_BaiLamTracNghiem_Delete' expects parameter '@ID_BaiLamTracNghiem', which was not supplied.
+2021/05/17 16:07:14,350 ERROR 114 QLDH.DataAccess.Helper.DataHelper - Command:sp_BaiLamTracNghiem_Delete,Command Parameter:@ID_BaiLamTracNgihem:4|
+2021/05/17 16:07:14,350 ERROR 114 QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Procedure or function 'sp_BaiLamTracNghiem_Delete' expects parameter '@ID_BaiLamTracNghiem', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteNonQuery(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\qldh\QLDH\DataAccess\Helper\DataHelper.cs:line 137
+ClientConnectionId:f71f0839-05b7-4cad-a1af-e7e06c73d5f6
+Error Number:201,State:4,Class:16
+2021/05/17 16:07:14,367 ERROR 114 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiem_Delete Procedure or function 'sp_BaiLamTracNghiem_Delete' expects parameter '@ID_BaiLamTracNghiem', which was not supplied.
+2021/05/17 16:10:05,026 DEBUG 234 WebSocketServer-64663412 - Listener (0.0.0.0:8088) was started
+2021/05/17 16:10:05,032 INFO 234 WebSocketServer-64663412 - The server instance WebSocketServer-64663412 has been started!
+2021/05/17 16:14:45,463 DEBUG 1 WebSocketServer-32967578 - Listener (0.0.0.0:8088) was started
+2021/05/17 16:14:45,469 INFO 1 WebSocketServer-32967578 - The server instance WebSocketServer-32967578 has been started!

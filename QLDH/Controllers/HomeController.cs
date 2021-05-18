@@ -1,5 +1,6 @@
 ﻿using QLDH.App_Start;
 using QLDH.DataAccess.DAO;
+using QLDH.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +17,22 @@ namespace QLDH.Controllers
         {
             if (Session["UserInfor"] != null)
             {
+                try
+                {
+                    UserAppModel userinfor = (UserAppModel)System.Web.HttpContext.Current.Session["UserInfor"];
+                    if(userinfor.ExpriedTime > DateTime.Now)
+                    {
+                        return RedirectToAction("DanhSachDeThiTheoHocSinh", "TracNghiem");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "User");
+                    }
+                }
+                catch
+                {
+
+                }
                 return View();
 
             }

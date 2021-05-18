@@ -85,6 +85,11 @@ namespace QLDH.Controllers
                 Session["UserInfor"] = tk_dao.GetByTenTaiKhoanOrEmail(model.UserName);
                 return RedirectToAction("Index", "Home");
             }
+            else if (tk_dao.CheckLogin_AppForChangePass(model.UserName, model.Password))
+            {
+                Session["UserInfor"] = tk_dao.GetAppUserInfoByName(model.UserName);
+                return RedirectToAction("DanhSachDeThiTheoHocSinh", "TracNghiem");
+            }
             else
             {
                 TempData["Error"] = "Tài khoản hoặc mật khẩu không đúng";

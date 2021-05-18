@@ -45,36 +45,45 @@ namespace QLDH.Controllers
 
         public ActionResult GetChucNangByTaiKhoan()
         {
+
             ChucNangDAO cndao = new ChucNangDAO();
             List<TreeChucNang> lstcn = new List<TreeChucNang>();
-            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
-            List<ChucNangModel> lcn = cndao.GetChucNangByTaiKhoan(userinfor.ID);
-            if(userinfor.ID_ChiNhanh == 0)
+            try
             {
-                lcn = cndao.GetAll();
-            }
-            foreach(ChucNangModel cn in lcn)
-            {
-                if(lstcn.Where(x => x.ID_NhomChucNang == cn.ID_NhomChucNang).FirstOrDefault() == null)
+                TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+                List<ChucNangModel> lcn = cndao.GetChucNangByTaiKhoan(userinfor.ID);
+                if (userinfor.ID_ChiNhanh == 0)
                 {
-                    lstcn.Add(new TreeChucNang() {
-                        ID_NhomChucNang = cn.ID_NhomChucNang,
-                        TenNhomChucNang = cn.TenNhomChucNang,
-                        lstChucNang = new List<ChucNangModel>(),
-                        Icon = cn.Icon
-                    }) ;
+                    lcn = cndao.GetAll();
                 }
-            }
-            foreach(TreeChucNang tcn in lstcn)
-            {
-                //tcn.lstChucNang.AddRange(lcn.);
-                foreach(ChucNangModel cn in lcn.Where(x => x.ID_NhomChucNang == tcn.ID_NhomChucNang))
+                foreach (ChucNangModel cn in lcn)
                 {
-                    if(tcn.lstChucNang.Where(x => x.ID_ChucNang == cn.ID_ChucNang).FirstOrDefault() == null)
+                    if (lstcn.Where(x => x.ID_NhomChucNang == cn.ID_NhomChucNang).FirstOrDefault() == null)
                     {
-                        tcn.lstChucNang.Add(cn);
+                        lstcn.Add(new TreeChucNang()
+                        {
+                            ID_NhomChucNang = cn.ID_NhomChucNang,
+                            TenNhomChucNang = cn.TenNhomChucNang,
+                            lstChucNang = new List<ChucNangModel>(),
+                            Icon = cn.Icon
+                        });
                     }
                 }
+                foreach (TreeChucNang tcn in lstcn)
+                {
+                    //tcn.lstChucNang.AddRange(lcn.);
+                    foreach (ChucNangModel cn in lcn.Where(x => x.ID_NhomChucNang == tcn.ID_NhomChucNang))
+                    {
+                        if (tcn.lstChucNang.Where(x => x.ID_ChucNang == cn.ID_ChucNang).FirstOrDefault() == null)
+                        {
+                            tcn.lstChucNang.Add(cn);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return Json(lstcn, JsonRequestBehavior.AllowGet);
         }
