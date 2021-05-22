@@ -171,10 +171,17 @@ namespace QLDH.DataAccess.DAO
                     DeThiModel item = GetDeThiFromDataRow(dt.Rows[0]);
                     item.lstChiTiet = GetChiTietDeThi_GetByDeThi(item.ID);
                     item.lstCauHoi = chdao.GetCauHoi_GetByDeThi(item.ID);
+                    List<CauHoiModel> cauhoibydanhmuc = new List<CauHoiModel>();
                     foreach (DeThi_ChiTietModel i in item.lstChiTiet)
                     {
-                        item.lstCauHoi.AddRange(chdao.GetRanDomCauHoi_GetByDanhMuc(i.SoLuongCauHoi, i.ID_DanhMucCauHoi));
-                    }
+                        cauhoibydanhmuc = chdao.GetRanDomCauHoi_GetByDanhMuc(i.SoLuongCauHoi, i.ID_DanhMucCauHoi);
+                        foreach(CauHoiModel c in cauhoibydanhmuc)
+                        {
+                            c.Diem = i.Diem / cauhoibydanhmuc.Count;
+                        }
+                        item.lstCauHoi.AddRange(cauhoibydanhmuc);
+                    }          
+                                       
                     result = item;
                 }
             }

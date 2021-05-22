@@ -1,6 +1,9 @@
 ﻿var selectedDanhMuc;
 var Ans = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 $(document).ready(function () {
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] } });
+    MathJax.Hub.Config({ tex2jax: { displayMath: [['$$', '$$'], ['\\(', '\\)']] } });
+
     $("#rootContainer").show();
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
     $("#treeview").kendoTreeView({
@@ -482,6 +485,13 @@ $(document).ready(function () {
             var dataItem = $("#gridCauHoi").data("kendoGrid").dataItem(e.target.closest("tr"));
             var temp = kendo.template($("#templateCauHoiTooltip").html());
             return temp(dataItem);
+        },
+        show: function () {
+            //setTimeout(function () {
+                //var tooltip = document.getElementById("content-answer");
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'TFS']);
+            //}, 1000)
+
         }
     });
 })
@@ -606,6 +616,12 @@ function PushFormDataFile(file) {
     });
 }
 
+function insertLatex() {
+    $("#test").html($("#latex_syntax").val());
+    var math = document.getElementById("test");
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+}
+
 function PushFormDataFileGrid(fileInfo, item) {
     var data = new FormData();
     data.append('file', fileInfo.rawFile, fileInfo.name);
@@ -626,7 +642,7 @@ function PushFormDataFileGrid(fileInfo, item) {
     });
 }
 
-function ThemDapAn() {
+function ThemDapAn(e) {
     var grid = $("#gridDapAn").data("kendoGrid");
     grid.addRow();
 }
@@ -681,7 +697,6 @@ function LuuCauHoi() {
             })
         })
         cauhoi.lstDapAn = dsdapan;
-        console.log(cauhoi);
         $.ajax({
             url: '/TracNghiem/CauHoi_InsertOrUpdate',
             type: 'POST',

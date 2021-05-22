@@ -705,6 +705,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\danhsachloptheogiaovien.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\thitracnghiem.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\AnhDiemDanh\2019-8-26-144get-up-client-wants-more-changes-please-let-me-die-40938494.png" />

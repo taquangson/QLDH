@@ -23,25 +23,23 @@ namespace QLDH.DataAccess.DAO
         private BaiLamTracNghiemModel GetBaiLamFromDataRow(DataRow dr)
         {
             BaiLamTracNghiemModel obj = new BaiLamTracNghiemModel();
-            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            try
             {
-                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
-                {
-
-                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
-                    {
-                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
-                        propertyInfo.SetValue(obj, value);
-                    }
-                    else
-                    {
-                        propertyInfo.SetValue(obj, null);
-                    }
-                }
-                else
-                {
-                    propertyInfo.SetValue(obj, null);
-                }
+                obj.ID = int.Parse(dr["ID"].ToString());
+                obj.ID_HocSinh = int.Parse(dr["ID_HocSinh"].ToString());
+                obj.TenHocSinh = dr["TenHocSinh"].ToString();
+                obj.NgaySinh = (dr["NgaySinh"].ToString() != "") ? DateTime.Parse(dr["NgaySinh"].ToString()) : obj.NgaySinh;
+                obj.ID_DeThi = dr["ID_DeThi"].ToString() != "" ? int.Parse(dr["ID_DeThi"].ToString()) : 0;
+                obj.NgayGiao = (dr["NgayGiao"].ToString() != "") ? DateTime.Parse(dr["NgayGiao"].ToString()) : obj.NgayGiao;
+                obj.HanNopBai = (dr["HanNopBai"].ToString() != "") ? DateTime.Parse(dr["HanNopBai"].ToString()) : obj.HanNopBai;
+                obj.ThoiGianBatDau = (dr["ThoiGianBatDau"].ToString() != "") ? DateTime.Parse(dr["ThoiGianBatDau"].ToString()) : obj.ThoiGianBatDau;
+                obj.ThoiGianKetThuc = (dr["ThoiGianKetThuc"].ToString() != "") ? DateTime.Parse(dr["ThoiGianKetThuc"].ToString()) : obj.ThoiGianKetThuc;
+                obj.TrangThai = dr["TrangThai"].ToString() != "" ? int.Parse(dr["TrangThai"].ToString()) : 0;
+                obj.Diem = dr["Diem"].ToString() != "" ? float.Parse(dr["Diem"].ToString()) : 0;
+            }
+            catch (Exception ex)
+            {
+                
             }
             return obj;
         }
@@ -51,20 +49,27 @@ namespace QLDH.DataAccess.DAO
             BaiLamTracNghiem_ChiTietModel obj = new BaiLamTracNghiem_ChiTietModel();
             foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
-                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                try
                 {
-
-                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
                     {
-                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
-                        propertyInfo.SetValue(obj, value);
+
+                        if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                        {
+                            var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                            propertyInfo.SetValue(obj, value);
+                        }
+                        else
+                        {
+                            propertyInfo.SetValue(obj, null);
+                        }
                     }
                     else
                     {
                         propertyInfo.SetValue(obj, null);
                     }
                 }
-                else
+                catch 
                 {
                     propertyInfo.SetValue(obj, null);
                 }
@@ -77,20 +82,27 @@ namespace QLDH.DataAccess.DAO
             LichSu_BaiLamTracNghiemModel obj = new LichSu_BaiLamTracNghiemModel();
             foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
-                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                try
                 {
-
-                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
                     {
-                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
-                        propertyInfo.SetValue(obj, value);
+
+                        if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                        {
+                            var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                            propertyInfo.SetValue(obj, value);
+                        }
+                        else
+                        {
+                            propertyInfo.SetValue(obj, null);
+                        }
                     }
                     else
                     {
                         propertyInfo.SetValue(obj, null);
                     }
                 }
-                else
+                catch 
                 {
                     propertyInfo.SetValue(obj, null);
                 }
@@ -246,10 +258,10 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@Diem", model.Diem),
                 new SqlParameter("@ID_DeThi", model.ID_DeThi),
                 new SqlParameter("@ID_HocSinh", model.ID_HocSinh),
-                new SqlParameter("@ThoiGianBatDau", (model.ThoiGianBatDau == null) ? SqlDateTime.Null : (DateTime)model.ThoiGianBatDau),
-                new SqlParameter("@ThoiGianKetThuc",(model.ThoiGianKetThuc == null) ? SqlDateTime.Null : (DateTime)model.ThoiGianKetThuc),
+                new SqlParameter("@ThoiGianBatDau",  (model.ThoiGianBatDau == null) ? (object)DBNull.Value : model.ThoiGianBatDau),
+                new SqlParameter("@ThoiGianKetThuc",(model.ThoiGianKetThuc == null) ? (object)DBNull.Value : model.ThoiGianKetThuc),
                 new SqlParameter("@NgayGiao",model.NgayGiao),
-                new SqlParameter("@HanNopBai",(model.HanNopBai == null) ? SqlDateTime.Null :  (DateTime)model.HanNopBai),
+                new SqlParameter("@HanNopBai",(model.HanNopBai == null) ? (object)DBNull.Value :  model.HanNopBai),
                 new SqlParameter("@TrangThai", model.TrangThai)
                 };
 
@@ -301,8 +313,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ChiTiet", model.ChiTiet),
                 new SqlParameter("@Diem", model.Diem),
                 new SqlParameter("@ID_BaiLamTracNghiem", model.ID_BaiLamTracNghiem),
-                new SqlParameter("@ThoiGianBatDau", model.ThoiGianBatDau),
-                new SqlParameter("@ThoiGianKetThuc", model.ThoiGianKetThuc)
+                new SqlParameter("@ThoiGianBatDau", (model.ThoiGianBatDau == null) ? (object)DBNull.Value : model.ThoiGianBatDau),
+                new SqlParameter("@ThoiGianKetThuc", (model.ThoiGianKetThuc == null) ? (object)DBNull.Value : model.ThoiGianKetThuc)
                 };
 
                 object id = helper.ExecuteScalar("sp_LichSuBaiLamTracNghiem_InsertOrUpdate", pars);
@@ -325,7 +337,7 @@ namespace QLDH.DataAccess.DAO
             {
                 SqlParameter[] pars = new SqlParameter[]
                 {
-                    new SqlParameter("@ID_BaiLamTracNgihem",ID_BaiLamTracNgihem )
+                    new SqlParameter("@ID_BaiLamTracNghiem",ID_BaiLamTracNgihem )
                 };
                 int rowaff = helper.ExecuteNonQuery("sp_BaiLamTracNghiemChiTiet_Delete", pars);
                 if (rowaff > 0)

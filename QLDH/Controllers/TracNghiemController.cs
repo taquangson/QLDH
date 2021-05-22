@@ -125,11 +125,13 @@ namespace QLDH.Controllers
                         }
                     }
                 }
-
-                foreach (DapAnModel d in item.lstDapAn)
+                if (item.lstDapAn.Count > 0)
                 {
-                    d.ID_CauHoi = ID_CauHoi;
-                    dao.InsertOrUpdate_DapAn(d);
+                    foreach (DapAnModel d in item.lstDapAn)
+                    {
+                        d.ID_CauHoi = ID_CauHoi;
+                        dao.InsertOrUpdate_DapAn(d);
+                    }
                 }
                 return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
             }
@@ -176,22 +178,26 @@ namespace QLDH.Controllers
                         }
                     }
                 }
-                if (item.lstDeThiCauHoi != null)
-                {
-                    foreach (DeThi_CauHoiModel c in item.lstDeThiCauHoi)
-                    {
-                        c.ID_DeThi = ID_DeThi;
-                        dao.InsertOrUpdate_DeThiCauHoi(c);
-                    }
-                }
+                float point = 0;
                 if (item.lstChiTiet != null)
                 {
                     foreach (DeThi_ChiTietModel t in item.lstChiTiet)
                     {
                         t.ID_DeThi = ID_DeThi;
+                        point += item.Diem;
                         dao.InsertOrUpdate_DeThiChiTiet(t);
                     }
                 }
+                if (item.lstDeThiCauHoi != null)
+                {
+                    foreach (DeThi_CauHoiModel c in item.lstDeThiCauHoi)
+                    {
+                        c.ID_DeThi = ID_DeThi;
+                        c.Diem = (item.Diem - point) / item.lstDeThiCauHoi.Count;
+                        dao.InsertOrUpdate_DeThiCauHoi(c);
+                    }
+                }
+
                 return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -287,12 +293,12 @@ namespace QLDH.Controllers
         [HttpPost]
         [SessionExpire]
         public ActionResult DeThi_GiaoDeChoHocSinh(BaiLamTracNghiemModel item)
-        {          
+        {
             BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
             item.NgayGiao = DateTime.Now;
             int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(item);
             if (ID_BaiLamTracNghiem > 0)
-            {               
+            {
                 return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -308,18 +314,18 @@ namespace QLDH.Controllers
             BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
             BaiLamTracNghiemModel item = dao.GetBaiLamByID(ID_BailamTracNghiem);
             bool success = false;
-            if(item.lstChitiet.Count == 0 && item.lstLichsu.Count == 0)
+            if (item.lstChitiet.Count == 0 && item.lstLichsu.Count == 0)
             {
                 success = dao.Delete_BaiLamTracNghiem(ID_BailamTracNghiem);
             }
             else
             {
                 item.TrangThai = 0;
-                if(dao.InsertOrUpdate_BaiLamTracNghiem(item) > 0)
+                if (dao.InsertOrUpdate_BaiLamTracNghiem(item) > 0)
                 {
                     success = true;
                 }
-            }         
+            }
             if (success)
             {
                 return Json(new { status = true, msg = "Cập nhật dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
@@ -335,25 +341,27 @@ namespace QLDH.Controllers
         public ActionResult BaiLamTracNghiem_BatDauLamBai(BaiLamTracNghiemModel item)
         {
             BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
-            item.TrangThai = 2;
-            item.ThoiGianBatDau = DateTime.Now;
+            LichSu_BaiLamTracNghiemModel his = new LichSu_BaiLamTracNghiemModel();
+            BaiLamTracNghiemModel old = dao.GetBaiLamByID(item.ID);
+
             if (item.ID > 0)
             {
-                BaiLamTracNghiemModel old = dao.GetBaiLamByID(item.ID);
+                old.ThoiGianBatDau = DateTime.Now;
+                old.TrangThai = 2;
                 List<BaiLamTracNghiem_ChiTietModel> lstchitiet_old = dao.GetBaiLamChiTiet(old.ID);
                 string jsonchitiet = new JavaScriptSerializer().Serialize(lstchitiet_old);
-                LichSu_BaiLamTracNghiemModel his = new LichSu_BaiLamTracNghiemModel();
                 his.ChiTiet = jsonchitiet;
                 his.Diem = old.Diem;
                 his.ID_BaiLamTracNghiem = old.ID;
-                his.ThoiGianBatDau = (DateTime)old.ThoiGianBatDau;
-                his.ThoiGianKetThuc = (DateTime)old.ThoiGianKetThuc;
-                dao.InsertOrUpdate_LichSuBaiLamTracNghiem(his);
+                his.ThoiGianBatDau = old.ThoiGianBatDau;
+                his.ThoiGianKetThuc = old.ThoiGianKetThuc;
+
             }
-            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(item);
-            dao.Delete_BaiLamTracNghiemChiTiet(ID_BaiLamTracNghiem);
+            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(old);
             if (ID_BaiLamTracNghiem > 0)
             {
+                dao.InsertOrUpdate_LichSuBaiLamTracNghiem(his);
+                dao.Delete_BaiLamTracNghiemChiTiet(ID_BaiLamTracNghiem);
                 return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -367,14 +375,25 @@ namespace QLDH.Controllers
         public ActionResult BaiLamTracNghiem_KetThucLamBai(BaiLamTracNghiemModel item)
         {
             BaiLamTracNghiemDAO dao = new BaiLamTracNghiemDAO();
-            item.TrangThai = 3;
-            item.ThoiGianKetThuc = DateTime.Now;           
-            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(item);
+            BaiLamTracNghiemModel old = dao.GetBaiLamByID(item.ID);
+            if (item.ID > 0)
+            {
+                foreach (BaiLamTracNghiem_ChiTietModel c in item.lstChitiet)
+                {
+                    if(c.TraLoiDung == 1)
+                    {
+                        old.Diem += c.Diem;
+                    }
+                }
+                old.TrangThai = 3;
+                old.ThoiGianKetThuc = DateTime.Now;
+            }
+            int ID_BaiLamTracNghiem = dao.InsertOrUpdate_BaiLamTracNghiem(old);
             if (ID_BaiLamTracNghiem > 0)
             {
-                foreach(BaiLamTracNghiem_ChiTietModel c in item.lstChitiet)
+                foreach (BaiLamTracNghiem_ChiTietModel c in item.lstChitiet)
                 {
-                    c.ID_BaiLamTracNghiem = ID_BaiLamTracNghiem;                    
+                    c.ID_BaiLamTracNghiem = ID_BaiLamTracNghiem;
                     dao.InsertOrUpdate_BaiLamTracNghiemChiTiet(c);
                 }
                 return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);

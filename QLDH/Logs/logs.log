@@ -1,2 +1,29 @@
-﻿2021/05/19 00:19:09,791 DEBUG 47 WebSocketServer-48796338 - Listener (0.0.0.0:8088) was started
-2021/05/19 00:19:09,799 INFO 47 WebSocketServer-48796338 - The server instance WebSocketServer-48796338 has been started!
+﻿2021/05/23 03:21:30,979 DEBUG 29 WebSocketServer-20603061 - Listener (0.0.0.0:8088) was started
+2021/05/23 03:21:30,987 INFO 29 WebSocketServer-20603061 - The server instance WebSocketServer-20603061 has been started!
+2021/05/23 03:22:09,383 ERROR 26 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_LichSuBaiLamTracNghiem_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,381 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,423 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,465 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,507 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,881 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,922 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:58,965 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:23:59,008 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:25:57,628 ERROR 106 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_LichSuBaiLamTracNghiem_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:01,734 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:01,795 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:01,894 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:01,954 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,013 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,074 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,160 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,222 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,282 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,342 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:27:02,403 ERROR 7 QLDH.DataAccess.DAO.BaiLamTracNghiemDAO - sp_BaiLamTracNghiemChiTiet_InsertOrUpdate Input string was not in a correct format.
+2021/05/23 03:33:31,818 DEBUG 14 WebSocketServer-29831835 - Listener (0.0.0.0:8088) was started
+2021/05/23 03:33:31,824 INFO 14 WebSocketServer-29831835 - The server instance WebSocketServer-29831835 has been started!
+2021/05/23 03:46:19,071 DEBUG 29 WebSocketServer-31870825 - Listener (0.0.0.0:8088) was started
+2021/05/23 03:46:19,076 INFO 29 WebSocketServer-31870825 - The server instance WebSocketServer-31870825 has been started!
+2021/05/23 03:53:44,589 DEBUG 41 WebSocketServer-15590724 - Listener (0.0.0.0:8088) was started
+2021/05/23 03:53:44,595 INFO 41 WebSocketServer-15590724 - The server instance WebSocketServer-15590724 has been started!

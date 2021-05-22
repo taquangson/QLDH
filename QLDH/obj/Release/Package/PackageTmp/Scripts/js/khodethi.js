@@ -6,6 +6,9 @@ var dataSourceCombo;
 var count = 1;
 var Ans = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 $(document).ready(function () {
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] } });
+    MathJax.Hub.Config({ tex2jax: { displayMath: [['$$', '$$'], ['\\(', '\\)']] } });
+
     $("#rootContainer").show();
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
     $("#gridDeThi").kendoGrid({
@@ -852,6 +855,13 @@ $(document).ready(function () {
             var dataItem = $("#gridChonCauHoi").data("kendoGrid").dataItem(e.target.closest("tr"));
             var temp = kendo.template($("#templateCauHoiTooltip").html());
             return temp(dataItem);
+        },
+        show: function () {
+            //setTimeout(function () {
+            //var tooltip = document.getElementById("content-answer");
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, "TFS"]);
+            //}, 1000)
+
         }
     });
     $("#gridCauHoi").kendoTooltip({
@@ -861,6 +871,13 @@ $(document).ready(function () {
             var dataItem = $("#gridCauHoi").data("kendoGrid").dataItem(e.target.closest("tr"));
             var temp = kendo.template($("#templateCauHoiTooltip").html());
             return temp(dataItem);
+        },
+        show: function () {
+            //setTimeout(function () {
+            //var tooltip = document.getElementById("content-answer");
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, "TFS"]);
+            //}, 1000)
+
         }
     });
     $("#gridHocSinh").kendoGrid({

@@ -2,6 +2,7 @@
     ViewBag.Title = "Kho dữ liệu câu hỏi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <style>
     #treeview {
         height: calc( 100vh - 180px) !important;
@@ -39,17 +40,21 @@
         border: none;
         background-color: transparent;
     }
-     .k-widget.k-tooltip{
-         background-color:#8c9ebf;
-         border-color:#111;
-         width:700px;
-     }
+
+    .k-widget.k-tooltip {
+        background-color: #8c9ebf;
+        border-color: #111;
+        width: 700px;
+    }
 </style>
 <script src="~/Scripts/js/khocauhoi.js"></script>
 <div id="dialogRoot"></div>
 <div id="rootContainer" style="display:none">
     <div class="row">
         <h2><b>Kho câu hỏi</b></h2>
+        <p>
+
+        </p>
     </div>
     <div class="row">
         <div class="col-sm-3">
@@ -109,9 +114,17 @@
                     <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
                 </div>
                 <div class="valid">
+                    <label style="width:100%;;margin-top:7px;">Cú pháp LaTeX: </label>
+                    <textarea id="latex_syntax" style="width:100%;" rows="2" class="k-textbox"></textarea>
+                    <br />
+                    <button type="button" class="k-textbox" onclick="insertLatex()">Kiểm tra cú pháp</button>
+                    <span id="test"></span>
+                </div>
+                <div class="valid">
                     <label style="width:100%;;margin-top:7px;">Ảnh câu hỏi: </label>
                     <input id="AnhCauHoi" type="file" />
                 </div>
+
             </div>
             <div style="width:48%;float:left;margin-left:2%">
                 <label style="width:100%;margin-top:7px;">Đáp án: <span style="color:red">*</span></label>
@@ -123,10 +136,10 @@
 
 
 <div id="templateCauHoiTooltip" style="display:none">
-    <div style="width:100%;padding-top:10px;">
+    <div id="" style="width:100%;padding-top:10px;">
         <b>#= htmlDecode(NoiDungCauHoi)#</b>
         # $.each(lstDapAn, function(index, item){#
-        <div style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
+        <div id="content-answer" style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
             #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
             #if(item.AnhDapAn != null){#
             <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
