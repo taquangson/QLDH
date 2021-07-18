@@ -185,7 +185,7 @@
 }
 
 .question-content {
-    width: 100%;
+    width: 90%;
     float: left;
     padding: 20px;
 }
@@ -219,4 +219,19 @@
     position: absolute;
     z-index: 1000000;
     background: #fff;
+}
+.photo {
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.green {
+    color: green;
+}
+
+.selected {
+    font-weight: 700;
+    font-style: italic;
+    text-decoration-line: underline;
 }

@@ -234,6 +234,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HoTroController.cs" />
     <Compile Include="Controllers\LichHocController.cs" />
+    <Compile Include="Controllers\LiveClassController.cs" />
     <Compile Include="Controllers\LopController.cs" />
     <Compile Include="Controllers\PhieuHocController.cs" />
     <Compile Include="Controllers\PhieuThuController.cs" />
@@ -669,6 +670,7 @@
     <Content Include="Assets\kendo\styles\Uniform\sprite_2x.png" />
     <Content Include="Assets\kendo\styles\Uniform\sprite_kpi.png" />
     <Content Include="Assets\kendo\styles\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Assets\stringeeConfig.js" />
     <Content Include="Assets\vendors\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Assets\vendors\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="Assets\vendors\bootstrap\dist\css\bootstrap.css" />
@@ -704,6 +706,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\danhsachloptheogiaovien.css" />
+    <Content Include="Content\inthe.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\thitracnghiem.css" />
     <Content Include="Global.asax" />
@@ -977,9 +980,11 @@
     <Content Include="Scripts\js\baocao_js\baocaodoanhthubanphieu.js" />
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihocthohocsinh.js" />
+    <Content Include="Scripts\js\danhsachlophoconline.js" />
     <Content Include="Scripts\js\khocauhoi.js" />
     <Content Include="Scripts\js\danhsachdethitheohocsinh.js" />
     <Content Include="Scripts\js\khodethi.js" />
+    <Content Include="Scripts\js\room.js" />
     <Content Include="Scripts\js\tinnhan.js" />
     <Content Include="Scripts\js\phongban.js" />
     <Content Include="Scripts\js\danhsachhocsinhtheogiaovien.js" />
@@ -1052,6 +1057,11 @@
     <Content Include="Views\TracNghiem\KhoDeThi.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\TracNghiem\DanhSachDeThiTheoHocSinh.cshtml" />
+    <Content Include="Views\LiveClass\Room.cshtml" />
+    <Content Include="Views\LiveClass\DanhSachLopHocOnline.cshtml" />
+    <Content Include="Views\Home\IndexHS.cshtml" />
+    <Content Include="Views\LiveClass\RoomGV.cshtml" />
+    <Content Include="Views\HoTro\InThe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

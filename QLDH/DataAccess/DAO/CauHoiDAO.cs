@@ -215,8 +215,7 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@NoiDungCauHoi", model.NoiDungCauHoi),
                 new SqlParameter("@SoDapAn", model.SoDapAn),
                 new SqlParameter("@SoDapAnDung", model.SoDapAnDung),
-                new SqlParameter("@AnhCauHoi", model.AnhCauHoi),
-                new SqlParameter("@Diem", model.Diem)
+                new SqlParameter("@AnhCauHoi", model.AnhCauHoi)
                 };
 
                 object id = helper.ExecuteScalar("sp_CauHoi_InsertOrUpdate", pars);

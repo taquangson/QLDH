@@ -34,7 +34,7 @@ $(document).ready(function () {
                 title: "Tài khoản",
                 width: "150px",
                 template: function (e) {
-                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(' + e.UserName + ',' + e.ID + ')"><div style="width:10%;;padding:2%;float:left">' +
+                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(\'' + e.UserName + '\',' + e.ID + ')"><div style="width:10%;;padding:2%;float:left">' +
                         '<img src = "/Images/user_image.png" alt = "' + e.UserName + '" class="img-responsive img-circle" />' +
                         '</div >' +
                         '<div style="width:70%;float:left">' +
@@ -83,7 +83,7 @@ $(document).ready(function () {
                 title: "Tài khoản",
                 width: "150px",
                 template: function (e) {
-                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(' + e.UserName + ',' + e.ID + ')"><div style="width:10%;padding:2%;float:left">' +
+                    return '<div class="row" style="cursor:pointer" onclick="ChatWithUser(\'' + e.UserName + '\',' + e.ID + ')"><div style="width:10%;;padding:2%;float:left">' +
                         '<img src = "/Images/user_image.png" alt = "' + e.UserName + '" class="img-responsive img-circle" />' +
                         '</div >' +
                         '<div style="width:70%;float:left">' +
@@ -116,7 +116,7 @@ $(document).ready(function () {
     signalR_tinnhan.client.pushTinNhan = function (DienThoai) {
         //notifyTinNhan(DienThoai);
         LoadListSession();
-        if (DienThoai == "0" + cur_user)
+        if (DienThoai == cur_user)
             LoadTinNhanByUser(DienThoai);
     }
 
@@ -134,7 +134,7 @@ function SendMessage() {
         },
         type: 'GET',
     }).done(function successCallback(response) {
-        LoadTinNhanByUser("0" + cur_user);
+        LoadTinNhanByUser(cur_user);
         $("#btn-input").val("");
     });
 }
@@ -153,7 +153,7 @@ function notifyTinNhan(DienThoai) {
     //}
     LoadListSession();
     if (cur_user == DienThoai) {
-        LoadTinNhanByUser("0" + cur_user);
+        LoadTinNhanByUser(cur_user);
     }
 }
 
@@ -174,7 +174,7 @@ function LoadListSession() {
 function ChatWithUser(UserName, ID) {
     cur_user = UserName;
     cur_idtaikhoan = ID
-    LoadTinNhanByUser("0" + UserName);
+    LoadTinNhanByUser(UserName);
     $.ajax({
         url: '/ChatMessage/UpdateDaXem?Username=' + UserName,
         type: 'GET',

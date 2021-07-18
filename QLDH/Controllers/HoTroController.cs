@@ -36,6 +36,13 @@ namespace QLDH.Controllers
             return View();
         }
 
+        public ActionResult InThe(int Lop, int NamSinh, string DienThoai, int Loai)
+        {
+            HocSinhDAO hsdao = new HocSinhDAO();
+            List<HocSinhModel> data =  hsdao.GetByBoLocTinNhan(Lop, NamSinh, DienThoai, Loai);
+            return View(data);
+        }
+
         public ActionResult QRCodeScanResult(int ID_HocSinh)
         {
             CheckInSuKienDAO cdao = new CheckInSuKienDAO();

@@ -87,8 +87,14 @@ namespace QLDH.Controllers
             }
             else if (tk_dao.CheckLogin_AppForChangePass(model.UserName, model.Password))
             {
-                Session["UserInfor"] = tk_dao.GetAppUserInfoByName(model.UserName);
-                return RedirectToAction("DanhSachDeThiTheoHocSinh", "TracNghiem");
+                UserAppModel u = tk_dao.GetAppUserInfoByName(model.UserName);
+                TaiKhoanModel t = new TaiKhoanModel();
+                t.TenDayDu = u.UserName;
+                t.ID = u.ID;
+                t.lstHocSinh = u.lstHocSinh;
+                t.Role = -1;// Role=-1 tài khoản app của phụ huynh
+                Session["UserInfor"] = t;
+                return RedirectToAction("IndexHS", "Home");
             }
             else
             {

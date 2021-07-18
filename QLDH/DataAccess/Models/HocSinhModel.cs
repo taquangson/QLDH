@@ -32,5 +32,6 @@ namespace QLDH.DataAccess.Models
         public int YeuCauTraoDoi { get; set; }
         public string AnhDaiDien { get; set; }
         public string NotifyID { get; set; }
+        public string LopHoc { get; set; }
     }
 }

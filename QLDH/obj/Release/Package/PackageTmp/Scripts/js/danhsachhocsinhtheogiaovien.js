@@ -2,7 +2,7 @@
 var lstHocSinhTrongLopHocBu = [];
 var lstCaHoc = []
 $(document).ready(function () {
-
+    api.setRestToken();
     $("#windowLopHocBu").kendoWindow({
         width: "680px",
         height: "410px",
@@ -135,6 +135,63 @@ $(document).ready(function () {
                 }
             },
             {
+                field: "TenKhoi",
+                title: "Tên khối",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "SiSo",
+                title: "Sĩ số",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    class: "text-center"
+                }
+            },
+            {
+                field: "PhongHoc",
+                title: "Phòng học",
+                width: "130px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
                 field: "NamHoc",
                 title: "Năm học",
                 width: "100px",
@@ -154,7 +211,7 @@ $(document).ready(function () {
             },
             {
                 title: "Chi tiết lớp",
-                width: "200px",
+                width: "100px",
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
@@ -167,6 +224,24 @@ $(document).ready(function () {
                         return "<button class='k-button k-success text-center' onclick='openChiTietLopHocBu(" + e.ID + ")'><i class='fa fa-pencil'/> Chi tiết</button>";
                     } else {
                         return "<button class='k-button k-success text-center' onclick='openChiTietLop(" + e.ID + ")'><i class='fa fa-pencil'/> Chi tiết</button>";
+                    }
+                }
+            },
+            {
+                title: "Trực tuyến",
+                width: "100px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align:center"
+                },
+                template: function (e) {
+                    if (e.IsLive > 0) {
+                        return "<button class='k-button k-success text-center' onclick='openOnline(" + e.GiaoVien + "," + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-video-camera'/> Tham dự lớp</button>";
+                    } else {
+                        return "";
                     }
                 }
             }
@@ -1103,6 +1178,10 @@ function createGridLichHoc() {
             ]
         });
     }
+}
+
+function openOnline(ID_GiaoVien,ID_Lop, RoomID) {
+    window.location.href = "/LiveClass/RoomGV?RoomID=" + RoomID + "&ID_Lop=" + ID_Lop + "&ID_HocSinh=" + ID_GiaoVien
 }
 
 function LoadGridLichHoc(ID_Lop) {

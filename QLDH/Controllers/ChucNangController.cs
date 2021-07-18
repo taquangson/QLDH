@@ -52,6 +52,10 @@ namespace QLDH.Controllers
             {
                 TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
                 List<ChucNangModel> lcn = cndao.GetChucNangByTaiKhoan(userinfor.ID);
+                if (userinfor.Role == -1)
+                {
+                    return Json(lstcn, JsonRequestBehavior.AllowGet);
+                }
                 if (userinfor.ID_ChiNhanh == 0)
                 {
                     lcn = cndao.GetAll();

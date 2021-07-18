@@ -1,6 +1,7 @@
 ﻿var lstHocSinhTrongLop = [];
 var lstCaHoc = []
 $(document).ready(function () {
+    api.setRestToken();
     $("#window").kendoWindow({
         width: "680px",
         height: "570px",
@@ -244,6 +245,24 @@ $(document).ready(function () {
                             "<button class='k-button k-success text-center' onclick='DuyetLop(" + e.ID + ")'><i class='fa fa-check'></i> Phê duyệt lớp</button>";
                     } else {
                         return "<button class='k-button k-success text-center' onclick='openChiTietLop(" + e.ID + ")'><i class='fa fa-pencil'/> Chi tiết</button>";
+                    }
+                }
+            },
+            {
+                title: "Trực tuyến",
+                width: "100px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align:center"
+                },
+                template: function (e) {
+                    if (e.IsLive == 0) {
+                        return "<button class='k-button k-success text-center' onclick='openOnline(" + e.ID + ")'><i class='fa fa-video-camera'/> Go live</button>";
+                    } else {
+                        return "<button class='k-button k-error text-center' onclick='closeOnline(" + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-plug'/> Dừng lớp</button>";
                     }
                 }
             }
@@ -742,7 +761,7 @@ function LoadComboKhoi() {
             dataSource: dataSource
         });
     });
-} 
+}
 function ThemMoi() {
     LoadGridLichHoc(0);
     document.getElementById("formChiTiet").reset();
@@ -1176,6 +1195,29 @@ function DuyetLop(ID_Lop) {
         LoadGridData();
     })
 }
+
+async function openOnline(ID_Lop) {
+    var room = await api.createRoom();
+    console.log(room);
+    $.ajax({
+        url: '/Lop/Golive?ID_Lop=' + ID_Lop + '&Token=' + room.roomId + '&TrangThai=1',
+        type: 'POST',
+    }).done(function successCallback(response) {
+        LoadGridData();
+    })
+}
+
+async function closeOnline(ID_Lop, Token_Room) {
+    var room = await api.deleteRoom(Token_Room);
+    console.log(room);
+    $.ajax({
+        url: '/Lop/Golive?ID_Lop=' + ID_Lop + '&Token=' + '&TrangThai=0',
+        type: 'POST',
+    }).done(function successCallback(response) {
+        LoadGridData();
+    })
+}
+
 function XuatExcel() {
     var grid = $('#grid').data('kendoGrid');
 

@@ -1,0 +1,64 @@
+﻿@using QLDH.DataAccess.Models;
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>In thẻ</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/img_OX2_icon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/qrcode.js"></script>
+    <script>
+        $(document).ready(function () {
+            @for (int i = 0; i < Model.Count; i++){
+                <text>
+                var QR_CODE@(i) = new QRCode("qrcode@(i)", {
+                  width: 40,
+                  height: 40,
+                  colorDark: "#000000",
+                  colorLight: "#ffffff",
+                  correctLevel: QRCode.CorrectLevel.H,
+                });
+                QR_CODE@(i).makeCode("@Model[i].ID");
+                </text>
+            }
+        })
+
+    </script>
+    <link href="~/Content/inthe.css" rel="stylesheet" />
+
+</head>
+<body class="anhthe-panel">
+    <div class="background">
+        @for (int j = 0; j < Model.Count; j++)
+        {
+            if (j % 10 == 0)
+            {
+                <img class="bg-inthe" src="/Images/anhthehs.jpg" />
+            }
+        }
+    </div>
+    <div style="width:100%;height:5px;"></div>
+    <div style="width:100%;height:5px;"></div>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+
+        <div class="hocsinh">
+            <span class="ten">@Model[i].TenHocSinh</span>
+            <span class="ma">@Model[i].ID.ToString("d6")</span>
+            <span class="namsinh">@Model[i].NgaySinh.Year</span>
+            <div class="qrcode" id="qrcode@(i)"></div>
+        </div>
+        if ((i + 1) % 10 == 0)
+        {
+            <div></div>
+            <div class="space"></div>
+        }
+    }
+
+</body>
+</html>

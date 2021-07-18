@@ -227,6 +227,53 @@ namespace QLDH.DataAccess.DAO
             return 0;
         }
 
+        public int UpdateLive(int ID_Lop,int TrangThai,string Token)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop),
+                new SqlParameter("@TrangThai", TrangThai),
+                new SqlParameter("@Token", Token)
+                };
+
+                object id = helper.ExecuteScalar("sp_LopHoc_UpdateLive", pars);
+                if (id != null)
+                {
+                    return int.Parse(id.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHoc_UpdateLive " + ex.Message);
+            }
+
+            return 0;
+        }
+
+        public bool Insert_LichSuLive(int ID_Lop, string Token)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop),
+                new SqlParameter("@Token", Token)
+                };
+
+                int rowaff = helper.ExecuteNonQuery("sp_LopHoc_LichSuLive_Insert", pars);
+                if (rowaff> 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHoc_LichSuLive_Insert " + ex.Message);
+            }
+
+            return false;
+        }
+
         public int InsertOrUpdateByGiaoVien(LopHocModel model)
         {
             try

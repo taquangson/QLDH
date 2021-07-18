@@ -35,6 +35,9 @@ namespace QLDH.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+
+
+
         [SessionExpire]
         [HttpGet]
         public ActionResult GetAllSession()
@@ -57,7 +60,7 @@ namespace QLDH.Controllers
         public ActionResult UpdateDaXem(string Username)
         {
             TinNhanDAO tndao = new TinNhanDAO();
-            return Json(new { success = tndao.UpdateDaXem("0" + Username), message = "OK" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = tndao.UpdateDaXem(Username), message = "OK" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

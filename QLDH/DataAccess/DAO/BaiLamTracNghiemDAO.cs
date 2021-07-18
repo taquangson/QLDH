@@ -34,7 +34,9 @@ namespace QLDH.DataAccess.DAO
                 obj.HanNopBai = (dr["HanNopBai"].ToString() != "") ? DateTime.Parse(dr["HanNopBai"].ToString()) : obj.HanNopBai;
                 obj.ThoiGianBatDau = (dr["ThoiGianBatDau"].ToString() != "") ? DateTime.Parse(dr["ThoiGianBatDau"].ToString()) : obj.ThoiGianBatDau;
                 obj.ThoiGianKetThuc = (dr["ThoiGianKetThuc"].ToString() != "") ? DateTime.Parse(dr["ThoiGianKetThuc"].ToString()) : obj.ThoiGianKetThuc;
+                obj.HanNiemPhong = (dr["HanNiemPhong"].ToString() != "") ? DateTime.Parse(dr["HanNiemPhong"].ToString()) : obj.HanNiemPhong;
                 obj.TrangThai = dr["TrangThai"].ToString() != "" ? int.Parse(dr["TrangThai"].ToString()) : 0;
+                obj.GioiHanLanLam = dr["GioiHanLanLam"].ToString() != "" ? int.Parse(dr["GioiHanLanLam"].ToString()) : 0;
                 obj.Diem = dr["Diem"].ToString() != "" ? float.Parse(dr["Diem"].ToString()) : 0;
             }
             catch (Exception ex)
@@ -181,7 +183,7 @@ namespace QLDH.DataAccess.DAO
                 foreach (DataRow dr in dt.Rows)
                 {
                     BaiLamTracNghiemModel item = GetBaiLamFromDataRow(dr);
-                    item.lstChitiet = GetBaiLamChiTiet(item.ID);
+                    //item.lstChitiet = GetBaiLamChiTiet(item.ID);
                     item.lstLichsu = GetLichSuBaiLamTracNghiem(item.ID);
                     result.Add(item);
 
@@ -262,6 +264,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@ThoiGianKetThuc",(model.ThoiGianKetThuc == null) ? (object)DBNull.Value : model.ThoiGianKetThuc),
                 new SqlParameter("@NgayGiao",model.NgayGiao),
                 new SqlParameter("@HanNopBai",(model.HanNopBai == null) ? (object)DBNull.Value :  model.HanNopBai),
+                new SqlParameter("@HanNiemPhong",(model.HanNiemPhong == null) ? (object)DBNull.Value :  model.HanNiemPhong),
+                new SqlParameter("@GioiHanLanLam", model.GioiHanLanLam),
                 new SqlParameter("@TrangThai", model.TrangThai)
                 };
 

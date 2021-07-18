@@ -21,5 +21,6 @@ namespace QLDH.DataAccess.Models
         public string TenChiNhanh { get; set; }
         public string DiaChiChiNhanh { get; set; }
         public string DienThoaiChiNhanh { get; set; }
+        public List<HocSinhModel> lstHocSinh { get; set; }
     }
 }

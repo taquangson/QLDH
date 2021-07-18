@@ -310,5 +310,18 @@ namespace QLDH.Controllers
                 return Json(new { status = true, msg = "Xóa dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult Golive(int ID_Lop, string Token, int TrangThai)
+        {
+            LopHocDAO lhdao = new LopHocDAO();
+            int ID = lhdao.UpdateLive(ID_Lop, TrangThai, Token);
+            if(ID > 0 && TrangThai > 0)
+            {
+                lhdao.Insert_LichSuLive(ID_Lop, Token);
+            }
+            return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

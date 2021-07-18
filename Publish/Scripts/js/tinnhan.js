@@ -511,3 +511,17 @@ function GuiTinNhanTheoMau() {
         }
     })
 }
+
+function InThe() {
+    let Lop = $("#comboLop").data("kendoComboBox").value();
+    let Nam = $("#comboNamSinh").data("kendoComboBox").value();
+    let Loai = $("#comboDangHoc").data("kendoComboBox").value();
+    let SDT = $("#soDienThoai").val();
+    let dataRequest = {
+        ID_Lop: Lop != "" ? Lop : 0,
+        NamSinh: Nam != "" ? Nam : 0,
+        DienThoai: SDT,
+        Loai: Loai
+    };
+    window.open("/HoTro/InThe?Lop=" + dataRequest.ID_Lop + "&NamSinh=" + dataRequest.NamSinh + "&DienThoai=" + dataRequest.DienThoai + "&Loai=" + dataRequest.Loai , "_blank");
+}

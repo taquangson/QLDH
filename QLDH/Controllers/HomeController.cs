@@ -22,7 +22,7 @@ namespace QLDH.Controllers
                     UserAppModel userinfor = (UserAppModel)System.Web.HttpContext.Current.Session["UserInfor"];
                     if(userinfor.ExpriedTime > DateTime.Now)
                     {
-                        return RedirectToAction("DanhSachDeThiTheoHocSinh", "TracNghiem");
+                        return RedirectToAction("IndexHS", "Home");
                     }
                     else
                     {
@@ -43,9 +43,9 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
-        public ActionResult About()
+        public ActionResult IndexHS()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Title = "Trang chủ hệ thống dạy học trực tuyến";
 
             return View();
         }

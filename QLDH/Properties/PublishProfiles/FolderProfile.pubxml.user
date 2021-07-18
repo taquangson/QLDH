@@ -1254,6 +1254,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Assets/serviceAccount.json">
       <publishTime>05/27/2020 13:56:42</publishTime>
     </File>
+    <File Include="Assets/stringeeConfig.js">
+      <publishTime>05/27/2021 17:25:16</publishTime>
+    </File>
     <File Include="Assets/tracuulichhoc.css">
       <publishTime>04/15/2020 12:47:05</publishTime>
     </File>
@@ -1855,10 +1858,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>05/23/2021 03:50:01</publishTime>
+      <publishTime>07/15/2021 09:26:13</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>05/23/2021 03:50:01</publishTime>
+      <publishTime>07/15/2021 09:26:13</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -1962,6 +1965,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/danhsachloptheogiaovien.css">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Content/inthe.css">
+      <publishTime>07/04/2021 14:42:15</publishTime>
+    </File>
     <File Include="Content/login.css">
       <publishTime>01/02/2021 12:21:02</publishTime>
     </File>
@@ -1969,7 +1975,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Content/thitracnghiem.css">
-      <publishTime>05/23/2021 00:47:57</publishTime>
+      <publishTime>06/01/2021 16:52:45</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2158,10 +2164,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Scripts/js/danhsachdethitheohocsinh.js">
-      <publishTime>05/23/2021 03:49:34</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Scripts/js/danhsachhocsinhtheogiaovien.js">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>05/27/2021 22:32:03</publishTime>
+    </File>
+    <File Include="Scripts/js/danhsachlophoconline.js">
+      <publishTime>05/27/2021 16:52:57</publishTime>
     </File>
     <File Include="Scripts/js/diemdanh.js">
       <publishTime>06/11/2020 23:49:12</publishTime>
@@ -2173,10 +2182,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2021 01:37:33</publishTime>
     </File>
     <File Include="Scripts/js/khodethi.js">
-      <publishTime>05/22/2021 10:18:09</publishTime>
+      <publishTime>05/30/2021 12:48:48</publishTime>
     </File>
     <File Include="Scripts/js/lop.js">
-      <publishTime>05/12/2021 06:32:29</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Scripts/js/phieuhoc.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2193,11 +2202,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/js/quanlythongbaoapp.js">
       <publishTime>10/28/2020 23:36:33</publishTime>
     </File>
+    <File Include="Scripts/js/room.js">
+      <publishTime>05/27/2021 17:28:04</publishTime>
+    </File>
     <File Include="Scripts/js/tinnhan.js">
-      <publishTime>04/27/2021 01:04:19</publishTime>
+      <publishTime>06/03/2021 10:50:09</publishTime>
     </File>
     <File Include="Scripts/js/tinnhanphuhuynh.js">
-      <publishTime>10/07/2020 01:45:33</publishTime>
+      <publishTime>07/15/2021 09:24:08</publishTime>
     </File>
     <File Include="Scripts/js/xinnghiphep.js">
       <publishTime>10/29/2020 00:20:28</publishTime>
@@ -2265,6 +2277,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Index.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Views/Home/IndexHS.cshtml">
+      <publishTime>05/27/2021 13:14:16</publishTime>
+    </File>
     <File Include="Views/HoTro/GiaoVan.cshtml">
       <publishTime>11/11/2020 23:58:16</publishTime>
     </File>
@@ -2277,17 +2292,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/HoTro/HoTroDuongDev3.cshtml">
       <publishTime>09/15/2020 10:07:17</publishTime>
     </File>
+    <File Include="Views/HoTro/InThe.cshtml">
+      <publishTime>07/04/2021 14:42:30</publishTime>
+    </File>
     <File Include="Views/HoTro/QRCodeScanResult.cshtml">
       <publishTime>03/10/2021 10:56:53</publishTime>
     </File>
     <File Include="Views/LichHoc/TraCuuLichHoc.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Views/LiveClass/DanhSachLopHocOnline.cshtml">
+      <publishTime>05/27/2021 13:13:26</publishTime>
+    </File>
+    <File Include="Views/LiveClass/Room.cshtml">
+      <publishTime>05/27/2021 17:02:02</publishTime>
+    </File>
+    <File Include="Views/LiveClass/RoomGV.cshtml">
+      <publishTime>05/27/2021 22:32:08</publishTime>
+    </File>
     <File Include="Views/Lop/DanhSachLopTheoGiaoVien.cshtml">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>05/26/2021 22:21:53</publishTime>
     </File>
     <File Include="Views/Lop/Index.cshtml">
-      <publishTime>03/05/2021 11:56:54</publishTime>
+      <publishTime>05/26/2021 15:14:46</publishTime>
     </File>
     <File Include="Views/PhieuHoc/Index.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2314,22 +2341,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2021 11:29:51</publishTime>
     </File>
     <File Include="Views/Shared/_Layout2.cshtml">
-      <publishTime>05/19/2021 00:21:43</publishTime>
+      <publishTime>05/27/2021 17:30:09</publishTime>
     </File>
     <File Include="Views/ThongBaoApp/Index.cshtml">
       <publishTime>09/15/2020 10:07:17</publishTime>
     </File>
     <File Include="Views/TinNhan/Index.cshtml">
-      <publishTime>09/24/2020 23:47:55</publishTime>
+      <publishTime>06/03/2021 10:25:33</publishTime>
     </File>
     <File Include="Views/TracNghiem/DanhSachDeThiTheoHocSinh.cshtml">
-      <publishTime>05/23/2021 02:49:31</publishTime>
+      <publishTime>06/01/2021 16:53:38</publishTime>
     </File>
     <File Include="Views/TracNghiem/KhoCauHoi.cshtml">
-      <publishTime>05/21/2021 16:52:40</publishTime>
+      <publishTime>05/23/2021 10:40:13</publishTime>
     </File>
     <File Include="Views/TracNghiem/KhoDeThi.cshtml">
-      <publishTime>05/22/2021 10:12:51</publishTime>
+      <publishTime>05/30/2021 12:41:48</publishTime>
     </File>
     <File Include="Views/User/ChangePass.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>

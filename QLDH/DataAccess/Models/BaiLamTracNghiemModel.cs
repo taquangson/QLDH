@@ -17,6 +17,8 @@ namespace QLDH.DataAccess.Models
         public DateTime? HanNopBai { get; set; }
         public DateTime? ThoiGianBatDau { get; set; }
         public DateTime? ThoiGianKetThuc { get; set; }
+        public DateTime? HanNiemPhong { get; set; }
+        public int GioiHanLanLam { get; set; }
         public int TrangThai { get; set; }
         public float Diem { get; set; }
         public List<LichSu_BaiLamTracNghiemModel> lstLichsu { get; set; }
