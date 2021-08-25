@@ -17,6 +17,7 @@ using System.IO;
 using System.Web.Script.Serialization;
 using System.Web;
 using static QLDH.DataAccess.DAO.BaoCaoDAO;
+using System.Configuration;
 
 namespace QLDH.Controllers
 {
@@ -72,10 +73,28 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+                string appVer = ConfigurationSettings.AppSettings["AppVersion"].ToString();
+                if(appVer != "")
+                {
+                    if (model.AppVersion != appVer)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = false, msg = "Phiên bản ứng dụng đã cũ, vui lòng cập nhật ứng dụng!" });
+                        return response;
+                    }
+                }
                 if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")), model.NotifyID))
-                    response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = true });
+                {
+                    if (tk_dao.GetAppUserInfoByName(model.UserName).ExpriedTime < DateTime.Now)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = false, msg = "Tài khoản đã hết hạn, vui lòng đăng ký gia hạn với bộ phận Văn Phòng!" });
+                    }
+                    else
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = true, msg = "" });
+                    }
+                }
                 else
-                    response = Request.CreateResponse(HttpStatusCode.NotModified, new { loginSuccess = false });
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { loginSuccess = false, msg = "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không chính xác" });
             }
             catch (Exception ex)
             {

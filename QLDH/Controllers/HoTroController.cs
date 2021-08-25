@@ -1,9 +1,11 @@
 ﻿using QLDH.App_Start;
 using QLDH.DataAccess.DAO;
+using QLDH.DataAccess.Helper;
 using QLDH.DataAccess.Models;
 using QLDH.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -15,6 +17,11 @@ namespace QLDH.Controllers
     public class HoTroController : Controller
     {
         // GET: HoTro
+
+        public ActionResult FileSupport()
+        {
+            return View();
+        }
         public ActionResult HoTroDuongDe()
         {
             return View();
@@ -36,10 +43,19 @@ namespace QLDH.Controllers
             return View();
         }
 
+        public ActionResult WebRTC()
+        {
+            return View();
+        }
+        public ActionResult WebRTCWatch()
+        {
+            return View();
+        }
+
         public ActionResult InThe(int Lop, int NamSinh, string DienThoai, int Loai)
         {
             HocSinhDAO hsdao = new HocSinhDAO();
-            List<HocSinhModel> data =  hsdao.GetByBoLocTinNhan(Lop, NamSinh, DienThoai, Loai);
+            List<HocSinhModel> data = hsdao.GetByBoLocTinNhan(Lop, NamSinh, DienThoai, Loai);
             return View(data);
         }
 
@@ -262,6 +278,80 @@ namespace QLDH.Controllers
             {
                 return Json(new { status = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public class FileSupportModel
+        {
+            public int Code { get; set; }
+            public string Name { get; set; }
+            public float Value1 { get; set; }
+            public float Value2 { get; set; }
+            public float Value3 { get; set; }
+            public string PhongBan { get; set; }
+            public string TruSo { get; set; }
+            public int Loai { get; set; }
+        }
+
+        [HttpPost]
+        public ActionResult ProcessFileSupport(List<FileSupportModel> data)
+        {
+            try
+            {
+                DataHelper d = new DataHelper();
+                List<FileSupportModel> nhanvien = data.Where(x => x.Code == -1).ToList();
+                List<FileSupportModel> nhanvien2 = data.Where(x => x.Code >= 0).ToList();
+                foreach (FileSupportModel nv in nhanvien)
+                {
+                    string sql = string.Format("Insert into HoTro_NhanVien(TenNhanVien,TruSo,PhongBan,Loai) values(N'{0}',N'{1}',N'{2}',{3})", nv.Name, nv.TruSo, nv.PhongBan, nv.Value1);
+                    d.ExecuteNonQuery(sql);
+                }
+
+                foreach (FileSupportModel nv in nhanvien2)
+                {
+                    string sql = string.Format("Insert into HoTro_NangLucNhanVien(ID_NangLuc,TenNhanVien,TruSo,PhongBan,Value1,Value2,Value3) values({0},N'{1}',N'{2}',N'{3}','{4}','{5}','{6}')", nv.Code, nv.Name, nv.TruSo, nv.PhongBan, nv.Value1.ToString().Replace(",", "."), nv.Value2.ToString().Replace(",", "."), (nv.Value2 / nv.Value1 * 100).ToString().Replace(",", "."));
+                    d.ExecuteNonQuery(sql);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetTruSoPhongBan()
+        {
+            DataTable dt = new DataTable();
+            List<object> list = new List<object>();
+            try
+            {
+                DataHelper d = new DataHelper();
+
+                string sql = string.Format("Select PhongBan,TruSo  from HoTro_NhanVien group by PhongBan, TruSo");
+                DataSet ds = d.ExecuteDataSet(sql);
+
+                if (ds.Tables.Count > 0)
+                {
+                    dt = ds.Tables[0];
+                }
+                foreach (DataRow dr in dt.Rows)
+                {
+                    var o = new
+                    {
+                        col1 = dr["PhongBan"].ToString(),
+                        col2 = dr["TruSo"].ToString(),
+                        col3 = dr["Loai"].ToString()
+                    };
+                    list.Add(o);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

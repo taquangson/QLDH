@@ -181,6 +181,7 @@ namespace QLDH.DataAccess.DAO
                 DataSet ds = helper.ExecuteDataSet("sp_BaiLamTracNghiem_GetByDeThi", pars);
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
+
                 {
                     BaiLamTracNghiemModel item = GetBaiLamFromDataRow(dr);
                     //item.lstChitiet = GetBaiLamChiTiet(item.ID);

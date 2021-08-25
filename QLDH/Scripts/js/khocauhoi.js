@@ -32,15 +32,15 @@ $(document).ready(function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
         },
         columns: [
-            {
-                width: "30px",
-                selectable: true,
-                hidden: true,
-                headerAttributes: {
-                    style: "text-align:left",
-                    class: "table-header-cell-checkbox"
-                }
-            },
+            //{
+            //    width: "30px",
+            //    selectable: true,
+            //    hidden: true,
+            //    headerAttributes: {
+            //        style: "text-align:left",
+            //        class: "table-header-cell-checkbox"
+            //    }
+            //},
             {
                 title: " ",
                 field: 'ID',

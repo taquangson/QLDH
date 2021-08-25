@@ -2,6 +2,10 @@
     ViewBag.Title = "Kho dữ liệu câu hỏi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using QLDH.DataAccess.Models
+@{
+    TaiKhoanModel userinfor = (TaiKhoanModel)Session["UserInfor"];
+}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <style>
     #treeview {
@@ -58,10 +62,14 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
+
             <div class="toolBarMenu">
+                @if (userinfor.Role == 1 || userinfor.Role == 2)
+                {
                 <button class="k-button bg-blue" onclick="ThemDanhMuc()"> <i class="fa fa-plus-square"> Thêm </i></button>
                 <button class="k-button bg-orange" onclick="SuaDanhMuc()"> <i class="fa fa-wrench"> Sửa</i> </button>
                 <button class="k-button bg-red" onclick="XoaDanhMuc()"> <i class="fa fa-close"> Xóa</i> </button>
+                }
             </div>
             <div id="treeview"></div>
         </div>

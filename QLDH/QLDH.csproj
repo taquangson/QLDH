@@ -247,6 +247,7 @@
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
     <Compile Include="DataAccess\DAO\BaiLamTracNghiemDAO.cs" />
+    <Compile Include="DataAccess\DAO\CallSessionDAO.cs" />
     <Compile Include="DataAccess\DAO\CauHoiDAO.cs" />
     <Compile Include="DataAccess\DAO\ChatSessionDAO.cs" />
     <Compile Include="DataAccess\DAO\CheckInSuKienDAO.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiLamTracNghiemModel.cs" />
     <Compile Include="DataAccess\Models\BaiLamTracNghiem_ChiTietModel.cs" />
+    <Compile Include="DataAccess\Models\CallSessionModel.cs" />
     <Compile Include="DataAccess\Models\CauHoiModel.cs" />
     <Compile Include="DataAccess\Models\ChatSessionModel.cs" />
     <Compile Include="DataAccess\Models\CheckInSuKienModel.cs" />
@@ -330,6 +332,7 @@
     </Compile>
     <Compile Include="DataAccess\Models\LoginModel.cs" />
     <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="Hubs\BoardcastHub.cs" />
     <Compile Include="Hubs\TinNhanHub.cs" />
     <Compile Include="Hubs\DiemDanhHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -709,6 +712,7 @@
     <Content Include="Content\inthe.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\thitracnghiem.css" />
+    <Content Include="Content\webrtc.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\AnhDiemDanh\2019-8-26-144get-up-client-wants-more-changes-please-let-me-die-40938494.png" />
@@ -995,6 +999,8 @@
     <Content Include="Scripts\js\diemdanh.js" />
     <Content Include="Scripts\js\quanlythongbaoapp.js" />
     <Content Include="Scripts\js\tinnhanphuhuynh.js" />
+    <Content Include="Scripts\js\webrtcwatch.js" />
+    <Content Include="Scripts\js\webrtc.js" />
     <Content Include="Scripts\js\xinnghiphep.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -1062,6 +1068,9 @@
     <Content Include="Views\Home\IndexHS.cshtml" />
     <Content Include="Views\LiveClass\RoomGV.cshtml" />
     <Content Include="Views\HoTro\InThe.cshtml" />
+    <Content Include="Views\HoTro\FileSupport.cshtml" />
+    <Content Include="Views\HoTro\WebRTC.cshtml" />
+    <Content Include="Views\HoTro\WebRTCWatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

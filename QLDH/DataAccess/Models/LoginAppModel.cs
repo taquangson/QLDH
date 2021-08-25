@@ -23,5 +23,6 @@ namespace QLDH.DataAccess.Models
         public int ShowPopup { get; set; }
         public int ShowButton { get; set; }
         public string PopupImage { get; set; }
+        public string AppVersion { get; set; }
     }
 }

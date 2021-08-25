@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "FileSupport";
+}
+<script src="~/Assets/xlsx.js"></script>
+<h2>FileSupport</h2>
+<input type="file" id="file" />
+<div id="grid"></div>
+
+<script>
+    var lenght;
+    var jsondata;
+    $(document).ready(function () {
+        $("#file").kendoUpload({
+            multiple: false,
+            localization: {
+                select: 'Tải file dữ liệu đầu vào',
+                remove: '',
+                cancel: ''
+            },
+            allowedExtensions: [".xls", ".xlsx"],
+            select: function (e) {
+                PushFormDataFile(e.files[0]);
+            }
+        });
+
+        $.ajax({
+            url: '/HoTro/GetTruSoPhongBan',
+            type: 'GET',
+        }).done(function successCallback(response) {
+            console.log(response);
+        });
+        function PushFormDataFile(file) {
+            parseExcel(file.rawFile);
+        }
+
+
+
+        function parseExcel(file) {
+            var reader = new FileReader();
+            var TruSo = file.name.replace('.xlsx', '');
+            reader.onload = function (e) {
+                var data = e.target.result;
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                });
+                var count = 0;
+                workbook.SheetNames.forEach(function (sheetName) {
+                    if (count < 30) {
+                        count++
+                        console.log(sheetName);
+                        // Here is your object
+                        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                        var json_object = JSON.stringify(XL_row_object);
+
+                        jsondata = JSON.parse(json_object);
+                        console.log(jsondata)
+                        var listU = [];
+                        var listItem = [];
+                        for (var i = 1; i < Object.getOwnPropertyNames(jsondata[0]).length - 1; i = i + 2) {
+                            if (Object.getOwnPropertyNames(jsondata[0])[i] != undefined) {
+                                listU.push(Object.getOwnPropertyNames(jsondata[0])[i])
+                            }
+                        }
+                        console.log(listU);
+                        jsondata.forEach(function (item, index) {
+                            listU.forEach(function (item2, index2) {
+                                var i = {
+                                    TruSo: TruSo,
+                                    PhongBan: sheetName,
+                                    Code: item.Name,
+                                    Name: item2,
+                                    Value1: item[item2] ? item[item2].toString().replace('.', ',') : 0,
+                                    Value2: item[("." + item2)] ? item[("." + item2)].toString().replace('.', ',') : 0
+
+                                }
+                                if (i.Code == undefined && i.Value1 != 0 && i.Value2 == 0) {
+                                    i.Code = "-1";
+                                }
+                                if (i.Code == undefined && i.Value1 != 0 && i.Value2 != 0) {
+                                    i.Code = "0";
+                                }
+                                if (i.Value1 != 0 || i.Value2 != 0) {
+                                    listItem.push(i);
+                                }
+                            })
+                        })
+                        console.log(listItem);
+
+                        $.ajax({
+                            url: '/HoTro/ProcessFileSupport',
+                            type: 'POST',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({ data: listItem })
+                        }).done(function successCallback(response) {
+
+                        });
+                    }
+                })
+
+            };
+
+            reader.onerror = function (ex) {
+                console.log(ex);
+            };
+
+            reader.readAsBinaryString(file);
+
+        };
+    })
+</script>

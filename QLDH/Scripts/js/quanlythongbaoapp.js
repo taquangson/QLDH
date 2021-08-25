@@ -1,5 +1,6 @@
 ﻿var iconThongBao = "logodh.png";
 $(document).ready(function () {
+    LoadComBoKhoi();
     LoadComboLop(0);
     LoadComboHocSinh(0);
     $("#DenNgay").kendoDatePicker({
@@ -407,10 +408,10 @@ function updateContent() {
     $("#contentapp2").text($("#NoiDung").val());
 }
 
-function LoadHocSinhTrongLop(id) {
+function LoadHocSinhTrongLop(id,khoi) {
     kendo.ui.progress($("#windowChitiet"), true);
     $.ajax({
-        url: '/HocSinh/GetByLop?ID_Lop=' + id,
+        url: '/HocSinh/GetByLopKhoi?ID_Lop=' + id + '&Khoi=' + khoi,
         type: 'GET',
     }).done(function successCallback(response) {
         console.log(response);
@@ -509,12 +510,47 @@ function resetFormThongBao() {
 
 }
 
+function LoadComBoKhoi() {
+    $("#comboKhoi").kendoComboBox({
+        dataTextField: 'text',
+        dataValueField: 'value',
+        dataSource: new kendo.data.DataSource({
+            data: [
+                { text: 'Tất cả', value: 0 },
+                { text: '1', value: 1 },
+                { text: '2', value: 2 },
+                { text: '3', value: 3 },
+                { text: '4', value: 4 },
+                { text: '5', value: 5 },
+                { text: '6', value: 6 },
+                { text: '7', value: 7 },
+                { text: '8', value: 8 },
+                { text: '9', value: 9 },
+                { text: '10', value: 10 },
+                { text: '11', value: 11 },
+                { text: '12', value: 12 },
+            ]
+        }),
+        change: function (e) {
+            $("#comboLop").data("kendoComboBox").value('');
+            LoadHocSinhTrongLop(0, e.sender.value());
+        }
+    });
+}
+
+function CheckKhoi(khoi) {
+    if (khoi.TenLop.indexOf(khoi) > 0) {
+        return true;
+    }
+}
+
+
 function LoadComboLop(khoi) {
     $.ajax({
         url: '/Lop/GetAll',
         type: 'GET',
     }).done(function successCallback(response) {
-        var ds = [];
+        var ds = [{ ID: 0, TenLop: "Tất cả", TenKhoi: "Khối " + khoi }];
         if (khoi > 0) {
             ds = response.filter(x => parseInt(x.TenLop.substring(0, 2)) == parseInt(khoi));
         } else {
@@ -530,7 +566,7 @@ function LoadComboLop(khoi) {
                 dataSource: dataSource,
                 filter: "startswith",
                 change: function (e) {
-                    LoadComboHocSinh(e.sender.value());
+                    LoadComboHocSinh(e.sender.value(), khoi);
                 }
             })
             $("#comboLop2").kendoComboBox({
@@ -539,7 +575,7 @@ function LoadComboLop(khoi) {
                 dataSource: dataSource,
                 filter: "startswith",
                 change: function (e) {
-                    LoadHocSinhTrongLop(e.sender.value());
+                    LoadHocSinhTrongLop(e.sender.value(), khoi);
                 }
             })
         } else {

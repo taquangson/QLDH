@@ -68,6 +68,14 @@ namespace QLDH.Controllers
 
         [SessionExpire]
         [HttpGet]
+        public ActionResult GetByLopKhoi(int ID_Lop, int Khoi)
+        {
+            HocSinhDAO hsdao = new HocSinhDAO();
+            return Json(hsdao.GetByLop_HocSinh(ID_Lop, Khoi), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
         public ActionResult GetByBoLocTinNhan(int ID_Lop, int NamSinh, string DienThoai, int Loai)
         {
             HocSinhDAO hsdao = new HocSinhDAO();

@@ -509,6 +509,10 @@ function XemChiTietBaiThi(uid, id) {
         $("#TenDe").html(dataRow.dethi.TenDeThi);
         $("#TenMon").html(dataRow.dethi.TenMonHoc);
         $("#TenHocSinh").html(dataRow.TenHocSinh);
+        //var dateStringBatDau = dataRow.ThoiGianBatDau.substr(6);
+        //var dateStringKetThuc = dataRow.ThoiGianKetThuc.substr(6);
+        //var batdau = new Date(parseInt(dateStringBatDau));
+        //var ketthuc = new Date(parseInt(dateStringKetThuc));
         $("#NgayLam").html(kendo.toString(dataRow.ThoiGianBatDau, "dd/MM/yyyy"));
         $("#BatDau").html(kendo.toString(dataRow.ThoiGianBatDau, "HH:mm"));
         $("#KetThuc").html(kendo.toString(dataRow.ThoiGianKetThuc, "HH:mm"));
@@ -516,14 +520,85 @@ function XemChiTietBaiThi(uid, id) {
         count = 1;
         var dataSource = new kendo.data.DataSource({
             data: response.lstChitiet,
+            schema: {
+                model: {
+                    id: "ID_CauHoi",
+                    fields: {
+                        ID_BaiLamTracNghiem: { type: 'number', editable: false },
+                        ID_CauHoi: { type: 'number', editable: false },
+                        Diem: { type: 'number', editable: false },
+                        TraLoi: { type: 'text', editable: true }
+                    }
+                }
+            }
         });
         $("#listviewbailam").data("kendoListView").setDataSource(dataSource);
         $("#windowChiTietBaiThi").data("kendoWindow").open().maximize();
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, "TFS"]);
+
+        let dataComboLanLam = [];
+        for (var i = 0; i < response.lstLichsu.length; i++) {
+            dataComboLanLam.push({ text: 'Lần ' + (i + 1), value: i + 1 });
+        }
+        dataComboLanLam.push({ text: 'Lần cuối', value: -1 })
+
+
+        $("#ComboLanLam").kendoComboBox({
+            dataTextField: 'text',
+            dataValueField: 'value',
+            clearButton: false,
+            dataSource: new kendo.data.DataSource({
+                data: dataComboLanLam
+            }),
+            change: function (e) {
+                if (e.sender.value() > 0) {
+                    //console.log(response.lstLichsu[e.sender.value() - 1]);
+                    var item = response.lstLichsu[e.sender.value() - 1].ChiTiet;
+                    //console.log(item);
+                    if (item != null) {
+                        count = 1;
+                        var his = JSON.parse(item);
+                        //console.log(his);
+                        var dataSource = new kendo.data.DataSource({
+                            data: his,
+                            schema: {
+                                model: {
+                                    id: "ID_CauHoi",
+                                    fields: {
+                                        ID_BaiLamTracNghiem: { type: 'number', editable: false },
+                                        ID_CauHoi: { type: 'number', editable: false },
+                                        Diem: { type: 'number', editable: false },
+                                        TraLoi: { type: 'text', editable: true }
+                                    }
+                                }
+                            }
+                        });
+                        $("#listviewbailam").data("kendoListView").setDataSource(dataSource);
+                        MathJax.Hub.Queue(["Typeset", MathJax.Hub, "TFS"]);
+                    }
+                } else {
+                    var dataSource = new kendo.data.DataSource({
+                        data: response.lstChitiet,
+                        schema: {
+                            model: {
+                                id: "ID_CauHoi",
+                                fields: {
+                                    ID_BaiLamTracNghiem: { type: 'number', editable: false },
+                                    ID_CauHoi: { type: 'number', editable: false },
+                                    Diem: { type: 'number', editable: false },
+                                    TraLoi: { type: 'text', editable: true }
+                                }
+                            }
+                        }
+                    });
+                    $("#listviewbailam").data("kendoListView").setDataSource(dataSource);
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "TFS"]);
+                }
+            }
+        })
+        $("#ComboLanLam").data("kendoComboBox").value(-1);
     })
 }
-
-
 
 function LoadGridDeThi() {
     $.ajax({
