@@ -24,7 +24,7 @@ namespace QLDH
                       "~/Scripts/respond.js"));
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Assets/vendors/bootstrap/dist/js/bootstrap.min.js",
-                "~/Assets/kendo/kendo.all.min.js",
+                "~/Assets/kendo/kendo2021.all.min.js",
                 "~/Assets/kendo/kendo-multi-calendar.min.js",
                 "~/Assets/kendo/kendo-multi-date-select.min.js",
                 "~/Assets/kendo/kendo.web.ext.js",

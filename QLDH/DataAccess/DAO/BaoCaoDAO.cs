@@ -284,6 +284,8 @@ namespace QLDH.DataAccess.DAO
         public class ThongKeBuoiHocTheoGiaoVienModel
         {
             public DateTime NgayHoc { get; set; }
+            public DateTime GioBatDau { get; set; }
+            public DateTime GioKetThuc { get; set; }
             public string TenLop { get; set; }
             public string TenCa { get; set; }
             public int SiSo { get; set; }

@@ -35,25 +35,44 @@ namespace QLDH.Controllers
             try
             {
                 TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+                string appVer = ConfigurationSettings.AppSettings["AppVersion"].ToString();
+                if (appVer != "")
+                {
+                    if (model.AppVersion != appVer)
+                    {
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Phiên bản ứng dụng đã cũ, vui lòng cập nhật ứng dụng!" });
+                        return response;
+                    }
+                }
                 if (tk_dao.CheckLogin_App(model.UserName, model.Password, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")), model.NotifyID))
                 {
                     UserAppModel tk = tk_dao.GetAppUserInfoByName(model.UserName);
                     if (tk == null)
                     {
-                        response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Thông tin tài khoản không đúng.");
+                        response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không chính xác" });
                     }
                     else
                     {
-                        string token = createToken(model.UserName, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")));
-                        TokenResult result = new TokenResult();
-                        result.token = token;
-                        result.UserInfo = tk;
-                        response = Request.CreateResponse(HttpStatusCode.OK, result);
+                        if (tk_dao.GetAppUserInfoByName(model.UserName).ExpriedTime < DateTime.Now)
+                        {
+                            response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Tài khoản đã hết hạn, vui lòng đăng ký gia hạn với bộ phận Văn Phòng!" });
+                        }
+                        else
+                        {
+                            response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "" });
+
+                            string token = createToken(model.UserName, model.Current_Imei, Helper.StringHelper.RemoveVietNameseSign(model.Current_Device.Trim().Replace(" ", "_")));
+                            TokenResult result = new TokenResult();
+                            result.token = token;
+                            result.UserInfo = tk;
+                            result.success = true;
+                            response = Request.CreateResponse(HttpStatusCode.OK, result);
+                        }
                     }
                 }
                 else
                 {
-                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Thông tin tài khoản không đúng.");
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không chính xác" });
                 }
             }
             catch (Exception ex)
@@ -107,6 +126,7 @@ namespace QLDH.Controllers
         {
             public string token { get; set; }
             public UserAppModel UserInfo { get; set; }
+            public bool success { get; set; }
         }
 
         private string createToken(string userName, string imei, string device)

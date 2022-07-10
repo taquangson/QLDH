@@ -52,6 +52,11 @@ namespace QLDH.Controllers
             return View();
         }
 
+        public ActionResult OnlineClass()
+        {
+            return View();
+        }
+
         public ActionResult InThe(int Lop, int NamSinh, string DienThoai, int Loai)
         {
             HocSinhDAO hsdao = new HocSinhDAO();

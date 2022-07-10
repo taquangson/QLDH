@@ -3,7 +3,7 @@
     ViewBag.Title = "Bán phiếu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/js/phieuthu.js"></script>
+<script>document.write('<script src="../Scripts/js/phieuthu.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
 <style>
     .trang {
         background-color: #fff;
@@ -42,6 +42,7 @@
         <button class="k-button bg-blue" onclick="LuuTamTinh()"> <i class="fa fa-plus-square"> Lưu tạm tính</i></button>
         <button class="k-button bg-blue" onclick="ThongBaoHocPhi()"> <i class="fa fa-paper-plane"> Gửi thông báo học phí</i></button>
         <button class="k-button bg-red" onclick="HuyPhieuThu()"> <i class="fa fa-close"> Hủy </i> </button>
+
         <div style="float:right">
             <span style="color:#3e835a">Phiếu tạm tính: </span><div style="width:300px;" id="combotamtinh"></div>
         </div>
@@ -54,7 +55,11 @@
                 <input id="ID_PhieuThu" type="hidden" />
                 <input id="ID_PhieuTamTinh" type="hidden" />
             </div>
-            <div style="margin-top:10px">
+            <div style="color: #111; width:100%">
+                <input type="checkbox" id="guithongbao" class="k-checkbox" checked="checked" style="margin:0">
+                <label class="k-checkbox-label" for="guithongbao">Gửi thông báo app khi lưu và in phiếu thu</label>
+            </div>
+            <div style="margin-top:5px">
                 <div style="width:20%;float:left;margin-bottom:10px;">
                     <label style="width:100%">Học sinh:</label>
                     <input id="TenHocSinh" type="text" class="k-textbox" readonly="readonly" />
@@ -64,7 +69,7 @@
                     <input id="TongTien" type="text" class="k-textbox" readonly="readonly" />
                 </div>
                 <div style="width:20%;float:left">
-                    <label style="width:100%">Khách đưa:</label>
+                    <label style="width:100%">Tiền nhận:</label>
                     <input id="KhachDua" />
                 </div>
                 <div style="width:20%;float:left">
@@ -76,11 +81,12 @@
                     <input id="HinhThuc" />
                 </div>
             </div>
-            <div style="margin-top:10px">
+
+            <div style="margin-top:5px">
                 <label style="width:100%">Danh sách phiếu mua:</label>
                 <div id="gridPhieuMua"></div>
             </div>
-            <div style="width:100%;margin-top:10px">
+            <div style="width:100%;margin-top:5px">
                 <div style="width:50%;float:left">
                     <label style="width:100%">Phụ thu:</label>
                     <div id="gridPhuThu"></div>

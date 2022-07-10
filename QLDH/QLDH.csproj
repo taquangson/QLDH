@@ -140,6 +140,7 @@
     <Reference Include="System.Interactive.Async, Version=3.2.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Interactive.Async.3.2.0\lib\net45\System.Interactive.Async.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -191,6 +192,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Twilio, Version=5.65.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.65.0\lib\net451\Twilio.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -230,6 +234,7 @@
     <Compile Include="Controllers\DanhMucController.cs" />
     <Compile Include="Controllers\DiemDanhController.cs" />
     <Compile Include="Controllers\FBNotificationController.cs" />
+    <Compile Include="Controllers\FileManagerController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HoTroController.cs" />
@@ -254,6 +259,7 @@
     <Compile Include="DataAccess\DAO\DangKyEventDAO.cs" />
     <Compile Include="DataAccess\DAO\DanhMucCauHoiDAO.cs" />
     <Compile Include="DataAccess\DAO\DeThiDAO.cs" />
+    <Compile Include="DataAccess\DAO\File_NhanVienDAO.cs" />
     <Compile Include="DataAccess\DAO\GiaoAnDAO.cs" />
     <Compile Include="DataAccess\DAO\LichSuThongBaoDAO.cs" />
     <Compile Include="DataAccess\DAO\ThongBaoAppDAO.cs" />
@@ -288,12 +294,16 @@
     <Compile Include="DataAccess\Models\CauHoiModel.cs" />
     <Compile Include="DataAccess\Models\ChatSessionModel.cs" />
     <Compile Include="DataAccess\Models\CheckInSuKienModel.cs" />
+    <Compile Include="DataAccess\Models\ContentInitializer.cs" />
     <Compile Include="DataAccess\Models\DangKyEventModel.cs" />
     <Compile Include="DataAccess\Models\DanhMucCauHoiModel.cs" />
     <Compile Include="DataAccess\Models\DapAnModel.cs" />
     <Compile Include="DataAccess\Models\DeThiModel.cs" />
     <Compile Include="DataAccess\Models\DeThi_CauHoiModel.cs" />
     <Compile Include="DataAccess\Models\DeThi_ChiTietModel.cs" />
+    <Compile Include="DataAccess\Models\DirectoryProvider.cs" />
+    <Compile Include="DataAccess\Models\FileManagerEntry.cs" />
+    <Compile Include="DataAccess\Models\File_NhanVienModel.cs" />
     <Compile Include="DataAccess\Models\GiaoAnModel.cs" />
     <Compile Include="DataAccess\Models\CaHocModel.cs" />
     <Compile Include="DataAccess\Models\ChiNhanhModels.cs" />
@@ -353,6 +363,7 @@
     <Content Include="Assets\kendo\kendo.all.min.js" />
     <Content Include="Assets\kendo\kendo.ext.css" />
     <Content Include="Assets\kendo\kendo.web.ext.js" />
+    <Content Include="Assets\kendo\kendo2021.all.min.js" />
     <Content Include="Assets\kendo\styles\Black\editor.png" />
     <Content Include="Assets\kendo\styles\Black\imagebrowser.png" />
     <Content Include="Assets\kendo\styles\Black\indeterminate.gif" />
@@ -711,7 +722,9 @@
     <Content Include="Content\danhsachloptheogiaovien.css" />
     <Content Include="Content\inthe.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\onclineclass-student.css" />
     <Content Include="Content\thitracnghiem.css" />
+    <Content Include="Content\onclineclass.css" />
     <Content Include="Content\webrtc.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -977,6 +990,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jszip.js" />
     <Content Include="Scripts\js\baocao_js\baocaohocsinhnophieu.js" />
     <Content Include="Scripts\js\baocao_js\bieudodiemtrungbinhtheolop.js" />
     <Content Include="Scripts\js\baocao_js\bieudodiem.js" />
@@ -988,6 +1002,8 @@
     <Content Include="Scripts\js\khocauhoi.js" />
     <Content Include="Scripts\js\danhsachdethitheohocsinh.js" />
     <Content Include="Scripts\js\khodethi.js" />
+    <Content Include="Scripts\js\onlineclassstudent.js" />
+    <Content Include="Scripts\js\quanlytailieu.js" />
     <Content Include="Scripts\js\room.js" />
     <Content Include="Scripts\js\tinnhan.js" />
     <Content Include="Scripts\js\phongban.js" />
@@ -999,6 +1015,7 @@
     <Content Include="Scripts\js\diemdanh.js" />
     <Content Include="Scripts\js\quanlythongbaoapp.js" />
     <Content Include="Scripts\js\tinnhanphuhuynh.js" />
+    <Content Include="Scripts\js\onlineclassteacher.js" />
     <Content Include="Scripts\js\webrtcwatch.js" />
     <Content Include="Scripts\js\webrtc.js" />
     <Content Include="Scripts\js\xinnghiphep.js" />
@@ -1071,6 +1088,10 @@
     <Content Include="Views\HoTro\FileSupport.cshtml" />
     <Content Include="Views\HoTro\WebRTC.cshtml" />
     <Content Include="Views\HoTro\WebRTCWatch.cshtml" />
+    <Content Include="Views\LiveClass\OnlineClassTeacher.cshtml" />
+    <Content Include="Views\LiveClass\OnlineClassStudent.cshtml" />
+    <Content Include="Views\FileManager\Index.cshtml" />
+    <Content Include="Views\PhieuThu\ThongBaoDaNopHocPhi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

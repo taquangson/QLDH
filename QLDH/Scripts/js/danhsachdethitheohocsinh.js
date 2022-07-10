@@ -906,7 +906,8 @@ function PushFormDataFile(file) {
             $("#AnhDapAn").data("kendoUpload").clearAllFiles();
             var editor = $("#DapAn").data("kendoEditor");
             editor.value(editor.value() + img);
-
+            editor.trigger("change");
+            console.log(editor.value());
             var range = editor.getRange() || editor.createRange();
             range.selectNodeContents(editor.body);
             range.collapse(false); //colapse to end

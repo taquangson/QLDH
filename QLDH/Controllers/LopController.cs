@@ -61,6 +61,15 @@ namespace QLDH.Controllers
         }
 
 
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllGiaoAnByLop(int ID_Lop)
+        {
+            GiaoAnDAO gadao = new GiaoAnDAO();
+            return Json(gadao.GetByLop(ID_Lop), JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpGet]
         public ActionResult GetAllByChiNhanh(int ID_ChiNhanh)
         {
@@ -309,19 +318,6 @@ namespace QLDH.Controllers
             {
                 return Json(new { status = true, msg = "Xóa dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        [SessionExpire]
-        [HttpPost]
-        public ActionResult Golive(int ID_Lop, string Token, int TrangThai)
-        {
-            LopHocDAO lhdao = new LopHocDAO();
-            int ID = lhdao.UpdateLive(ID_Lop, TrangThai, Token);
-            if(ID > 0 && TrangThai > 0)
-            {
-                lhdao.Insert_LichSuLive(ID_Lop, Token);
-            }
-            return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

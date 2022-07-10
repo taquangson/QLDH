@@ -164,6 +164,14 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThu(item.ID);
+                    foreach (PhuThuGiamTruModel pt in item.lstPhuThu)
+                    {
+                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
+                        if (m != null)
+                        {
+                            item.lstPhieuHoc.Remove(m);
+                        }
+                    }
                     result.Add(item);
                 }
                 return result;
@@ -192,6 +200,14 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThuTemp(item.ID);
+                    foreach (PhuThuGiamTruModel pt in item.lstPhuThu)
+                    {
+                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
+                        if (m != null)
+                        {
+                            item.lstPhieuHoc.Remove(m);
+                        }
+                    }
                     item.NguoiLap = item.NgayTao.ToString("hh:mm dd/MM/yyyy") + " - " + item.NguoiLap;
                     result.Add(item);
                 }
@@ -221,6 +237,14 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThu(item.ID);
+                    foreach(PhuThuGiamTruModel pt in item.lstPhuThu)
+                    {
+                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
+                        if(m != null)
+                        {
+                            item.lstPhieuHoc.Remove(m);
+                        }
+                    }
                     result = item;
                 }
                 return result;
@@ -249,6 +273,14 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThuTemp(item.ID);
+                    foreach (PhuThuGiamTruModel pt in item.lstPhuThu)
+                    {
+                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
+                        if (m != null)
+                        {
+                            item.lstPhieuHoc.Remove(m);
+                        }
+                    }
                     result = item;
                 }
                 return result;

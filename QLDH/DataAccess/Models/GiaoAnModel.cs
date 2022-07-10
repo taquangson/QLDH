@@ -11,6 +11,7 @@ namespace QLDH.DataAccess.Models
         public int ID_Lop { get; set; }
         public int ID_NhanVien { get; set; }
         public int ID_Ca { get; set; }
+        public string TenCa { get; set; }
         public DateTime NgayHoc { get; set; }
         public string TenBai { get; set; }
         public string BaiTap { get; set; }

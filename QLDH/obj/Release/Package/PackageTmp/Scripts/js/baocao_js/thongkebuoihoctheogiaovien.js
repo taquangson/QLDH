@@ -202,7 +202,8 @@
             fileName: "BangChamCong.pdf"
         },
         views: [
-            { type: "month", selected: true }
+            { type: "month", selected: true },
+            { type: "day"}
         ],
         //timezone: "Etc/UTC",
         eventTemplate: $("#eventschedule_template").html(),
@@ -227,8 +228,8 @@
                             title: response[i].TenLop,
                             TenCa: response[i].TenCa,
                             SiSo: response[i].SiSo,
-                            start: new Date(parseInt(response[i].NgayHoc.replace("/Date(", "").replace(")/", ""), 10)),
-                            end: new Date(parseInt(response[i].NgayHoc.replace("/Date(", "").replace(")/", ""), 10)),
+                            start: new Date(parseInt(response[i].GioBatDau.replace("/Date(", "").replace(")/", ""), 10)),
+                            end: new Date(parseInt(response[i].GioKetThuc.replace("/Date(", "").replace(")/", ""), 10)),
                         };
                         products.push(product);
                     }

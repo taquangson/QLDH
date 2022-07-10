@@ -175,7 +175,7 @@ $(document).ready(function () {
                         ID: { type: 'number', editable: false },
                         ID_CauHoi: { type: 'number', editable: false },
                         DapAn: { type: 'text', editable: true },
-                        AnhDapAn: { type: 'text', editable: true },
+                        AnhDapAn: { type: 'text', editable: false },
                         IsDapAnDung: { type: 'boolean', editablle: true }
                     }
                 }
@@ -183,6 +183,7 @@ $(document).ready(function () {
             pageSize: 100
         }),
         editable: true,
+        //editable: { mode: "row" },
         scrollable: true,
         persistSelection: true,
         autoFitColumn: true,
@@ -200,6 +201,7 @@ $(document).ready(function () {
             this.tbody.find("input[name=files]").kendoUpload({
                 multiple: false,
                 select: function (e) {
+                    console.log(e);
                     var fileInfo = e.files[0];
                     setTimeout(function () {
                         var item = grid.dataItem(e.sender.element.closest("tr"));
@@ -210,7 +212,7 @@ $(document).ready(function () {
                     var item = grid.dataItem(e.sender.element.closest("tr"));
                     item.HinhAnh = "";
                 }
-            }).closest(".k-upload").find("span").text("Chọn ảnh đáp án");;
+            }).closest(".k-upload").find("span").text("Chọn ảnh đáp án");
         },
         save: function (e) {
             setTimeout(function () {
@@ -488,8 +490,8 @@ $(document).ready(function () {
         },
         show: function () {
             //setTimeout(function () {
-                //var tooltip = document.getElementById("content-answer");
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'TFS']);
+            //var tooltip = document.getElementById("content-answer");
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'TFS']);
             //}, 1000)
 
         }
@@ -635,7 +637,7 @@ function PushFormDataFileGrid(fileInfo, item) {
         if (response.status) {
             notification.show({ kValue: "Upload thành công" }, "success");
             item.AnhDapAn = response.msg;
-            $("#gridDapAn").data("kendoGrid").refresh();
+            //$("#gridDapAn").data("kendoGrid").refresh();
         } else {
             notification.show({ kValue: "Upload thất bại, vui lòng thử lại" }, "error");
         }
@@ -663,7 +665,7 @@ function HuyCauHoi() {
                     ID: { type: 'number', editable: false },
                     ID_CauHoi: { type: 'number', editable: false },
                     DapAn: { type: 'text', editable: true },
-                    AnhDapAn: { type: 'text', editable: true },
+                    AnhDapAn: { type: 'text', editable: false },
                     IsDapAnDung: { type: 'boolean', editablle: true }
                 }
             }
@@ -766,7 +768,7 @@ function openEditWindow() {
                         ID: { type: 'number', editable: false },
                         ID_CauHoi: { type: 'number', editable: false },
                         DapAn: { type: 'text', editable: true },
-                        AnhDapAn: { type: 'text', editable: true },
+                        AnhDapAn: { type: 'text', editable: false },
                         IsDapAnDung: { type: 'boolean', editablle: true }
                     }
                 }

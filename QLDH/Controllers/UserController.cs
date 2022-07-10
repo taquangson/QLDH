@@ -101,8 +101,9 @@ namespace QLDH.Controllers
                 TempData["Error"] = "Tài khoản hoặc mật khẩu không đúng";
                 return RedirectToAction("Login", "User");
             }
-
         }
+
+
 
         [SessionExpire]
         public ActionResult GetAllUser_TrongPhongBan(int ID_PhongBan)
@@ -142,6 +143,14 @@ namespace QLDH.Controllers
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();
             List<UserAppModel> result = tk_dao.GetAllUserApp();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetAppUser(string UserName)
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            UserAppModel result = tk_dao.GetAppUserInfoByName(UserName);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

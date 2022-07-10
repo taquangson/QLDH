@@ -44,181 +44,195 @@ namespace QLDH.Controllers
                 model.ID_ChiNhanh = userinfor.ID_ChiNhanh;
                 model.MaPhieu = "PTDH-" + DateTime.Now.ToString("yyyyMMddhhmmss");
                 int idnew = ptdao.InsertOrUpdatePhieuThu(model);
-                ID_PhieuThu = idnew;
-                foreach (PhieuHocModel ph in model.lstPhieuHoc)
+                if (idnew > 0)
                 {
-                    ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
-                    ph.ID_NhanVien = userinfor.ID;
-                    ph.ID_PhieuThu = idnew;
-                    ph.NamHoc = ph.NamHoc;
-                    int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
-                    ph.SoBuoiDaHoc = count;
-                    phdao.InsertOrUpdate(ph);
-                }
-                foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)
-                {
-                    int ID_PhieuHoc = 0;
-                    if (phuthu.ID_PhieuHoc == 0 && phuthu.ID_Lop > 0)
+                    ID_PhieuThu = idnew;
+                    foreach (PhieuHocModel ph in model.lstPhieuHoc)
                     {
-
-                        PhieuHocModel p = new PhieuHocModel();
-                        p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 0);
-                        if (p.ID != 0)
-                        {
-
-                        }
-                        else
-                        {
-                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 1);
-                        }
-                        if (p.ID != 0)
-                        {
-                            p.SoBuoi += phuthu.SoBuoi;
-                            phdao.InsertOrUpdate(p);
-                        }
-                        else
-                        {
-                            p.ID_HocSinh = model.ID_HocSinh;
-                            p.HocDuoi = 0;
-                            p.ID_ChiNhanh = userinfor.ID_ChiNhanh;
-                            p.ID_Lop = phuthu.ID_Lop;
-                            p.ID_PhieuThu = idnew;
-                            p.SoBuoi = phuthu.SoBuoi;
-                            p.SoTien = phuthu.DonGia;
-                            p.Thang = phuthu.Thang;
-                            p.NamHoc = phuthu.Nam;
-                            p.SoBuoiDaHoc = p.SoBuoi;
-                            p.ID_NhanVien = userinfor.ID;
-                            ID_PhieuHoc = phdao.InsertOrUpdate(p);
-                        }
+                        ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                        ph.ID_NhanVien = userinfor.ID;
+                        ph.ID_PhieuThu = idnew;
+                        ph.NamHoc = ph.NamHoc;
+                        int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
+                        ph.SoBuoiDaHoc = count;
+                        phdao.InsertOrUpdate(ph);
                     }
-
-                    phuthu.Type = 0;
-                    phuthu.ID_PhieuThu = idnew;
-                    ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
-
-
-                }
-                foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)
-                {
-                    if (giamtru.ID_PhieuHoc == 0)
+                    foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)
                     {
-                        PhieuHocModel p = new PhieuHocModel();
-                        p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 0);
-                        if (p.ID != 0)
+                        int ID_PhieuHoc = 0;
+                        if (phuthu.ID_PhieuHoc == 0 && phuthu.ID_Lop > 0)
                         {
 
+                            PhieuHocModel p = new PhieuHocModel();
+                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 0);
+                            if (p.ID != 0)
+                            {
+
+                            }
+                            else
+                            {
+                                p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 1);
+                            }
+                            if (p.ID != 0)
+                            {
+                                p.SoBuoi += phuthu.SoBuoi;
+                                phdao.InsertOrUpdate(p);
+                            }
+                            else
+                            {
+                                p.ID_HocSinh = model.ID_HocSinh;
+                                p.HocDuoi = 0;
+                                p.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                                p.ID_Lop = phuthu.ID_Lop;
+                                p.ID_PhieuThu = idnew;
+                                p.SoBuoi = phuthu.SoBuoi;
+                                p.SoTien = phuthu.DonGia;
+                                p.Thang = phuthu.Thang;
+                                p.NamHoc = phuthu.Nam;
+                                p.SoBuoiDaHoc = p.SoBuoi;
+                                p.ID_NhanVien = userinfor.ID;
+                                ID_PhieuHoc = phdao.InsertOrUpdate(p);
+                            }
                         }
-                        else
-                        {
-                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 1);
-                        }
-                        giamtru.ID_PhieuHoc = p.ID;
+
+                        phuthu.Type = 0;
+                        phuthu.ID_PhieuThu = idnew;
+                        ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
+
+
                     }
-                    giamtru.Type = 1;
-                    giamtru.ID_PhieuThu = idnew;
-                    ptdao.InsertOrUpdatePhuThuGiamTru(giamtru);
+                    foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)
+                    {
+                        if (giamtru.ID_PhieuHoc == 0)
+                        {
+                            PhieuHocModel p = new PhieuHocModel();
+                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 0);
+                            if (p.ID != 0)
+                            {
+
+                            }
+                            else
+                            {
+                                p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 1);
+                            }
+                            giamtru.ID_PhieuHoc = p.ID;
+                        }
+                        giamtru.Type = 1;
+                        giamtru.ID_PhieuThu = idnew;
+                        ptdao.InsertOrUpdatePhuThuGiamTru(giamtru);
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, msg = "Lưu dữ liệu không thành công", ID_Phieu = ID_PhieuThu }, JsonRequestBehavior.AllowGet);
                 }
             }
             else
             {
                 model.Last_Update_User = userinfor.ID;
                 int idnew = ptdao.InsertOrUpdatePhieuThu(model);
-                List<PhieuHocModel> lstPhieuHocCu = phdao.GetByPhieuThu(idnew);// ds phiêu học cũ
-                List<PhuThuGiamTruModel> lstPhuThuGiamTruCu = ptdao.GetAllPhuThuGiamTru_ByPhieuThu(idnew);// ds phụ thu giảm trừ cũ
-                foreach (PhieuHocModel ph in lstPhieuHocCu) // Xóa phiếu học cũ ko có trong model mới
+                if (idnew > 0)
                 {
-                    if (model.lstPhieuHoc.Find(x => x.ID == ph.ID) == null)
+                    List<PhieuHocModel> lstPhieuHocCu = phdao.GetByPhieuThu(idnew);// ds phiêu học cũ
+                    List<PhuThuGiamTruModel> lstPhuThuGiamTruCu = ptdao.GetAllPhuThuGiamTru_ByPhieuThu(idnew);// ds phụ thu giảm trừ cũ
+                    foreach (PhieuHocModel ph in lstPhieuHocCu) // Xóa phiếu học cũ ko có trong model mới
                     {
-                        phdao.DeletePhieuHoc(ph.ID);
-                    }
-                }
-                foreach (PhieuHocModel ph in model.lstPhieuHoc)// Thêm lại ds phiếu học
-                {
-                    ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
-                    ph.ID_NhanVien = userinfor.ID;
-                    ph.ID_PhieuThu = idnew;
-                    int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
-                    ph.SoBuoiDaHoc = count;
-                    phdao.InsertOrUpdate(ph);
-                }
-                foreach (PhuThuGiamTruModel ptgt in lstPhuThuGiamTruCu.Where(x => x.Type == 0).ToList()) // Xóa phụ thu giảm trừ ko có trong danh sách model mới
-                {
-                    if (model.lstPhuThu.Find(x => x.ID == ptgt.ID) == null)
-                    {
-                        ptdao.DeletePhuThuGiamTru(ptgt.ID);
-                    }
-                }
-
-                foreach (PhuThuGiamTruModel ptgt in lstPhuThuGiamTruCu.Where(x => x.Type == 1).ToList()) // Xóa phụ thu giảm trừ ko có trong danh sách model mới
-                {
-                    if (model.lstGiamTru.Find(x => x.ID == ptgt.ID) == null)
-                    {
-                        ptdao.DeletePhuThuGiamTru(ptgt.ID);
-                    }
-                }
-
-                foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)// Thêm lại ds phụ thu
-                {
-                    if (phuthu.ID_PhieuHoc == 0 && phuthu.ID_Lop > 0)
-                    {
-
-                        PhieuHocModel p = new PhieuHocModel();
-                        p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 0);
-                        if (p.ID != 0)
+                        if (model.lstPhieuHoc.Find(x => x.ID == ph.ID) == null)
                         {
-
-                        }
-                        else
-                        {
-                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 1);
-                        }
-                        if (p.ID != 0)
-                        {
-                            p.SoBuoi += phuthu.SoBuoi;
-                            phdao.InsertOrUpdate(p);
-                        }
-                        else
-                        {
-                            p.ID_HocSinh = model.ID_HocSinh;
-                            p.HocDuoi = 0;
-                            p.ID_ChiNhanh = userinfor.ID_ChiNhanh;
-                            p.ID_Lop = phuthu.ID_Lop;
-                            p.ID_PhieuThu = idnew;
-                            p.SoBuoi = phuthu.SoBuoi;
-                            p.SoTien = phuthu.DonGia;
-                            p.Thang = phuthu.Thang;
-                            p.NamHoc = phuthu.Nam;
-                            p.SoBuoiDaHoc = p.SoBuoi;
-                            p.ID_NhanVien = userinfor.ID;
-                            phdao.InsertOrUpdate(p);
+                            phdao.DeletePhieuHoc(ph.ID);
                         }
                     }
-                    phuthu.Type = 0;
-                    phuthu.ID_PhieuThu = idnew;
-                    ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
-
-                }
-
-                foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)// Thêm lại ds giảm trừ
-                {
-                    if (giamtru.ID_PhieuHoc == 0)
+                    foreach (PhieuHocModel ph in model.lstPhieuHoc)// Thêm lại ds phiếu học
                     {
-                        PhieuHocModel p = new PhieuHocModel();
-                        p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 0);
-                        if (p.ID != 0)
+                        ph.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                        ph.ID_NhanVien = userinfor.ID;
+                        ph.ID_PhieuThu = idnew;
+                        int count = phdao.CountBuoiHocTrongThang(ph.ID_HocSinh, ph.ID_Lop, ph.Thang, ph.NamHoc);
+                        ph.SoBuoiDaHoc = count;
+                        phdao.InsertOrUpdate(ph);
+                    }
+                    foreach (PhuThuGiamTruModel ptgt in lstPhuThuGiamTruCu.Where(x => x.Type == 0).ToList()) // Xóa phụ thu giảm trừ ko có trong danh sách model mới
+                    {
+                        if (model.lstPhuThu.Find(x => x.ID == ptgt.ID) == null)
+                        {
+                            ptdao.DeletePhuThuGiamTru(ptgt.ID);
+                        }
+                    }
+
+                    foreach (PhuThuGiamTruModel ptgt in lstPhuThuGiamTruCu.Where(x => x.Type == 1).ToList()) // Xóa phụ thu giảm trừ ko có trong danh sách model mới
+                    {
+                        if (model.lstGiamTru.Find(x => x.ID == ptgt.ID) == null)
+                        {
+                            ptdao.DeletePhuThuGiamTru(ptgt.ID);
+                        }
+                    }
+
+                    foreach (PhuThuGiamTruModel phuthu in model.lstPhuThu)// Thêm lại ds phụ thu
+                    {
+                        if (phuthu.ID_PhieuHoc == 0 && phuthu.ID_Lop > 0)
                         {
 
+                            PhieuHocModel p = new PhieuHocModel();
+                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 0);
+                            if (p.ID != 0)
+                            {
+
+                            }
+                            else
+                            {
+                                p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, phuthu.ID_Lop, phuthu.Thang, phuthu.Nam, 1);
+                            }
+                            if (p.ID != 0)
+                            {
+                                p.SoBuoi += phuthu.SoBuoi;
+                                phdao.InsertOrUpdate(p);
+                            }
+                            else
+                            {
+                                p.ID_HocSinh = model.ID_HocSinh;
+                                p.HocDuoi = 0;
+                                p.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                                p.ID_Lop = phuthu.ID_Lop;
+                                p.ID_PhieuThu = idnew;
+                                p.SoBuoi = phuthu.SoBuoi;
+                                p.SoTien = phuthu.DonGia;
+                                p.Thang = phuthu.Thang;
+                                p.NamHoc = phuthu.Nam;
+                                p.SoBuoiDaHoc = p.SoBuoi;
+                                p.ID_NhanVien = userinfor.ID;
+                                phdao.InsertOrUpdate(p);
+                            }
                         }
-                        else
-                        {
-                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 1);
-                        }
-                        giamtru.ID_PhieuHoc = p.ID;
+                        phuthu.Type = 0;
+                        phuthu.ID_PhieuThu = idnew;
+                        ptdao.InsertOrUpdatePhuThuGiamTru(phuthu);
+
                     }
-                    giamtru.Type = 1;
-                    giamtru.ID_PhieuThu = idnew;
-                    ptdao.InsertOrUpdatePhuThuGiamTru(giamtru);
+
+                    foreach (PhuThuGiamTruModel giamtru in model.lstGiamTru)// Thêm lại ds giảm trừ
+                    {
+                        if (giamtru.ID_PhieuHoc == 0)
+                        {
+                            PhieuHocModel p = new PhieuHocModel();
+                            p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 0);
+                            if (p.ID != 0)
+                            {
+
+                            }
+                            else
+                            {
+                                p = phdao.GetByHocSinh_Thang_Nam(model.ID_HocSinh, giamtru.ID_Lop, giamtru.Thang, giamtru.Nam, 1);
+                            }
+                            giamtru.ID_PhieuHoc = p.ID;
+                        }
+                        giamtru.Type = 1;
+                        giamtru.ID_PhieuThu = idnew;
+                        ptdao.InsertOrUpdatePhuThuGiamTru(giamtru);
+                    }
+                }
+                else
+                {
+                    return Json(new { status = false, msg = "Lưu dữ liệu không thành công", ID_Phieu = ID_PhieuThu }, JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new { status = true, msg = "Lưu dữ liệu thành công", ID_Phieu = ID_PhieuThu }, JsonRequestBehavior.AllowGet);
@@ -353,6 +367,17 @@ namespace QLDH.Controllers
         {
             PhieuThuDAO ptdao = new PhieuThuDAO();
             PhieuThuModel pt = ptdao.GetTempById(ID_PhieuThu);
+            InPhieuModel model = new InPhieuModel();
+            model.PhieuThu = pt;
+            model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ThongBaoDaNopHocPhi(int ID_PhieuThu)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
             InPhieuModel model = new InPhieuModel();
             model.PhieuThu = pt;
             model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);

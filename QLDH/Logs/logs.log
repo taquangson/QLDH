@@ -1,2 +1,18 @@
-﻿2021/07/04 14:15:30,372 DEBUG 1 WebSocketServer-20917673 - Listener (0.0.0.0:8088) was started
-2021/07/04 14:15:30,380 INFO 1 WebSocketServer-20917673 - The server instance WebSocketServer-20917673 has been started!
+﻿2022/06/08 22:47:43,096 ERROR 1 WebSocketServer-54041329 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
+System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
+2022/06/08 22:47:43,108 DEBUG 1 WebSocketServer-54041329 - Listener (0.0.0.0:8088) failed to start
+2022/06/08 22:51:06,393 ERROR 15 WebSocketServer-11725709 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
+System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
+2022/06/08 22:51:06,402 DEBUG 15 WebSocketServer-11725709 - Listener (0.0.0.0:8088) failed to start
+2022/06/08 22:56:27,930 ERROR 27 WebSocketServer-33516235 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
+System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
+2022/06/08 22:56:27,941 DEBUG 27 WebSocketServer-33516235 - Listener (0.0.0.0:8088) failed to start

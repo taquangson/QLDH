@@ -1,7 +1,6 @@
 ﻿var lstHocSinhTrongLop = [];
 var lstCaHoc = []
 $(document).ready(function () {
-    api.setRestToken();
     $("#window").kendoWindow({
         width: "680px",
         height: "570px",
@@ -15,6 +14,18 @@ $(document).ready(function () {
         close: function (e) {
             $("#grid").data("kendoGrid").clearSelection();
         }
+    });
+
+    $("#windowGiaoAn").kendoWindow({
+        width: "680px",
+        height: "570px",
+        title: "Giáo án",
+        visible: false,
+        modal: true,
+        resizable: false,
+        actions: [
+            "Close"
+        ]
     });
 
     $("#windowChitiet").kendoWindow({
@@ -231,7 +242,7 @@ $(document).ready(function () {
             },
             {
                 title: "Chi tiết lớp",
-                width: "200px",
+                width: "100px",
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
@@ -248,8 +259,26 @@ $(document).ready(function () {
                     }
                 }
             },
+            //{
+            //    title: "Trực tuyến",
+            //    width: "100px",
+            //    headerAttributes: {
+            //        style: "text-align: center; font-size: 12px; font-weight:bold",
+            //        class: "table-header-cell"
+            //    },
+            //    attributes: {
+            //        style: "text-align:center"
+            //    },
+            //    template: function (e) {
+            //        //if (e.IsLive == 0) {
+            //            return "<button class='k-button k-success text-center' onclick='checkRoomExist(" + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-video-camera'/> Go live</button>";
+            //        //} else {
+            //            //return "<button class='k-button k-error text-center' onclick='closeOnline(" + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-plug'/> Dừng lớp</button>";
+            //        //}
+            //    }
+            //},
             {
-                title: "Trực tuyến",
+                title: "Giáo án",
                 width: "100px",
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -259,13 +288,111 @@ $(document).ready(function () {
                     style: "text-align:center"
                 },
                 template: function (e) {
-                    if (e.IsLive == 0) {
-                        return "<button class='k-button k-success text-center' onclick='openOnline(" + e.ID + ")'><i class='fa fa-video-camera'/> Go live</button>";
-                    } else {
-                        return "<button class='k-button k-error text-center' onclick='closeOnline(" + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-plug'/> Dừng lớp</button>";
-                    }
+                    //if (e.IsLive == 0) {
+                    return "<button class='k-button k-success text-center' onclick='LoadGridGiaoAnData(" + e.ID + ")'><i class='fa fa-book'/> Giáo án</button>";
+                    //} else {
+                    //return "<button class='k-button k-error text-center' onclick='closeOnline(" + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-plug'/> Dừng lớp</button>";
+                    //}
                 }
             }
+        ]
+
+    });
+
+    $("#gridGiaoAn").kendoGrid({
+        height: function () {
+            var height = 515;
+            return height;
+        },
+        scrollable: true,
+        persistSelection: true,
+        autoFitColumn: true,
+        resizable: true,
+        sortable: true,
+        filterable: {
+            mode: "row",
+        },
+        pageable: pageableShort,
+        dataBinding: function () {
+            record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        },
+        columns: [
+            {
+                field: "NgayHoc",
+                title: "Ngày học",
+                width: "130px",
+                format: "{0:dd/MM/yyyy}",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "TenCa",
+                title: "Tên ca",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "TenBai",
+                title: "Tên bài học",
+                width: "150px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "BaiTap",
+                title: "Bài tập",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    class: "text-center"
+                }
+            },
         ]
 
     });
@@ -720,6 +847,32 @@ function LoadGridData() {
         });
         $("#grid").data("kendoGrid").setDataSource(dataSource);
         kendo.ui.progress($("#grid"), false);
+    });
+}
+
+function LoadGridGiaoAnData(ID_Lop) {
+    $("#windowGiaoAn").data("kendoWindow").center().open();
+    kendo.ui.progress($("#gridGiaoAn"), true);
+    $.ajax({
+        url: '/Lop/GetAllGiaoAnByLop?ID_Lop=' + ID_Lop,
+        type: 'GET',
+    }).done(function successCallback(response) {
+        var dataSource = new kendo.data.DataSource({
+            data: response,
+            schema: {
+                model: {
+                    id: "ID",
+                    fields: {
+                        NgayHoc: {
+                            type: 'date'
+                        }
+                    }
+                }
+            },
+            pageSize: 50,
+        });
+        $("#gridGiaoAn").data("kendoGrid").setDataSource(dataSource);
+        kendo.ui.progress($("#gridGiaoAn"), false);
     });
 }
 
@@ -1196,20 +1349,61 @@ function DuyetLop(ID_Lop) {
     })
 }
 
-async function openOnline(ID_Lop) {
-    var room = await api.createRoom();
-    console.log(room);
+function checkRoomExist(ID_Lop, sID) {
     $.ajax({
-        url: '/Lop/Golive?ID_Lop=' + ID_Lop + '&Token=' + room.roomId + '&TrangThai=1',
+        url: "https://video.twilio.com/v1/Rooms/" + sID,
+        type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Authorization", "Basic U0syZDRlZTUyMjg4ZjliMjhlZjNmYzU1OGE2NjE3ODMxNDpLZEliem9vVDB5bWRNMnNFZUtyWkM0OXR3WDRlUFVYTg==");
+        },
+        success: function (e) {
+            console.log(e);
+            if (e.status == "completed") {
+                openOnline(ID_Lop);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            if (e.responseJSON.status == 404) {
+                openOnline(ID_Lop);
+            }
+        },
+    });
+}
+
+function openOnline(ID_Lop) {
+    $.ajax({
+        url: "https://video.twilio.com/v1/Rooms?UniqueName=" + ID_Lop,
+        type: 'POST',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Authorization", "Basic U0syZDRlZTUyMjg4ZjliMjhlZjNmYzU1OGE2NjE3ODMxNDpLZEliem9vVDB5bWRNMnNFZUtyWkM0OXR3WDRlUFVYTg==");
+        },
+        success: function (e) {
+            console.log(e);
+            if (e.status == "in-progress") {
+                updateOnliceClassStatus(ID_Lop, e.sid);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        },
+    });
+
+}
+
+function updateOnliceClassStatus(ID_Lop, Token_Room) {
+    $.ajax({
+        url: '/Lop/Golive?ID_Lop=' + ID_Lop + '&Token=' + Token_Room + '&TrangThai=1',
         type: 'POST',
     }).done(function successCallback(response) {
         LoadGridData();
     })
+
 }
 
-async function closeOnline(ID_Lop, Token_Room) {
-    var room = await api.deleteRoom(Token_Room);
-    console.log(room);
+function closeOnline(ID_Lop, Token_Room) {
     $.ajax({
         url: '/Lop/Golive?ID_Lop=' + ID_Lop + '&Token=' + '&TrangThai=0',
         type: 'POST',

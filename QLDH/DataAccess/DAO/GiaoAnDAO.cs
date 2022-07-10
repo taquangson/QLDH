@@ -29,7 +29,7 @@ namespace QLDH.DataAccess.DAO
                 {
 
                     if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
-                    {                        
+                    {
                         var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
                         propertyInfo.SetValue(obj, value);
                     }
@@ -72,6 +72,29 @@ namespace QLDH.DataAccess.DAO
             }
         }
 
+        public List<GiaoAnModel> GetByLop(int ID_Lop)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_GiaoAn_GetByLop", pars);
+                DataTable dt = ds.Tables[0];
+                List<GiaoAnModel> result = new List<GiaoAnModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    result.Add(GetObjFromDataRow(dr));
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_GiaoAn_GetByLop " + ex.Message);
+                return null;
+            }
+        }
+
         public bool InsertOrUpdate(GiaoAnModel model)
         {
             try
@@ -87,7 +110,7 @@ namespace QLDH.DataAccess.DAO
                 };
 
                 int rowaff = helper.ExecuteNonQuery("sp_GiaoAn_InsertOrUpdate", pars);
-                if (rowaff> 0)
+                if (rowaff > 0)
                 {
                     return true;
                 }

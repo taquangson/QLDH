@@ -377,7 +377,7 @@
             pageSize: 100
         }),
         height: function () {
-            var height = ($(window).height() - 250) / 2;
+            var height = ($(window).height() - 300) / 2;
             return height;
         },
         scrollable: true,
@@ -410,10 +410,15 @@
                         })
                         e.model.SoBuoi = TinhSoBuoiHoc(e.model.Thang, e.model.NamHoc, lichhoc);
                         if (chinhanh == 1) {
-                            if (e.model.SoBuoi >= 7 && e.model.Thang > 0) {
-                                e.model.DonGia = 400000;
-                            } else if (e.model.SoBuoi < 7 && e.model.Thang > 0) {
-                                e.model.DonGia = 200000;
+                            //if (e.model.SoBuoi >= 7 && e.model.Thang > 0) {
+                            //    e.model.DonGia = 400000;
+                            //} else if (e.model.SoBuoi < 7 && e.model.Thang > 0) {
+                            //    e.model.DonGia = 200000;
+                            //}
+                            if (e.model.HocDuoi > 0) {
+                                e.model.DonGia = e.model.SoBuoi * 150000;
+                            } else {
+                                e.model.DonGia = e.model.SoBuoi * 50000;
                             }
                         } else if (chinhanh == 2) {
                             e.model.DonGia = e.model.SoBuoi * 30000;
@@ -429,7 +434,33 @@
                 } catch (ex) {
                     e.sender.refresh();
                 }
-            } else {
+            } else if (e.values.SoBuoi) {
+                if (e.model.HocDuoi > 0) {
+                    e.model.DonGia = e.values.SoBuoi * 150000;
+                } else {
+                    e.model.DonGia = e.values.SoBuoi * 50000;
+                }
+                e.sender.dataSource.fetch(function () {
+                    setTimeout(function () {
+                        e.sender.refresh();
+                        CalcTongTien();
+                    })
+                });
+            }
+            else if (e.values.HocDuoi) {
+                if (e.values.HocDuoi > 0) {
+                    e.model.DonGia = e.model.SoBuoi * 150000;
+                } else {
+                    e.model.DonGia = e.model.SoBuoi * 50000;
+                }
+                e.sender.dataSource.fetch(function () {
+                    setTimeout(function () {
+                        e.sender.refresh();
+                        CalcTongTien();
+                    })
+                });
+            }
+            else {
                 e.sender.dataSource.fetch(function () {
                     setTimeout(function () {
                         CalcTongTien();
@@ -573,8 +604,11 @@
                 title: "Loại phiếu",
                 field: "HocDuoi",
                 template: function (e) {
-                    if (e.HocDuoi > 0) {
-                        return "Học đuổi"
+                    if (e.HocDuoi == 1) {
+                        return "Bồi dưỡng";
+                        //}
+                        //else if (e.HocDuoi == 2) {
+                        //    return "Kèm riêng"
                     } else {
                         return "Học chính";
                     }
@@ -586,7 +620,8 @@
                         autoBind: false,
                         dataSource: new kendo.data.DataSource({
                             data: [{ text: "Học chính", value: 0 },
-                            { text: "Học đuổi", value: 1 }
+                            { text: "Bồi dưỡng", value: 1 },
+                                //{ text: "Kèm riêng", value: 2 }
                             ]
                         }),
                     })
@@ -1430,12 +1465,13 @@ function detailInit(e) {
                     field: "HocDuoi",
                     title: "Loại phiếu",
                     template: function (e) {
-                        if (e.HocDuoi == 0) {
-                            return "Học chính"
-                        } else if (e.HocDuoi == 1) {
-                            return "Học đuổi"
+                        if (e.HocDuoi == 1) {
+                            return "Bồi dưỡng";
+                            //}
+                            //else if (e.HocDuoi == 2) {
+                            //    return "Kèm riêng"
                         } else {
-                            return "";
+                            return "Học chính";
                         }
                     },
                     attributes: {
@@ -1883,8 +1919,11 @@ function LuuPhieuThu() {
         if (response.status) {
             notification.show({ kValue: response.msg }, "success");
             //HuyPhieuThu();
-            $("#ID_PhieuThu").val(response.ID_Phieu)
+            $("#ID_PhieuThu").val(response.ID_Phieu);
             InPhieuThu();
+            if ($('#guithongbao:checkbox:checked').length > 0) {
+                GuiThongBao_DaNopTien(response.ID_Phieu);
+            }
             LoadGridLichSuMuaPhieu($("#ID_HocSinh").val());
             LoadGridDataTimKiemHocSinh();
         } else {
@@ -2359,6 +2398,40 @@ function GuiThongBao() {
         });
     } else {
         notification.show({ kValue: "Vui lòng chọn phiếu tạm tính cần gửi" }, "error");
+    }
+}
+
+
+function GuiThongBao_DaNopTien(id_phieuthu) {
+    if (id_phieuthu > 0) {
+        let hocsinh = $("#gridTimKiemHocSinh").data("kendoGrid").dataSource.get($("#ID_HocSinh").val());
+        let link = "http://" + window.location.host + "/PhieuThu/ThongBaoDaNopHocPhi?ID_PhieuThu=" + id_phieuthu;
+        let html = "<a style='display:block;width:100%;text-align:center;font-size:6em;text-decoration:none;' href='" + link + "'>Bấm để mở</a>"
+        let model = {
+            Users: [],
+            Tokens: [],
+            TieuDe: "Trung Tâm Luyện Thi Dương Hòa",
+            NoiDung: "Thanh toán học phí thành công. Chi tiết xin vui lòng xem đường dẫn đính kèm. Xin chân thành cảm ơn quý phụ huynh!",
+            NoiDungHTML: html,
+            NoiDungRieng: "",
+            AnhDaiDien: "logodh.png"
+        };
+        model.Users.push(hocsinh.DienThoaiMacDinh);
+        model.Tokens.push(hocsinh.NotifyID);
+        console.log(model);
+        $.ajax({
+            url: '/FBNotification/PushNotify',
+            data: model,
+            type: 'POST'
+        }).done(function successCallback(response) {
+            if (response.status) {
+                notification.show({ kValue: response.msg }, "success");
+            } else {
+                notification.show({ kValue: response.msg }, "error");
+            }
+        });
+    } else {
+        notification.show({ kValue: "Phiếu thu chưa được gửi, vui lòng thử lại" }, "error");
     }
 }
 

@@ -248,12 +248,13 @@ function detailInit(e) {
                     field: "HocDuoi",
                     title: "Loại phiếu",
                     template: function (e) {
-                        if (e.HocDuoi == 0) {
-                            return "Học chính"
-                        } else if (e.HocDuoi == 1) {
-                            return "Học đuổi"
+                        if (e.HocDuoi == 1) {
+                            return "Bồi dưỡng";
+                        }
+                        else if (e.HocDuoi == 2) {
+                            return "Kèm riêng"
                         } else {
-                            return "";
+                            return "Học chính";
                         }
                     },
                     attributes: {

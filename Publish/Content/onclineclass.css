@@ -1,0 +1,320 @@
+﻿/*
+ * Author: http://stuffandnonsense.co.uk/blog/about/hardboiled_css3_media_queries/
+ */
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* Styles */
+    .k-message-group {
+        margin-top: 12px;
+    }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+    /* Styles */
+    .k-message-group {
+        margin-top: 12px;
+    }
+
+    .video-container {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+
+
+    #mobilechat {
+        height: calc(60vh);
+        background: #ebebeb;
+    }
+
+        #mobilechat .k-message-list-content {
+            width: 100%;
+        }
+
+    .k-chat .k-message-group {
+        max-width: calc(100% - 40px);
+    }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 480px) {
+    /* Styles */
+
+
+    .k-message-group {
+        margin-top: 12px;
+    }
+
+    .meet-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-container {
+        width: 100%
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+
+    .chat-container {
+        width: 100%;
+        background: radial-gradient(#808080,#000000)
+    }
+
+    #tabstrip p {
+        margin: 0;
+        padding: 0;
+    }
+
+    #chat {
+        height: calc(80vh);
+        background: #ebebeb;
+    }
+
+        #chat .k-message-list-content {
+            width: 100%;
+        }
+
+    .k-chat .k-message-group {
+        max-width: calc(100% - 40px);
+    }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    /* Styles */
+    .k-message-group {
+        margin-top: 12px;
+    }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+    /* Styles */
+    .k-message-group {
+        margin-top: 12px;
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    /* Styles */
+    .k-message-group {
+        margin-top: 12px;
+    }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+    .meet-container {
+        width: 100%;
+        height: calc(100vh);
+        display: flex;
+    }
+
+    .video-container {
+        width: 60%;
+        margin-left: 0;
+    }
+
+    .chat-container {
+        width: 30%;
+        height: calc(100vh);
+        background: radial-gradient(#808080,#000000)
+    }
+
+    #tabstrip p {
+        margin: 0;
+        padding: 0;
+    }
+
+    #chat {
+        height: calc(80vh);
+        background: #ebebeb;
+    }
+
+        #chat .k-message-list-content {
+            width: 100%;
+        }
+
+    .k-chat .k-message-group {
+        max-width: calc(100% - 40px);
+    }
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width : 1824px) {
+    .meet-container {
+        width: 100%;
+        height: calc(100vh);
+        display: flex;
+    }
+
+
+
+    .chat-container {
+        width: 30%;
+        height: calc(100vh);
+        background: radial-gradient(#808080,#000000)
+    }
+
+    #tabstrip p {
+        margin: 0;
+        padding: 0;
+    }
+
+    #chat {
+        height: calc(80vh);
+        background: #ebebeb;
+    }
+
+        #chat .k-message-list-content {
+            width: 100%;
+        }
+
+    .k-chat .k-message-group {
+        max-width: 100%;
+    }
+}
+
+body {
+    font-size: 1em !important;
+}
+
+.km-horizontal .km-view-title {
+    line-height: 2.78em;
+}
+
+.km-root .left-btn {
+    position: absolute;
+    z-index: 9999;
+    top: 7em;
+    left: -1em;
+    padding-right: 0;
+    padding-left: 0;
+    width: 5em;
+    line-height: 4em;
+    border-radius: 10em;
+    -webkit-border-radius: 10em;
+    border: 1px solid rgba(255,255,255,.8);
+    background: rgba(0,0,0,.8);
+    color: #fff;
+    box-shadow: 0 0 .5em #000;
+    -webkit-box-shadow: 0 0 .6em #222;
+}
+
+.mobileExample .km-wp-light .km-button.left-btn {
+    background: rgba(0,0,0,.8);
+    text-align: center;
+}
+
+.km-root .left-btn .km-icon.km-notext {
+    display: block;
+    margin: 1em auto;
+}
+
+.km-ios #left-drawer .km-content, .km-ios7 #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
+.km-ios #left-drawer .km-list > li, .km-ios7 #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
+.km-ios #left-drawer .km-listview-link > .km-icon, .km-ios7 #left-drawer .km-listview-link > .km-icon, .km-android #left-drawer .km-listview-link > .km-icon, .km-blackberry #left-drawer .km-listview-link > .km-icon,
+.km-ios #left-drawer .km-list li > .km-icon, .km-ios7 #left-drawer .km-list li > .km-icon, .km-android #left-drawer .km-list li > .km-icon, .km-blackberry #left-drawer .km-list li > .km-icon,
+#right-drawer .km-content {
+    background-color: #4e4e4e;
+    color: #fff;
+}
+
+.km-camera:before, .km-camera:after {
+    content: "\E0D0";
+}
+
+.km-printer:before, .km-printer:after {
+    content: "\E07E";
+}
+
+.km-comments:before, .km-comments:after {
+    content: "\E093";
+}
+
+.k-window-titlebar.k-header {
+    background: linear-gradient(#282c3d, #282c3d);
+}
+
+#windowChat.k-content {
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#left-drawer .km-scroll-container {
+    height: auto;
+}
+
+.participant-view {
+    background-color: #808080;
+    width: 160px;
+    height: 120px;
+    margin: 0px 10px 10px 0px;
+    float: left;
+}
+
+.km-nova .km-checkbox-label, .km-nova .km-radio-label {
+    font-size: 1em;
+    line-height: 1em;
+    padding-left: 1.5em;
+    margin-left: 1em;
+    float: left;
+}
+
+.km-nova .km-list li {
+    font-size: 1.2em;
+    padding-left: 0;
+    background: 0 0;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    border-style: solid;
+    line-height: 1.5em;
+    padding: 0.5em 0em 0.5em .84em;
+}
+
+    .km-nova .km-list li .fa {
+        font-size: 1.5em;
+        margin-left: 2px;
+    }
+
+.km-nova .km-view-title {
+    width: 280px;
+    overflow: hidden;
+}
+
+#running-text {
+    overflow: hidden;
+}
+
+    #running-text p {
+        animation: marquee 5s linear infinite;
+        display: inline-block;
+        color: #fff;
+        white-space: nowrap;
+    }
+
+@keyframes marquee {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}

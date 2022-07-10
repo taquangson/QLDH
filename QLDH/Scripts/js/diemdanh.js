@@ -212,7 +212,7 @@
                         style = "style='background-color:red'";
                     }
                     if (e.IsHocDuoi) {
-                        return "<span>" + e.TenHocSinh + " <i title='Học sinh học bồi dưỡng hoặc học đuổi' class='fa fa-exclamation-circle'/></span>";
+                        return "<span>" + e.TenHocSinh + " <i title='Học sinh học bồi dưỡng hoặc kèm riêng' class='fa fa-exclamation-circle'/></span>";
                     } else {
                         return "<span>" + e.TenHocSinh + "</span>";
                     }
