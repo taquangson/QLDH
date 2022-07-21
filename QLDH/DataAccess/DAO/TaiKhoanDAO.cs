@@ -334,6 +334,26 @@ namespace QLDH.DataAccess.DAO
             return null;
         }
 
+        public UserAppModel GetAppUserGiaoVienByLop(int ID_Lop)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_TaiKhoanApp_GetAppUserGiaoVienByLop", pars);
+                DataTable dt = ds.Tables[0];
+                UserAppModel t = GetAppObjFromDataRow(dt.Rows[0]);
+                return t;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TaiKhoanApp_GetAppUserGiaoVienByLop " + ex.Message);
+            }
+
+            return null;
+        }
+
         public UserAppModel GetAppUserByID(int ID)
         {
             try

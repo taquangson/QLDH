@@ -83,7 +83,15 @@
     <div style="width:50%;float:left" id="gridHocSinhNgoaiLop"></div>
 </div>
 
-<div id="windowGiaoAn">  
+<div id="windowGiaoAn">
+    <input type="hidden" id="IDLopGiaoAn" />
+    <div class="toolBarMenu">
+        <a style="color:orangered">Nhắc nhở soạn giáo án cho lớp </a>
+        <label style="color:black" id="tenlop"></label>
+        -
+        <input id="ngayhoc" />
+        <button class="k-button bg-blue" onclick="pushNoti()"> <i class="fa fa-envelope"> Gửi nhắc nhở </i></button>
+    </div>
     <div style="width:99%" id="gridGiaoAn"></div>
 </div>
 <script src="~/Scripts/js/lop.js"></script>

@@ -298,7 +298,6 @@ E:\QLDH\QLDH\obj\Debug\QLDH.csproj.CoreCompileInputs.cache
 E:\QLDH\QLDH\obj\Debug\QLDH.csproj.CopyComplete
 E:\QLDH\QLDH\obj\Debug\QLDH.dll
 E:\QLDH\QLDH\obj\Debug\QLDH.pdb
-E:\QLDH\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache
 C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.Common.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.Facility.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketBase.dll
@@ -306,3 +305,11 @@ C:\Users\quang\source\repos\qldh\QLDH\bin\SuperSocket.SocketEngine.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\SuperWebSocket.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\Twilio.dll
 C:\Users\quang\source\repos\qldh\QLDH\bin\Twilio.xml
+E:\QLDH\QLDH\bin\SuperSocket.Common.dll
+E:\QLDH\QLDH\bin\SuperSocket.Facility.dll
+E:\QLDH\QLDH\bin\SuperSocket.SocketBase.dll
+E:\QLDH\QLDH\bin\SuperSocket.SocketEngine.dll
+E:\QLDH\QLDH\bin\SuperWebSocket.dll
+E:\QLDH\QLDH\bin\Twilio.dll
+E:\QLDH\QLDH\bin\Twilio.xml
+E:\QLDH\QLDH\obj\Debug\QLDH.csprojAssemblyReference.cache
