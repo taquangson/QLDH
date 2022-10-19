@@ -351,6 +351,18 @@ namespace QLDH.Controllers
         }
 
         [SessionModeratorRole]
+        public ActionResult ViewPhieu(int ID_PhieuThu)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            TaiKhoanDAO tkdao = new TaiKhoanDAO();
+            PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
+            InPhieuModel model = new InPhieuModel();
+            model.PhieuThu = pt;
+            model.TaiKhoan = tkdao.GetById(pt.ID_NhanVien);
+            return View("InPhieu", model);
+        }
+
+        [SessionModeratorRole]
         public ActionResult InPhieuTamTinh(int ID_PhieuTamTinh)
         {
             PhieuThuDAO ptdao = new PhieuThuDAO();

@@ -352,6 +352,7 @@ namespace QLDH.DataAccess.DAO
         {
             public DateTime NgayTao { get; set; }
             public string MaPhieu { get; set; }
+            public int ID { get; set; }
             public DateTime ThoiGianIn { get; set; }
             public double TongThu { get; set; }
             public string TenNhanVien { get; set; }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace QLDH.Controllers
 {
@@ -22,19 +23,25 @@ namespace QLDH.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
             HocSinhDAO hsdao = new HocSinhDAO();
+            List<HocSinhModel> data = new List<HocSinhModel>();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             if (userinfor.Role == 2)
             {
-                return Json(hsdao.GetAll_HocSinhByChiNhanh(userinfor.ID_ChiNhanh), JsonRequestBehavior.AllowGet);
+                data = hsdao.GetAll_HocSinhByChiNhanh(userinfor.ID_ChiNhanh);
+                var serializedResult = serializer.Serialize(data);
+                return Content(serializedResult);
             }
             else if (userinfor.Role == 1)
             {
-                return Json(hsdao.GetAll_HocSinh(), JsonRequestBehavior.AllowGet);
+                data = hsdao.GetAll_HocSinh();
+                var serializedResult = serializer.Serialize(data);
+                return Content(serializedResult);
             }
             else
             {
-                return Json(null, JsonRequestBehavior.AllowGet);
+                return Content(null);
             }
             
         }

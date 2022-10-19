@@ -7,7 +7,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\Users\quang\source\repos\qldh\Publish</_PublishTargetUrl>
-    <History>True|2022-05-27T16:46:58.8751359Z;True|2021-11-29T22:46:14.5966429+07:00;True|2021-11-27T23:18:17.6037124+07:00;True|2021-08-25T21:59:35.7706110+07:00;True|2021-08-25T21:00:33.2031844+07:00;</History>
+    <History>True|2022-10-04T16:37:06.8698365Z;True|2022-08-08T22:51:46.8440752+07:00;True|2022-05-27T23:46:58.8751359+07:00;True|2021-11-29T22:46:14.5966429+07:00;True|2021-11-27T23:18:17.6037124+07:00;True|2021-08-25T21:59:35.7706110+07:00;True|2021-08-25T21:00:33.2031844+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Assets/Common.css">
@@ -1862,10 +1862,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:09</publishTime>
     </File>
     <File Include="bin/QLDH.dll">
-      <publishTime>06/08/2022 22:56:19</publishTime>
+      <publishTime>10/05/2022 08:13:52</publishTime>
     </File>
     <File Include="bin/QLDH.pdb">
-      <publishTime>06/08/2022 22:56:19</publishTime>
+      <publishTime>10/05/2022 08:13:52</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/15/2020 12:47:08</publishTime>
@@ -1973,7 +1973,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Content/inthe.css">
-      <publishTime>07/04/2021 14:42:15</publishTime>
+      <publishTime>09/25/2022 00:09:58</publishTime>
     </File>
     <File Include="Content/login.css">
       <publishTime>08/25/2021 20:30:25</publishTime>
@@ -2113,6 +2113,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Images/SoDoLop/Emerald6.jpg">
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
+    <File Include="Images/Thelaido.png">
+      <publishTime>09/24/2022 19:42:22</publishTime>
+    </File>
+    <File Include="Images/Thenvvp.png">
+      <publishTime>09/24/2022 19:43:14</publishTime>
+    </File>
     <File Include="Images/user_image.png">
       <publishTime>10/06/2020 13:42:01</publishTime>
     </File>
@@ -2159,7 +2165,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Scripts/js/baocao_js/baocaodoanhthubanphieu.js">
-      <publishTime>05/04/2021 21:08:37</publishTime>
+      <publishTime>10/04/2022 22:46:38</publishTime>
     </File>
     <File Include="Scripts/js/baocao_js/baocaohocsinhnophieu.js">
       <publishTime>03/26/2022 01:13:28</publishTime>
@@ -2198,7 +2204,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/22/2022 00:00:43</publishTime>
     </File>
     <File Include="Scripts/js/khodethi.js">
-      <publishTime>08/12/2021 16:27:25</publishTime>
+      <publishTime>09/07/2022 18:34:04</publishTime>
     </File>
     <File Include="Scripts/js/lop.js">
       <publishTime>06/08/2022 22:56:06</publishTime>
@@ -2210,10 +2216,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2021 15:47:38</publishTime>
     </File>
     <File Include="Scripts/js/phieuhoc.js">
-      <publishTime>04/15/2020 12:47:06</publishTime>
+      <publishTime>09/07/2022 18:34:03</publishTime>
     </File>
     <File Include="Scripts/js/phieuthu.js">
-      <publishTime>03/26/2022 01:31:36</publishTime>
+      <publishTime>09/07/2022 18:33:24</publishTime>
     </File>
     <File Include="Scripts/js/phongban.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2250,6 +2256,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
+    </File>
+    <File Include="Scripts/qrcode.js">
+      <publishTime>11/25/2015 02:43:20</publishTime>
+    </File>
+    <File Include="Scripts/qrcode.min.js">
+      <publishTime>11/25/2015 02:43:20</publishTime>
     </File>
     <File Include="Scripts/respond.js">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2309,7 +2321,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2021 23:39:18</publishTime>
     </File>
     <File Include="Views/HocSinh/Index.cshtml">
-      <publishTime>06/09/2020 01:19:20</publishTime>
+      <publishTime>09/07/2022 18:34:01</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>04/15/2020 12:47:06</publishTime>
@@ -2333,7 +2345,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2020 10:07:17</publishTime>
     </File>
     <File Include="Views/HoTro/InThe.cshtml">
-      <publishTime>07/04/2021 14:42:30</publishTime>
+      <publishTime>09/25/2022 00:04:45</publishTime>
     </File>
     <File Include="Views/HoTro/OnlineClass.cshtml">
       <publishTime>08/29/2021 21:06:02</publishTime>
@@ -2438,7 +2450,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2020 12:47:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/29/2021 22:46:12</publishTime>
+      <publishTime>10/05/2022 08:13:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

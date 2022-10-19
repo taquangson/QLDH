@@ -17,8 +17,8 @@
             @for (int i = 0; i < Model.Count; i++){
                 <text>
                 var QR_CODE@(i) = new QRCode("qrcode@(i)", {
-                  width: 40,
-                  height: 40,
+                  width: 30,
+                  height: 30,
                   colorDark: "#000000",
                   colorLight: "#ffffff",
                   correctLevel: QRCode.CorrectLevel.H,
@@ -36,24 +36,29 @@
     <div class="background">
         @for (int j = 0; j < Model.Count; j++)
         {
-            if (j % 10 == 0)
+            @*if (j % 10 == 0)*@
+            //{
+            <img style="width:50%" src="~/Images/Thelaido.png" />
+            if ((j + 1) % 8 == 0)
             {
-                <img class="bg-inthe" src="/Images/anhthehs.jpg" />
+                <div></div>
+                <div class="space"></div>
             }
+            //}
         }
     </div>
-    <div style="width:100%;height:5px;"></div>
     <div style="width:100%;height:5px;"></div>
     @for (int i = 0; i < Model.Count; i++)
     {
 
         <div class="hocsinh">
             <span class="ten">@Model[i].TenHocSinh</span>
-            <span class="ma">@Model[i].ID.ToString("d6")</span>
-            <span class="namsinh">@Model[i].NgaySinh.Year</span>
+            <span class="ten1">Nhân viên chở đò</span>
+            <span class="ma">Số đò: @Model[i].ID.ToString("d6")</span>
+            <span class="namsinh">Tổ đò :@Model[i].NgaySinh.Year</span>
             <div class="qrcode" id="qrcode@(i)"></div>
         </div>
-        if ((i + 1) % 10 == 0)
+        if ((i + 1) % 8 == 0)
         {
             <div></div>
             <div class="space"></div>

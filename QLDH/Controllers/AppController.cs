@@ -863,6 +863,11 @@ namespace QLDH.Controllers
                     PhieuHocDAO phd = new PhieuHocDAO();
                     TaiKhoanDAO tkdao = new TaiKhoanDAO();
                     TaiKhoanModel tk = tkdao.GetByTenTaiKhoanOrEmail(userinfo.UserName);
+                    List<LopHocModel> lstLop = new LopHocDAO().GetAll_ByHocSinh(d.ID_HocSinh);
+                    if (lstLop.Where(x => x.ID == d.ID_Lop).FirstOrDefault() == null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, new { success = false, msg = "Học sinh không thuộc lớp", data = 0 });
+                    }
                     d.ID_NhanVien = tk.ID;
                     DiemDanhModel diemdanhcu = ddao.GetByHocSinh_Ngay(d.ID_Lop, d.ID_HocSinh, batdau, d.Ca);
                     d.ID = diemdanhcu.ID;

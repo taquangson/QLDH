@@ -98,6 +98,9 @@
             {
                 title: "Mã phiếu",
                 field: "MaPhieu",
+                template: function (e) {
+                    return "<button class='k-button k-success text-center' onclick='openPhieuThu(" + e.ID + ")'> " + e.MaPhieu +"</button>";
+                },
                 width: "180px",
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -252,7 +255,7 @@
                 attributes: {
                     style: "text-align: center;",
                 }
-            },
+            }
         ]
 
     });
@@ -265,6 +268,10 @@
         value: new Date(new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/01")
     })
 })
+
+function openPhieuThu(ID_PhieuThu) {
+    window.open('/PhieuThu/ViewPhieu?ID_PhieuThu=' + ID_PhieuThu, '_blank');
+}
 
 function LoadCombo() {
     $.ajax({

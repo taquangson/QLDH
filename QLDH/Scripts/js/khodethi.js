@@ -2083,7 +2083,7 @@ function LoadGridDataHocSinh() {
         type: 'GET',
     }).done(function successCallback(response) {
         var dataSource = new kendo.data.DataSource({
-            data: response,
+            data: JSON.parse(response),
             schema: {
                 model: {
                     id: "ID",

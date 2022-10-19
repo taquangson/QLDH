@@ -756,6 +756,8 @@
     <Content Include="Images\SoDoLop\20194930044959Emerald6.jpg" />
     <Content Include="Images\SoDoLop\20195930045906Emerald5.jpg" />
     <Content Include="Images\SoDoLop\Emerald6.jpg" />
+    <Content Include="Images\Thelaido.png" />
+    <Content Include="Images\Thenvvp.png" />
     <Content Include="Images\user_image.png" />
     <Content Include="img_OX2_icon.ico" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1020,6 +1022,8 @@
     <Content Include="Scripts\js\webrtc.js" />
     <Content Include="Scripts\js\xinnghiphep.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\qrcode.js" />
+    <Content Include="Scripts\qrcode.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

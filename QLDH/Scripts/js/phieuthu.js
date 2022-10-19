@@ -82,6 +82,7 @@
                         return "";
                     }
                 },
+                //format: "{0:dd/MM/yyyy}",
                 width: "100px",
                 filterable: {
                     cell: {
@@ -1555,7 +1556,7 @@ function LoadGridDataTimKiemHocSinh() {
     }).done(function successCallback(response) {
         kendo.ui.progress($("#gridTimKiemHocSinh"), true);
         var dataSource = new kendo.data.DataSource({
-            data: response,
+            data: JSON.parse(response),
             schema: {
                 model: {
                     id: "ID",
