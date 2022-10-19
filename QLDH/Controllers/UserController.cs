@@ -155,6 +155,14 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        public ActionResult GetAppUserGiaoVienByLop(int ID_Lop)
+        {
+            TaiKhoanDAO tk_dao = new TaiKhoanDAO();
+            UserAppModel result = tk_dao.GetAppUserGiaoVienByLop(ID_Lop);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
         public ActionResult GetUserOnline_TinNhanMoi()
         {
             TaiKhoanDAO tk_dao = new TaiKhoanDAO();

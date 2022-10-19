@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var siso = 0;
+var comat = 0;
+$(document).ready(function () {
     $("#rootContainer").show();
     $("#comboKhoi").kendoComboBox({
         dataTextField: 'text',
@@ -118,10 +120,20 @@
         columns: [
             {
                 title: "STT",
+                field: "ID_DiemDanh",
                 template: "#= ++record #",
                 width: "50px",
                 attributes: {
                     class: "text-center",
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.parent().html("<label id='sisolop' style='width: 100%;text-align: center;'></label>")
+                        }
+                    }
                 },
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -507,6 +519,9 @@ function LoadHocSinhTrongLop(id) {
             if (typeof response == "string") {
                 location.reload(true);
             }
+            siso = response.length;
+            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && CoPhep == 0; }).length;
+            
             var dataSource = new kendo.data.DataSource({
                 data: response,
                 schema: {
@@ -528,6 +543,7 @@ function LoadHocSinhTrongLop(id) {
             $("#gridDiemDanh").data("kendoGrid").setDataSource(dataSource);
             LoadAnhDiemDanh(id, $("#comboCa").data("kendoComboBox").value(), new Date());
             kendo.ui.progress($("#gridDiemDanh"), false);
+            UpdateSiSoLabel();
         });
     }
 }
@@ -553,6 +569,8 @@ function DiemDanh(ID_HocSinh, HocDuoi, GhiChu, Diem) {
         if (typeof response == "string") {
             location.reload(true);
         }
+        comat++;
+        UpdateSiSoLabel();
         $("#cophep" + ID_HocSinh).removeAttr("checked");
         $("#vangmat" + ID_HocSinh).removeAttr("checked");
         kendo.ui.progress($("#gridDiemDanh"), false);
@@ -630,4 +648,8 @@ function XemSoDo() {
 
 function LoadLaiDuLieu() {
     LoadHocSinhTrongLop($("#comboLop").data("kendoComboBox").value())
+}
+
+function UpdateSiSoLabel() {
+    $("#sisolop").text("Sĩ số: " + comat + "/" + siso);
 }
