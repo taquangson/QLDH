@@ -1,48 +1,6 @@
-﻿2022/10/05 08:03:57,872 ERROR 257 WebSocketServer-39902173 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
+﻿2023/02/19 00:00:44,258 ERROR 21 WebSocketServer-50497660 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
 System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
    at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
    at System.Net.Sockets.Socket.Bind(EndPoint localEP)
    at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:03:57,883 DEBUG 257 WebSocketServer-39902173 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:05:50,885 ERROR 257 WebSocketServer-49926138 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:05:50,894 DEBUG 257 WebSocketServer-49926138 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:07:05,286 ERROR 257 WebSocketServer-55372948 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:07:05,304 DEBUG 257 WebSocketServer-55372948 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:11:10,275 ERROR 257 WebSocketServer-32094048 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:11:10,275 DEBUG 257 WebSocketServer-32094048 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:11:44,278 ERROR 34 WebSocketServer-58519395 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:11:44,281 DEBUG 34 WebSocketServer-58519395 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:13:03,765 ERROR 257 WebSocketServer-23317987 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:13:03,774 DEBUG 257 WebSocketServer-23317987 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:14:01,495 ERROR 30 WebSocketServer-61569626 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:14:01,505 DEBUG 30 WebSocketServer-61569626 - Listener (0.0.0.0:8088) failed to start
-2022/10/05 08:18:23,759 ERROR 30 WebSocketServer-21048042 - Listener (0.0.0.0:8088) error: An attempt was made to access a socket in a way forbidden by its access permissions
-System.Net.Sockets.SocketException (0x80004005): An attempt was made to access a socket in a way forbidden by its access permissions
-   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
-   at SuperSocket.SocketEngine.TcpAsyncSocketListener.Start(IServerConfig config)
-2022/10/05 08:18:23,767 DEBUG 30 WebSocketServer-21048042 - Listener (0.0.0.0:8088) failed to start
+2023/02/19 00:00:44,271 DEBUG 21 WebSocketServer-50497660 - Listener (0.0.0.0:8088) failed to start

@@ -226,6 +226,8 @@
     <Compile Include="App_Start\TokenValidationHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\BaiGiangController.cs" />
+    <Compile Include="Controllers\ChuongTrinhController.cs" />
     <Compile Include="Controllers\BaiKiemTraController.cs" />
     <Compile Include="Controllers\BaoCaoController.cs" />
     <Compile Include="Controllers\ChatMessageController.cs" />
@@ -246,17 +248,24 @@
     <Compile Include="Controllers\PhongBanController.cs" />
     <Compile Include="Controllers\ThongBaoAppController.cs" />
     <Compile Include="Controllers\TinNhanController.cs" />
+    <Compile Include="Controllers\TroChoiController.cs" />
     <Compile Include="Controllers\TracNghiemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\XinNghiHocController.cs" />
     <Compile Include="DataAccess\DAO\AnhDiemDanhDAO.cs" />
     <Compile Include="DataAccess\DAO\AnhBaiKiemTraDAO.cs" />
+    <Compile Include="DataAccess\DAO\FlashCardDAO.cs" />
+    <Compile Include="DataAccess\DAO\DapAnTroChoiDAO.cs" />
+    <Compile Include="DataAccess\DAO\TroChoiDAO.cs" />
+    <Compile Include="DataAccess\DAO\ChiTietBaiGiangDAO.cs" />
     <Compile Include="DataAccess\DAO\BaiLamTracNghiemDAO.cs" />
     <Compile Include="DataAccess\DAO\CallSessionDAO.cs" />
     <Compile Include="DataAccess\DAO\CauHoiDAO.cs" />
     <Compile Include="DataAccess\DAO\ChatSessionDAO.cs" />
     <Compile Include="DataAccess\DAO\CheckInSuKienDAO.cs" />
+    <Compile Include="DataAccess\DAO\BaiGiangDAO.cs" />
     <Compile Include="DataAccess\DAO\DangKyEventDAO.cs" />
+    <Compile Include="DataAccess\DAO\ChuongTrinhGiangDayDAO.cs" />
     <Compile Include="DataAccess\DAO\DanhMucCauHoiDAO.cs" />
     <Compile Include="DataAccess\DAO\DeThiDAO.cs" />
     <Compile Include="DataAccess\DAO\File_NhanVienDAO.cs" />
@@ -287,6 +296,11 @@
     <Compile Include="DataAccess\Helper\AuthorHelper.cs" />
     <Compile Include="DataAccess\Models\AnhDiemDanhModel.cs" />
     <Compile Include="DataAccess\Models\AnhBaiKiemTraModel.cs" />
+    <Compile Include="DataAccess\Models\FlashCardModel.cs" />
+    <Compile Include="DataAccess\Models\DapAnTroChoiModel.cs" />
+    <Compile Include="DataAccess\Models\TroChoiModel.cs" />
+    <Compile Include="DataAccess\Models\ChiTietBaiGiangModel.cs" />
+    <Compile Include="DataAccess\Models\BaiGiangModel.cs" />
     <Compile Include="DataAccess\Models\BaiKiemTraModel.cs" />
     <Compile Include="DataAccess\Models\BaiLamTracNghiemModel.cs" />
     <Compile Include="DataAccess\Models\BaiLamTracNghiem_ChiTietModel.cs" />
@@ -296,6 +310,7 @@
     <Compile Include="DataAccess\Models\CheckInSuKienModel.cs" />
     <Compile Include="DataAccess\Models\ContentInitializer.cs" />
     <Compile Include="DataAccess\Models\DangKyEventModel.cs" />
+    <Compile Include="DataAccess\Models\ChuongTrinhGiangDayModel.cs" />
     <Compile Include="DataAccess\Models\DanhMucCauHoiModel.cs" />
     <Compile Include="DataAccess\Models\DapAnModel.cs" />
     <Compile Include="DataAccess\Models\DeThiModel.cs" />
@@ -740,9 +755,15 @@
     <Content Include="Images\computer-folder-icon.jpg" />
     <Content Include="Images\img.jpg" />
     <Content Include="Images\img.png" />
+    <Content Include="Images\khonggian-bg1.gif" />
+    <Content Include="Images\khonggian-bg2.gif" />
+    <Content Include="Images\khonggian-bg3.gif" />
+    <Content Include="Images\khonggian-bg4.gif" />
+    <Content Include="Images\khonggian-bg5.gif" />
     <Content Include="Images\logodh.jpg" />
     <Content Include="Images\logodh.png" />
     <Content Include="Images\new-folder-add.png" />
+    <Content Include="Images\phaohoa.gif" />
     <Content Include="Images\sms.png" />
     <Content Include="Images\SoDoLop\20190030050012Emerald5.jpg" />
     <Content Include="Images\SoDoLop\20190930050904Emerald12.jpg" />
@@ -756,8 +777,6 @@
     <Content Include="Images\SoDoLop\20194930044959Emerald6.jpg" />
     <Content Include="Images\SoDoLop\20195930045906Emerald5.jpg" />
     <Content Include="Images\SoDoLop\Emerald6.jpg" />
-    <Content Include="Images\Thelaido.png" />
-    <Content Include="Images\Thenvvp.png" />
     <Content Include="Images\user_image.png" />
     <Content Include="img_OX2_icon.ico" />
     <Content Include="Scripts\bootstrap.js" />
@@ -993,6 +1012,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jszip.js" />
+    <Content Include="Scripts\js\flashcard.js" />
     <Content Include="Scripts\js\baocao_js\baocaohocsinhnophieu.js" />
     <Content Include="Scripts\js\baocao_js\bieudodiemtrungbinhtheolop.js" />
     <Content Include="Scripts\js\baocao_js\bieudodiem.js" />
@@ -1001,10 +1021,13 @@
     <Content Include="Scripts\js\baocao_js\thongkephieuhoctheohocsinh.js" />
     <Content Include="Scripts\js\baocao_js\thongkebuoihocthohocsinh.js" />
     <Content Include="Scripts\js\danhsachlophoconline.js" />
+    <Content Include="Scripts\js\khotrochoi.js" />
     <Content Include="Scripts\js\khocauhoi.js" />
     <Content Include="Scripts\js\danhsachdethitheohocsinh.js" />
     <Content Include="Scripts\js\khodethi.js" />
+    <Content Include="Scripts\js\baigiang.js" />
     <Content Include="Scripts\js\onlineclassstudent.js" />
+    <Content Include="Scripts\js\chuongtrinhgiangday.js" />
     <Content Include="Scripts\js\quanlytailieu.js" />
     <Content Include="Scripts\js\room.js" />
     <Content Include="Scripts\js\tinnhan.js" />
@@ -1096,12 +1119,21 @@
     <Content Include="Views\LiveClass\OnlineClassStudent.cshtml" />
     <Content Include="Views\FileManager\Index.cshtml" />
     <Content Include="Views\PhieuThu\ThongBaoDaNopHocPhi.cshtml" />
+    <Content Include="Views\ChuongTrinh\Index.cshtml" />
+    <Content Include="Views\BaiGiang\Index.cshtml" />
+    <Content Include="Views\BaiGiang\Flashcard.cshtml" />
+    <Content Include="Views\TroChoi\GameLapGhep.cshtml" />
+    <Content Include="Views\TroChoi\TroChoi.cshtml" />
+    <Content Include="Views\TroChoi\GameSapXep.cshtml" />
+    <Content Include="Views\TroChoi\GameNoiDuong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Game\" />
     <Folder Include="Images\AnhHocSinh\" />
     <Folder Include="Images\AnhThongBao\" />
     <Folder Include="Images\BaiKiemTra\" />
+    <Folder Include="Images\Flashcard\" />
     <Folder Include="Images\HoTro\" />
   </ItemGroup>
   <ItemGroup>

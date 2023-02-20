@@ -699,15 +699,15 @@
                     id: "id",
                     fields: {
                         ID: { type: 'number', editable: false },
-                        LyDo: { type: 'text', editablle: false },
-                        DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
+                        LyDo: { type: 'text', editable: false },
+                        DonGia: { type: 'number', editable: true, validation: { min: 0 } },
                         Thang: { type: 'number', editable: true },
                         ThangText: { type: 'string', editable: true },
                         Nam: { type: 'number', editable: true },
                         SoBuoi: { type: 'number', editable: true, validation: { min: 0 } },
-                        ID_LopHoc: { type: 'number', editablle: true },
-                        TenLopHoc: { type: 'text', editablle: false },
-                        ID_PhieuHoc: { type: 'number', editablle: false }
+                        ID_LopHoc: { type: 'number', editable: true },
+                        TenLopHoc: { type: 'text', editable: false },
+                        ID_PhieuHoc: { type: 'number', editable: false }
                     }
                 }
             },

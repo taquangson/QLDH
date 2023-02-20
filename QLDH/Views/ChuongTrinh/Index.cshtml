@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Quản lý chương trình học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #treeview {
+        height: calc( 100vh - 180px) !important;
+        width: 100%;
+        /*overflow-y: scroll;*/
+        /*overflow-x: scroll;*/
+        float: left;
+        border-color: grey;
+        border: 1px solid #d9d9d9 !important;
+        line-height: 30px !important;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    .k-treeview .k-group {
+        padding: 5px;
+    }
+</style>
+<script src="~/Scripts/js/chuongtrinhgiangday.js"></script>
+<div id="rootContainer" style="display:none">
+    <div id="windowChonBaiGiang">
+        <div id="gridBaiGiangNgoaiChuongTrinh"></div>
+    </div>
+
+    <div id="dialogRoot"></div>
+    <div class="row">
+        <h2><b>Chuong trình giảng dạy</b></h2>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="toolBarMenu">
+                <button class="k-button bg-blue" onclick="ThemChuongTrinh()"> <i class="fa fa-plus-square"> Thêm </i></button>
+                <button class="k-button bg-orange" onclick="SuaChuongTrinh()"> <i class="fa fa-wrench"> Sửa</i> </button>
+                <button class="k-button bg-red" onclick="XoaChuongTrinh()"> <i class="fa fa-close"> Xóa</i> </button>
+            </div>
+            <div id="treeview"></div>
+        </div>
+        <div class="col-sm-9">
+            <div id="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                        Danh sách bài giảng
+                    </li>
+                </ul>
+                <div style="border:none;padding:0px;margin:0px;">
+                    <div id="gridBaiGiangTrongChuongTrinh"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="windowChuongTrinh">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="LuuChuongTrinh()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="HuyChuongTrinh()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChuongTrinh">
+        <input type="hidden" id="ID_ChuongTrinh" />
+        <div style="margin-top:10px;" class="form-group valid" toggle-valid="TenChuongTrinh">
+            <label style="width:100%">Tên chương trình: <span style="color:red">*</span></label>
+            <input id="TenChuongTrinh" placeholder="Tên chương trình" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="PhongBanCha">
+            <label style="width:100%">Chương trình cha: <span style="color:red">*</span></label>
+            <input id="ChuongTrinhCha" class="input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+    </form>
+</div>

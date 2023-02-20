@@ -350,6 +350,27 @@ $(document).ready(function () {
                     style: "text-align: center;",
                 }
             },
+            {
+                field: "GhiChuHocSinh",
+                title: "Ghi chú",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
 
         ]
 

@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Quản lý bài giảng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .k-dropdown-wrap.k-state-default, .k-multiselect-wrap {
+        border-color: #929090;
+    }
+    #templateCauHoiTooltip img{
+        max-height:100px;
+    }
+
+    .k-widget.k-tooltip {
+        background-color: #8c9ebf;
+        border-color: #111;
+        width: 700px;
+    }
+</style>
+<script src="~/Scripts/js/baigiang.js"></script>
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách bài giảng</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-orange" onclick="openEditWindow()"> <i class="fa fa-wrench"> Sửa</i> </button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-close"> Xóa</i> </button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="Luu()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="Huy()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+        <div class="form-group valid" toggle-valid="TenBai">
+            <label style="width:100%">Unit: <span style="color:red">*</span></label>
+            <input id="TenBai" placeholder="Unit" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="TenBuoi">
+            <label style="width:100%">Lesson: <span style="color:red">*</span></label>
+            <input id="TenBuoi" placeholder="Lesson" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="BaiHoc">
+            <label style="width:100%">Nội dung: <span style="color:red">*</span></label>
+            <input id="BaiHoc" placeholder="Nội dung" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="ComboCapDo">
+            <label style="width:100%">Cấp độ: <span style="color:red">*</span></label>
+            <input id="ComboCapDo" class="input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+    </form>
+</div>
+<div id="windowChitiet">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="LuuChiTiet()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="HuyChiTiet()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <input type="hidden" id="ID_BaiGiang" />
+    <input type="hidden" id="ID_ChiTietBaiGiang" />
+    <div class="form-group">
+        <label style="width:100%">Flashcard</label>
+        <div id="gridFlashcard"></div>
+    </div>
+    <div class="form-group">
+        <label style="width:100%">Câu hỏi</label>
+        <div id="gridCauHoi"></div>
+    </div>
+    <div class="form-group">
+        <label style="width:100%">Trò chơi</label>
+        <div id="gridTroChoi"></div>
+    </div>
+</div>
+
+<div id="templateCauHoiTooltip" style="display:none">
+    <div style="width:100%;padding-top:10px;height:200px">
+        <b>#= htmlDecode(NoiDungCauHoi)#</b>
+        # $.each(lstDapAn, function(index, item){#
+        <div id="content-answer" style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">
+            #: Ans[index] #. #: item.DapAn == null ? "" : item.DapAn #
+            #if(item.AnhDapAn != null){#
+            <img src="../Images/AnhDapAn/#:item.AnhDapAn #" style="max-width:150px;" />
+            #}#
+        </div>
+        #})#
+    </div>
+</div>

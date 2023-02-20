@@ -1438,14 +1438,14 @@ function pushNoti() {
         let model = {
             Users: [],
             Tokens: [],
-            TieuDe: "Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy)"),
+            TieuDe: "Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy"),
             NoiDung: "",
-            NoiDungHTML: "<b>Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy)") + "</b>",
+            NoiDungHTML: "<b style='font-size:25px;'>Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy") + "</b>",
             NoiDungRieng: "",
             AnhDaiDien: "logodh.png"
         };
         model.Users.push(response.UserName);
-        model.Tokens.push(response.Current_Imei);
+        model.Tokens.push(response.NotifyID);
 
         $.ajax({
             url: '/FBNotification/PushNotify',
