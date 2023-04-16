@@ -541,7 +541,7 @@ function LoadHocSinhTrongLop(id) {
                 location.reload(true);
             }
             siso = response.length;
-            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && CoPhep == 0; }).length;
+            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && st.CoPhep == 0; }).length;
             
             var dataSource = new kendo.data.DataSource({
                 data: response,

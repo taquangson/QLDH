@@ -385,6 +385,178 @@ $(document).ready(function () {
 
     });
 
+    $("#gridListenAndChoose").kendoGrid({
+        height: function () {
+            var height = $(window).height() / 4;
+            return height;
+        },
+        dataSource: new kendo.data.DataSource({
+            data: [],
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        ID: { type: 'number', editable: false },
+                        NoiDungCauHoi: { type: 'text', editable: true },
+                        ID_DanhMuc: { type: 'number', editable: true },
+                        TenDanhMuc: { type: 'text', editable: false }
+                    }
+                }
+            },
+            pageSize: 100
+        }),
+        editable: {
+            createAt: "bottom"
+        },
+        scrollable: true,
+        persistSelection: true,
+        autoFitColumn: true,
+        resizable: true,
+        sortable: true,
+        filterable: {
+            mode: "row",
+        },
+        pageable: pageableShort,
+        dataBinding: function () {
+            record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        },
+        save: function (e) {
+            e.sender.dataSource.fetch(function () {
+                setTimeout(function () {
+                    e.sender.refresh();
+                })
+            });
+        },
+        columns: [
+            {
+                title: " ",
+                field: 'ID',
+                template: function (e) {
+                    return "<i onclick='DeleteRowListenAndChoose(\"" + e.uid + "\")' title='Xoá câu hỏi' style='color:red' class='fa fa-trash'></i>";
+                },
+                width: 50,
+                attributes: {
+                    class: "text-center"
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; ",
+                    class: "table-header-cell"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.parent().html("<a class='k-button' title='Thêm câu hỏi' style='width:100%; height:25px;' onclick='AddRowListenAndChoose()'><i class='fa fa-plus'></i></a>")
+                        }
+                    }
+                },
+            },
+            {
+                field: "ID_DanhMuc",
+                title: "Danh mục",
+                template: function (e) {
+                    if (e.TenDanhMuc)
+                        return e.TenDanhMuc
+                    else return "";
+                },
+                width: "130px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                editor: function (container, options) {
+                    $('<input required name="' + options.field + '"/>').appendTo(container).kendoComboBox({
+                        dataTextField: "TenDanhMucCauHoi",
+                        dataValueField: "ID",
+                        valuePrimitive: false,
+                        autoBind: true,
+                        dataSource: new kendo.data.HierarchicalDataSource({
+                            transport: {
+                                read: {
+                                    url: '/TracNghiem/GetAllDanhMucCauHoi',
+                                }
+                            },
+                        }),
+                        change: function (e) {
+                            console.log(e);
+                            options.model.ID_DanhMuc = e.sender.value();
+                            options.model.TenDanhMuc = e.sender.text();
+                        },
+                    })
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "NoiDungCauHoi",
+                title: "Nội dung",
+                width: "130px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                editor: function (container, options) {
+                    $('<input required name="' + options.field + '"/>').appendTo(container).kendoComboBox({
+                        dataTextField: 'Ten',
+                        dataValueField: 'ID',
+                        autoBind: false,
+                        valuePrimitive: false,
+                        dataSource: new kendo.data.DataSource({
+                            transport: {
+                                read: {
+                                    url: '/TracNghiem/GetCauHoiByDanhMuc?ID_DanhMuc=' + options.model.ID_DanhMuc,
+                                }
+                            },
+                        }),
+                        template: kendo.template($("#templateCauHoiTooltip").html()),
+                        change: function (e) {
+                            console.log(e.sender.dataItem());
+                            let model = e.sender.dataItem()
+                            options.model.ID = model.ID;
+                            options.model.NoiDungCauHoi = model.NoiDungCauHoi;
+                            options.model.lstDapAn = model.lstDapAn;
+                        },
+                    })
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            }
+        ]
+
+    });
+
+    $("#gridListenAndChoose").kendoTooltip({
+        autoHide: true,
+        filter: "tr[role='row']",
+        content: function (e) {
+            var dataItem = $("#gridListenAndChoose").data("kendoGrid").dataItem(e.target.closest("tr"));
+            var temp = kendo.template($("#templateCauHoiTooltip").html());
+            return temp(dataItem);
+        }
+        //show: function () {
+        //    //setTimeout(function () {
+        //    //var tooltip = document.getElementById("content-answer");
+        //    MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'TFS']);
+        //    //}, 1000)
+
+        //}
+    });
+
     $("#gridCauHoi").kendoGrid({
         height: function () {
             var height = $(window).height() / 4;
@@ -803,6 +975,22 @@ function openChiTiet(id) {
             pageSize: 100
         }));
 
+        $("#gridListenAndChoose").data("kendoGrid").setDataSource(new kendo.data.DataSource({
+            data: (response.ID ? response.lstListenAndChoose : []),
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        ID: { type: 'number', editable: false },
+                        NoiDungCauHoi: { type: 'string', editable: true },
+                        ID_DanhMuc: { type: 'number', editable: true },
+                        TenDanhMuc: { type: 'string', editable: false }
+                    }
+                }
+            },
+            pageSize: 100
+        }))
+
         $("#gridTroChoi").data("kendoGrid").setDataSource(new kendo.data.DataSource({
             data: (response.ID ? response.lstTroChoi : []),
             schema: {
@@ -978,6 +1166,7 @@ function XoaDuLieu(bangDuLieu) {
 
 function LuuChiTiet() {
     lstCauHoi = [];
+    lstListenAndChoose = [];
     lstFlashCard = [];
     lstTroChoi = [];
     $.each($("#gridFlashcard").data("kendoGrid").dataSource.data(), function (index, item) {
@@ -985,6 +1174,9 @@ function LuuChiTiet() {
     });
     $.each($("#gridCauHoi").data("kendoGrid").dataSource.data(), function (index, item) {
         lstCauHoi.push(item.ID);
+    });
+    $.each($("#gridListenAndChoose").data("kendoGrid").dataSource.data(), function (index, item) {
+        lstListenAndChoose.push(item.ID);
     });
     $.each($("#gridTroChoi").data("kendoGrid").dataSource.data(), function (index, item) {
         lstTroChoi.push(item.ID);
@@ -998,6 +1190,7 @@ function LuuChiTiet() {
             FlexCol1: lstFlashCard.toString(),
             FlexCol2: lstCauHoi.toString(),
             FlexCol3: lstTroChoi.toString(),
+            FlexCol4: lstListenAndChoose.toString(),
         }
     }).done(function successCallback(response) {
         if (response.status) {
@@ -1029,6 +1222,16 @@ function DeleteRowFlashcard(uid) {
     var dataRow = $('#gridFlashcard').data("kendoGrid").dataSource.getByUid(uid);
     $('#gridFlashcard').data("kendoGrid").dataSource.remove(dataRow);
 }
+function AddRowListenAndChoose(e) {
+    var grid = $("#gridListenAndChoose").data("kendoGrid");
+    grid.addRow();
+}
+
+function DeleteRowListenAndChoose(uid) {
+    var dataRow = $('#gridListenAndChoose').data("kendoGrid").dataSource.getByUid(uid);
+    $('#gridListenAndChoose').data("kendoGrid").dataSource.remove(dataRow);
+}
+
 
 function AddRowCauHoi(e) {
     var grid = $("#gridCauHoi").data("kendoGrid");

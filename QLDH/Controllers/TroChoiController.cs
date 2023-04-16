@@ -22,7 +22,7 @@ namespace QLDH.Controllers
             return View();
         }
 
-        [SessionExpire]
+        [AllowAnonymous]
         public ActionResult GameSapXep(int ID)
         {
             TroChoiDAO chdao = new TroChoiDAO();
@@ -32,7 +32,7 @@ namespace QLDH.Controllers
             return View(model);
         }
 
-        [SessionExpire]
+        [AllowAnonymous]
         public ActionResult GameLapGhep(int ID)
         {
             TroChoiDAO chdao = new TroChoiDAO();
@@ -42,7 +42,7 @@ namespace QLDH.Controllers
             return View(model);
         }
 
-        [SessionExpire]
+        [AllowAnonymous]
         public ActionResult GameNoiDuong(int ID)
         {
             TroChoiDAO chdao = new TroChoiDAO();

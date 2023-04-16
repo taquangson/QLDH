@@ -231,7 +231,8 @@ namespace QLDH.Controllers
                     item.DiaChi = model.DiaChi;
                     item.GioiTinh = model.GioiTinh;
                     item.NgaySinh = model.NgaySinh;
-                    int newid = hsdao.InsertOrUpdate(item);
+                    //int newid = hsdao.InsertOrUpdate(item);
+                    int newid = 0;
                     if (newid > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Cập nhật thông tin thành công" });
                     else

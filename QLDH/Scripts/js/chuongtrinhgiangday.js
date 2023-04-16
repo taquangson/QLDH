@@ -18,6 +18,13 @@ $(document).ready(function () {
         }
     });
     $("#gridBaiGiangTrongChuongTrinh").kendoGrid({
+        //dataSource: {
+        //    schema: {
+        //        model: {
+        //            id: "ID"
+        //        }
+        //    }
+        //},
         height: function () {
             var height = $(window).height() - 195;
             return height;
@@ -33,6 +40,23 @@ $(document).ready(function () {
         pageable: pageableShort,
         dataBinding: function () {
             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+        },
+        editable: true,
+        save: function (e) {
+            console.log(e);
+            if (e.values.ThuTu) {
+                $.ajax({
+                    url: '/ChuongTrinh/ThemBaiGiangVaoChuongTrinh?ID_ChuongTrinh=' + selectedChuongTrinh.ID + "&ID_BaiGiang=" + e.model.ID + "&STT=" + e.values.ThuTu,
+                    type: 'POST',
+                }).done(function successCallback(response) {
+                    if (response.status) {
+                        notification.show({ kValue: response.msg }, "success");
+                        LoadGridBaiGiangTrongChuongTrinh();
+                    } else {
+                        notification.show({ kValue: response.msg }, "error");
+                    }
+                })
+            }
         },
         columns: [
             {
@@ -106,7 +130,44 @@ $(document).ready(function () {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
                 }
-            }          
+            },
+            {
+                field: "BaiHoc",
+                title: "Nội dung",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                field: "ThuTu",
+                title: "Thứ tự",
+                width: "100px",
+                attributes: { class: 'text-center' },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            }
         ]
 
     });
@@ -188,11 +249,29 @@ $(document).ready(function () {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
                     class: "table-header-cell"
                 }
-            }            
+            },
+            {
+                field: "BaiHoc",
+                title: "Nội dung",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            }
         ]
 
     });
-   
+
     $("#windowChonBaiGiang").kendoWindow({
         width: 700,
         height: 500,
@@ -201,7 +280,7 @@ $(document).ready(function () {
         visible: false,
         title: "Thêm bài giảng vào chuong trình"
     });
-   
+
     $("#windowChuongTrinh").kendoWindow({
         width: 400,
         height: 250,
@@ -334,10 +413,17 @@ function LoadGridBaiGiangTrongChuongTrinh() {
             data: response,
             schema: {
                 model: {
-                    id: "ID"
-                }
+                    id: "ID",
+                    fields: {
+                        ID: { type: 'number', editable: false },
+                        ThuTu: { type: 'number', editable: true },
+                        BaiHoc: { type: 'text', editable: false },
+                        CapDo: { type: 'text', editable: false },
+                        TenBai: { type: 'text', editable: false }
+                    }
+                }                
             },
-            pageSize: 20,
+            pageSize: 20
         });
         $("#gridBaiGiangTrongChuongTrinh").data("kendoGrid").setDataSource(dataSource);
         kendo.ui.progress($("#gridBaiGiangTrongChuongTrinh"), false);

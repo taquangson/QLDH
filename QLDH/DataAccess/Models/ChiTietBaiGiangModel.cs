@@ -17,7 +17,9 @@ namespace QLDH.DataAccess.Models
         public string FlexCol1 { get; set; }
         public string FlexCol2 { get; set; }
         public string FlexCol3 { get; set; }
+        public string FlexCol4 { get; set; }
         public DateTime NgayTao { get; set; }
+        public List<CauHoiModel> lstListenAndChoose { get; set; }
         public List<CauHoiModel> lstCauHoi { get; set; }
         public List<FlashCardModel> lstFlashCard { get; set; }
         public List<TroChoiModel> lstTroChoi { get; set; }

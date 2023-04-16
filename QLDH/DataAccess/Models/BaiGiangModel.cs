@@ -7,7 +7,7 @@ namespace QLDH.DataAccess.Models
 {
     public class BaiGiangModel
     {
-        public int ID { get; set; }
+        public int ID { get; set; }        
         public string TenBai { get; set; }
         public string TenBuoi { get; set; }
         public string BaiHoc { get; set; }
@@ -15,6 +15,7 @@ namespace QLDH.DataAccess.Models
         public int TrangThai { get; set; }
         public int CapDo { get; set; }
         public DateTime NgayTao { get; set; }
+        public int ThuTu { get; set; }
         public List<ChiTietBaiGiangModel> ChiTietBaiGiang { get; set; }
     }
 }

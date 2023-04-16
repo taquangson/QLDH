@@ -26,5 +26,8 @@ namespace QLDH.DataAccess.Models
         public string PhongHoc { get; set; }
         public int IsLive { get; set; }
         public string Token_Room { get; set; }
+        public int ID_ChuongTrinhGiangDay { get; set; }
+        public int GoiHocPhi { get; set; }
+        public int SoBuoiHoc { get; set; }
     }
 }

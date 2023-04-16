@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<link href="~/styles/home/index.css" rel="stylesheet" />
+<script>
+    $(document).on('click', '.panel-heading span.clickable', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+
+        } else {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+
+        }
+    })
+    function classToggle() {
+        var el = document.querySelector('.icon-cards__content');
+        el.classList.toggle('step-animation');
+    }
+
+    var startOfWeek = null;
+    function GetDayOfWeek() {
+        startOfWeek = (startOfWeek == null) ? moment().startOf('isoWeek') : startOfWeek;
+        var days = [];
+        var day = startOfWeek;
+        var data = [];
+        for (var i = 0; i < 7; i++) {
+            days.push(day.toDate());
+            data.push({ date: day.toDate() });
+            day = day.clone().add(1, 'd');
+        }
+        var dataSource = new kendo.data.DataSource({
+            data: data
+        });
+
+        $("#listViewDate").data("kendoListView").setDataSource(dataSource);
+    }
+
+    function listViewDate_ScrollLeft(num) {
+        //document.getElementById('listViewDate').scrollLeft += num;
+        startOfWeek = startOfWeek.add(6, 'd');
+        GetDayOfWeek();
+    }
+    function listViewDate_ScrollRight(num) {
+        //document.getElementById('listViewDate').scrollLeft += (-1) * num;
+        startOfWeek = startOfWeek.subtract(7, 'days');
+        GetDayOfWeek();
+    }
+
+    $(document).ready(function () {
+
+
+
+        $("#listViewDate").kendoListView({
+            dataSource: {
+                data: [
+                    { date: new Date(2022, 9, 1) },
+                    { date: new Date(2022, 9, 2) },
+                    { date: new Date(2022, 9, 3) },
+                    { date: new Date(2022, 9, 4) },
+                    { date: new Date(2022, 9, 5) },
+                    { date: new Date(2022, 9, 6) },
+                    { date: new Date(2022, 9, 7) }
+                ],
+                pageSize: 21
+            },
+            selectable: true,
+            template: kendo.template($("#template").html()),
+            pageable: false
+        });
+        GetDayOfWeek();
+
+        //$(".date").click(function (e) {
+        //    $(".date").each(function (index, item) {
+        //        $(item).removeClass("selected");
+        //    })
+        //    console.log(e);
+        //    e.sender.addClass("selected");
+        //})
+    });
+</script>
+<div style="width:100%;height:100vh;background-color:#fff">
+    <span style="height:20px;display:block"></span>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="panel panel-pink">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">UPCOMING CLASS</h2>
+                        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+                    </div>
+                    <div class="panel-body" style="background: url(../../Images/hand-painted-watercolor-galaxy-background.jpg) no-repeat center; background-size: cover; ">
+                        <p>
+                            Wellcome @Model.HocSinh.TenHocSinh
+                        </p>
+                        <p>
+                            There are @Model.LichHoc.Count class in schedule
+                        </p>
+                        <div class="rolling-carousel-container">
+                            <figure class="icon-cards mt-3">
+                                <div class="icon-cards__content">
+                                    @foreach (QLDH.DataAccess.Models.LichHocModel lh in Model.LichHoc)
+                                    {
+
+                                        <div class="icon-cards__item d-flex align-items-center justify-content-center upcomming-class">
+                                            <a href="/FiveStar/FSLearn/Index?ID_BaiGiang=@lh.BaiGiang.ID">
+                                                <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <p>@lh.BaiGiang.BaiHoc</p>
+                                                    @*<h4>@lh.BaiGiang.BaiHoc</h4>*@
+                                                    <p>Level: @lh.BaiGiang.CapDo</p>
+                                                    <p>Course: @lh.BaiGiang.TenBuoi</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                    @*<div class="icon-cards__item d-flex align-items-center justify-content-center upcomming-class">
+                                            <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                            <div class="col-lg-6 col-sm-6">
+                                                <p>Lesson 1</p>
+                                                <h4>Aa Bb Cc</h4>
+                                                <p>Level: Kids</p>
+                                                <p>Course: 6-12</p>
+                                            </div>
+                                        </div>
+                                        <div class="icon-cards__item d-flex align-items-center justify-content-center upcomming-class">
+                                            <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                            <div class="col-lg-6 col-sm-6">
+                                                <p>Lesson 1</p>
+                                                <h4>Aa Bb Cc</h4>
+                                                <p>Level: Kids</p>
+                                                <p>Course: 6-12</p>
+                                            </div>
+                                        </div>
+                                        <div class="icon-cards__item d-flex align-items-center justify-content-center upcomming-class">
+                                            <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                            <div class="col-lg-6 col-sm-6">
+                                                <p>Lesson 1</p>
+                                                <h4>Aa Bb Cc</h4>
+                                                <p>Level: Kids</p>
+                                                <p>Course: 6-12</p>
+                                            </div>
+                                        </div>*@
+                                </div>
+                            </figure>
+                        </div>
+                        <p style=" position: absolute; bottom: 1em;"><a class="btn btn-danger" href="#">View more &raquo;</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">PREVIOUS CLASS</h2>
+                        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+                    </div>
+                    <div id="previous-panel" class="panel-body" style="background: url(../../Images/empty-classroom-interior-school-college-class.jpg) no-repeat center; background-size: cover; ">
+                        <div class="overlay"></div>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="panel previous-class-panel">
+                                    <div class="panel-body">
+                                        <img class="col-lg-4 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                        <div class="col-lg-8 col-sm-6">
+                                            <p>@Model.BuoiHocTruoc.BaiGiang.BaiHoc</p>
+                                            <p>Level: @Model.BuoiHocTruoc.BaiGiang.CapDo</p>
+                                            <p>Course: @Model.BuoiHocTruoc.BaiGiang.TenBuoi</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-sm-6">
+                                <div class="row">
+                                    <div class="col-lg-5 col-sm-6 panel class-score-panel" style="background-color: #fdd75e">
+                                        <a href="/FiveStar/FSLearn/Index?ID_BaiGiang=@Model.BuoiHocTruoc.BaiGiang.ID">
+                                            <img src="~/Images/icons/vocabulary-icon.png" />
+                                            <b>
+                                                Vocabulary
+                                            </b>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-5 col-sm-6 panel class-score-panel" style="background-color: #fdd75e">
+                                        <a href="/FiveStar/FSLearn/Index?ID_BaiGiang=@Model.BuoiHocTruoc.BaiGiang.ID">
+                                            <img src="~/Images/icons/grammar-icon.png" />
+                                            <b>
+                                                Grammar
+                                            </b>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-5 col-sm-6 panel class-score-panel" style="background-color: #fdd75e">
+                                        <a href="/FiveStar/FSLearn/Index?ID_BaiGiang=@Model.BuoiHocTruoc.BaiGiang.ID">
+                                            <img src="~/Images/icons/reading-icon.png" />
+                                            <b>
+                                                Reading
+                                            </b>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-5 col-sm-6 panel class-score-panel" style="background-color: #fdd75e">
+                                        <a href="/FiveStar/FSLearn/Index?ID_BaiGiang=@Model.BuoiHocTruoc.BaiGiang.ID">
+                                            <img src="~/Images/icons/practice-icon.png" />
+                                            <b>
+                                                Practice
+                                            </b>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <p style=" position: absolute; bottom: 1em;"><a class="btn btn-info" href="#">View more &raquo;</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-lg-6 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="half-panel panel">
+                            <div class="panel-body" style="background-color: #f89d84 ">
+                                <h2>Games</h2>
+                                <img src="~/Images/icons/game-controller.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="half-panel panel">
+                            <div class="panel-body" style="background-color: #44a6a8 ">
+                                <h2>Stories</h2>
+                                <img src="~/Images/icons/story-book.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="half-panel panel">
+                            <div class="panel-body" style="background-color: #ffc99c ">
+                                <h2>Songs</h2>
+                                <img src="~/Images/icons/song-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="half-panel panel">
+                            <div class="panel-body" style="background-color: #daf0c1 ">
+                                <h2>Flashcards</h2>
+                                <img src="~/Images/icons/cards-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 col-sm-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Learning Progress</h3>
+                        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+                    </div>
+                    <div class="panel-body" style="background: url(../../Images/illustration-with-children-back-school.jpg) no-repeat center; background-size: cover; ">
+                        <div class="overlay"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div style="width: 20px; float: left; font-size: 2.5em; line-height: 60px; z-index: 10001; cursor:pointer" onclick="listViewDate_ScrollRight(20)">
+                                    <span class="fa fa-caret-left"></span>
+                                </div>
+                                <div id="listViewDate"></div>
+                                <div style="width: 20px; float: left; font-size: 2.5em; line-height: 60px; text-align: right; z-index: 10001; cursor: pointer" onclick="listViewDate_ScrollLeft(20)">
+                                    <span class="fa fa-caret-right"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row"><div class="col-sm-12"><h3>LESSON 1:</h3></div></div>
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-6 progress-part success">Lesson Test<span class="k-badge">7</span></div>
+                                <div class="col-lg-3 col-sm-6 progress-part success">Vocabulary<span class="k-badge">10</span></div>
+                                <div class="col-lg-3 col-sm-6 progress-part success">Grammar<span class="k-badge">8</span></div>
+                                <div class="col-lg-3 col-sm-6 progress-part error">Reading<span class="k-badge">0</span></div>
+                                <div class="col-lg-3 col-sm-6 progress-part success">Practice<span class="k-badge">9</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="template">
+    <div class="date">
+        <p>#:kendo.toString(date, "dd")#</p>
+        <p>#:kendo.toString(date, "MM/yy")#</p>
+    </div>
+</script>

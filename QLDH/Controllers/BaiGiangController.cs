@@ -61,6 +61,7 @@ namespace QLDH.Controllers
                 item.lstFlashCard = new FlashCardDAO().GetFlashCardByBaiGiang(item.ID_BaiGiang);
                 item.lstCauHoi = new CauHoiDAO().GetCauHoiByBaiGiang(item.ID_BaiGiang);
                 item.lstTroChoi = new TroChoiDAO().GetTroChoiByBaiGiang(item.ID_BaiGiang);
+                item.lstListenAndChoose = new CauHoiDAO().GetCauHoiListenAndChoose(item.ID_BaiGiang);
             }
             return Json(item, JsonRequestBehavior.AllowGet);
         }

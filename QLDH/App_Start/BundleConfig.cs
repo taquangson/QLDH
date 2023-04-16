@@ -31,7 +31,7 @@ namespace QLDH
                 "~/Assets/kendo/js/kendo.aspnetmvc.min.js",
                 "~/Assets/kendo/js/cultures/kendo.culture.vi-VN.min.js",
                 "~/Assets/custom.min.js",
-                 "~/Assets/common.js"
+                "~/Assets/common.js"
                          ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -49,13 +49,30 @@ namespace QLDH.DataAccess.DAO
             try
             {
                 DataSet ds = helper.ExecuteDataSet("sp_BaiGiang_GetAll");
-                DataTable dt = ds.Tables[0];
+                System.Data.DataTable dt = ds.Tables[0];
                 List<BaiGiangModel> result = new List<BaiGiangModel>();
                 foreach (DataRow dr in dt.Rows)
-                {                    
+                {
                     result.Add(GetObjFromDataRow(dr));
                 }
                 return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public BaiGiangModel GetById(int ID)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                    new SqlParameter("@ID", ID),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaiGiang_GetById", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                return GetObjFromDataRow(dt.Rows[0]);
             }
             catch (Exception ex)
             {
