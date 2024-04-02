@@ -350,7 +350,10 @@ $(document).ready(function () {
         modal: true,
         resizable: false,
         visible: false,
-        title: "Thông tin câu hỏi"
+        title: "Thông tin câu hỏi",
+        close: function () {
+            $("#gridCauHoi").data("kendoGrid").clearSelection();
+        }
     });
     $("#DanhMucCha").kendoDropDownTree({
         placeholder: "Chọn danh mục cha",

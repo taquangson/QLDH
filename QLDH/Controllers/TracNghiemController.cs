@@ -102,7 +102,7 @@ namespace QLDH.Controllers
             return Json(dtdao.GetAllDeThi(), JsonRequestBehavior.AllowGet);
         }
 
-        [SessionExpire]
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult GetCauHoiByDanhMuc(int ID_DanhMuc)
         {

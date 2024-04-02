@@ -366,7 +366,7 @@
         this._config = config;
         // Lenient ordinal parsing accepts just a number in addition to
         // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
-        // TODO: Remove "ordinalParse" fallback in next major release.
+        // TODO: Remove "ordinalParse" fallback in next major releQLDH.
         this._dayOfMonthOrdinalParseLenient = new RegExp(
             (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
                 '|' +
@@ -4726,7 +4726,7 @@
     addRegexToken('D', match1to2);
     addRegexToken('DD', match1to2, match2);
     addRegexToken('Do', function (isStrict, locale) {
-        // TODO: Remove "ordinalParse" fallback in next major release.
+        // TODO: Remove "ordinalParse" fallback in next major releQLDH.
         return isStrict
             ? locale._dayOfMonthOrdinalParse || locale._ordinalParse
             : locale._dayOfMonthOrdinalParseLenient;

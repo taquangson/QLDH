@@ -108,15 +108,30 @@
                                     {
 
                                         <div class="icon-cards__item d-flex align-items-center justify-content-center upcomming-class">
-                                            <a href="/FiveStar/FSLearn/Index?ID_BaiGiang=@lh.BaiGiang.ID">
-                                                <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
-                                                <div class="col-lg-6 col-sm-6">
-                                                    <p>@lh.BaiGiang.BaiHoc</p>
-                                                    @*<h4>@lh.BaiGiang.BaiHoc</h4>*@
-                                                    <p>Level: @lh.BaiGiang.CapDo</p>
-                                                    <p>Course: @lh.BaiGiang.TenBuoi</p>
-                                                </div>
-                                            </a>
+                                            @if (lh.BaiGiang.CapDo < 4)
+                                            {
+                                                <a href="/FiveStar/FSLearn/Moon?ID_BaiGiang=@lh.BaiGiang.ID">
+                                                    <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                                    <div class="col-lg-6 col-sm-6">
+                                                        <p>@lh.BaiGiang.BaiHoc</p>
+                                                        @*<h4>@lh.BaiGiang.BaiHoc</h4>*@
+                                                        <p>Level: @lh.BaiGiang.CapDo</p>
+                                                        <p>Course: @lh.BaiGiang.TenBuoi</p>
+                                                    </div>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/FiveStar/FSLearn/Venus?ID_BaiGiang=@lh.BaiGiang.ID">
+                                                    <img class="col-lg-6 col-sm-6" src="~/Images/icons/game-controller.png" />
+                                                    <div class="col-lg-6 col-sm-6">
+                                                        <p>@lh.BaiGiang.BaiHoc</p>
+                                                        @*<h4>@lh.BaiGiang.BaiHoc</h4>*@
+                                                        <p>Level: @lh.BaiGiang.CapDo</p>
+                                                        <p>Course: @lh.BaiGiang.TenBuoi</p>
+                                                    </div>
+                                                </a>
+                                            }
                                         </div>
                                     }
                                     @*<div class="icon-cards__item d-flex align-items-center justify-content-center upcomming-class">

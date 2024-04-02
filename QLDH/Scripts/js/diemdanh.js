@@ -555,7 +555,7 @@ function LoadHocSinhTrongLop(id) {
                             GhiChu: { type: 'text', editable: true },
                             Diem: { type: 'text', editable: true },
                             TenHocSinh: { type: 'text', editable: false },
-                            DienThoaiMacDinh: { type: 'text', editable: false },
+                            DienThoaiMacDinh: { type: 'text', editable: false }
                         }
                     }
                 },

@@ -45,6 +45,29 @@ namespace QLDH.DataAccess.DAO
             return obj;
         }
 
+        public List<QuanSinhLopHocModel> GetByLop(int ID_Lop)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_Lop", ID_Lop),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_QuanSinhLopHoc_GetByLop", pars);
+                DataTable dt = ds.Tables[0];
+                List<QuanSinhLopHocModel> result = new List<QuanSinhLopHocModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    QuanSinhLopHocModel l = GetObjFromDataRow(dr);
+                    result.Add(l);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public bool AddQuanSinh_LopHoc(int ID_Lop, int ID_QuanSinh)
         {
             try

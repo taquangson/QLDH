@@ -212,6 +212,21 @@ namespace QLDH.Controllers
                             phmodel.SoBuoiDaHoc++;
                             phd.InsertOrUpdate(phmodel);
                         }
+                        else
+                        {
+                            phmodel = new PhieuHocModel();
+                            phmodel.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                            phmodel.ID_NhanVien = userinfor.ID;
+                            phmodel.ID_PhieuThu = 0;
+                            phmodel.ID_HocSinh = d.ID_HocSinh;
+                            phmodel.ID_Lop = d.ID_Lop;
+                            phmodel.HocDuoi = d.HocDuoi;
+                            phmodel.Thang = DateTime.Now.Month;
+                            phmodel.NamHoc = DateTime.Now.Year;
+                            phmodel.SoBuoi = 0;
+                            phmodel.SoBuoiDaHoc = 1;
+                            phd.InsertOrUpdate(phmodel);
+                        }
                     }
                 }
             }
@@ -334,6 +349,21 @@ namespace QLDH.Controllers
                         if (phmodel.ID > 0)
                         {
                             phmodel.SoBuoiDaHoc++;
+                            phd.InsertOrUpdate(phmodel);
+                        }
+                        else
+                        {
+                            phmodel = new PhieuHocModel();
+                            phmodel.ID_ChiNhanh = userinfor.ID_ChiNhanh;
+                            phmodel.ID_NhanVien = userinfor.ID;
+                            phmodel.ID_PhieuThu = 0;
+                            phmodel.ID_HocSinh = d.ID_HocSinh;
+                            phmodel.ID_Lop = d.ID_Lop;
+                            phmodel.HocDuoi = d.HocDuoi;
+                            phmodel.Thang = d.ThoiGianVaoLop.Month;
+                            phmodel.NamHoc = d.ThoiGianVaoLop.Year;
+                            phmodel.SoBuoi = 0;
+                            phmodel.SoBuoiDaHoc = 1;
                             phd.InsertOrUpdate(phmodel);
                         }
                     }

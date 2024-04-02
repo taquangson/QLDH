@@ -3711,7 +3711,7 @@ function internalRemoveData( elem, name, pvt ) {
 			} else {
 				// If "name" is an array of keys...
 				// When data is initially created, via ("key", "val") signature,
-				// keys will be converted to camelCase.
+				// keys will be converted to camelCQLDH.
 				// Since there is no way to tell _how_ a key was added, remove
 				// both plain key and camelCase key. #12786
 				// This will only penalize the array argument path.

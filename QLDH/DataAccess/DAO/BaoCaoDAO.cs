@@ -211,7 +211,11 @@ namespace QLDH.DataAccess.DAO
             public int SoBuoiTheoLich { get; set; }
             public int ID_LopHoc { get; set; }
             public int ID_PhieuHoc { get; set; }
+            public float DonGia { get; set; }
             public List<int> LichHoc { get; set; }
+            public int ID_CongThucTinhHocPhi { get; set; }
+            public CongThucTinhHocPhiModel CongThucTinhHocPhi { get; set; }
+            public int LoaiHinh { get; set; }
         }
 
         public class BaoCaoSoBuoiHoc_HocSinh_ThangModel_ByDate
@@ -273,6 +277,7 @@ namespace QLDH.DataAccess.DAO
                     {
                         item.LichHoc.Add(l.Thu);
                     }
+                    item.CongThucTinhHocPhi = new CongThucTinhHocPhiDAO().GetByID(item.ID_CongThucTinhHocPhi);
                     result.Add(item);
                 }
                 return result;
@@ -280,6 +285,40 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_BaoCao_BaoCaoPhieuHocTheoHocSinh_TheoThang " + ex.Message);
+                return null;
+            }
+        }
+
+        public List<BaoCaoSoBuoiHoc_HocSinh_ThangModel> BaoCaoPhieuHoc_ByHocSinh(int ID_HocSinh)
+        {
+            try
+            {
+                List<BaoCaoSoBuoiHoc_HocSinh_ThangModel> result = new List<BaoCaoSoBuoiHoc_HocSinh_ThangModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_HocSinh",ID_HocSinh)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoPhieuHoc_ByHocSinh", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BaoCaoSoBuoiHoc_HocSinh_ThangModel item = GetBaoCaoSoBuoiHoc_HocSinh_ThangModelFromDataRow(dr);
+                    item.SoBuoiDaMua += item.SoBuoiDaMuaPhuThu;
+                    item.SoBuoiDaMua -= item.SoBuoiDaMuaGiamTru;
+                    item.LichHoc = new List<int>();
+                    List<LichHocModel> lich = new LichHocDAO().GetByLop(item.ID_LopHoc);
+                    foreach (LichHocModel l in lich)
+                    {
+                        item.LichHoc.Add(l.Thu);
+                    }
+                    item.CongThucTinhHocPhi = new CongThucTinhHocPhiDAO().GetByID(item.ID_CongThucTinhHocPhi);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BaoCaoPhieuHoc_ByHocSinh " + ex.Message);
                 return null;
             }
         }
@@ -357,10 +396,11 @@ namespace QLDH.DataAccess.DAO
             public string MaPhieu { get; set; }
             public int ID { get; set; }
             public DateTime ThoiGianIn { get; set; }
+            public DateTime NgayThanhToan { get; set; }
             public double TongThu { get; set; }
             public string TenNhanVien { get; set; }
             public string TenHocSinh { get; set; }
-            public string HinhThucThanhToan { get; set; }
+            public string HinhThucThanhToan { get; set; }            
         }
 
         private BaoCaoDoanhThuModel GetBaoCaoDoanhThuModelFromDataRow(DataRow dr)
@@ -398,10 +438,10 @@ namespace QLDH.DataAccess.DAO
                 {
                     new SqlParameter("@ID_ChiNhanh",ID_ChiNhanh),
                     new SqlParameter("@ID_NhanVien",ID_NhanVien),
-                    new SqlParameter("@TuNgay",TuNgay),
-                    new SqlParameter("@DenNgay",DenNgay)
+                    new SqlParameter("@from",TuNgay),
+                    new SqlParameter("@to",DenNgay)
                 };
-                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoDoanhThu", pars);
+                DataSet ds = helper.ExecuteDataSet("sp_LichSuThanhToan_GetByDate", pars);
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -413,6 +453,34 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_BaoCao_BaoCaoDoanhThu " + ex.Message);
+                return null;
+            }
+        }
+
+        public List<BaoCaoDoanhThuModel> GetBaoCaoHachToan(int ID_ChiNhanh, int ID_NhanVien, int Thang, int Nam)
+        {
+            try
+            {
+                List<BaoCaoDoanhThuModel> result = new List<BaoCaoDoanhThuModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_ChiNhanh",ID_ChiNhanh),
+                    new SqlParameter("@ID_NhanVien",ID_NhanVien),
+                    new SqlParameter("@Thang",Thang),
+                    new SqlParameter("@Nam",Nam)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LichSuThanhToan_GetByDatePhieuHoc", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BaoCaoDoanhThuModel item = GetBaoCaoDoanhThuModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LichSuThanhToan_GetByDatePhieuHoc " + ex.Message);
                 return null;
             }
         }
@@ -566,6 +634,156 @@ namespace QLDH.DataAccess.DAO
                 log.Error("sp_BaoCao_BieuDoDiemTrungBinh_TheoLop " + ex.Message);
                 return null;
             }
+        }
+
+        private DiemDanhTheoNgayModel GetDiemDanhTheoNgayModelFromDataRow(DataRow dr)
+        {
+            DiemDanhTheoNgayModel obj = new DiemDanhTheoNgayModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+        public List<DiemDanhTheoNgayModel> GetBaoCaoDiemDanhTheoNgay(DateTime from, DateTime to)
+        {
+            try
+            {
+                List<DiemDanhTheoNgayModel> result = new List<DiemDanhTheoNgayModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@from",from),
+                    new SqlParameter("@to",to)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoDiemDanhTheoNgay", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DiemDanhTheoNgayModel item = GetDiemDanhTheoNgayModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BaoCaoDiemDanhTheoNgay " + ex.Message);
+                return null;
+            }
+        }
+        public List<DiemDanhTheoNgayModel> GetBaoCaoDiemDanhTheoNgayVaLop(int ID_Lop, DateTime date)
+        {
+            try
+            {
+                List<DiemDanhTheoNgayModel> result = new List<DiemDanhTheoNgayModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_Lop",ID_Lop),
+                    new SqlParameter("@Date",date)
+                };
+                DataSet ds = helper.ExecuteDataSet("GetBaoCaoDiemDanhTheoNgayVaLop", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DiemDanhTheoNgayModel item = GetDiemDanhTheoNgayModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("GetBaoCaoDiemDanhTheoNgayVaLop " + ex.Message);
+                return null;
+            }
+        }
+
+        public class DiemDanhTheoNgayModel
+        {
+            public DateTime NgayHoc { get; set; }
+            public int ID_Lop { get; set; }
+            public string MaHocSinh { get; set; }
+            public string TenHocSinh { get; set; }
+            public int CoPhep { get; set; }
+            public int CoMat { get; set; }
+            public int CoDiemDanh { get; set; }
+            public string TenLop { get; set; }
+            public string NguoiDiemDanh { get; set; }
+            public DateTime NgayCapNhatDiemDanh { get; set; }
+        }
+
+        private DiemDanhTheoLopModel GetDiemDanhTheoLopModelFromDataRow(DataRow dr)
+        {
+            DiemDanhTheoLopModel obj = new DiemDanhTheoLopModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+        public List<DiemDanhTheoLopModel> GetBaoCaoDiemDanhTheoLop(DateTime from, DateTime to)
+        {
+            try
+            {
+                List<DiemDanhTheoLopModel> result = new List<DiemDanhTheoLopModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@from",from),
+                    new SqlParameter("@to",to)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoDiemDanhTungNgayTheoLop", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DiemDanhTheoLopModel item = GetDiemDanhTheoLopModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCao_BaoCaoDiemDanhTungNgayTheoLop " + ex.Message);
+                return null;
+            }
+        }
+
+        public class DiemDanhTheoLopModel
+        {
+            public DateTime NgayHoc { get; set; }
+            public int ID_Lop { get; set; }
+            public string TenLop { get; set; }
+            public int SiSoTong { get; set; }
+            public int SiSo { get; set; }
         }
     }
 }

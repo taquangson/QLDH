@@ -18,8 +18,17 @@ namespace QLDH.DataAccess.Models
         public string FlexCol2 { get; set; }
         public string FlexCol3 { get; set; }
         public string FlexCol4 { get; set; }
+        public string FlexCol5 { get; set; }
+        public string FlexCol6 { get; set; }
+        public string FlexCol7 { get; set; }
+        public string FlexCol8 { get; set; }
         public DateTime NgayTao { get; set; }
         public List<CauHoiModel> lstListenAndChoose { get; set; }
+        public List<CauHoiModel> lstLookListenAndClick { get; set; }
+        public List<CauHoiModel> lstLookListenAndType { get; set; }
+        public List<CauHoiModel> lstLookListenAndChoose { get; set; }
+        public List<CauHoiModel> lstLookTypeAndRepeat { get; set; }
+        public List<CauHoiModel> lstGrammarQuiz { get; set; }
         public List<CauHoiModel> lstCauHoi { get; set; }
         public List<FlashCardModel> lstFlashCard { get; set; }
         public List<TroChoiModel> lstTroChoi { get; set; }

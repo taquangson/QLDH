@@ -101,9 +101,12 @@ namespace QLDH.DataAccess.DAO
                 };
                 DataSet ds = helper.ExecuteDataSet("sp_PhieuHoc_GetByPhieuThu", pars);
                 DataTable dt = ds.Tables[0];
+                CongThucTinhHocPhiDAO ctdao = new CongThucTinhHocPhiDAO();
                 foreach (DataRow dr in dt.Rows)
                 {
-                    result.Add(GetObjFromDataRow(dr));
+                    PhieuHocModel phieuHocModel = GetObjFromDataRow(dr);
+                    phieuHocModel.CongThucTinhHocPhi = ctdao.GetByID(phieuHocModel.ID_CongThucTinhHocPhi);
+                    result.Add(phieuHocModel);
                 }
             }
             catch (Exception ex)

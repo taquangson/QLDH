@@ -641,7 +641,7 @@ intellisense.redirectDefinition(jQuery.Callbacks, _731531622);
 
 intellisense.annotate(jQuery.Event.prototype, {
   'currentTarget': function() {
-    /// <summary>The current DOM element within the event bubbling phase.</summary>
+    /// <summary>The current DOM element within the event bubbling phQLDH.</summary>
     /// <returns type="Element" />
   },
   'data': function() {

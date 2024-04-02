@@ -1,4 +1,5 @@
-﻿using QLDH.App_Start;
+﻿using Newtonsoft.Json;
+using QLDH.App_Start;
 using QLDH.DataAccess.DAO;
 using QLDH.DataAccess.Models;
 using System;
@@ -30,14 +31,12 @@ namespace QLDH.Controllers
             if (userinfor.Role == 2)
             {
                 data = hsdao.GetAll_HocSinhByChiNhanh(userinfor.ID_ChiNhanh);
-                var serializedResult = serializer.Serialize(data);
-                return Content(serializedResult);
+                return Content(JsonConvert.SerializeObject(data));
             }
             else if (userinfor.Role == 1)
             {
                 data = hsdao.GetAll_HocSinh();
-                var serializedResult = serializer.Serialize(data);
-                return Content(serializedResult);
+                return Content(JsonConvert.SerializeObject(data));
             }
             else
             {
@@ -53,7 +52,7 @@ namespace QLDH.Controllers
             HocSinhDAO hsdao = new HocSinhDAO();
             List<HocSinhModel> result = hsdao.GetByLop_HocSinh(ID_Lop);
             result.AddRange(hsdao.GetNgoaiLop_HocSinh(ID_Lop));
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Content(JsonConvert.SerializeObject(result));
         }
 
         [SessionExpire]
