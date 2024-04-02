@@ -7,6 +7,10 @@ namespace QLDH.DataAccess.Models
 {
     public class BaiGiangModel
     {
+        public BaiGiangModel()
+        {
+            this.ChiTietBaiGiang = new List<ChiTietBaiGiangModel>();
+        }
         public int ID { get; set; }        
         public string TenBai { get; set; }
         public string TenBuoi { get; set; }

@@ -43,6 +43,12 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        public ActionResult BaoCaoHachToan()
+        {
+            return View();
+        }
+
+        [SessionExpire]
         public ActionResult BaoCaoHocSinhNoPhieu()
         {
             return View();
@@ -61,6 +67,17 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        public ActionResult BaoCaoDiemDanhTheoNgay()
+        {
+            return View();
+        }
+
+        [SessionExpire]
+        public ActionResult BaoCaoDiemDanhTungNgayTheoLop()
+        {
+            return View();
+        }
+        [SessionExpire]
         public ActionResult GetData_ThongKeBuoiHocTheoHocSinh(int ID_Lop, int ID_HocSinh, DateTime TuNgay, DateTime DenNgay)
         {
             return Json(new BaoCaoDAO().ThongKeBuoiHocTheoHocSinh(ID_Lop, ID_HocSinh, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
@@ -70,6 +87,12 @@ namespace QLDH.Controllers
         public ActionResult GetData_ThongKePhieuHocTheoHocSinh(int ID_HocSinh, DateTime TuNgay, DateTime DenNgay)
         {
             return Json(new BaoCaoDAO().GetBaoCaoPhieuHocTheoHocSinh(ID_HocSinh, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetData_ThongKePhieuHoc_TheoHocSinh(int ID_HocSinh)
+        {
+            return Json(new BaoCaoDAO().BaoCaoPhieuHoc_ByHocSinh(ID_HocSinh), JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpire]
@@ -89,6 +112,13 @@ namespace QLDH.Controllers
         {
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             return Json(new BaoCaoDAO().GetBaoCaoDoanhThu(userinfor.ID_ChiNhanh, ID_NhanVien, TuNgay, DenNgay), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        public ActionResult GetData_BaoCaoHachToan(int ID_NhanVien, int Thang, int Nam)
+        {
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            return Json(new BaoCaoDAO().GetBaoCaoHachToan(userinfor.ID_ChiNhanh, ID_NhanVien, Thang, Nam), JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpire]
@@ -172,5 +202,25 @@ namespace QLDH.Controllers
             //return Json(filePath, JsonRequestBehavior.AllowGet);
         }
 
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetBaoCaoDiemDanhTheoNgay(DateTime from, DateTime to)
+        {
+            return Json(new BaoCaoDAO().GetBaoCaoDiemDanhTheoNgay(from, to), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetBaoCaoDiemDanhTheoNgayVaLop(int ID_Lop,DateTime date)
+        {
+            return Json(new BaoCaoDAO().GetBaoCaoDiemDanhTheoNgayVaLop(ID_Lop, date), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
+        [HttpGet]
+        public ActionResult GetBaoCaoDiemDanhTheoLop(DateTime from, DateTime to)
+        {
+            return Json(new BaoCaoDAO().GetBaoCaoDiemDanhTheoLop(from, to), JsonRequestBehavior.AllowGet);
+        }
     }
 }

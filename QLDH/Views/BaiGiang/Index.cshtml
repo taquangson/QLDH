@@ -12,8 +12,10 @@
     .k-dropdown-wrap.k-state-default, .k-multiselect-wrap {
         border-color: #929090;
     }
-    #templateCauHoiTooltip img{
-        max-height:100px;
+
+    .k-tooltip-content img {
+        width: 100px;
+        height:auto;
     }
 
     .k-widget.k-tooltip {
@@ -93,8 +95,38 @@
     </div>
 </div>
 
+<div id="windowChitiet2">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="LuuChiTiet2()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="HuyChiTiet2()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <input type="hidden" id="ID_BaiGiang2" />
+    <input type="hidden" id="ID_ChiTietBaiGiang2" />
+    <div class="form-group">
+        <label style="width:100%"> Look, Listen And Type</label>
+        <div id="gridLookListenAndType"></div>
+    </div>
+    <div class="form-group">
+        <label style="width:100%">Look, Listen And Click</label>
+        <div id="gridLookListenAndClick"></div>
+    </div>
+    <div class="form-group">
+        <label style="width:100%">Look, Listen And Choose</label>
+        <div id="gridLookListenAndChoose"></div>
+    </div>
+    <div class="form-group">
+        <label style="width:100%">Look, Type And Repeat</label>
+        <div id="gridLookTypeAndRepeat"></div>
+    </div>
+    <div class="form-group">
+        <label style="width:100%">Grammar Quiz</label>
+        <div id="gridGrammarQuiz"></div>
+    </div>
+</div>
+
+
 <div id="templateCauHoiTooltip" style="display:none">
-    <div style="width:100%;padding-top:10px;height:200px">
+    <div style="width:100%;padding-top:10px">
         <b>#= htmlDecode(NoiDungCauHoi)#</b>
         # $.each(lstDapAn, function(index, item){#
         <div id="content-answer" style="width:46%;float:left;padding:1%; # if(item.IsDapAnDung){ # color:green #}# ">

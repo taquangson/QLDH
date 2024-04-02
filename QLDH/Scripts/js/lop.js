@@ -772,6 +772,8 @@ $(document).ready(function () {
 
     LoadComboKhoi();
 
+    LoadComboCongThucHocPhi();
+
     LoadlstCaHoc();
 
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
@@ -804,7 +806,9 @@ function openEditWindow() {
         $("#TenLop").val(selectedItem.TenLop);
         $("#PhongHoc").val(selectedItem.PhongHoc);
         $("#GiaoVienCombo").data("kendoComboBox").value(selectedItem.GiaoVien);
+        $("#QuanSinhCombo").data("kendoMultiSelect").value(selectedItem.lstIDQuanSinh);
         $("#KhoiCombo").data("kendoComboBox").value(selectedItem.ID_Khoi);
+        $("#CongThucHocPhiCombo").data("kendoComboBox").value(selectedItem.ID_CongThucHocPhi);
         LoadGridLichHoc(selectedItem.ID);
         //$(".image-preview").remove();
         //if (selectedItem.SoDoLop != null) {
@@ -906,6 +910,22 @@ function LoadComboGiaoVien() {
     });
 }
 
+function LoadComboCongThucHocPhi() {
+    $.ajax({
+        url: '/DanhMuc/GetAllCongThucTinhHocPhi',
+        type: 'GET',
+    }).done(function successCallback(response) {
+        var dataSource = new kendo.data.DataSource({
+            data: response
+        });
+        $("#CongThucHocPhiCombo").kendoComboBox({
+            dataTextField: 'TenCongThuc',
+            dataValueField: 'ID',
+            dataSource: dataSource
+        });
+    });
+}
+
 
 function LoadComboKhoi() {
     $.ajax({
@@ -951,12 +971,23 @@ function Luu() {
                 GhiChu: item.GhiChu ? item.GhiChu : ""
             })
         })
+        var lstQuanSinh = [];
+        $.each($("#QuanSinhCombo").data("kendoMultiSelect").value(), function (index, item) {
+            lstQuanSinh.push({
+                ID: 0,
+                ID_QuanSinh: item,
+                ID_Lop: $("#ID").val()
+            })
+        })
         var model = {
             ID: $("#ID").val(),
             TenLop: $("#TenLop").val(),
             PhongHoc: $("#PhongHoc").val(),
             GiaoVien: $("#GiaoVienCombo").data("kendoComboBox").value(),
+            lstQuanSinh: lstQuanSinh,
             ID_Khoi: $("#KhoiCombo").data("kendoComboBox").value(),
+            GiaBan: 0,
+            ID_CongThucHocPhi: $("#CongThucHocPhiCombo").data("kendoComboBox").value(),
             LichHoc: "",
             SoDoLop: "",
             lstLichHoc: lstLichHoc
@@ -1026,7 +1057,7 @@ function LoadHocSinhNgoaiLop(id) {
     }).done(function successCallback(response) {
         //kendo.ui.progress($("#gridHocSinhNgoaiLop"), true);
         var dataSource = new kendo.data.DataSource({
-            data: response,
+            data: JSON.parse(response),
             schema: {
                 model: {
                     id: "ID",

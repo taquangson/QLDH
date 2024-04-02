@@ -325,7 +325,7 @@ intellisense.annotate(jQuery, {
     ///   <summary>Load data from the server using a HTTP POST request.</summary>
     ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
     ///   <param name="data" type="">A plain object or string that is sent to the server with the request.</param>
-    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.</param>
+    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that cQLDH.</param>
     ///   <param name="dataType" type="String">The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).</param>
     ///   <returns type="jqXHR" />
     /// </signature>
@@ -634,7 +634,7 @@ intellisense.redirectDefinition(jQuery.Callbacks, _731531622);
 
 intellisense.annotate(jQuery.Event.prototype, {
   'currentTarget': function() {
-    /// <summary>The current DOM element within the event bubbling phase.</summary>
+    /// <summary>The current DOM element within the event bubbling phQLDH.</summary>
     /// <returns type="Element" />
   },
   'data': function() {

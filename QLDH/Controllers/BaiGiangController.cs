@@ -62,6 +62,11 @@ namespace QLDH.Controllers
                 item.lstCauHoi = new CauHoiDAO().GetCauHoiByBaiGiang(item.ID_BaiGiang);
                 item.lstTroChoi = new TroChoiDAO().GetTroChoiByBaiGiang(item.ID_BaiGiang);
                 item.lstListenAndChoose = new CauHoiDAO().GetCauHoiListenAndChoose(item.ID_BaiGiang);
+                item.lstGrammarQuiz = new CauHoiDAO().GetCauHoiByBaiGiang(item.ID_BaiGiang);
+                item.lstLookListenAndChoose = new CauHoiDAO().GetLookListenAndChoose(item.ID_BaiGiang);
+                item.lstLookListenAndClick = new CauHoiDAO().GetLookListenAndClick(item.ID_BaiGiang);
+                item.lstLookListenAndType = new CauHoiDAO().GetLookListenAndType(item.ID_BaiGiang);
+                item.lstLookTypeAndRepeat = new CauHoiDAO().GetLookTypeAndRepeat(item.ID_BaiGiang);
             }
             return Json(item, JsonRequestBehavior.AllowGet);
         }

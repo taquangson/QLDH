@@ -428,11 +428,8 @@ function LoadHocSinhTrongLop() {
             type: 'GET',
         }).done(function successCallback(response) {
             kendo.ui.progress($("#gridDiemDanh"), true);
-            if (typeof response == "string") {
-                location.reload(true);
-            }
             siso = response.length;
-            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && CoPhep == 0; }).length;
+            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && st.CoPhep == 0; }).length;
             var dataSource = new kendo.data.DataSource({
                 data: response,
                 schema: {
@@ -448,8 +445,8 @@ function LoadHocSinhTrongLop() {
                 pageSize: 100,
             });
             $("#gridDiemDanh").data("kendoGrid").setDataSource(dataSource);
-            kendo.ui.progress($("#gridDiemDanh"), false);
             UpdateSiSoLabel();
+            kendo.ui.progress($("#gridDiemDanh"), false);
         });
     }
 }

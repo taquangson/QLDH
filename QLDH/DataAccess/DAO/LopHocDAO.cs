@@ -60,7 +60,9 @@ namespace QLDH.DataAccess.DAO
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
-                    result.Add(GetObjFromDataRow(dr));
+                    LopHocModel model = GetObjFromDataRow(dr);
+                    model.lstIDQuanSinh = (from l in new QuanSinh_LopHocDAO().GetByLop(model.ID) select l.ID_QuanSinh).ToList();
+                    result.Add(model);
                 }
             }
             catch (Exception ex)
@@ -198,6 +200,41 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+
+        public List<LopHocModel> GetAllThanhToan_ByHocSinh(int ID_HocSinh)
+        {
+            List<LopHocModel> result = new List<LopHocModel>();
+            LichHocDAO lich = new LichHocDAO();
+            HocSinhDAO hs = new HocSinhDAO();
+            CongThucTinhHocPhiDAO ctdao = new CongThucTinhHocPhiDAO();
+            HocSinhModel hsmodel = hs.GetById(ID_HocSinh);
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_HocSinh", ID_HocSinh),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LopHoc_GetAllThanhToanByHocSinh", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    LopHocModel lop = GetObjFromDataRow(dr);
+                    lop.lstLichHoc = lich.GetByLop(lop.ID);
+                    lop.CongThucTinhHocPhi = ctdao.GetByID(lop.ID_CongThucHocPhi);
+                    if (hsmodel.GiamGia > 0 && lop.ID_Khoi == 1)
+                    {
+                        lop.GiaBan = lop.GiaBan - (lop.GiaBan * hsmodel.GiamGia / 100);
+                    }
+                    result.Add(lop);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LopHoc_GetAllThanhToanByHocSinh " + ex.Message);
+            }
+
+            return result;
+        }
+
         public int InsertOrUpdate(LopHocModel model)
         {
             try
@@ -210,7 +247,9 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@LichHoc", model.LichHoc),
                 new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
                 new SqlParameter("@ID_Khoi", model.ID_Khoi),
-                new SqlParameter("@PhongHoc", model.PhongHoc)
+                new SqlParameter("@PhongHoc", model.PhongHoc),
+                new SqlParameter("@GiaBan", model.GiaBan),
+                new SqlParameter("@ID_CongThucHocPhi", model.ID_CongThucHocPhi)
                 };
 
                 object id = helper.ExecuteScalar("sp_LopHoc_InsertOrUpdate", pars);
@@ -227,7 +266,7 @@ namespace QLDH.DataAccess.DAO
             return 0;
         }
 
-        public int UpdateLive(int ID_Lop,int TrangThai,string Token)
+        public int UpdateLive(int ID_Lop, int TrangThai, string Token)
         {
             try
             {

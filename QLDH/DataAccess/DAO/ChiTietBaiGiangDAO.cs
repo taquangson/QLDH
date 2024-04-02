@@ -102,7 +102,11 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@FlexCol1", model.FlexCol1),
                 new SqlParameter("@FlexCol2", model.FlexCol2),
                 new SqlParameter("@FlexCol3", model.FlexCol3),
-                new SqlParameter("@FlexCol4", model.FlexCol4)
+                new SqlParameter("@FlexCol4", model.FlexCol4),
+                new SqlParameter("@FlexCol5", model.FlexCol5),
+                new SqlParameter("@FlexCol6", model.FlexCol6),
+                new SqlParameter("@FlexCol7", model.FlexCol7),
+                new SqlParameter("@FlexCol8", model.FlexCol8),
                 };
 
                 object id = helper.ExecuteScalar("sp_ChiTietBaiGiang_InsertOrUpdate", pars);

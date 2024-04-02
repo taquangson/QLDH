@@ -400,6 +400,7 @@ namespace QLDH.Controllers
             return response;
         }
 
+
         [HttpGet]
         [Route("getAllLichTrongNgayByHocSinh")]
         public HttpResponseMessage getAllLichTrongNgayByHocSinh([FromUri] int ID_HocSinh)
@@ -1353,6 +1354,35 @@ namespace QLDH.Controllers
                     List<LichHocModel> lst = new List<LichHocModel>();
                     lst = lhdao.GetLichAppByLop(ID_Lop, TuNgay, DenNgay);
                     response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getlichhocbylopforapp")]
+        public HttpResponseMessage getlichhocbylopforapp([FromUri] int ID_Lop, DateTime Ngay, int Ca)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LichHocDAO lhdao = new LichHocDAO();
+                    List<LichHocModel> lst = new List<LichHocModel>();
+                    lst = lhdao.GetLichAppByLop(ID_Lop, Ngay, Ngay);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst.Where(x => x.Ca == Ca).FirstOrDefault() });
                 }
             }
             catch (Exception ex)

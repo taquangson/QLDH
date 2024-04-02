@@ -8046,7 +8046,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 			// so any parsed elements with URLs
 			// are based on the document's URL (gh-2965)
 			base = context.createElement( "base" );
-			base.href = document.location.href;
+			bases.href = document.location.href;
 			context.head.appendChild( base );
 		} else {
 			context = document;
@@ -8449,7 +8449,7 @@ jQuery.isNumeric = function( obj ) {
 
 // Note that for maximum portability, libraries that are not jQuery should
 // declare themselves as anonymous modules, and avoid setting a global if an
-// AMD loader is present. jQuery is a special case. For more information, see
+// AMD loader is present. jQuery is a special cQLDH. For more information, see
 // https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
 
 if ( typeof define === "function" && define.amd ) {

@@ -19,16 +19,23 @@ namespace QLDH.DataAccess.Models
         public int Last_Print_User { get; set; }
         public int ID_ChiNhanh { get; set; }
         public DateTime NgayTao { get; set; }
+        public DateTime NgayThanhToan { get; set; }
         public DateTime Last_Update_Time { get; set; }
         public DateTime Last_Print_Time { get; set; }
         public float TongThu { get; set; }
+        public float DaThanhToan { get; set; }
         public string NguoiLap { get; set; }
         public string NguoiSuaCuoi { get; set; }
         public string NguoiInCuoi { get; set; }
         public string TenHocSinh { get; set; }
         public int HinhThucThanhToan { get; set; }
+        public int TrangThai { get; set; }
+        public string TenTrangThai { get; set; }
+        public DateTime NgayGuiThongBao { get; set; }
+        public DateTime NgayLapPhieu { get; set; }
         public List<PhieuHocModel> lstPhieuHoc { get; set; }
         public List<PhuThuGiamTruModel> lstPhuThu { get; set; }
         public List<PhuThuGiamTruModel> lstGiamTru { get; set; }
+        public List<PhieuThu_CTSPModel> lstSanPham { get; set; }
     }
 }

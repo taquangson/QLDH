@@ -17,6 +17,7 @@ namespace QLDH.DataAccess.Models
         public string DienThoai2 { get; set; }
         public string DienThoai3 { get; set; }
         public string DienThoaiMacDinh { get; set; }
+        public string Email { get; set; }
         public DateTime NgaySinh { get; set; }
         public string PhuHuynh { get; set; }
         public int TrangThai { get; set; }
@@ -28,11 +29,13 @@ namespace QLDH.DataAccess.Models
 
         public bool DaMuaPhieu { get; set; }
         public string GhiChu { get; set; }
+        public string GhiChuNoiBo { get; set; }
+        public float GiamGia { get; set; }
         public double? Diem { get; set; }
         public int YeuCauTraoDoi { get; set; }
         public string AnhDaiDien { get; set; }
         public string NotifyID { get; set; }
         public string LopHoc { get; set; }
-        public string GhiChuHocSinh { get; set; }
+        public int ID_KhachHang { get; set; }
     }
 }

@@ -82,6 +82,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@Last_Update_User", model.Last_Update_User),
                 new SqlParameter("@MaPhieu", model.MaPhieu),
                 new SqlParameter("@TongThu", model.TongThu),
+                //new SqlParameter("@NgayThanhToan", model.NgayThanhToan),
+                new SqlParameter("@NgayLapPhieu", model.NgayLapPhieu),
                 new SqlParameter("@HinhThucThanhToan", model.HinhThucThanhToan)
                 };
 
@@ -237,14 +239,7 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThu(item.ID);
-                    foreach(PhuThuGiamTruModel pt in item.lstPhuThu)
-                    {
-                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
-                        if(m != null)
-                        {
-                            item.lstPhieuHoc.Remove(m);
-                        }
-                    }
+                    item.lstSanPham = new PhieuThu_CTSPDAO().GetByIDPhieuThu(item.ID);
                     result = item;
                 }
                 return result;
