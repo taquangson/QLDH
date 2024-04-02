@@ -1,0 +1,378 @@
+﻿@{
+    ViewBag.Title = "Learnning";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="~/Areas/FiveStar/Scripts/animatelo.min.js"></script>
+<link href="~/Areas/FiveStar/Content/css/venus.css" rel="stylesheet" />
+<script>
+    var doneFlashCard = false;
+    $(document).ready(function () {
+        $("#tabstrip").kendoTabStrip({
+            animation: {
+                open: {
+                    effects: "fadeIn"
+                }
+            },
+            change: function (e) {
+                console.log(e.sender.select());
+                $("#tabstrip-" + (e.sender.select().index() + 1) + " .question-info").hide();
+                $("#tabstrip-" + (e.sender.select().index() + 1) + " .question-info").first().show();
+                window.animatelo.bounceInLeft("#tabstrip-" + (e.sender.select().index() + 1) + " .question-info:first-child", {
+                    duration: 800
+                })
+            }
+        });
+        //window.animatelo.pulse('.img', {
+        //    duration: 1500
+        //}); $(".img").show()
+        $(".card").hide();
+        $(".card").first().show();
+
+        $(".question-info").hide();
+        $(".question-info").first().show();
+
+        $("#windowCongra").kendoWindow({
+            title: "",
+            visible: false,
+            modal: true,
+            resizable: false,
+            actions: [
+                "Close"
+            ],
+            open: function () {
+                document.getElementById("audioCongra").play();
+
+            }
+        });
+    });
+
+
+    function updateDapAn(tag) {
+        //console.log(tag);
+        $(".answer-item").removeClass("choose");
+        $(tag).parent().addClass("choose")
+    }
+
+    function checkandnext(idcauhoi) {
+        inputs = $("#question-" + idcauhoi).find(".list-answer input");
+        isTrue = true;
+        for (var i = 0; i < inputs.length; i = i + 2) {
+            var cor = $(inputs[i]).val().toLowerCase();
+            var ans = $(inputs[i + 1]).val().toLowerCase();
+            isTrue = isTrue && (cor == ans);
+        }
+
+        if (isTrue) {
+            showCongra();
+            setTimeout(() => {
+                $("#question-" + idcauhoi).hide();
+                var nextid = "";
+                if ($("#question-" + idcauhoi).next().length == 0) {
+                    $(".question-info").first().show();
+                    nextid = $(".question-info").first().attr("id");
+                } else {
+                    $("#question-" + idcauhoi).next().show();
+                    nextid = $("#question-" + idcauhoi).next().attr("id");
+                }
+                window.animatelo.bounceInLeft("#" + nextid, {
+                    duration: 800
+                })
+            }, 2000);
+        } else {
+            window.animatelo.pulse("#answer-" + idcauhoi, {
+                duration: 200
+            })
+            document.getElementById("audioError").play();
+        }
+    }
+
+    function checkandnext2(idcauhoi) {
+        //console.log(/*$(".choose").attr('class').indexOf("istrue-1")*/);
+        if ($(".choose").attr('class').indexOf("istrue-1") > 0) {
+            window.animatelo.bounceOut("#question-" + idcauhoi, {
+                duration: 800
+            })
+            showCongra();
+            setTimeout(() => {
+                $("#question-" + idcauhoi).hide();
+                var nextid = "";
+                if ($("#question-" + idcauhoi).next().length == 0) {
+                    $(".question-info").first().show();
+                    nextid = $(".question-info").first().attr("id");
+                } else {
+                    $("#question-" + idcauhoi).next().show();
+                    nextid = $("#question-" + idcauhoi).next().attr("id");
+                }
+                window.animatelo.bounceInLeft("#" + nextid, {
+                    duration: 800
+                })
+            }, 2000);
+        } else {
+            window.animatelo.pulse(".list-answer", {
+                duration: 200
+            })
+            document.getElementById("audioError").play();
+        }
+        $(".answer-item").removeClass("choose");
+        $('input[type=radio]').prop('checked', false);
+    }
+
+    function showCongra() {
+        $("#windowCongra").data("kendoWindow").center().open();
+        setTimeout(function () { $("#windowCongra").data("kendoWindow").close(); }, 2000);
+    }
+</script>
+<div id="windowCongra">
+    <img class="imgCongra" src="~/Areas/FiveStar/Images/youarestar.gif" />
+    <audio id="audioCongra" style="display:none" controls="">
+        <source src="https://luyenthiduonghoa.vn/Content/UserFiles/FileServer/Files/FiveStar/Video/MOON_1/mixkit-final-level-bonus-2061.mp3" type="audio/mpeg"></source>
+    </audio>
+
+</div>
+<audio id="audioError" style="display:none" controls="">
+    <source src="https://luyenthiduonghoa.vn/Content/UserFiles/FileServer/Files/FiveStar/Video/MOON_1/mixkit-wrong-electricity-buzz-955.mp3" type="audio/mpeg"></source>
+</audio>
+<div style="width:100%;background-color:#fff">
+    <span style="height:20px;display:block"></span>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="tabstrip">
+                <ul>
+                    <li class="k-active">
+                        Look, Listen And Type
+                    </li>
+                    <li>
+                        Look, Listen And Click
+                    </li>
+                    <li>
+                        Look, Listen And Choose
+                    </li>
+                    <li>
+                        Look, Type And Repeat
+                    </li>
+                    <li>
+                        Grammar Quiz
+                    </li>
+                </ul>
+                <div>
+                    <div>
+                        @{
+                            int index = 1;
+                            string[] Ans = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+                        }
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstLookListenAndType)
+                        {
+                            <div class="question-info" id="question-@ch.ID">
+                                <h4 class="question-count"><b>Question @(index++)</b></h4>
+                                <div class="question-content">
+                                    <div>@Html.Raw(ch.NoiDungCauHoi)</div>
+
+                                    @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                    {
+                                        if (da.IsDapAnDung == 1)
+                                        {
+                                            <div class="list-answer">
+                                                <input id="correct-@da.ID-@ch.ID" type="hidden" value="@da.DapAn" />
+                                                <table border="1" class="typTable">
+                                                    <tr>
+                                                        @for (int cc = 0; cc < da.DapAn.Length; cc++)
+                                                        {
+                                                            <td></td>
+                                                        }
+                                                    </tr>
+                                                </table>
+                                                <input id="answer-@da.ID-@ch.ID" class="typInput" maxlength="@da.DapAn.Length" @*value="@da.DapAn"*@ type="text" />
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <div style=" margin-top: 50px;">
+                                    <button class="k-button" onclick="checkandnext(@ch.ID)">Check</button>
+                                </div>
+                            </div>
+                        }
+                        <div class="question-info" style="text-align:center">
+                            <img class="endSectionCongra" src="~/Areas/FiveStar/Images/congra.gif" />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        @{
+                            int index2 = 1;
+                        }
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstLookListenAndClick)
+                        {
+                            <div class="question-info" id="question-@ch.ID">
+                                <h4 class="question-count"><b>Question @(index2++)</b></h4>
+                                <div class="question-content">
+                                    <b>@Html.Raw(ch.NoiDungCauHoi)</b>
+                                    <div class="list-answer">
+                                        @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                        {
+                                            <label class="answer-item istrue-@da.IsDapAnDung">
+                                                <input class="answer-title" onchange="updateDapAn(this,@da.IsDapAnDung)" type="radio" id="ch-@ch.ID-da-@da.ID" name="@ch.ID" />
+                                                <label class="answer-content" for="ch-@ch.ID-da-@da.ID">
+                                                    @if (da.DapAn != null)
+                                                    {
+                                                        @da.DapAn
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
+                                                    @if (da.AnhDapAn != null)
+                                                    {
+                                                        <img src="https://luyenthiduonghoa.vn/Images/AnhDapAn/@da.AnhDapAn" />
+                                                    }
+                                                </label>
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="k-button" onclick="checkandnext2(@ch.ID)">Check</button>
+                                </div>
+                            </div>
+                        }
+                        <div class="question-info" style="text-align:center">
+                            <img class="endSectionCongra" src="~/Areas/FiveStar/Images/congra.gif" />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstLookListenAndChoose)
+                        {
+                            int index3 = 1;
+                            <div class="question-info" id="question-@ch.ID">
+                                <h4 class="question-count"><b>Question @(index3++)</b></h4>
+                                <div class="question-content">
+                                    <b>@Html.Raw(ch.NoiDungCauHoi)</b>
+                                    <div class="list-answer">
+                                        @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                        {
+                                            <label class="answer-item istrue-@da.IsDapAnDung" for="ch-@ch.ID-da-@da.ID">
+                                                <input class="answer-title" onchange="updateDapAn(this,@da.IsDapAnDung)" type="radio" id="ch-@ch.ID-da-@da.ID" name="@ch.ID" />
+                                                <label class="answer-content" for="ch-@ch.ID-da-@da.ID">
+                                                    @if (da.DapAn != null)
+                                                    {
+                                                        @da.DapAn
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
+                                                    @if (da.AnhDapAn != null)
+                                                    {
+                                                        <img src="https://luyenthiduonghoa.vn/Images/AnhDapAn/@da.AnhDapAn" />
+                                                    }
+                                                </label>
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="k-button" onclick="checkandnext2(@ch.ID)">Check</button>
+                                </div>
+                            </div>
+
+                        }
+                        <div class="question-info" style="text-align:center">
+                            <img class="endSectionCongra" src="~/Areas/FiveStar/Images/congra.gif" />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstLookTypeAndRepeat)
+                        {
+                            int index4 = 0;
+                            <div class="question-info">
+                                <h4 class="question-count"><b>Question @(index++)</b></h4>
+                                <div class="question-content">
+                                    <b>@Html.Raw(ch.NoiDungCauHoi)</b>
+                                    @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                    {
+                                        <div class="list-answer">
+                                            <input class="answer-title" onchange="updateDapAn(@da.IsDapAnDung)" type="radio" id="ch-@ch.ID-da-@da.ID" />
+                                            <label class="answer-content" for="ch-@ch.ID-da-@da.ID">
+                                                @if (da.DapAn != null)
+                                                {
+                                                    @(Ans[index4++] + "." + da.DapAn)
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                                @if (da.AnhDapAn != null)
+                                                {
+                                                    <img src="https://luyenthiduonghoa.vn/Images/AnhDapAn/@da.AnhDapAn" />
+                                                }
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        }
+                        <div class="question-info" style="text-align:center">
+                            <img class="endSectionCongra" src="~/Areas/FiveStar/Images/congra.gif" />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstLookListenAndChoose)
+                        {
+                            int index5 = 0;
+                            <div class="question-info" id="question-@ch.ID">
+                                <h4 class="question-count"><b>Question @(index5++)</b></h4>
+                                <div class="question-content">
+                                    <b>@Html.Raw(ch.NoiDungCauHoi)</b>
+                                    <div class="list-answer">
+                                        @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                        {
+                                            <div class="answer-item istrue-@da.IsDapAnDung">
+                                                <input class="answer-title" onchange="updateDapAn(this,@da.IsDapAnDung)" type="radio" id="ch-@ch.ID-da-@da.ID" name="@ch.ID" />
+                                                <label class="answer-content" for="ch-@ch.ID-da-@da.ID">
+                                                    @if (da.DapAn != null)
+                                                    {
+                                                        @da.DapAn
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
+                                                    @if (da.AnhDapAn != null)
+                                                    {
+                                                        <img src="https://luyenthiduonghoa.vn/Images/AnhDapAn/@da.AnhDapAn" />
+                                                    }
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="k-button" onclick="checkandnext2(@ch.ID)">Check</button>
+                                </div>
+                            </div>
+
+                        }
+                        <div class="question-info" style="text-align:center">
+                            <img class="endSectionCongra" src="~/Areas/FiveStar/Images/congra.gif" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

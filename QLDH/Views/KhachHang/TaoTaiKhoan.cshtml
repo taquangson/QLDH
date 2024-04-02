@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MẦM NON THỰC NGHIỆM JUDO PRESCHOOL - Tài Khoản Mới</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0 20px;
+        }
+
+        tbody td {
+            font-size: 10px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <div class="row">
+        <h5 class="text-center"><b style="text-transform:uppercase;font-size:13px;">MẦM NON THỰC NGHIỆM JUDO PRESCHOOL</b></h5>
+        <p class="text-center" style="border-bottom:dashed 1px"></p>
+        <h4 class="text-center" style="margin-top:20px;margin-bottom:20px;"><b>Tài Khoản mới của bạn đã tạo thành công</b></h4>
+        <h4 class="text-center" style="margin-top:20px;margin-bottom:20px;"><b>Dưới đây là thông tin tài khoản của bạn</b></h4>
+        <p style="font-size:10px;width:100%;float:left;text-align:left">Tên: @Model.KhachHang.Ten</p>
+        <p style="font-size:10px;width:100%;float:left;text-align:left">Địa chỉ: <b>@Model.KhachHang.DiaChi</b></p>
+        <p style="font-size:10px;width:100%;float:left;text-align:left">Số điện thoại: <b>@Model.KhachHang.SoDienThoai</b></p>
+        <p style="font-size:10px;width:100%;float:left;text-align:left">Email: <b>@Model.KhachHang.Email</b></p>
+        <p style="font-size:10px;width:100%;float:left;text-align:left">Ghi chú: <b>@Model.KhachHang.GhiChu</b></p>
+        <p style="font-size:10px;width:100%;float:left;text-align:left">Mật Khẩu: <b>@Model.KhachHang.MatKhau</b></p>
+    </div>
+    
+        <h4 class="text-center" style="margin-top:20px;margin-bottom:20px;"><b>Hãy liên hệ với công ty nếu có bất kỳ thông tin nào sai</b></h4>
+</body>
+</html>

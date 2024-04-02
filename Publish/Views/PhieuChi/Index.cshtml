@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Quản lý phiếu chi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLDH.DataAccess.Models
+@{
+    TaiKhoanModel userinfor = (TaiKhoanModel)Session["UserInfor"];
+}
+<link href="~/Content/dinhmucnhomchi.css" rel="stylesheet" />
+<link href="~/Assets/kendo/styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/js/phieuchi.js"></script>
+
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách phiếu chi</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-orange" onclick="openEditWindow()"> <i class="fa fa-wrench"> Sửa</i> </button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-close"> Xóa</i> </button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+
+    <label style="margin-left: 30px; color: black; font: 100">Từ ngày:</label>
+    <input style="width:20%" id="FromDate" type="text" class="k-datetimepicker" />
+
+    <label style="margin-left: 30px; color: black; font: 100">Đến ngày:</label>
+    <input style="width: 20%" id="ToDate" type="text" class="k-datetimepicker" />
+
+    <button class="k-button bg-blue-sky" onclick="btnLoadGrid()"> <i class="fa fa-search">Load danh sách</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="Luu()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="Huy()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+        @*<div style="display:flex; ">
+                <div class="form-group valid" style="width:80%" toggle-valid="TenNguoiNhan">
+                    <label style="width:100%">Họ và tên người nhận: <span style="color:red">*</span></label>
+                    <input id="TenNguoiNhan" type="text" class="k-textbox input" />
+                    <span class="fa fa-exclamation-triangle icon"></span>
+                </div>
+                <div class="form-group valid" style="width:20%" toggle-valid="LoaiPhieu">
+                    <label style="width:100%">Loại phiếu: <span style="color:red">*</span></label>
+                    <input id="LoaiPhieu" class="input" />
+                    <span class="fa fa-exclamation-triangle icon"></span>
+                </div>
+            </div>*@
+        <div id="MaPhieuChi" class="form-group valid" toggle-valid="MaPhieu">
+            <label style="width:100%">Mã phiếu: <span style="color:red">*</span></label>
+            <input id="MaPhieu" readonly type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="TenNguoiNhan">
+            <label style="width:100%">Họ và tên người nhận: <span style="color:red">*</span></label>
+            <input id="TenNguoiNhan" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="LoaiPhieu">
+            <label style="width:100%">Loại phiếu: <span style="color:red">*</span></label>
+            <input id="LoaiPhieu" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="HinhThuc">
+            <label style="width:100%">Hình thức thanh toán : <span style="color:red">*</span></label>
+            <input id="HinhThuc" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="SoTien">
+            <label style="width:100%">Số tiền: </label>
+            <input id="SoTien" readonly style="width:100%" class="k-textbox" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="KhuVuc">
+            <label style="width:100%">Khu vực: </label>
+            <input id="KhuVuc" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group">
+            <label style="width:100%">Lý do:</label>
+            <textarea id="LyDo" type="text" style="width:100%" class="k-textbox"></textarea>
+        </div>
+        <div class="form-group valid" toggle-valid="DeXuat">
+            <label style="width:100%">Đề xuất kèm theo: </label>
+            <input id="DeXuat" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" style="width: 100%; display: flex;" toggle-valid="ThoiGianSuDung">
+            <div style="width: 50%;">
+                <label style="width: 30%">Ngày sử dụng: </label>
+                <input style="width:40%" id="NgaySuDung" type="text" class="k-datetimepicker" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="width:100%">Danh mục chi phí: </label>
+            <div id="gridChiPhi"></div>
+        </div>
+    </form>
+</div>
+<div style="visibility:hidden" id="windowThemHangHoa">
+    <div class="toolBarMenu" id="btLuuhuy">
+        <button id="luu" class="k-button bg-blue" onclick="LuuHangHoa()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button id="huy" class="k-button bg-red" onclick="HuyHangHoa()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTietHangHoa">
+        <div class="form-group">
+            <input id="IDHangHoa" type="hidden" />
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="MaHang">
+                <label>Mã hàng: <span style="color:red">*</span></label>
+                <input id="MaHang" class="k-textbox input" />
+            </div>
+            <div style="width:50%" class="form-group valid" toggle-valid="TenHangHoa">
+                <label>Tên hàng hóa: <span style="color:red">*</span></label>
+                <input id="TenHangHoa" class="k-textbox input" />
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="DonViTinh">
+                <label>Đơn vị tính: <span style="color:red">*</span></label>
+                <input id="DonViTinh" class="input"></input>
+            </div>
+            <div style="width:50%" class="form-group valid" toggle-valid="LoaiSanPham">
+                <label>Loại sản phẩm: <span style="color:red">*</span></label>
+                <input id="LoaiSanPham" class="input"></input>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:33%" class="form-group valid" toggle-valid="GiaBanLe">
+                <label>Giá bán lẻ: <span style="color:red">*</span></label>
+                <input id="GiaBanLe" class="k-textbox input" />
+            </div>
+            <div style="width:33%" class="form-group valid" toggle-valid="GiaNhap">
+                <label>Giá nhập: <span style="color:red">*</span></label>
+                <input id="GiaNhap" class="k-textbox input" />
+            </div>
+            <div style="width:33%" class="form-group valid" toggle-valid="GiaBanBuon">
+                <label>Giá bán buôn: <span style="color:red">*</span></label>
+                <input id="GiaBanBuon" class="k-textbox input" />
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width: 100%" class="form-group valid" toggle-valid="HinhAnhSanPham">
+                <label>Hình ảnh sản phẩm:</label>
+                <input id="HinhAnh" type="hidden" />
+                <input id="fileDMHH" type="file" />
+                <div id="preview"></div>
+                <button id="buttomXoa" class="k-button bg-red" onclick="clearImage()"> <i class="fa fa-trash-o"> Xóa </i></button>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:100%" class="form-group valid" toggle-valid="MoTaSanPham">
+                <label>Mô tả sản phẩm:</label>
+                <textarea style="height: 160px; width: 100% " id="MoTaSanPham" placeholder="Mô tả sản phẩm" class="k-textbox input"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    var userinfor = @Html.Raw(Json.Encode(userinfor));
+</script>
+
+<script type="text/x-kendo-template" id="template">
+    <div class="orders"></div>
+</script>
