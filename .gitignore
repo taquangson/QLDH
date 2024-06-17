@@ -57,3 +57,8 @@ QLDH/obj/Release/
 QLDH/Images/
 QLDH/obj/
 .vs/
+/QLDH/Properties/PublishProfiles/FolderProfile.pubxml.user
+/Publish/bin/QLDH.dll
+/Publish/bin/QLDH.pdb
+/QLDH/bin/QLDH.dll
+/QLDH/bin/QLDH.pdb

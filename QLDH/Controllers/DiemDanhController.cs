@@ -160,35 +160,7 @@ namespace QLDH.Controllers
             CaHocModel ca = chdao.GetByID(d.Ca);
             d.ThoiGianVaoLop = DateTime.Now.Date + ca.GioBatDau + new TimeSpan(0, 30, 0);
             long iddiemdanh = 0;
-            //DateTime ketthuc = DateTime.Now;
-            //switch (d.Ca)
-            //{
-            //    case 1:
-            //        batdau = DateTime.Now.Date + new TimeSpan(7, 0, 0);
-            //        ketthuc = DateTime.Now.Date + new TimeSpan(9, 0, 0);
-            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(8, 0, 0);
-            //        break;
-            //    case 2:
-            //        batdau = DateTime.Now.Date + new TimeSpan(9, 0, 0);
-            //        ketthuc = DateTime.Now.Date + new TimeSpan(11, 0, 0);
-            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(10, 0, 0);
-            //        break;
-            //    case 3:
-            //        batdau = DateTime.Now.Date + new TimeSpan(14, 0, 0);
-            //        ketthuc = DateTime.Now.Date + new TimeSpan(16, 0, 0);
-            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(15, 0, 0);
-            //        break;
-            //    case 4:
-            //        batdau = DateTime.Now.Date + new TimeSpan(16, 0, 0);
-            //        ketthuc = DateTime.Now.Date + new TimeSpan(19, 0, 0);
-            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(18, 0, 0);
-            //        break;
-            //    case 5:
-            //        batdau = DateTime.Now.Date + new TimeSpan(19, 0, 0);
-            //        ketthuc = DateTime.Now.Date + new TimeSpan(21, 0, 0);
-            //        d.ThoiGianVaoLop = DateTime.Now.Date + new TimeSpan(20, 0, 0);
-            //        break;
-            //}
+           
             if (DateTime.Compare(d.ThoiGianVaoLop, DateTime.Now) > 0)
             {
                 d.ThoiGianVaoLop = DateTime.Now;
@@ -302,36 +274,7 @@ namespace QLDH.Controllers
             CaHocModel ca = chdao.GetByID(d.Ca);
             long iddiemdanh = 0;
             d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + ca.GioBatDau + new TimeSpan(0, 30, 0);
-            //DateTime batdau = d.ThoiGianVaoLop;
-            //DateTime ketthuc = d.ThoiGianVaoLop;
-            //switch (d.Ca)
-            //{
-            //    case 1:
-            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(7, 0, 0);
-            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(9, 0, 0);
-            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(8, 0, 0);
-            //        break;
-            //    case 2:
-            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(9, 0, 0);
-            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(11, 0, 0);
-            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(10, 0, 0);
-            //        break;
-            //    case 3:
-            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(14, 0, 0);
-            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(16, 0, 0);
-            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(15, 0, 0);
-            //        break;
-            //    case 4:
-            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(16, 0, 0);
-            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(19, 0, 0);
-            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(18, 0, 0);
-            //        break;
-            //    case 5:
-            //        batdau = d.ThoiGianVaoLop.Date + new TimeSpan(19, 0, 0);
-            //        ketthuc = d.ThoiGianVaoLop.Date + new TimeSpan(21, 0, 0);
-            //        d.ThoiGianVaoLop = d.ThoiGianVaoLop.Date + new TimeSpan(20, 0, 0);
-            //        break;
-            //}
+           
             PhieuHocDAO phd = new PhieuHocDAO();
             TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
             d.ID_NhanVien = userinfor.ID;
