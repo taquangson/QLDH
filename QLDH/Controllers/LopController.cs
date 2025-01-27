@@ -152,6 +152,7 @@ namespace QLDH.Controllers
             if (newid > 0)
             {
                 LichHocDAO lhdao = new LichHocDAO();
+                QuanSinh_LopHocDAO qsdao = new QuanSinh_LopHocDAO();
                 try
                 {
                     if (model.lstLichHoc != null)
@@ -180,6 +181,32 @@ namespace QLDH.Controllers
                         foreach (LichHocModel l in lstLichHocCu)
                         {
                             lhdao.Delete(l.ID);
+                        }
+                    }
+
+                    if (model.lstQuanSinh != null)
+                    {
+                        //Xóa lịch không trong danh sách
+                        List<QuanSinhLopHocModel> lstQuanSinhCu = qsdao.GetByLop(newid);
+                        List<QuanSinhLopHocModel> lstQuanSinhMoi = model.lstQuanSinh;
+                        foreach (QuanSinhLopHocModel l in lstQuanSinhCu.Except(lstQuanSinhMoi.ToList(), new QuanSinhLopHocComparer()))
+                        {
+                            qsdao.DeleteQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh);
+                        }
+
+                        //Thêm, sửa lịch trong danh sách
+                        foreach (QuanSinhLopHocModel l in model.lstQuanSinh)
+                        {
+                            l.ID_Lop = newid;
+                            qsdao.AddQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh);
+                        }
+                    }
+                    else
+                    {
+                        List<QuanSinhLopHocModel> lstQuanSinhCu = qsdao.GetByLop(newid);
+                        foreach (QuanSinhLopHocModel l in lstQuanSinhCu)
+                        {
+                            qsdao.DeleteQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh);
                         }
                     }
                 }
@@ -265,6 +292,24 @@ namespace QLDH.Controllers
             {
                 return obj.ID.GetHashCode();
             }
+        }
+
+        internal class QuanSinhLopHocComparer : IEqualityComparer<QuanSinhLopHocModel>
+        {
+            public bool Equals(QuanSinhLopHocModel x, QuanSinhLopHocModel y)
+            {
+                if (x.ID == y.ID)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            public int GetHashCode(QuanSinhLopHocModel obj)
+            {
+                return obj.ID.GetHashCode();
+            }
+
         }
 
         public class ThemHocSinhVaoLopModel

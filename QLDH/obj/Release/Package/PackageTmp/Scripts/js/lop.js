@@ -627,6 +627,9 @@ $(document).ready(function () {
                 if (existedindex >= 0) {
                     itemsToSelect.push(row);
                 }
+                if (grid.dataItem(row).get("DaHoc") != 0) {
+                    $(row).addClass("dahoc");
+                }
             });
             e.sender.select(itemsToSelect);
         },
@@ -660,6 +663,13 @@ $(document).ready(function () {
             {
                 field: "TenHocSinh",
                 title: "Tên học sinh",
+                template: function (e) {
+                    if (e.DaHoc > 0) {
+                        return "<span style='backgound-color: yellow;'>" + e.TenHocSinh + "</span>";
+                    } else {
+                        return "<span style=''>" + e.TenHocSinh + "</span>";
+                    }
+                },
                 width: "150px",
                 filterable: {
                     cell: {
@@ -804,6 +814,7 @@ function openEditWindow() {
         $("#TenLop").val(selectedItem.TenLop);
         $("#PhongHoc").val(selectedItem.PhongHoc);
         $("#GiaoVienCombo").data("kendoComboBox").value(selectedItem.GiaoVien);
+        $("#QuanSinhCombo").data("kendoMultiSelect").value(selectedItem.lstIDQuanSinh);
         $("#KhoiCombo").data("kendoComboBox").value(selectedItem.ID_Khoi);
         LoadGridLichHoc(selectedItem.ID);
         //$(".image-preview").remove();
@@ -951,11 +962,20 @@ function Luu() {
                 GhiChu: item.GhiChu ? item.GhiChu : ""
             })
         })
+        var lstQuanSinh = [];
+        $.each($("#QuanSinhCombo").data("kendoMultiSelect").value(), function (index, item) {
+            lstQuanSinh.push({
+                ID: 0,
+                ID_QuanSinh: item,
+                ID_Lop: $("#ID").val()
+            })
+        })
         var model = {
             ID: $("#ID").val(),
             TenLop: $("#TenLop").val(),
             PhongHoc: $("#PhongHoc").val(),
             GiaoVien: $("#GiaoVienCombo").data("kendoComboBox").value(),
+            lstQuanSinh: lstQuanSinh,
             ID_Khoi: $("#KhoiCombo").data("kendoComboBox").value(),
             LichHoc: "",
             SoDoLop: "",
@@ -1438,14 +1458,14 @@ function pushNoti() {
         let model = {
             Users: [],
             Tokens: [],
-            TieuDe: "Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy)"),
+            TieuDe: "Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy"),
             NoiDung: "",
-            NoiDungHTML: "<b>Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy)") + "</b>",
+            NoiDungHTML: "<b style='font-size:25px;'>Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy") + "</b>",
             NoiDungRieng: "",
             AnhDaiDien: "logodh.png"
         };
         model.Users.push(response.UserName);
-        model.Tokens.push(response.Current_Imei);
+        model.Tokens.push(response.NotifyID);
 
         $.ajax({
             url: '/FBNotification/PushNotify',

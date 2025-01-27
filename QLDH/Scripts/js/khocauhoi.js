@@ -723,7 +723,7 @@ function LoadGridCauHoi() {
     }).done(function successCallback(response) {
         kendo.ui.progress($("#gridCauHoi"), true);
         var dataSource = new kendo.data.DataSource({
-            data: response,
+            data: JSON.parse(response),
             schema: {
                 model: {
                     id: "ID"

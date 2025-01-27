@@ -60,7 +60,9 @@ namespace QLDH.DataAccess.DAO
                 DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
-                    result.Add(GetObjFromDataRow(dr));
+                    LopHocModel model = GetObjFromDataRow(dr);
+                    model.lstIDQuanSinh = (from l in new QuanSinh_LopHocDAO().GetByLop(model.ID) select l.ID_QuanSinh).ToList();
+                    result.Add(model);
                 }
             }
             catch (Exception ex)

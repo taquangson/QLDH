@@ -151,6 +151,48 @@
                 }
             },
             {
+                title: "Tháng",
+                field: "Thang",
+                width: "80px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                title: "Năm",
+                field: "Nam",
+                width: "80px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
                 title: "Số buổi",
                 field: "SoBuoi",
                 filterable: {
@@ -193,12 +235,35 @@
                 }
             },
             {
+                title: "Số tiền",
+                field: "SoTien",
+                format:"{0:n0}",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                width: "100px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
                 title: "Ngày nhập phiếu",
                 field: "NgayTao",
                 width: "100px",
+                //format: "{0:dd/MM/yyyy}",
                 template: function (e) {
                     var date = new Date(parseInt(e.NgayTao.replace("/Date(", "").replace(")/", ""), 10))
-                    return kendo.toString(date, "dd/MM/yyyy");
+                    return kendo.toString(date, "hh:mm dd/MM/yyyy");
                 },
                 headerAttributes: {
                     style: "text-align: center; font-size: 12px; font-weight:bold",
@@ -318,7 +383,7 @@ function LoadComboHocSinh(lop) {
 
 function TimKiem() {
     $.ajax({
-        url: '/BaoCao/GetData_ThongKePhieuHocTheoHocSinh?ID_HocSinh=' + $("#comboHocSinh").data("kendoComboBox").value()
+        url: '/BaoCao/GetData_ThongKePhieuHocTheoHocSinh?ID_HocSinh=' + ($("#comboHocSinh").data("kendoComboBox").value() > 0 ? $("#comboHocSinh").data("kendoComboBox").value(): 0)
         + "&TuNgay=" + kendo.toString($("#TuNgay").data("kendoDatePicker").value(), "yyyy/MM/dd") + " 00:00:00"
         + "&DenNgay=" + kendo.toString($("#DenNgay").data("kendoDatePicker").value(), "yyyy/MM/dd") + " 23:59:59",
         type: 'GET',
@@ -327,7 +392,15 @@ function TimKiem() {
             data: response,
             schema: {
                 model: {
-                    id: "ID"
+                    id: "ID",
+                    field: {
+                        SoTien: {
+                            type: 'number'
+                        },
+                        NgayTao: {
+                            type: 'date'
+                        }
+                    }
                 }
             },
             pageSize: 20

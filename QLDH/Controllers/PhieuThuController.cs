@@ -1,8 +1,10 @@
 ﻿using QLDH.App_Start;
 using QLDH.DataAccess.DAO;
 using QLDH.DataAccess.Models;
+using QLDH.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -341,12 +343,15 @@ namespace QLDH.Controllers
         public ActionResult InPhieu(int ID_PhieuThu)
         {
             PhieuThuDAO ptdao = new PhieuThuDAO();
-            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
-            ptdao.UpdatePrintPhieuThu(ID_PhieuThu, DateTime.Now, userinfor.ID);
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];          
+            //ptdao.UpdatePrintPhieuThu(ID_PhieuThu, DateTime.Now, userinfor.ID);
             PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
             InPhieuModel model = new InPhieuModel();
             model.PhieuThu = pt;
             model.TaiKhoan = userinfor;
+            //var html = RazorViewToString.RenderRazorViewToString(this, "ThongBaoDaNopHocPhiASE", model);
+            //EmailHelper helper = new EmailHelper();
+            //helper.SendEmail(html.ToString(), "quangson0409@gmail.com", "Thông báo đã nộp học phí");
             return View(model);
         }
 
@@ -387,6 +392,17 @@ namespace QLDH.Controllers
 
         [AllowAnonymous]
         public ActionResult ThongBaoDaNopHocPhi(int ID_PhieuThu)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
+            InPhieuModel model = new InPhieuModel();
+            model.PhieuThu = pt;
+            model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ThongBaoDaNopHocPhiASE(int ID_PhieuThu)
         {
             PhieuThuDAO ptdao = new PhieuThuDAO();
             PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);

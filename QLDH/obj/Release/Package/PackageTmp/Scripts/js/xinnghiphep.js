@@ -174,9 +174,9 @@ $(document).ready(function () {
                 width: "100px",
                 template: function (e) {
                     if (e.TrangThai == 1) {
-                        return "<button class='k-button' style='color:green' onclick='UpdateTrangThai(0," + e.ID + ")'><i class='fa fa-refresh' style='margin-right:2px'></i> Đã xử lý</button>"
+                        return "<button class='k-button' style='color:green' onclick='UpdateTrangThai(0," + e.ID + ",0)'><i class='fa fa-refresh' style='margin-right:2px'></i> Đã xử lý</button>"
                     } else {
-                        return "<button class='k-button' style='color:red' onclick='UpdateTrangThai(1," + e.ID + ")'><i class='fa fa-refresh' style='margin-right:2px'></i> Chưa xử lý</button>"
+                        return "<button class='k-button' style='color:red' onclick='UpdateTrangThai(1," + e.ID + ",\"" + e.DienThoai + "\")'><i class='fa fa-refresh' style='margin-right:2px'></i> Chưa xử lý</button>"
                     }
                 },
                 filterable: {
@@ -230,14 +230,14 @@ function LoadLichXinPhep() {
     });
 }
 
-function UpdateTrangThai(TrangThai, ID) {
+function UpdateTrangThai(TrangThai, ID, DienThoai) {
     kendo.ui.progress($("#gridHocSinhTrongLop"), true);
     var item = $("#gridHocSinhTrongLop").data("kendoGrid").dataSource.get(ID);
     var model = {
         ID: item.ID,
         ID_HocSinh: item.ID_HocSinh,
         LyDoNghi: item.LyDoNghi,
-        NgayNghi: kendo.toString(new Date(parseInt(item.NgayNghi.substr(6))),'yyyy-MM-dd HH:mm:ss'),
+        NgayNghi: kendo.toString(new Date(parseInt(item.NgayNghi.substr(6))), 'yyyy-MM-dd HH:mm:ss'),
         NgayXinPhep: kendo.toString(new Date(parseInt(item.NgayXinPhep.substr(6))), 'yyyy-MM-dd HH:mm:ss'),
         TrangThai: TrangThai
     }
@@ -249,6 +249,7 @@ function UpdateTrangThai(TrangThai, ID) {
             item: model
         }
     }).done(function successCallback(response) {
+        pushNoti(DienThoai, kendo.toString(new Date(parseInt(item.NgayNghi.substr(6))), 'dd-MM-yyyy'))
         LoadLichXinPhep();
     });
 
@@ -279,4 +280,37 @@ function LoadComboLop(khoi) {
         })
         LoadLichXinPhep();
     });
+}
+
+function pushNoti(dienthoai, ngay) {
+    if (dienthoai != '0') {
+        $.ajax({
+            url: '/User/GetAppUser?UserName=' + dienthoai,
+            type: 'GET'
+        }).done(function successCallback(response) {
+            let model = {
+                Users: [],
+                Tokens: [],
+                TieuDe: "Bộ phận văn phòng đã chấp nhận đơn xin nghỉ phép ngày " + ngay,
+                NoiDung: "",
+                NoiDungHTML: "<b style='font-size:25px;'>Bộ phận văn phòng đã chấp nhận đơn xin nghỉ phép ngày " + ngay + ". Cảm ơn quý phụ huynh đã thông báo!</b>",
+                NoiDungRieng: "",
+                AnhDaiDien: "logodh.png"
+            };
+            model.Users.push(response.UserName);
+            model.Tokens.push(response.NotifyID);
+
+            $.ajax({
+                url: '/FBNotification/PushNotify',
+                data: model,
+                type: 'POST'
+            }).done(function successCallback(response) {
+                if (response.status) {
+                    notification.show({ kValue: response.msg }, "success");
+                } else {
+                    notification.show({ kValue: response.msg }, "error");
+                }
+            });
+        })
+    }
 }

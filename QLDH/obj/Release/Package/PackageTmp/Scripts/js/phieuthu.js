@@ -82,6 +82,7 @@
                         return "";
                     }
                 },
+                //format: "{0:dd/MM/yyyy}",
                 width: "100px",
                 filterable: {
                     cell: {

@@ -105,7 +105,10 @@ namespace QLDH.Controllers
         public ActionResult GetCauHoiByDanhMuc(int ID_DanhMuc)
         {
             CauHoiDAO chdao = new CauHoiDAO();
-            return Json(chdao.GetCauHoi_GetByDanhMuc(ID_DanhMuc), JsonRequestBehavior.AllowGet);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var serializedResult = serializer.Serialize(chdao.GetCauHoi_GetByDanhMuc(ID_DanhMuc).Take(3));
+            return Content(serializedResult);
+            //return Json(chdao.GetCauHoi_GetByDanhMuc(ID_DanhMuc), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost, ValidateInput(false)]

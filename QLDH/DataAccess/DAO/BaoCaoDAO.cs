@@ -113,9 +113,12 @@ namespace QLDH.DataAccess.DAO
             public string TenLop { get; set; }
             public int SoBuoi { get; set; }
             public int SoBuoiDaHoc { get; set; }
+            public int SoTien { get; set; }
             public DateTime NgayTao { get; set; }
             public int ID_NhanVien { get; set; }
             public string TenNhanVien { get; set; }
+            public int Thang { get; set; }
+            public int Nam { get; set; }
         }
 
         private BaoCaoPhieuHocTheoHocSinhModel GetBaoCaoPhieuHocTheoHocSinhModelFromDataRow(DataRow dr)
