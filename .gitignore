@@ -62,3 +62,5 @@ QLDH/obj/
 /Publish/bin/QLDH.pdb
 /QLDH/bin/QLDH.dll
 /QLDH/bin/QLDH.pdb
+/packages/Newtonsoft.Json.11.0.2/lib/net20/Newtonsoft.Json.dll
+/packages/Newtonsoft.Json.11.0.2/lib/net35/Newtonsoft.Json.dll

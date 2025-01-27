@@ -10,5 +10,7 @@ namespace QLDH.DataAccess.Models
         public string TenSanPham { get; set; }
         public int SoLuong { get; set; }
         public float GiaBan { get; set; }
+        public float TongTien { get; set; }
+        public float DaThanhToan { get; set; }
     }
 }

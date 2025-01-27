@@ -1,11 +1,39 @@
 ﻿$(document).ready(function () {
-
+    var phieuthu = null;
 
     Date.prototype.addDays = function (days) {
         var date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
     }
+
+    $("#comboKhoi").kendoComboBox({
+        dataTextField: 'text',
+        dataValueField: 'value',
+        dataSource: new kendo.data.DataSource({
+            data: [
+                { text: 'Tất cả', value: 0 },
+                { text: '1', value: 1 },
+                { text: '2', value: 2 },
+                { text: '3', value: 3 },
+                { text: '4', value: 4 },
+                { text: '5', value: 5 },
+                { text: '6', value: 6 },
+                { text: '7', value: 7 },
+                { text: '8', value: 8 },
+                { text: '9', value: 9 },
+                { text: '10', value: 10 },
+                { text: '11', value: 11 },
+                { text: '12', value: 12 },
+            ]
+        }),
+        change: function (e) {
+            LoadComboLop(e.sender.value());
+            $("#comboLop").data("kendoComboBox").value('');
+        }
+    });
+    $("#comboKhoi").data("kendoComboBox").value(0);
+    LoadComboLop(0);
 
 
     var dataThang = [];
@@ -37,11 +65,35 @@
         value: new Date(),
         format: "{0:dd-MM-yyyy}"
     })
+
+    $("#ThoiGianNhanBan").kendoDatePicker({
+        depth: "year",
+        start: "year",
+        format: "{0:MM-yyyy}"
+    })
     $("#gridTimKiemHocSinh").kendoGrid({
         height: function () {
-            var height = $(window).height() - 160;
+            var height = $(window).height() - 260;
             return height;
         },
+        dataSource: new kendo.data.DataSource({
+            data: [],
+            schema: {
+                model: {
+                    id: "ID",
+                    fields: {
+                        NgaySinh: {
+                            type: 'date'
+                        },
+                        CongNo: { type: 'number' }
+                    }
+                }
+            },
+            aggregate: [
+                { field: "CongNo", aggregate: "sum" },
+            ],
+            pageSize: 20,
+        }),
         scrollable: true,
         persistSelection: true,
         autoFitColumn: true,
@@ -87,37 +139,37 @@
                     class: "table-header-cell"
                 }
             },
-            //{
-            //    field: "NgaySinh",
-            //    title: "Ngày sinh",
-            //    template: function (e) {
-            //        var dateString = e.NgaySinh.substr(6);
-            //        var currentTime = new Date(parseInt(dateString));
-            //        if (currentTime.getFullYear() != 1) {
-            //            return kendo.toString(currentTime, "dd/MM/yyyy");
-            //        } else {
-            //            return "";
-            //        }
-            //    },
-            //    //format: "{0:dd/MM/yyyy}",
-            //    width: "100px",
-            //    filterable: {
-            //        cell: {
-            //            operator: "contains",
-            //            showOperators: false,
-            //            template: function (e) {
-            //                e.element.addClass("k-textbox").css("width", "100%")
-            //            }
-            //        }
-            //    },
-            //    headerAttributes: {
-            //        style: "text-align: center; font-size: 12px; font-weight:bold",
-            //        class: "table-header-cell"
-            //    },
-            //    attributes: {
-            //        style: "text-align: center;",
-            //    }
-            //},
+            {
+                field: "NgaySinh",
+                title: "Ngày sinh",
+                //template: function (e) {
+                //    var dateString = e.NgaySinh.substr(6);
+                //    var currentTime = new Date(parseInt(dateString));
+                //    if (currentTime.getFullYear() != 1) {
+                //        return kendo.toString(currentTime, "dd/MM/yyyy");
+                //    } else {
+                //        return "";
+                //    }
+                //},
+                format: "{0:dd/MM/yyyy}",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
             {
                 field: "DiaChi",
                 title: "Địa chỉ",
@@ -157,6 +209,30 @@
             {
                 field: "DienThoaiMacDinh",
                 title: "Điện thoại liên hệ",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
+                field: "CongNo",
+                title: "Công nợ",
+                format: '{0:N0}',
+                aggregates: ["sum"],
+                footerTemplate: "<div>#= kendo.toString(sum, 'n0') #</div>",
                 width: "100px",
                 filterable: {
                     cell: {
@@ -474,11 +550,13 @@
                         CongThucTinhHocPhi: { defaultValue: {} },
                         CongChuan: { type: 'number', editablle: true },
                         LoaiHinh: { type: 'number', editablle: true },
-                        DonGia: { type: 'number', editablle: true, validation: { min: 0 } }
+                        DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
+                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
                     }
                 }
             },
-            aggregate: [{ field: "DonGia", aggregate: "sum" }],
+            aggregate: [{ field: "DonGia", aggregate: "sum" },
+            { field: "DaThanhToan", aggregate: "sum" }],
             pageSize: 100
         }),
         height: function () {
@@ -513,6 +591,7 @@
                             lichhoc.push(item.Thu);
                             chinhanh = item.ID_ChiNhanh;
                         })
+                        e.model.LichHoc = lichhoc;
                         e.model.SoBuoi = TinhSoBuoiHoc(e.model.Thang, e.model.NamHoc, lichhoc);
                         e.model.CongChuan = e.model.SoBuoi;
                         e.model.DonGia = TinhHocPhi(e.model.CongThucTinhHocPhi, e.model.CongChuan, 0, 0, e.model.SoBuoi);
@@ -536,11 +615,7 @@
 
             else if (e.values.SoBuoi) {
                 e.model.DonGia = TinhHocPhi(e.model.CongThucTinhHocPhi, e.model.CongChuan, 0, 0, e.values.SoBuoi);
-                //if (e.model.SoBuoi >= 6) {
-                //    e.model.DonGia = e.model.GiaBan;
-                //} else {
-                //    e.model.DonGia = e.model.GiaBan * 0.5;
-                //}
+
                 e.sender.dataSource.fetch(function () {
                     setTimeout(function () {
                         e.sender.refresh();
@@ -548,19 +623,7 @@
                     })
                 });
             }
-            //else if (e.values.HocDuoi) {
-            //    if (e.values.HocDuoi > 0) {
-            //        e.model.DonGia = e.model.SoBuoi * 150000;
-            //    } else {
-            //        e.model.DonGia = e.model.SoBuoi * 50000;
-            //    }
-            //    e.sender.dataSource.fetch(function () {
-            //        setTimeout(function () {
-            //            e.sender.refresh();
-            //            CalcTongTien();
-            //        })
-            //    });
-            //}
+
             else {
                 e.sender.dataSource.fetch(function () {
                     setTimeout(function () {
@@ -568,8 +631,6 @@
                     })
                 });
             }
-
-
         },
         columns: [
             {
@@ -622,6 +683,7 @@
                         dataTextField: 'TenLop',
                         dataValueField: 'ID',
                         autoBind: false,
+                        filter: "contains",
                         dataSource: datas,
                         change: function (e) {
                             var dataItem = datas.get(e.sender.value());
@@ -665,6 +727,7 @@
                     $('<input required name="' + options.field + '"/>').appendTo(container).kendoComboBox({
                         dataTextField: "text",
                         dataValueField: "value",
+                        filter: "contains",
                         autoBind: false,
                         dataSource: new kendo.data.DataSource({
                             data: dataThang
@@ -786,6 +849,33 @@
                 }
             },
             {
+                field: "DaThanhToan",
+                title: "Thanh toán",
+                format: "{0:n0}",
+                footerTemplate: "<div>#=kendo.toString(sum,'n0')#</div>",
+                aggregates: ["sum"],
+                width: 100,
+                attributes: {
+                    class: "text-right"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                footerAttributes: {
+                    style: "text-align: right; font-size: 12px; font-weight:bold",
+                },
+            },
+            {
                 title: "Ghi chú",
                 width: "200px",
                 field: "GhiChu",
@@ -848,7 +938,6 @@
             var itemsToSelect = [];
             items.each(function (idx, row) {
                 var isSelect = grid.dataItem(row).get("IsSelect");
-                console.log(isSelect);
                 if (isSelect) {
                     itemsToSelect.push(row);
                 }
@@ -942,6 +1031,9 @@
                     class: "text-center"
                 },
                 width: "110px",
+                template: function (e) {
+                    return "<span class='tooltip-damua'>" + e.SoBuoiHoc + "/" + e.SoBuoiDaMua + "</span>"
+                },
                 filterable: {
                     cell: {
                         operator: "contains",
@@ -1032,6 +1124,12 @@
         $("#gridBuoiHocThangTruoc").data("kendoGrid").select($(this));
     })
 
+    $("#gridBuoiHocThangTruoc").kendoTooltip({
+        autoHide: true,
+        filter: "span.tooltip-damua",
+        content: kendo.template($("#templateTooltip").html()),
+    });
+
     $("#gridSanPham").kendoGrid({
         dataSource: new kendo.data.DataSource({
             data: [],
@@ -1045,10 +1143,12 @@
                         GiaBan: { type: 'number', editable: true },
                         SoLuong: { type: 'number', editable: true, validation: { min: 0 } },
                         TongTien: { type: 'number', editable: false },
+                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
                     }
                 }
             },
-            aggregate: [{ field: "TongTien", aggregate: "sum" }],
+            aggregate: [{ field: "TongTien", aggregate: "sum" },
+            { field: "DaThanhToan", aggregate: "sum" }],
             pageSize: 100
         }),
         height: function () {
@@ -1064,18 +1164,17 @@
         save: function (e) {
             if (e.values.SoLuong) {
                 e.model.TongTien = e.values.SoLuong * e.model.GiaBan;
-                setTimeout(function () {
-                    e.sender.refresh();
-                    CalcTongTien();
-                })
             }
             if (e.values.GiaBan > 0) {
                 e.model.TongTien = e.model.SoLuong * e.values.GiaBan;
-                setTimeout(function () {
-                    e.sender.refresh();
-                    CalcTongTien();
-                })
+
             }
+            setTimeout(function () {
+                e.sender.refresh();
+                e.sender.dataSource.fetch(function () {
+                    CalcTongTien();
+                });
+            })
         },
         filterable: {
             mode: "row",
@@ -1113,6 +1212,7 @@
                 title: "Dịch vụ/ sản phẩm",
                 width: "200px",
                 template: function (e) {
+                    console.log(e);
                     if (e.TenSanPham) {
                         return e.TenSanPham;
                     } else {
@@ -1132,16 +1232,18 @@
                     });
                     $('<input required name="' + options.field + '"/>').appendTo(container).kendoComboBox({
                         dataTextField: 'Ten',
-                        dataValueField: 'ID',
+                        dataValueField: 'Ten',
                         autoBind: false,
                         dataSource: datas,
                         select: function (e) {
                             //var dataItem = datas.get(e.sender.value());
                             var dataItem = e.dataItem;
+                            console.log(dataItem);
                             options.model.TenSanPham = dataItem.Ten;
                             options.model.GiaBan = dataItem.GiaBanLe;
                             options.model.TongTien = options.model.GiaBan * options.model.SoLuong;
                             options.model.ID_SanPham = dataItem.ID;
+                            console.log(options.model);
                             setTimeout(function () {
                                 $("#gridSanPham").data("kendoGrid").refresh();
                                 CalcTongTien();
@@ -1186,7 +1288,7 @@
             },
             {
                 field: "GiaBan",
-                title: "Số tiền",
+                title: "Giá bán",
                 format: "{0:n0}",
                 width: 100,
                 attributes: {
@@ -1235,7 +1337,7 @@
             },
             {
                 field: "TongTien",
-                title: "Tổng tiền",
+                title: "Số tiền",
                 format: "{0:n0}",
                 footerTemplate: "<div>#=kendo.toString(sum,'n0')#</div>",
                 aggregates: ["sum"],
@@ -1260,6 +1362,33 @@
                     style: "text-align: right; font-size: 12px; font-weight:bold",
                 },
             },
+            {
+                field: "DaThanhToan",
+                title: "Thanh toán",
+                format: "{0:n0}",
+                footerTemplate: "<div>#=kendo.toString(sum,'n0')#</div>",
+                aggregates: ["sum"],
+                width: 100,
+                attributes: {
+                    class: "text-right"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                footerAttributes: {
+                    style: "text-align: right; font-size: 12px; font-weight:bold",
+                },
+            }
         ]
     })
 
@@ -1277,7 +1406,7 @@
     });
 
     LoadDanhMucHinhThucThanhToan();
-    LoadGridDataTimKiemHocSinh();
+    //LoadGridDataTimKiemHocSinh();
 })
 
 function LoadDanhMucHinhThucThanhToan() {
@@ -1540,30 +1669,94 @@ function detailInit2(e) {
     })
 }
 
-function LoadGridDataTimKiemHocSinh() {
+function LoadComboLop(khoi) {
     $.ajax({
-        url: '/HocSinh/GetAll',
+        url: '/Lop/GetAll',
         type: 'GET',
     }).done(function successCallback(response) {
-        kendo.ui.progress($("#gridTimKiemHocSinh"), true);
+        var ds = [];
+        if (khoi > 0) {
+            ds = response.filter(x => parseInt(x.TenLop.substring(0, 2)) == parseInt(khoi));
+        } else {
+            ds = response;
+        }
         var dataSource = new kendo.data.DataSource({
-            data: JSON.parse(response),
-            //data: response,
-            schema: {
-                model: {
-                    id: "ID",
-                    field: {
-                        NgaySinh: {
-                            type: 'date'
+            data: ds
+        });
+        if ($("#comboLop").data("kendoComboBox") == undefined) {
+            $("#comboLop").kendoComboBox({
+                dataTextField: 'TenLop',
+                dataValueField: 'ID',
+                dataSource: dataSource,
+                filter: "contains",
+                //change: function (e) {
+                //    LoadComboHocSinh(e.sender.value());
+                //}
+            });
+            LoadGridDataTimKiemHocSinh();
+        } else {
+            $("#comboLop").data("kendoComboBox").setDataSource(dataSource);
+        }
+    });
+}
+
+function LoadGridDataTimKiemHocSinh() {
+    var lop = $("#comboLop").data("kendoComboBox").value();
+    if (lop > 0) {
+        $.ajax({
+            url: '/HocSinh/GetByLop?ID_Lop=' + lop,
+            type: 'GET',
+        }).done(function successCallback(response) {
+            kendo.ui.progress($("#gridTimKiemHocSinh"), true);
+            var dataSource = new kendo.data.DataSource({
+                data: response,
+                schema: {
+                    model: {
+                        id: "ID",
+                        fields: {
+                            NgaySinh: {
+                                type: 'date'
+                            },
+                            CongNo: { type: 'number' }
                         }
                     }
-                }
-            },
-            pageSize: 20,
+                },
+                aggregate: [
+                    { field: "CongNo", aggregate: "sum" },
+                ],
+                pageSize: 20,
+            });
+            $("#gridTimKiemHocSinh").data("kendoGrid").setDataSource(dataSource);
+            kendo.ui.progress($("#gridTimKiemHocSinh"), false);
         });
-        $("#gridTimKiemHocSinh").data("kendoGrid").setDataSource(dataSource);
-        kendo.ui.progress($("#gridTimKiemHocSinh"), false);
-    });
+    } else {
+        $.ajax({
+            url: '/HocSinh/GetAll',
+            type: 'GET',
+        }).done(function successCallback(response) {
+            kendo.ui.progress($("#gridTimKiemHocSinh"), true);
+            var dataSource = new kendo.data.DataSource({
+                data: JSON.parse(response),
+                schema: {
+                    model: {
+                        id: "ID",
+                        fields: {
+                            NgaySinh: {
+                                type: 'date'
+                            },
+                            CongNo: { type: 'number' }
+                        }
+                    }
+                },
+                aggregate: [
+                    { field: "CongNo", aggregate: "sum" },
+                ],
+                pageSize: 20,
+            });
+            $("#gridTimKiemHocSinh").data("kendoGrid").setDataSource(dataSource);
+            kendo.ui.progress($("#gridTimKiemHocSinh"), false);
+        });
+    }
 }
 
 function openLapPhieuThu(id, ten) {
@@ -1599,11 +1792,13 @@ function ClearInputGrid() {
                     HocDuoi: { type: 'number', editable: true },
                     ID_LopHoc: { type: 'number', editablle: true },
                     TenLop: { type: 'text', editablle: false },
-                    DonGia: { type: 'number', editablle: true, validation: { min: 0 } }
+                    DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
+                    DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
                 }
             }
         },
-        aggregate: [{ field: "DonGia", aggregate: "sum" }],
+        aggregate: [{ field: "DonGia", aggregate: "sum" },
+        { field: "DaThanhToan", aggregate: "sum" }],
         pageSize: 100
     }));
     $("#gridSanPham").data("kendoGrid").setDataSource(new kendo.data.DataSource({
@@ -1618,10 +1813,12 @@ function ClearInputGrid() {
                     GiaBan: { type: 'number', editable: true },
                     SoLuong: { type: 'number', editable: true, validation: { min: 0 }, defaultValue: 1 },
                     TongTien: { type: 'number', editable: false },
+                    DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
                 }
             }
         },
-        aggregate: [{ field: "TongTien", aggregate: "sum" }],
+        aggregate: [{ field: "TongTien", aggregate: "sum" },
+        { field: "DaThanhToan", aggregate: "sum" }],
         pageSize: 100
     }));
 }
@@ -1838,6 +2035,7 @@ function LuuPhieuThu() {
             ID_HocSinh: $("#ID_HocSinh").val(),
             SoBuoi: item.SoBuoi,
             SoTien: item.DonGia,
+            DaThanhToan: item.DaThanhToan,
             ID_Lop: item.ID_LopHoc,
             HocDuoi: item.HocDuoi,
             Thang: item.Thang,
@@ -1888,6 +2086,7 @@ function LuuPhieuThu() {
             ID_SanPham: item.ID_SanPham,
             SoLuong: item.SoLuong,
             GiaBan: item.GiaBan,
+            DaThanhToan: 0
         })
     })
 
@@ -1941,6 +2140,78 @@ function LuuPhieuThu() {
     });
 }
 
+function NhanBan() {
+    kendo.ui.progress($(".body"), true);
+    var date = $("#ThoiGianNhanBan").data("kendoDatePicker").value();
+    let thang = date.getMonth() + 1;
+    let nam = date.getFullYear();
+    var lstPhieuHoc = [];
+    var lstPhuThu = [];
+    var lstGiamTru = [];
+    var lstSanPham = [];
+    var Tong = 0;
+
+    $.each($("#gridPhieuMua").data("kendoGrid").dataSource.data(), function (index, item) {
+
+        let sobuoihoc = TinhSoBuoiHoc(thang, nam, item.LichHoc);
+        let hocphi = TinhHocPhi(item.CongThucTinhHocPhi, sobuoihoc, 0, 0, sobuoihoc);
+        Tong += hocphi;
+        console.log(Tong);
+        lstPhieuHoc.push({
+            ID: 0,
+            ID_HocSinh: $("#ID_HocSinh").val(),
+            SoBuoi: sobuoihoc,
+            SoTien: hocphi,
+            DaThanhToan: 0,
+            ID_Lop: item.ID_LopHoc,
+            HocDuoi: item.HocDuoi,
+            Thang: thang,
+            ThangText: "Tháng " + thang + "/" + nam,
+            NamHoc: item.NamHoc,
+            GhiChu: item.GhiChu ? item.GhiChu : ""
+        })
+    })
+
+    $.each($("#gridSanPham").data("kendoGrid").dataSource.data(), function (index, item) {
+        lstSanPham.push({
+            ID: 0,
+            ID_SanPham: item.ID_SanPham,
+            SoLuong: item.SoLuong,
+            GiaBan: item.GiaBan,
+        });
+        Tong += (item.SoLuong * item.GiaBan)
+    })
+    var data = {
+        ID: 0,
+        ID_HocSinh: $("#ID_HocSinh").val(),
+        lstPhieuHoc: lstPhieuHoc,
+        lstPhuThu: lstPhuThu,
+        lstGiamTru: lstGiamTru,
+        lstSanPham: lstSanPham,
+        TongThu: parseInt(Tong),
+        HinhThucThanhToan: $("#HinhThuc").data("kendoComboBox").value(),
+        NgayLapPhieu: kendo.toString($("#NgayLapPhieu").data("kendoDatePicker").value(), 'yyyy-MM-dd')
+    }
+    console.log(data);
+
+    $.ajax({
+        url: '/PhieuThu/CreateOrUpdate',
+        type: 'POST',
+        data: data
+    }).done(function successCallback(response) {
+        if (response.status) {
+            notification.show({ kValue: response.msg }, "success");
+            $("#ID_PhieuThu").val(response.ID_Phieu);
+            openSuaPhieuThu(response.ID_Phieu);
+            LoadGridLichSuMuaPhieu($("#ID_HocSinh").val());
+            HuyPhieuThu();
+        } else {
+            notification.show({ kValue: response.msg }, "error");
+        }
+        kendo.ui.progress($(".body"), false);
+    });
+}
+
 function HuyPhieuThu() {
     $("#windowLapPhieuThu").data("kendoWindow").close();
     $("#ID_HocSinh").val(0);
@@ -1972,6 +2243,40 @@ function LoadGridLichSuMuaPhieu(ID_HocSinh) {
 
 
 function ThanhToan() {
+    var lstPhieuHoc = [];
+    var lstSanPham = [];
+    var Tong = $("#gridPhieuMua").data("kendoGrid").dataSource.aggregates().DonGia.sum
+        + $("#gridSanPham").data("kendoGrid").dataSource.aggregates().TongTien.sum
+        + $("#TienPhuThu").data("kendoNumericTextBox").value()
+        - $("#TienGiamTru").data("kendoNumericTextBox").value();
+
+    $.each($("#gridPhieuMua").data("kendoGrid").dataSource.data(), function (index, item) {
+        lstPhieuHoc.push({
+            ID: item.ID,
+            ID_HocSinh: $("#ID_HocSinh").val(),
+            SoBuoi: item.SoBuoi,
+            SoTien: item.DonGia,
+            DaThanhToan: item.DaThanhToan,
+            ID_Lop: item.ID_LopHoc,
+            HocDuoi: item.HocDuoi,
+            Thang: item.Thang,
+            ThangText: "Tháng " + item.Thang + "/" + item.Nam,
+            NamHoc: item.NamHoc,
+            GhiChu: item.GhiChu ? item.GhiChu : ""
+        })
+    })
+
+    $.each($("#gridSanPham").data("kendoGrid").dataSource.data(), function (index, item) {
+
+        lstSanPham.push({
+            ID: item.ID,
+            ID_SanPham: item.ID_SanPham,
+            SoLuong: item.SoLuong,
+            GiaBan: item.GiaBan,
+            DaThanhToan: item.DaThanhToan
+        })
+    })
+
     $.ajax({
         url: '/PhieuThu/GetByID?ID=' + $("#ID_PhieuThu").val(),
         type: 'GET',
@@ -2000,14 +2305,32 @@ function ThanhToan() {
             data: data
         }).done(function successCallback(response2) {
             if (response2.status) {
+                if (response.TongThu - response.DaThanhToan - tienthanhtoan > 0) {
+
+                    var data2 = {
+                        ID: $("#ID_PhieuThu").val(),
+                        lstPhieuHoc: lstPhieuHoc,
+                        lstSanPham: lstSanPham,
+                    }
+                    $.ajax({
+                        url: '/PhieuThu/UpdatePhanBoThanhToan',
+                        type: 'POST',
+                        data: data2
+                    }).done(function successCallback(response) {
+
+                    });
+                }
+
                 notification.show({ kValue: response2.msg }, "success");
                 openSuaPhieuThu(response.ID);
                 InPhieuThu();
             } else {
                 notification.show({ kValue: response2.msg }, "error");
             }
+
             kendo.ui.progress($("#windowLapPhieuThu"), false);
         });
+
     })
 }
 
@@ -2026,6 +2349,7 @@ function openSuaPhieuThu(id) {
         type: 'GET',
     }).done(function successCallback(response) {
         var item = response;
+        phieuthu = item;
         $("#windowLapPhieuThu").data("kendoWindow").maximize().open();
         $("#ID_HocSinh").val(item.ID_HocSinh);
         $("#ID_PhieuThu").val(item.ID);
@@ -2059,7 +2383,14 @@ function openSuaPhieuThu(id) {
                     for (var i = 0; i < data.length; i++) {
                         data[i].ThangText = "Tháng " + data[i].Thang + "/" + data[i].Nam;
                         data[i].ID_LopHoc = data[i].ID_Lop;
-                        data[i].DonGia = data[i].SoTien
+                        data[i].DonGia = data[i].SoTien;
+                        let lichhoc = [];
+                        $.each(data[i].LichHoc, function (index, item) {
+                            lichhoc.push(item.Thu);
+                        })
+                        data[i].CongChuan = TinhSoBuoiHoc(data[i].Thang, data[i].NamHoc, lichhoc);
+                        data[i].LichHoc = lichhoc;
+                        console.log(data[i]);
                     }
                     return data;
                 },
@@ -2077,13 +2408,15 @@ function openSuaPhieuThu(id) {
                         GhiChu: { type: 'text', editablle: true },
                         GiaBan: { type: 'number', editablle: true },
                         CongThucTinhHocPhi: { defaultValue: {} },
+                        LichHoc: { defaultValue: {} },
                         CongChuan: { type: 'number', editablle: true },
                         LoaiHinh: { type: 'number', editablle: true },
-                        DonGia: { type: 'number', editablle: true, validation: { min: 0 } }
+                        DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
+                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
                     }
                 }
             },
-            aggregate: [{ field: "DonGia", aggregate: "sum" }],
+            aggregate: [{ field: "DonGia", aggregate: "sum" }, { field: "DaThanhToan", aggregate: "sum" }],
             pageSize: 100
         });
         var dtsanpham = new kendo.data.DataSource({
@@ -2104,16 +2437,125 @@ function openSuaPhieuThu(id) {
                         GiaBan: { type: 'number', editable: true },
                         SoLuong: { type: 'number', editable: true, validation: { min: 1 }, defaultValue: 1 },
                         TongTien: { type: 'number', editable: false },
+                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
                     }
                 }
             },
-            aggregate: [{ field: "TongTien", aggregate: "sum" }],
+            aggregate: [{ field: "TongTien", aggregate: "sum" },
+            { field: "DaThanhToan", aggregate: "sum" }],
             pageSize: 100
         });
 
         $("#gridPhieuMua").data("kendoGrid").setDataSource(dtphieumua);
         $("#gridSanPham").data("kendoGrid").setDataSource(dtsanpham);
+        CalcTongTien();
     })
+}
+
+function loadLichSuMuaPhieu(idphieuhoc) {
+    $.ajax({
+        url: '/PhieuThu/GetByPhieuHoc?ID_PhieuHoc=' + idphieuhoc,
+        type: 'GET'
+    }).done(function successCallback(response) {
+        var container = document.createElement('div');
+        $(container).kendoGrid({
+            height: 200,
+            dataSource: new kendo.data.DataSource({
+                data: response,
+                schema: {
+                    model: {
+                        id: "ID"
+                    }
+                }
+            }),
+            dataBinding: function () {
+                record = 0;
+            },
+            scrollable: true,
+            editable: false,
+            filterable: {
+                mode: "row",
+            },
+            persistSelection: true,
+            autoFitColumn: true,
+            resizable: true,
+            columns: [
+                {
+                    title: "Mã hóa đơn",
+                    field: "MaPhieu",
+                    width: "150px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
+                {
+                    title: "Trạng thái",
+                    field: "TrangThai",
+                    width: "150px",
+                    template: function (e) {
+                        if (e.TrangThai == 0) {
+                            return "<span style='color:red'>Chưa thanh toán</span>"
+                        } else if (e.TrangThai == 1) {
+                            return "<span style='color:blue'>Thanh toán 1 phần</span>"
+                        } else if (e.TrangThai == 2) {
+                            return "<span style='color:green'>Đã thanh toán</span>"
+                        } else {
+                            return "";
+                        }
+                    },
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    attributes: {
+                        style: "text-align: center;font-weight:bold"
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
+                {
+                    title: "Ngày lập hóa đơn",
+                    field: "NgayTao",
+                    template: function (e) {
+                        var date = new Date(parseInt(e.NgayTao.replace("/Date(", "").replace(")/", ""), 10))
+                        return e.NguoiLap + " - " + kendo.toString(date, "dd/MM/yyyy HH:mm");
+                    },
+                    width: "200px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
+            ]
+        })
+        $('#contentgrid').html(container);
+    });
 }
 
 function InPhieuThu() {
@@ -2134,6 +2576,58 @@ function InPhieuTamTinh() {
 
 function ThongBaoHocPhi() {
     openConfirm(dialogRoot, "<b style='line-height:40px;'>Bạn có chắc chắn muốn gửi thông báo học phí đến phụ huynh?</b>", function () { GuiThongBao(); }, function () { });
+}
+
+function ThongBaoZNS() {
+    openConfirm(dialogRoot, "<b style='line-height:40px;'>Bạn có chắc chắn muốn gửi thông báo học phí đến Zalo cho phụ huynh?</b>", function () { GuiThongBaoZNS(); }, function () { });
+}
+
+function GuiThongBaoZNS() {
+    var idphieutamtinh = $("#ID_PhieuThu").val();
+    if (idphieutamtinh > 0) {
+        let hocsinh = $("#gridTimKiemHocSinh").data("kendoGrid").dataSource.get($("#ID_HocSinh").val());
+        let link = "http://" + window.location.host + "/PhieuThu/ThongBaoHocPhi?ID_PhieuThu=" + idphieutamtinh;
+        let html = "<a style='display:block;width:100%;text-align:center;font-size:6em;text-decoration:none;' href='" + link + "'>Bấm để mở</a>"
+        let model = {
+            phone: "",
+            temp_id: "",
+            temp_data: {}
+        };
+        model.phone = "84" + hocsinh.DienThoaiMacDinh.substring(1, 11);
+        model.temp_id = "345194";
+        let temp_data = {};
+        temp_data.invoice_code = phieuthu.MaPhieu;
+        temp_data.student_name = phieuthu.TenHocSinh;
+        temp_data.transfer_amount = phieuthu.TongThu;
+        temp_data.price = phieuthu.TongThu;
+        
+        let detail = "";
+        $.each(phieuthu.lstPhieuHoc, function (index, item) {
+            detail += item.TenLop + "-T" + item.Thang + ". "
+        })
+        temp_data.invoice_detail = detail;
+        temp_data.bank_transfer_note = idphieutamtinh;
+        model.temp_data = JSON.stringify(temp_data);
+        $.ajax({
+            url: '/Zalo/PushZNS',
+            data: model,
+            type: 'POST'
+        }).done(function successCallback(response) {
+            if (response.status) {
+                let resdata = JSON.parse(response.data);
+                console.log(resdata);
+                if (resdata.error == "0") {
+                    notification.show({ kValue: response.msg }, "success");
+                } else {
+                    notification.show({ kValue: resdata.message }, "error");
+                }
+            } else {
+                notification.show({ kValue: response.msg }, "error");
+            }
+        });
+    } else {
+        notification.show({ kValue: "Vui lòng chọn phiếu tạm tính cần gửi" }, "error");
+    }
 }
 
 function GuiThongBao() {

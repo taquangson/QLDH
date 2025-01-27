@@ -224,7 +224,7 @@ function createTreeData() {
 function createTreeYearData() {
     $("#gridDataNam").kendoTreeList({
         height: function () {
-            var height = $(window).height() - 160;
+            var height = $(window).height() - 300;
             return height;
         },
         selectable: true,
@@ -705,7 +705,7 @@ function TimKiemNam() {
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 100,
         });
 
 

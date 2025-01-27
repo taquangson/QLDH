@@ -19,7 +19,22 @@
     </style>
     <script>
         window.onload = function () {
-            window.print();
+            openConfirm();
+
+        }
+        function openConfirm() {
+            let value = prompt("1 - NB; 2 - TĐ", "1");
+            if (value == "1") {
+                document.getElementById("qr-nb").style.display = "block";
+                document.getElementById("qr-td").style.display = "none";
+                window.print();
+            } else if (value == "2") {
+                document.getElementById("qr-nb").style.display = "none";
+                document.getElementById("qr-td").style.display = "block";
+                window.print();
+            } else {
+                openConfirm();
+            }
         }
     </script>
 </head>
@@ -124,13 +139,21 @@
             </tbody>
         </table>
         <p class="text-right"><b>Tổng:  @Model.PhieuThu.TongThu.ToString("N0") VNĐ</b></p>
-        @if (Model.TaiKhoan.ID_ChiNhanh == 1)
-        {
+        <div id="qr-nb" style="display:none" class="col-sm-12">
             <p class="text-center" style="border-top:dashed 1px; font-size:10px;vertical-align:top">
-                Chuyển khoản: 48310000576200 - Tạ Thị Thanh Nga - BIDV TP Ninh Bình
+                Chuyển khoản - CN Ninh Bình: 7900167896666 - Tạ Thị Thanh Nga - MB Bank
             </p>
+            <img style="width: 190px; margin: auto;display:block"
+                 src="https://img.vietqr.io/image/970422-7900167896666-qr_only.png?amount=@Model.PhieuThu.TongThu&addInfo=" />
+        </div>
 
-        }
+        <div id="qr-td" style="display:none" class="col-sm-12">
+            <p class="text-center" style="border-top:dashed 1px; font-size:10px;vertical-align:top">
+                Chuyển khoản - CN Tam Điệp: 8827979888 - Tạ Thị Thanh Nga - BIDV CN Tam Diep PGD Yen Khanh
+            </p>
+            <img style="width: 190px; margin: auto;display:block"
+                 src="https://img.vietqr.io/image/970418-8827979888-qr_only.png?amount=@Model.PhieuThu.TongThu&addInfo=" />
+        </div>
         <p class="text-center" style="font-size:10px;vertical-align:top">
             <b>Vui lòng kiểm tra phiếu trước khi rời văn phòng!</b>
         </p>

@@ -16,5 +16,6 @@ namespace QLDH.DataAccess.Models
         public DateTime NgayTao { get; set; }
         public decimal HocPhi { get; set; }
         public string MoTa { get; set; }
+        public int ApDungCK { get; set; }
     }
 }

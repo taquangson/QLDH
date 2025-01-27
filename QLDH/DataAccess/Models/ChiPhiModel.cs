@@ -10,8 +10,8 @@ namespace QLDH.DataAccess.Models
         public int ID { get; set; }
         public int ID_PhieuChi { get; set; }
         public DateTime NgayTao { get; set; }
-        public float SoTien { get; set; }
-        public float TongTien { get; set; }
+        public decimal SoTien { get; set; }
+        public decimal TongTien { get; set; }
         public int SoLuong { get; set; }
         public string MoTa { get; set; }
         public string TenChiPhi { get; set; }

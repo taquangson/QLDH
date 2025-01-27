@@ -145,6 +145,15 @@ namespace QLDH.Controllers
             }
         }
 
+        [SessionModeratorRole]
+        public ActionResult InPhieu(int ID_PhieuChi)
+        {
+            PhieuChiDAO ptdao = new PhieuChiDAO();
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            PhieuChiModel model = ptdao.GetById(ID_PhieuChi);
+            return View(model);
+        }
+
         [SessionExpire]
         [HttpPost]
         public ActionResult Delete(string ID)

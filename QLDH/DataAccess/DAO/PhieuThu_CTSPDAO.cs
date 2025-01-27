@@ -99,6 +99,8 @@ namespace QLDH.DataAccess.DAO
                     new SqlParameter("@ID_SanPham",model.ID_SanPham),
                     new SqlParameter("@SoLuong",model.SoLuong),
                     new SqlParameter("@GiaBan",model.GiaBan),
+                    new SqlParameter("@GiaBan",model.TongTien),
+                    new SqlParameter("@GiaBan",model.DaThanhToan)
                 };
                 int rowaff = helper.ExecuteNonQuery("sp_PhieuThu_CTSP_InsertOrUpdate", pars);
                 if (rowaff != 0)

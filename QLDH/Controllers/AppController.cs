@@ -18,6 +18,7 @@ using System.Web.Script.Serialization;
 using System.Web;
 using static QLDH.DataAccess.DAO.BaoCaoDAO;
 using System.Configuration;
+using FirebaseAdmin.Auth;
 
 namespace QLDH.Controllers
 {
@@ -885,6 +886,21 @@ namespace QLDH.Controllers
                                 if (phmodel.ID > 0)
                                 {
                                     phmodel.SoBuoiDaHoc++;
+                                    phd.InsertOrUpdate(phmodel);
+                                }
+                                else
+                                {
+                                    phmodel = new PhieuHocModel();
+                                    phmodel.ID_ChiNhanh = tk.ID_ChiNhanh;
+                                    phmodel.ID_NhanVien = userinfo.ID;
+                                    phmodel.ID_PhieuThu = 0;
+                                    phmodel.ID_HocSinh = d.ID_HocSinh;
+                                    phmodel.ID_Lop = d.ID_Lop;
+                                    phmodel.HocDuoi = d.HocDuoi;
+                                    phmodel.Thang = d.ThoiGianVaoLop.Month;
+                                    phmodel.NamHoc = d.ThoiGianVaoLop.Year;
+                                    phmodel.SoBuoi = 0;
+                                    phmodel.SoBuoiDaHoc = 1;
                                     phd.InsertOrUpdate(phmodel);
                                 }
                             }

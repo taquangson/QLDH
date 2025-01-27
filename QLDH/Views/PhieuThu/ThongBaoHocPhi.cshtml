@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <div class="row" style="background-color: #355593;color: #fff;padding: 0px 5px;">
+    <div class="row" style="padding: 0px 5px;">
         <h4 class="text-center"><b style="text-transform:uppercase;font-size:13px;">Cty TNHH Giáo Dục CLC Dương Hoà</b></h4>
         <h5 class="text-center">@Model.TaiKhoan.DiaChiChiNhanh</h5>
         <h5 class="text-center">@Model.TaiKhoan.DienThoaiChiNhanh</h5>
@@ -64,7 +64,7 @@
                 <tr style="border-bottom:solid 1px;">
                     @*<td style="width:10%;text-align:center">STT</td>*@
                     @*<td style="width:60%;text-align:center">Nội dung</td>
-                    <td style="width:30%;text-align:center">Thành tiền</td>*@
+                        <td style="width:30%;text-align:center">Thành tiền</td>*@
                     <td style="width:40%;text-align:center">Lớp</td>
                     <td style="width:20%;text-align:center">Tháng</td>
                     <td style="width:20%;text-align:center">Số buổi</td>
@@ -95,7 +95,7 @@
                 <tr style="border-bottom:solid 1px;">
                     @*<td style="width:10%;text-align:center">STT</td>*@
                     @*<td style="width:60%;text-align:center">Nội dung</td>
-                    <td style="width:30%;text-align:center">Thành tiền</td>*@
+                        <td style="width:30%;text-align:center">Thành tiền</td>*@
                     <td style="width:40%;text-align:center">Lớp</td>
                     <td style="width:20%;text-align:center">Tháng</td>
                     <td style="width:20%;text-align:center">Số buổi</td>
@@ -118,13 +118,13 @@
             </tbody>
         </table>
         <p class="text-right"><b>Tổng:  @Model.PhieuThu.TongThu.ToString("N0") VNĐ</b></p>
-        @if (Model.TaiKhoan.ID_ChiNhanh == 1)
-        {
-            <p class="text-center" style="border-top:dashed 1px; font-size:12px;vertical-align:middle;padding-top:10px;">
-                Chuyển khoản: 48310000576200 - Tạ Thị Thanh Nga - BIDV TP Ninh Bình
+        <div id="qr-nb" class="col-sm-12">
+            <p class="text-center" style="border-top:dashed 1px; font-size:10px;vertical-align:top">
+                Chuyển khoản - CN Ninh Bình: 7900167896666 - Tạ Thị Thanh Nga - MB Bank
             </p>
-
-        }
+            <img style="width: 190px; margin: auto;display:block"
+                 src="https://img.vietqr.io/image/970422-7900167896666-qr_only.png?amount=@Model.PhieuThu.TongThu&addInfo=" />
+        </div>
     </div>
 
 </body>

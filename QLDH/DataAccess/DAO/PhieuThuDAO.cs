@@ -165,15 +165,35 @@ namespace QLDH.DataAccess.DAO
                     List<PhuThuGiamTruModel> dataPhuThuGiamTru = GetAllPhuThuGiamTru_ByPhieuThu(item.ID);
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
-                    item.lstPhieuHoc = phdao.GetByPhieuThu(item.ID);
-                    foreach (PhuThuGiamTruModel pt in item.lstPhuThu)
-                    {
-                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
-                        if (m != null)
-                        {
-                            item.lstPhieuHoc.Remove(m);
-                        }
-                    }
+                    item.lstPhieuHoc = phdao.GetCTPHByPhieuThu(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<PhieuThuModel> GetByPhieuHoc(int ID_PhieuHoc)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_PhieuHoc", ID_PhieuHoc),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_PhieuThu_GetByPhieuHoc", pars);
+                DataTable dt = ds.Tables[0];
+                List<PhieuThuModel> result = new List<PhieuThuModel>();
+                PhieuHocDAO phdao = new PhieuHocDAO();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    PhieuThuModel item = GetPhieuThuFromDataRow(dr);
+                    //List<PhuThuGiamTruModel> dataPhuThuGiamTru = GetAllPhuThuGiamTru_ByPhieuThu(item.ID);
+                    //item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
+                    //item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
+                    //item.lstPhieuHoc = phdao.GetCTPHByPhieuThu(item.ID);
                     result.Add(item);
                 }
                 return result;
@@ -202,14 +222,6 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThuTemp(item.ID);
-                    foreach (PhuThuGiamTruModel pt in item.lstPhuThu)
-                    {
-                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
-                        if (m != null)
-                        {
-                            item.lstPhieuHoc.Remove(m);
-                        }
-                    }
                     item.NguoiLap = item.NgayTao.ToString("hh:mm dd/MM/yyyy") + " - " + item.NguoiLap;
                     result.Add(item);
                 }
@@ -238,7 +250,7 @@ namespace QLDH.DataAccess.DAO
                     List<PhuThuGiamTruModel> dataPhuThuGiamTru = GetAllPhuThuGiamTru_ByPhieuThu(item.ID);
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
-                    item.lstPhieuHoc = phdao.GetByPhieuThu(item.ID);
+                    item.lstPhieuHoc = phdao.GetCTPHByPhieuThu(item.ID);
                     item.lstSanPham = new PhieuThu_CTSPDAO().GetByIDPhieuThu(item.ID);
                     result = item;
                 }
@@ -268,14 +280,6 @@ namespace QLDH.DataAccess.DAO
                     item.lstGiamTru = dataPhuThuGiamTru.Where(x => x.Type == 1).ToList();
                     item.lstPhuThu = dataPhuThuGiamTru.Where(x => x.Type == 0).ToList();
                     item.lstPhieuHoc = phdao.GetByPhieuThuTemp(item.ID);
-                    foreach (PhuThuGiamTruModel pt in item.lstPhuThu)
-                    {
-                        PhieuHocModel m = item.lstPhieuHoc.Find(x => x.ID_Lop == pt.ID_Lop && x.Thang == pt.Thang && x.NamHoc == pt.Nam);
-                        if (m != null)
-                        {
-                            item.lstPhieuHoc.Remove(m);
-                        }
-                    }
                     result = item;
                 }
                 return result;

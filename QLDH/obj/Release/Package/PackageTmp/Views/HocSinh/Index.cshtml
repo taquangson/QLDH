@@ -138,15 +138,16 @@
                 {
                     field: "NgaySinh",
                     title: "Ngày sinh",
-                    template: function (e) {
-                        var dateString = e.NgaySinh.substr(6);
-                        var currentTime = new Date(parseInt(dateString));
-                        if (currentTime.getFullYear() != 1) {
-                            return kendo.toString(currentTime, "dd/MM/yyyy");
-                        } else {
-                            return "";
-                        }
-                    },
+                    //template: function (e) {
+                    //    var dateString = e.NgaySinh.substr(6);
+                    //    var currentTime = new Date(parseInt(dateString));
+                    //    if (currentTime.getFullYear() != 1) {
+                    //        return kendo.toString(currentTime, "dd/MM/yyyy");
+                    //    } else {
+                    //        return "";
+                    //    }
+                    //},
+                    format: "{0:dd/MM/yyyy}",
                     width: "100px",
                     filterable: {
                         cell: {
@@ -382,7 +383,7 @@
                 schema: {
                     model: {
                         id: "ID",
-                        field: {
+                        fields: {
                             NgaySinh: {
                                 type: 'date'
                             }

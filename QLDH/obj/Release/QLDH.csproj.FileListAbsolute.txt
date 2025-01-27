@@ -310,8 +310,6 @@ E:\QLDH\QLDH\bin\SuperSocket.SocketBase.dll
 E:\QLDH\QLDH\bin\SuperSocket.SocketEngine.dll
 E:\QLDH\QLDH\bin\SuperWebSocket.dll
 C:\Users\quang\source\repos\qldh\QLDH\obj\Release\QLDH.csproj.AssemblyReference.cache
-C:\Users\quang\source\repos\qldh\QLDH\bin\Twilio.dll
-C:\Users\quang\source\repos\qldh\QLDH\bin\Twilio.xml
 E:\QLDH\QLDH\bin\Twilio.dll
 E:\QLDH\QLDH\bin\Twilio.xml
 D:\OneDrive\Documents\source\qldh\QLDH\bin\roslyn\csc.exe

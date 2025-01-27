@@ -193,8 +193,8 @@ namespace QLDH.Controllers
                             phmodel.ID_HocSinh = d.ID_HocSinh;
                             phmodel.ID_Lop = d.ID_Lop;
                             phmodel.HocDuoi = d.HocDuoi;
-                            phmodel.Thang = DateTime.Now.Month;
-                            phmodel.NamHoc = DateTime.Now.Year;
+                            phmodel.Thang = d.ThoiGianVaoLop.Month;
+                            phmodel.NamHoc = d.ThoiGianVaoLop.Year;
                             phmodel.SoBuoi = 0;
                             phmodel.SoBuoiDaHoc = 1;
                             phd.InsertOrUpdate(phmodel);

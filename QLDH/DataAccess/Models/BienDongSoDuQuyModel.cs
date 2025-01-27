@@ -12,7 +12,7 @@ namespace QLDH.DataAccess.Models
         public string Name_Quy { get; set; }
         public int Type { get; set; }
         public int TrangThai { get; set; }
-        public double SoTien { get; set; }
+        public decimal SoTien { get; set; }
         public int ID_PhieuChi { get; set; }
         public int ID_PhieuThu { get; set; }
         public int ID_PhieuCanQuy { get; set; }

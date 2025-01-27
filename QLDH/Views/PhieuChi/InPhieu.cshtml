@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Công ty giáo dục CLC Dương Hòa - In phiếu chi</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0 100px;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <div class="row">
+        <h5 class="text-center"><b style="text-transform:uppercase;">Cty TNHH Giáo Dục CLC Dương Hoà</b></h5>
+        <h6 class="text-center">36 Nam Thành, P. Phúc Thành, TP Ninh Bình</h6>
+        <h6 class="text-center"><b>Mã phiếu chi: @Model.MaPhieu</b></h6>
+        <h4 class="text-center" style="margin-top:20px;margin-bottom:20px;"><b>PHIẾU CHI</b></h4>
+        <p class="text-center">Ngày @Model.NgayTao.ToString("dd") tháng @Model.NgayTao.ToString("MM") năm @Model.NgayTao.ToString("yyyy")</p>
+
+        <p style=" width: 100%; float: left">Họ tên người nhận: @Model.TenNguoiNhan</p>
+        <p style=" width: 100%; float: left; text-align: left">Lý do chi: @Model.LyDo</p>
+        <p style=" width: 100%; float: left; text-align: left">Số tiền: <b>@Model.SoTien.ToString("N0") VNĐ</b></p>
+        <p style=" width: 100%; float: left; text-align: left">(Viết bằng chữ): <b>@QLDH.Helper.StringHelper.NumberToText(Model.SoTien)</b></p>
+        <p style=" width: 100%; float: left; text-align: left">Hình thức: <b>@Model.TenHinhThuc</b></p>
+        <p style=" width: 50%; float: left; text-align: left">Kèm theo: ......................................................</p>
+        <p style=" width: 50%; float: left; text-align: left">Chứng từ gốc:...................................................</p>
+        <table style="width:100%">
+            <tr>
+                <td style="width:25%;text-align:center"><b>Giám đốc</b></td>
+                <td style="width:25%;text-align:center"><b>Kế toán</b></td>
+                <td style="width:25%;text-align:center"><b>Thủ quỹ</b></td>
+                <td style="width:25%;text-align:center"><b>Người nhận tiền</b></td>
+            </tr>
+            <tr>
+                <td style="width:25%;text-align:center"><i>(Ký,họ tên, đóng dấu)</i></td>
+                <td style="width:25%;text-align:center"><i>(Ký,họ tên)</i></td>
+                <td style="width:25%;text-align:center"><i>(Ký,họ tên)</i></td>
+                <td style="width:25%;text-align:center"><i>(Ký,họ tên)</i></td>
+            </tr>
+        </table>
+
+
+
+    </div>
+
+</body>
+</html>

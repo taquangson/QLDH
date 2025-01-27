@@ -266,6 +266,8 @@ namespace QLDH.DataAccess.DAO
                 };
                 DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoSoBuoiHoc_HocSinh_Thang", pars);
                 DataTable dt = ds.Tables[0];
+                HocSinhDAO hsdao = new HocSinhDAO();
+                HocSinhModel hs = hsdao.GetById(ID_HocSinh);
                 foreach (DataRow dr in dt.Rows)
                 {
                     BaoCaoSoBuoiHoc_HocSinh_ThangModel item = GetBaoCaoSoBuoiHoc_HocSinh_ThangModelFromDataRow(dr);
@@ -278,6 +280,11 @@ namespace QLDH.DataAccess.DAO
                         item.LichHoc.Add(l.Thu);
                     }
                     item.CongThucTinhHocPhi = new CongThucTinhHocPhiDAO().GetByID(item.ID_CongThucTinhHocPhi);
+                    if (item.CongThucTinhHocPhi != null)
+                        if (item.CongThucTinhHocPhi.ApDungCK == 1 && hs.GiamGia > 0)
+                    {
+                        item.CongThucTinhHocPhi.HocPhi = item.CongThucTinhHocPhi.HocPhi / 100 * (100 - (decimal)hs.GiamGia);
+                    }
                     result.Add(item);
                 }
                 return result;
@@ -300,6 +307,8 @@ namespace QLDH.DataAccess.DAO
                 };
                 DataSet ds = helper.ExecuteDataSet("sp_BaoCao_BaoCaoPhieuHoc_ByHocSinh", pars);
                 DataTable dt = ds.Tables[0];
+                HocSinhDAO hsdao = new HocSinhDAO();
+                HocSinhModel hs = hsdao.GetById(ID_HocSinh);
                 foreach (DataRow dr in dt.Rows)
                 {
                     BaoCaoSoBuoiHoc_HocSinh_ThangModel item = GetBaoCaoSoBuoiHoc_HocSinh_ThangModelFromDataRow(dr);
@@ -312,6 +321,11 @@ namespace QLDH.DataAccess.DAO
                         item.LichHoc.Add(l.Thu);
                     }
                     item.CongThucTinhHocPhi = new CongThucTinhHocPhiDAO().GetByID(item.ID_CongThucTinhHocPhi);
+                    if (item.CongThucTinhHocPhi != null)
+                        if (item.CongThucTinhHocPhi.ApDungCK == 1 && hs.GiamGia > 0)
+                        {
+                            item.CongThucTinhHocPhi.HocPhi = item.CongThucTinhHocPhi.HocPhi / 100 * (100 - (decimal)hs.GiamGia);
+                        }
                     result.Add(item);
                 }
                 return result;
@@ -394,13 +408,14 @@ namespace QLDH.DataAccess.DAO
         {
             public DateTime NgayTao { get; set; }
             public string MaPhieu { get; set; }
-            public int ID { get; set; }
             public DateTime ThoiGianIn { get; set; }
             public DateTime NgayThanhToan { get; set; }
+            public int TrangThai { get; set; }
+            public double DaThanhToan { get; set; }
             public double TongThu { get; set; }
             public string TenNhanVien { get; set; }
             public string TenHocSinh { get; set; }
-            public string HinhThucThanhToan { get; set; }            
+            public string HinhThucThanhToan { get; set; }
         }
 
         private BaoCaoDoanhThuModel GetBaoCaoDoanhThuModelFromDataRow(DataRow dr)
@@ -452,7 +467,35 @@ namespace QLDH.DataAccess.DAO
             }
             catch (Exception ex)
             {
-                log.Error("sp_BaoCao_BaoCaoDoanhThu " + ex.Message);
+                log.Error("sp_LichSuThanhToan_GetByDate " + ex.Message);
+                return null;
+            }
+        }
+
+        public List<BaoCaoDoanhThuModel> GetBaoCaoDoanhThu2(int ID_ChiNhanh, int ID_NhanVien, DateTime TuNgay, DateTime DenNgay)
+        {
+            try
+            {
+                List<BaoCaoDoanhThuModel> result = new List<BaoCaoDoanhThuModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_ChiNhanh",ID_ChiNhanh),
+                    new SqlParameter("@ID_NhanVien",ID_NhanVien),
+                    new SqlParameter("@from",TuNgay),
+                    new SqlParameter("@to",DenNgay)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_BaoCaoDoanhThu_GetByDate", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BaoCaoDoanhThuModel item = GetBaoCaoDoanhThuModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_BaoCaoDoanhThu_GetByDate " + ex.Message);
                 return null;
             }
         }
@@ -488,7 +531,6 @@ namespace QLDH.DataAccess.DAO
         public class BaoCaoNoPhieuModel
         {
             public string TenHocSinh { get; set; }
-            public string DienThoaiMacDinh { get; set; }
             public int SoPhieuNo { get; set; }
             public string TenLop { get; set; }
             public string TenLopDaMua { get; set; }

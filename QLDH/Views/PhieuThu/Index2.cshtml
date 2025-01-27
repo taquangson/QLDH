@@ -18,10 +18,6 @@
         background-color: #78ff51;
     }
 
-    .k-state-selected {
-        color: #111;
-    }
-
     .k-dialog-buttongroup .k-button {
         width: 50%;
     }
@@ -30,6 +26,20 @@
     <div id="dialogRoot"></div>
     <div class="row">
         <h2><b>Quản lý bán phiếu vào lớp</b></h2>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label style="width:100%">Khối</label>
+            <div style="width:100%" id="comboKhoi"></div>
+        </div>
+        <div class="col-sm-3">
+            <label style="width:100%">Lớp</label>
+            <div style="width:100%" id="comboLop"></div>
+        </div>
+        <div class="col-sm-3">
+            <label style="width:100%"> </label>
+            <button class="k-button bg-blue" onclick="LoadGridDataTimKiemHocSinh()"> <i class="fa fa-search"> Tìm kiếm </i></button>
+        </div>
     </div>
     <div class="row">
         <div id="gridTimKiemHocSinh"></div>
@@ -48,7 +58,9 @@
         <button class="k-button bg-green" id="btnTaoPhieu" onclick="TaoPhieuThu()"> <i class="fa fa-save">  Lưu phiếu </i></button>
         <button class="k-button bg-green" id="btnThanhToan" onclick="ThanhToan()"> <i class="fa fa-money">  Thanh toán </i></button>
         <button class="k-button bg-green" id="btnGuiThongBao" onclick="InTamTinh()"> <i class="fa fa-send">  Gửi thông báo phí</i></button>
-        @*<button class="k-button bg-blue" id="btnLuuTamTinh" onclick="LuuTamTinh()"> <i class="fa fa-plus-square"> Lưu tạm tính</i></button>*@
+        <button class="k-button bg-green" id="btnGuiThongBaoZNS" onclick="GuiThongBaoZNS()"> <i class="fa fa-send">  Gửi Zalo</i></button>
+        <input id="ThoiGianNhanBan" />
+        <button class="k-button bg-blue" id="btnNhanBan" onclick="NhanBan()"> <i class="fa fa-clone"> Nhân bản</i></button>
         @*<button class="k-button bg-blue" onclick="ThongBaoHocPhi()"> <i class="fa fa-paper-plane"> Gửi thông báo học phí</i></button>*@
         <button class="k-button bg-red" onclick="HuyPhieuThu()"> <i class="fa fa-close"> Hủy </i> </button>
 
@@ -89,9 +101,12 @@
 
                     <label style="width: 40%; line-height: 25px; ">Giảm trừ:</label>
                     <input style="width:50%" id="TienGiamTru" />
-                    <br />
-                    <input type="checkbox" id="guithongbao" class="k-checkbox" checked="checked" style="margin: 0;">
-                    <label class="k-checkbox-label" for="guithongbao">Gửi email khi thanh toán</label>
+
+                    <div style="width:100%">
+                        <input type="checkbox" id="guithongbao" class="k-checkbox" checked="checked" style="margin: 0;">
+                        <label class="k-checkbox-label" for="guithongbao">Gửi email khi thanh toán</label>
+                    </div>
+                  
                 </div>
             </div>
         </div>
@@ -145,7 +160,7 @@
             #= Thang # / #= Nam #
         </td>
         <td class="text-center">
-            #= SoBuoiHoc # / #= SoBuoiDaMua #
+            <span class='tooltip-damua' data-idphieu='#= ID_PhieuHoc #'>#= SoBuoiHoc # / #= SoBuoiDaMua #</span>
         </td>
         <td class="text-center">
             #= SoBuoiTheoLich #
@@ -157,4 +172,11 @@
             #= kendo.toString(GiamTru,'n0') #
         </td>
     </tr>
+</script>
+
+<script id="templateTooltip" type="text/x-kendo-template">
+    #var idphieu = target.attr("data-idphieu"); #
+    #loadLichSuMuaPhieu(idphieu)#
+    <div id="contentgrid">
+    </div>
 </script>
