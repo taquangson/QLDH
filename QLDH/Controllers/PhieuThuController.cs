@@ -4,6 +4,7 @@ using QLDH.DataAccess.Models;
 using QLDH.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -389,29 +390,12 @@ namespace QLDH.Controllers
         public ActionResult InPhieu(int ID_PhieuThu, int GuiEmail)
         {
             PhieuThuDAO ptdao = new PhieuThuDAO();
-            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
-            ptdao.UpdatePrintPhieuThu(ID_PhieuThu, DateTime.Now, userinfor.ID);
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];          
+            //ptdao.UpdatePrintPhieuThu(ID_PhieuThu, DateTime.Now, userinfor.ID);
             PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
             InPhieuModel model = new InPhieuModel();
             model.PhieuThu = pt;
             model.TaiKhoan = userinfor;
-            HocSinhDAO tkdao = new HocSinhDAO();
-            HocSinhModel tk = tkdao.GetById(pt.ID_HocSinh);
-            model.HocSinh = tk;
-            model.ThanhToan = new LichSuThanhToanDAO().GetByPhieuThu(pt.ID);
-            if (!string.IsNullOrWhiteSpace(tk.Email) && GuiEmail > 0)
-            {
-                var html = RazorViewToString.RenderRazorViewToString(this, "ThongBaoDaNopHocPhiASE", model);
-                EmailHelper helper = new EmailHelper();
-                helper.SendEmail(html.ToString(), tk.Email, "Thông báo xác nhận đã nộp học phí!");
-                LichSuGuiEmailDAO emaildao = new LichSuGuiEmailDAO();
-                LichSuGuiEmailModel e = new LichSuGuiEmailModel();
-                e.ID_PhieuThu = ID_PhieuThu;
-                e.NoiDung = html.ToString();
-                e.TieuDe = "Thông báo xác nhận đã nộp học phí!";
-                e.NguoiNhan = tk.Email;
-                emaildao.Insert(e);
-            }
             return View(model);
         }
 
@@ -610,6 +594,17 @@ namespace QLDH.Controllers
             model.PhieuThu = pt;
             model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);
             model.ThanhToan = new LichSuThanhToanDAO().GetByPhieuThu(pt.ID);
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ThongBaoDaNopHocPhiASE(int ID_PhieuThu)
+        {
+            PhieuThuDAO ptdao = new PhieuThuDAO();
+            PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
+            InPhieuModel model = new InPhieuModel();
+            model.PhieuThu = pt;
+            model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);
             return View(model);
         }
 

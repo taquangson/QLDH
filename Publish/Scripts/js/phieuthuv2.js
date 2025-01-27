@@ -119,6 +119,36 @@
             //    }
             //},
             {
+                field: "NgaySinh",
+                title: "Ngày sinh",
+                template: function (e) {
+                    var dateString = e.NgaySinh.substr(6);
+                    var currentTime = new Date(parseInt(dateString));
+                    if (currentTime.getFullYear() != 1) {
+                        return kendo.toString(currentTime, "dd/MM/yyyy");
+                    } else {
+                        return "";
+                    }
+                },
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
+            {
                 field: "DiaChi",
                 title: "Địa chỉ",
                 width: "150px",
