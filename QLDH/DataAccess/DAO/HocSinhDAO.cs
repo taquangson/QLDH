@@ -304,7 +304,12 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@PhuHuynh", model.PhuHuynh),
                 new SqlParameter("@TenHocSinh", model.TenHocSinh),
                 new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
-                new SqlParameter("@AnhDaiDien", model.AnhDaiDien)
+                new SqlParameter("@AnhDaiDien", model.AnhDaiDien),
+                new SqlParameter("@GiamGia", model.GiamGia),
+                new SqlParameter("@GhiChu", model.GhiChu),
+                new SqlParameter("@GhiChuNoiBo", model.GhiChuNoiBo),
+                new SqlParameter("@Email", model.Email),
+                new SqlParameter("@ID_KhachHang", model.ID_KhachHang)
                 };
 
                 object id = helper.ExecuteScalar("sp_HocSinh_InsertOrUpdate", pars);
@@ -315,7 +320,7 @@ namespace QLDH.DataAccess.DAO
             }
             catch (Exception ex)
             {
-                log.Error("sp_TaiKhoan_InsertOrUpdate " + ex.Message);
+                log.Error("sp_HocSinh_InsertOrUpdate " + ex.Message);
             }
 
             return 0;

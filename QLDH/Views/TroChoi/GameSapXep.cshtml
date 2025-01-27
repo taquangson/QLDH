@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Quản lý bài giảng";
+    QLDH.DataAccess.Models.TroChoiModel item = (QLDH.DataAccess.Models.TroChoiModel)Model;
+    Layout = null;
+    Random rnd = new Random();
+    int num = rnd.Next(1, 5);
+    string image = "khonggian-bg" + num + ".gif";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Entire bundle -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/draggable/1.0.0-beta.12/draggable.bundle.min.js" integrity="sha512-xxcBPlM38hyURht7SMnjmYYLXiPDH/skPrP8v6mL7yadE1Bi66PCn35lgWBLstTtX4xuQ9bAIUm58G26HcrDnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            background: #234;
+        }
+        .bg-gif {
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+        }
+        .game-content {
+            z-index: 9999;
+            position: absolute;
+            width: 100%;
+        }
+
+        .grid-drag {
+            display: flex;
+            padding: 10px;
+            justify-content: center;
+        }
+
+            .grid-drag .droppable {
+                width: calc(100vw/ @(item.lstDapAn.Count + 1) );
+                height: 50px;
+                max-width: 50px;
+                display: flex;
+            }
+
+            .grid-drag .block {
+                background-color: #d0d0d0;
+                border: dashed 1px #111;
+            }
+
+        .grid-drop {
+            display: flex;
+            padding: 10px;
+            justify-content: center;
+        }
+
+            .grid-drop .droppable {
+                width: calc(100vw/ @(item.lstDapAn.Count + 1) );
+                height: 50px;
+                max-width: 50px;
+                border: solid;
+                display: flex;
+            }
+
+        .draggable, .droppable.draggable-dropzone--occupied {
+            width:calc(100vw/@(item.lstDapAn.Count + 1));
+            height: 50px;
+            max-width:50px;
+            background-color: #c25050;
+            text-align: center;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <img class="bg-gif" src="~/Images/@image" />
+    <div class="game-content">
+        <h3 style="width:100%;text-align:center;color:#fff">@item.TenTroChoi</h3>
+        <div class="grid-drag">
+            @{int j = 1; }
+            @foreach (QLDH.DataAccess.Models.DapAnTroChoiModel dapan in item.lstDapAn)
+            {
+                <div class="block" id="block-@j ">
+                    <div class="droppable draggable-dropzone--occupied">
+                        <div id="drag-@dapan.ThuTu" class="draggable">@dapan.NoiDung</div>
+                    </div>
+                </div>
+                j = j + 1;
+            }
+        </div>
+        <img src="~/Images/phaohoa.gif" id="phaohoa" style=" width: 50%; position: absolute; top: 0; left: 25%; text-align: center;" />
+        <h1 id="chucmung" style=" width: 50%; position: absolute; top: 20%; left: 25%; text-align: center; display: block; color: #3d871f;">Bạn đã thành công!</h1>
+    </div>
+    <script type="text/javascript">
+        //const swappable = new Draggable.Swappable(document.querySelectorAll('.block'), {
+        //    draggable: '.droppable',
+        //});
+
+        //swappable.on('swappable:start', () => console.log('swappable:start'))
+        //swappable.on('swappable:swapped', () => console.log('swappable:swapped'));
+        //swappable.on('swappable:stop', () => console.log('swappable:stop'));
+        $(document).ready(function () {
+            $("#phaohoa").hide();
+            $("#chucmung").hide();
+            const swappable = new Draggable.Swappable(document.querySelectorAll('.block'), {
+                draggable: '.draggable',
+                dropzone: '.droppable',
+                droppable: '.droppable'
+            });
+
+            //droppable.on('drag:start', (e) => console.log('drag:start', e));
+            //droppable.on('drag:stop', (e) => console.log('drag:stop', e));
+            //droppable.on('droppable:dropped', (e) => console.log('droppable:dropped'));
+            //droppable.on('droppable:start', (e) => console.log('droppable:start'));
+            swappable.on('swappable:swapped', function (e) {
+                //console.log(e.data.dragEvent.data)
+                //console.log(e.data.dragEvent.data.originalSource.id);
+                var result = check();
+                //console.log(result);
+                if (result) {
+                    setTimeout(function () {
+                        $("#phaohoa").show();
+                        $("#chucmung").show();
+                    }, 500)
+                }
+            });
+
+            
+        })
+        function check() {
+            let result = true;
+            let drag, block;
+            $.each($(".grid-drag .block"), function (index, item) {
+                if ($(item).find(".draggable")[0] != undefined) {
+                    block = parseInt(item.id.substring(6));
+                    drag = parseInt($(item).find(".draggable")[0].id.substring(5));
+                    if (drag != block) {
+                        result = false
+                    }
+                } else {
+                    result = false;
+                }
+            })
+            return result;
+        }
+    </script>
+</body>
+</html>

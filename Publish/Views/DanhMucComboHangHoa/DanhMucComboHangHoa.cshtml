@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Danh sách hàng hóa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLDH.DataAccess.Models
+@{
+    TaiKhoanModel userinfor = (TaiKhoanModel)Session["UserInfor"];
+}
+<style>
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .k-dropdown-wrap.k-state-default, .k-multiselect-wrap {
+        border-color: #929090;
+    }
+    .rounded-circle {
+        border-radius: 50%;
+        border: solid 2px #ad3dab;
+    }
+</style>
+<script src="~/Assets/stringeeConfig.js"></script>
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách hàng hóa</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-trash-o"> Xóa </i></button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu" id="btLuuhuy">
+        <button id="luu" class="k-button bg-blue" onclick="LuuCombo()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button id="huy" class="k-button bg-red" onclick="HuyCombo()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="MaCombo">
+                <label>Mã combo: <span style="color:red">*</span></label>
+                <input id="MaCombo" class="k-textbox input" />
+            </div>
+            <div style="width:50%" class="form-group valid" toggle-valid="TenCombo">
+                <label>Tên combo: <span style="color:red">*</span></label>
+                <input id="TenCombo" class="k-textbox input" />
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="GiaVon">
+                <label>Giá vốn: <span style="color:red">*</span></label>
+                <input id="GiaVon" class="k-textbox input" readonly />
+            </div>
+            <div style="width: 50%" class="form-group valid" toggle-valid="GiaBanLe">
+                <label>Giá bán lẻ: <span style="color:red">*</span></label>
+                <input id="GiaBanLe" class="k-textbox input" readonly />
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="DonViTinh">
+                <label>Đơn vị tính: <span style="color:red">*</span></label>
+                <input id="DonViTinh" class="k-textbox input" />
+            </div>
+            <div style="width: 50%" class="form-group valid" toggle-valid="HinhAnhSanPham">
+                <label>Hình ảnh sản phẩm:</label>
+                <input id="fileDMCB" type="file" />
+                <input id="HinhAnh" type="hidden" />
+                <div id="preview"></div>
+                <button id="buttomXoa" class="k-button bg-red" onclick="clearImage()"> <i class="fa fa-trash-o"> Xóa </i></button>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:100%" class="form-group valid" toggle-valid="MoTaSanPham">
+                <label>Mô tả sản phẩm:</label>
+                <textarea style="height: 100px; width: 100% " id="MoTaSanPham" placeholder="Mô tả sản phẩm" class="k-textbox input"></textarea>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div id="gridChiTiet"></div>
+    </div>
+</div>
+<script src="~/Scripts/js/danhmuccombo.js"></script>
+
+<script>
+    var userinfor = @Html.Raw(Json.Encode(userinfor));
+</script>

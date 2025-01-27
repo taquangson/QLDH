@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Định mức ngân sách nhóm chi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dinhmucnhomchi.css" rel="stylesheet" />
+<script src="~/Scripts/js/dinhmucnhomchi.js"></script>
+
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách định mức</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-orange" onclick="openEditWindow()"> <i class="fa fa-wrench"> Sửa</i> </button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-close"> Xóa</i> </button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="Luu()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="Huy()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+        <div style="display:flex; ">
+            <div class="form-group valid" style="width:80%" toggle-valid="TenKeHoach">
+                <label style="width:100%">Kế hoạch: <span style="color:red">*</span></label>
+                <input id="TenKeHoach" type="text" class="k-textbox input" />
+                <span class="fa fa-exclamation-triangle icon"></span>
+            </div>
+            <div class="form-group valid" style="width:20%" toggle-valid="LoaiKeHoach">
+                <label style="width:100%">Loại kế hoạch: <span style="color:red">*</span></label>
+                <input id="LoaiKeHoach" class="input" />
+                <span class="fa fa-exclamation-triangle icon"></span>
+            </div>
+        </div>
+
+        <div class="form-group valid" toggle-valid="NhomChi">
+            <label style="width:100%">Nhóm chi: <span style="color:red">*</span></label>
+            <input id="NhomChi" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div style="display:flex; ">
+            <div class="form-group" style="width:50%">
+                <label style="width:100%">Doanh thu (%):</label>
+                <input id="PhanTramDoanhThu" type="number" style="width:100%" class="k-textbox" />
+            </div>
+            <div class="form-group" style="width:50%">
+                <label style="width:100%">Số tiền:</label>
+                <input id="SoTien" type="number" style="width:100%" class="k-textbox" />
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label style="width:100%">Tổng tiền tối đa:</label>
+            <input id="TongTienDinhMuc" type="number" style="width:100%" class="k-textbox" />
+        </div>
+        <div class="form-group">
+            <label style="width:100%">Số lần:</label>
+            <input id="SoLuot" type="number" style="width:100%" class="k-textbox" />
+        </div>
+        <div style="display:flex; ">
+            <div class="form-group valid" style="width:50%" toggle-valid="NgayBatDau">
+                <label style="width:100%">Ngày bắt đầu: </label>
+                <input id="NgayBatDau" class="input" />
+            </div>
+            <div class="form-group valid" style="width:50%" toggle-valid="NgayKetThuc">
+                <label style="width:100%">Ngày kết thúc: </label>
+                <input id="NgayKetThuc" class="input" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="width:100%">Mô tả:</label>
+            <textarea id="MoTa" type="text" style="width:100%" class="k-textbox"></textarea>
+        </div>
+    </form>
+</div>
+

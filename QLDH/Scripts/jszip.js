@@ -4131,7 +4131,7 @@ function fill_window(s) {
        at the expense of memory usage). We slide even when level == 0
        to keep the hash table consistent if we switch back to level > 0
        later. (Using level 0 permanently is not an optimal usage of
-       zlib, so we don't care about this pathological case.)
+       zlib, so we don't care about this pathological cQLDH.)
        */
 
       n = s.hash_size;

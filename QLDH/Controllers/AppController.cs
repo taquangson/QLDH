@@ -18,6 +18,7 @@ using System.Web.Script.Serialization;
 using System.Web;
 using static QLDH.DataAccess.DAO.BaoCaoDAO;
 using System.Configuration;
+using FirebaseAdmin.Auth;
 
 namespace QLDH.Controllers
 {
@@ -231,7 +232,8 @@ namespace QLDH.Controllers
                     item.DiaChi = model.DiaChi;
                     item.GioiTinh = model.GioiTinh;
                     item.NgaySinh = model.NgaySinh;
-                    int newid = hsdao.InsertOrUpdate(item);
+                    //int newid = hsdao.InsertOrUpdate(item);
+                    int newid = 0;
                     if (newid > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, msg = "Cập nhật thông tin thành công" });
                     else
@@ -398,6 +400,7 @@ namespace QLDH.Controllers
             }
             return response;
         }
+
 
         [HttpGet]
         [Route("getAllLichTrongNgayByHocSinh")]
@@ -885,6 +888,21 @@ namespace QLDH.Controllers
                                     phmodel.SoBuoiDaHoc++;
                                     phd.InsertOrUpdate(phmodel);
                                 }
+                                else
+                                {
+                                    phmodel = new PhieuHocModel();
+                                    phmodel.ID_ChiNhanh = tk.ID_ChiNhanh;
+                                    phmodel.ID_NhanVien = userinfo.ID;
+                                    phmodel.ID_PhieuThu = 0;
+                                    phmodel.ID_HocSinh = d.ID_HocSinh;
+                                    phmodel.ID_Lop = d.ID_Lop;
+                                    phmodel.HocDuoi = d.HocDuoi;
+                                    phmodel.Thang = d.ThoiGianVaoLop.Month;
+                                    phmodel.NamHoc = d.ThoiGianVaoLop.Year;
+                                    phmodel.SoBuoi = 0;
+                                    phmodel.SoBuoiDaHoc = 1;
+                                    phd.InsertOrUpdate(phmodel);
+                                }
                             }
                         }
                     }
@@ -1352,6 +1370,35 @@ namespace QLDH.Controllers
                     List<LichHocModel> lst = new List<LichHocModel>();
                     lst = lhdao.GetLichAppByLop(ID_Lop, TuNgay, DenNgay);
                     response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst });
+                }
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotModified, ex);
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getlichhocbylopforapp")]
+        public HttpResponseMessage getlichhocbylopforapp([FromUri] int ID_Lop, DateTime Ngay, int Ca)
+        {
+
+            HttpResponseMessage response = new HttpResponseMessage();
+            try
+            {
+                UserAppModel userinfo = AuthorHelper.checkAuthorization();
+
+                if (userinfo == null)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Mã bảo mật không đúng, vui lòng liên hệ Administrator.");
+                }
+                else
+                {
+                    LichHocDAO lhdao = new LichHocDAO();
+                    List<LichHocModel> lst = new List<LichHocModel>();
+                    lst = lhdao.GetLichAppByLop(ID_Lop, Ngay, Ngay);
+                    response = Request.CreateResponse(HttpStatusCode.OK, new { success = true, data = lst.Where(x => x.Ca == Ca).FirstOrDefault() });
                 }
             }
             catch (Exception ex)

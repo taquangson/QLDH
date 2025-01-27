@@ -15,6 +15,7 @@ namespace QLDH.DataAccess.Models
         public int SoBuoi { get; set; }
         public DateTime NgayTao { get; set; }
         public float SoTien { get; set; }
+        public float DaThanhToan { get; set; }
         public string GhiChu { get; set; }
         public int ID_Lop { get; set; }
         public string TenLop { get; set; }
@@ -24,5 +25,8 @@ namespace QLDH.DataAccess.Models
         public int SoBuoiDaHoc { get; set; }
         public int ID_ChiNhanh { get; set; }
         public int ID_PhieuThu { get; set; }
+        public int ID_CongThucTinhHocPhi { get; set; }
+        public CongThucTinhHocPhiModel CongThucTinhHocPhi { get; set; }
+        public List<LichHocModel> LichHoc { get; set; }
     }
 }

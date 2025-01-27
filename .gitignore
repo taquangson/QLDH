@@ -56,7 +56,11 @@ QLDH/Logs/
 QLDH/obj/Release/
 QLDH/Images/
 QLDH/obj/
-/.vs/QLDH/config/applicationhost.config
-/.cr/personal/FavoritesList/List.xml
-/.vs/QLDH/v17/.suo
-/.vs/QLDH
+.vs/
+/QLDH/Properties/PublishProfiles/FolderProfile.pubxml.user
+/Publish/bin/QLDH.dll
+/Publish/bin/QLDH.pdb
+/QLDH/bin/QLDH.dll
+/QLDH/bin/QLDH.pdb
+/packages/Newtonsoft.Json.11.0.2/lib/net20/Newtonsoft.Json.dll
+/packages/Newtonsoft.Json.11.0.2/lib/net35/Newtonsoft.Json.dll

@@ -1,0 +1,405 @@
+﻿@{
+    ViewBag.Title = "Learnning";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="~/Areas/FiveStar/Scripts/animatelo.min.js"></script>
+<style>
+    .card {
+        transform: translate(0%,0%);
+        width: 300px;
+        min-height: 400px;
+        background: #fff;
+        box-shadow: 0 20px 50px rgba(0,0,0,.1);
+        border-radius: 10px;
+        transition: 0.5s;
+        margin: 10px;
+    }
+
+        .card:hover {
+            box-shadow: 0 30px 70px rgba(0,0,0,.2);
+        }
+
+        .card .box {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+            .card .box .img {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+
+                .card .box .img img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+            .card .box h2 {
+                font-size: 20px;
+                color: #262626;
+                margin: 20px auto;
+            }
+
+                .card .box h2 span {
+                    font-size: 14px;
+                    background: #e91e63;
+                    color: #fff;
+                    display: inline-block;
+                    padding: 4px 10px;
+                    border-radius: 15px;
+                }
+
+            .card .box p {
+                color: #262626;
+            }
+
+            .card .box span {
+                display: inline-flex;
+            }
+
+            .card .box ul {
+                margin: 0;
+                padding: 0;
+            }
+
+                .card .box ul li {
+                    list-style: none;
+                    float: left;
+                }
+
+                    .card .box ul li a {
+                        display: block;
+                        color: #aaa;
+                        margin: 0 10px;
+                        font-size: 20px;
+                        transition: 0.5s;
+                        text-align: center;
+                    }
+
+                    .card .box ul li:hover a {
+                        color: #e91e63;
+                        transform: rotateY(360deg);
+                    }
+
+    .list-answer {
+        display: flex;
+        width: 100%;
+    }
+
+        .list-answer .answer-item {
+            width: 25%;
+            box-sizing: border-box;
+            border: solid;
+            border-radius: 15px;
+            transform: translateY(-10px);
+            max-width: 250px;
+        }
+
+            .list-answer .answer-item.choose {
+                border: solid 1px #ff6a00;
+            }
+
+        .list-answer .answer-title {
+            display: none;
+        }
+
+        .list-answer .answer-content {
+            width: 100%;
+        }
+
+            .list-answer .answer-content img {
+                width: 100%;
+                border-radius: 15px;
+            }
+
+    .k-tabstrip .k-content {
+        height: 0px;
+        transition: height 3s;
+    }
+
+        .k-tabstrip .k-content.k-state-active {
+            height: calc(100vh - 350px);
+        }
+    .k-tabstrip-items .k-item {
+        font-size: .8em;
+    }
+</style>
+<script>
+    var doneFlashCard = false;
+    $(document).ready(function () {
+        $("#tabstrip").kendoTabStrip({
+            animation: {
+                open: {
+                    effects: "fadeIn"
+                }
+            }
+        });
+        //window.animatelo.pulse('.img', {
+        //    duration: 1500
+        //}); $(".img").show()
+        $(".card").hide();
+        $(".card").first().show();
+
+        $(".question-info").hide();
+        $(".question-info").first().show();
+    });
+
+    function processflashcard(id) {
+        console.log($("#fc-" + id));
+        var p = $("#fc-" + id + " p");
+        var h2 = $("#fc-" + id + " h2");
+        var img = $("#fc-" + id + " .img");
+
+        let process1 = h2.is(":hidden");
+        let process2 = p.is(":hidden");
+        let process3 = img.is(":hidden");
+        if (process1) {
+            h2.show();
+            window.animatelo.pulse("#fc-" + id + " h2", {
+                duration: 1000
+            })
+        } else if (process2) {
+            p.show();
+            window.animatelo.pulse("#fc-" + id + " p", {
+                duration: 1000
+            })
+        } else if (process3) {
+            img.show();
+            var audio = document.getElementById("audio-" + id)
+            audio.play();
+            window.animatelo.pulse("#fc-" + id + " .img", {
+                duration: 1000
+            })
+        } else {
+            if ($("#fc-" + id).next().length == 0) {
+                $(".card").show();
+                doneFlashCard = true;
+            } else {
+                if (!doneFlashCard) {
+                    $("#fc-" + id).hide();
+                    $("#fc-" + id).next().show();
+                } else {
+                    $(".card").hide();
+                    $(".card p").hide();
+                    $(".card h2").hide();
+                    $(".card .img").hide();
+                    $(".card").first().show();
+                    doneFlashCard = false;
+                }
+            }
+        }
+    }
+
+    function openwindowgame(id, type) {
+        switch (type) {
+            case 1:
+                window.open('https://luyenthiduonghoa.vn/TroChoi/GameSapXep?ID=' + id, 'winname', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=' + screen.availWidth + ',height=' + screen.availHeight);
+                break;
+            case 2:
+                window.open('https://luyenthiduonghoa.vn/TroChoi/GameLapGhep?ID=' + id, 'winname', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=' + screen.availWidth + ',height=' + screen.availHeight);
+                break;
+            case 3:
+                window.open('https://luyenthiduonghoa.vn/TroChoi/GameNoiDuong?ID=' + id, 'winname', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=' + screen.availWidth + ',height=' + screen.availHeight);
+                break;
+            default:
+                break;
+        }
+    }
+
+    function updateDapAn(tag) {
+        //console.log(tag);
+        $(".answer-item").removeClass("choose");
+        $(tag).parent().addClass("choose")
+    }
+
+    function checkandnext(idcauhoi) {
+        //console.log(/*$(".choose").attr('class').indexOf("istrue-1")*/);
+        if ($(".choose").attr('class').indexOf("istrue-1") > 0) {
+            window.animatelo.bounceOut("#question-" + idcauhoi, {
+                duration: 800
+            })
+            setTimeout(() => {
+                $("#question-" + idcauhoi).hide();
+                var nextid = "";
+                if ($("#question-" + idcauhoi).next().length == 0) {
+                    $(".question-info").first().show();
+                    nextid = $(".question-info").first().attr("id");
+                } else {
+                    $("#question-" + idcauhoi).next().show();
+                    nextid = $("#question-" + idcauhoi).next().attr("id");
+                }
+                window.animatelo.bounceInLeft("#" + nextid, {
+                    duration: 800
+                })
+            }, 750);
+        }
+        window.animatelo.pulse(".list-answer", {
+            duration: 200
+        })
+
+        $(".answer-item").removeClass("choose");
+        $('input[type=radio]').prop('checked', false);
+    }
+</script>
+
+<div style="width:100%;height:100vh;background-color:#fff">
+    <span style="height:20px;display:block"></span>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="tabstrip">
+                <ul>
+                    <li class="k-active">
+                        Listen & Repeat
+                    </li>
+                    <li>
+                        Listen & Choose
+                    </li>
+                    <li>
+                        Practice
+                    </li>
+                    <li>
+                        Games
+                    </li>
+                </ul>
+                <div>
+                    <div style=" display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+                        @foreach (QLDH.DataAccess.Models.FlashCardModel fl in Model.ChiTietBaiGiang[0].lstFlashCard)
+                        {
+                            <div class="card" style="cursor: pointer;" id="fc-@fl.ID" onclick="processflashcard(@fl.ID)">
+                                <div class="box">
+                                    <div class="img" style="display:none">
+                                        <img src="@fl.AnhThe">
+                                    </div>
+                                    <h2>
+                                        @fl.Ten
+                                        <br>
+                                        @*<span>@fl.ChuDe</span>*@
+                                    </h2>
+                                    <p style="display:none">
+                                        @fl.The
+                                    </p>
+                                    <span>
+                                        @*<ul>
+                                                <li><a href="#"><i class="fa fa-file-sound-o" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                            </ul>*@
+                                        <audio id="audio-@fl.ID" controls style="width:250px;visibility:hidden">
+                                            <source src="@fl.AmThanh" type="audio/mpeg">
+                                        </audio>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        @{
+                            int index = 1;
+                            int index2 = 0;
+                            string[] Ans = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+                        }
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstListenAndChoose)
+                        {
+                            <div class="question-info" id="question-@ch.ID">
+                                <h4 class="question-count"><b>Câu @(index++)</b></h4>
+                                <div class="question-content">
+                                    <b>@Html.Raw(ch.NoiDungCauHoi)</b>
+                                    <div class="list-answer">
+                                        @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                        {
+                                            <div class="answer-item istrue-@da.IsDapAnDung">
+                                                <input class="answer-title" onchange="updateDapAn(this,@da.IsDapAnDung)" type="radio" id="ch-@ch.ID-da-@da.ID" name="@ch.ID" />
+                                                <label class="answer-content" for="ch-@ch.ID-da-@da.ID">
+                                                    @if (da.DapAn != null)
+                                                    {
+                                                        @(Ans[index2++] + "." + da.DapAn)
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
+                                                    @if (da.AnhDapAn != null)
+                                                    {
+                                                        <img src="https://luyenthiduonghoa.vn/Images/AnhDapAn/@da.AnhDapAn" />
+                                                    }
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="k-button" onclick="checkandnext(@ch.ID)">Check</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div>
+
+                        @foreach (QLDH.DataAccess.Models.CauHoiModel ch in Model.ChiTietBaiGiang[0].lstCauHoi)
+                        {
+                            index2 = 0;
+                            <div class="question-info">
+                                <h4 class="question-count"><b>Câu @(index++)</b></h4>
+                                <div class="question-content">
+                                    <b>@Html.Raw(ch.NoiDungCauHoi)</b>
+                                    @foreach (QLDH.DataAccess.Models.DapAnModel da in ch.lstDapAn)
+                                    {
+                                        <div class="list-answer">
+                                            <input class="answer-title" onchange="updateDapAn(@da.IsDapAnDung)" type="radio" id="ch-@ch.ID-da-@da.ID" />
+                                            <label class="answer-content" for="ch-@ch.ID-da-@da.ID">
+                                                @if (da.DapAn != null)
+                                                {
+                                                    @(Ans[index2++] + "." + da.DapAn)
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                                @if (da.AnhDapAn != null)
+                                                {
+                                                    <img src="https://luyenthiduonghoa.vn/Images/AnhDapAn/@da.AnhDapAn" />
+                                                }
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div style=" display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+                        @foreach (QLDH.DataAccess.Models.TroChoiModel g in Model.ChiTietBaiGiang[0].lstTroChoi)
+                        {
+                            <div class="card" onclick="openwindowgame(@g.ID,@g.Loai)">
+                                <div class="box">
+                                    <h2>@g.TenTroChoi<br><span>@g.TenLoai</span></h2>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

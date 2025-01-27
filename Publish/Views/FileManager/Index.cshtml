@@ -33,7 +33,10 @@
             <span class="#=styles.fileTitle#"><b>Ngày cấp: </b>#=kendo.toString(selection[0].ngaycap, "dd/MM/yyyy")#</span>
         </div>
         <div class="#=styles.fileTitleWrapper#">
-            <span class="#=styles.fileTitle#">#=selection[0].name#</span>
+            <span class="#=styles.fileTitle#">#=selection[0].path#</span>
+        </div>
+     <div class="#=styles.fileTitleWrapper#">
+            <span class="#=styles.fileTitle#">https://luyenthiduonghoa.vn/Content/UserFiles/FileServer/Files/#=selection[0].path#</span>
         </div>
         #if(metaFields){#
         <dl class="#=styles.fileMetaWrapper#">

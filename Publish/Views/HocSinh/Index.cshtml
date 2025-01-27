@@ -182,7 +182,25 @@
                          style: "text-align: center; font-size: 12px; font-weight:bold",
                          class: "table-header-cell"
                      }
-                 },
+                },
+                {
+                    field: "GhiChu",
+                    title: "Ghi chú",
+                    width: "150px",
+                    filterable: {
+                        cell: {
+                            operator: "contains",
+                            showOperators: false,
+                            template: function (e) {
+                                e.element.addClass("k-textbox").css("width", "100%")
+                            }
+                        }
+                    },
+                    headerAttributes: {
+                        style: "text-align: center; font-size: 12px; font-weight:bold",
+                        class: "table-header-cell"
+                    }
+                },
                 {
                     field: "PhuHuynh",
                     title: "Tên phụ huynh",
@@ -334,6 +352,7 @@
             $("#ID").val(selectedItem.ID);
             $("#TenHocSinh").val(selectedItem.TenHocSinh);
             $("#DiaChi").val(selectedItem.DiaChi);
+            $("#GhiChu").val(selectedItem.GhiChu);
             $("#DienThoai1").val(selectedItem.DienThoai1);
             $("#DienThoai2").val(selectedItem.DienThoai2);
             $("#DienThoai3").val(selectedItem.DienThoai3);
@@ -399,6 +418,7 @@
                     ID: $("#ID").val(),
                     TenHocSinh: $("#TenHocSinh").val(),
                     DiaChi: $("#DiaChi").val(),
+                    GhiChu: $("#GhiChu").val(),
                     PhuHuynh: $("#PhuHuynh").val(),
                     DienThoai1: $("#DienThoai1").val(),
                     DienThoai2: $("#DienThoai2").val(),
@@ -692,6 +712,10 @@
             <input id="DienThoai2" type="text" placeholder="Số điện thoại 2" style="width:32.3%" class="k-textbox" />
             <input id="DienThoai3" type="text" placeholder="Số điện thoại 3" style="width:32.3%" class="k-textbox" />
             <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group">
+            <label style="width:100%">Ghi chú:</label>
+            <textarea id="GhiChu" type="text" placeholder="Ghi chú" style="width:100%" class="k-textbox"></textarea>
         </div>
     </form>
 </div>

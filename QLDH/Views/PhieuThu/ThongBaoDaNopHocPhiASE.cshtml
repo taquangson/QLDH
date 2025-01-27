@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>JUDO PRESCHOOl - Thông báo học phí</title>
+    <title>TRUNG TÂM DƯƠNG HÒA - Thông báo học phí</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <style>
@@ -20,14 +20,20 @@
 </head>
 <body>
     <div class="row" style="background-color: #355593;color: #fff;padding: 0px 5px;">
-        <h4 class="text-center"><b style="text-transform:uppercase;font-size:13px;">Judo Preschool</b></h4>
+        <h4 class="text-center"><b style="text-transform:uppercase;font-size:13px;">TRUNG TÂM DƯƠNG HÒA</b></h4>
         <h5 class="text-center">@Model.TaiKhoan.DiaChiChiNhanh</h5>
         <h5 class="text-center">@Model.TaiKhoan.DienThoaiChiNhanh</h5>
         <p class="text-center" style="border-bottom:dashed 1px"></p>
-        <h4 class="text-center" style="margin-top:20px;margin-bottom:20px;"><b>PHIẾU THANH TOÁN HỌC PHÍ</b></h4>
+        <h4 class="text-center" style="margin-top:20px;margin-bottom:20px;"><b>PHIẾU XÁC NHẬN THANH TOÁN HỌC PHÍ</b></h4>
         <p style="font-size:12px;width:50%;float:left">Ngày lập: @Model.PhieuThu.NgayTao.ToString("dd/MM/yyyy HH:mm")</p>
-        <p style="font-size:12px;width:50%;float:left;text-align:right">Người lập: @Model.PhieuThu.NguoiLap</p>
+        <p style="font-size:12px;width:50%;float:left;text-align:left">Người lập: @Model.PhieuThu.NguoiLap</p>
         <p style="font-size:12px;width:100%;float:left;text-align:left">Học sinh: <b>@Model.PhieuThu.TenHocSinh</b></p>
+        @if (!string.IsNullOrWhiteSpace(Model.HocSinh.GhiChu))
+        {
+            <p style="font-size:10px;width:100%;float:left;text-align:left">
+                @Model.HocSinh.GhiChu
+            </p>
+        }
 
         <b style="margin-top:20px;display:block">Đơn chính</b>
         <table style="margin:2px;width:100%" border="1">
@@ -64,11 +70,13 @@
                 <tr style="border-bottom:solid 1px;">
                     @*<td style="width:10%;text-align:center">STT</td>*@
                     @*<td style="width:60%;text-align:center">Nội dung</td>
-                    <td style="width:30%;text-align:center">Thành tiền</td>*@
-                    <td style="width:40%;text-align:center">Lớp</td>
+        <td style="width:30%;text-align:center">Thành tiền</td>*@
+                    <td style="width:40%;text-align:center">Dịch vụ/Sản phẩm</td>
                     <td style="width:20%;text-align:center">Tháng</td>
-                    <td style="width:20%;text-align:center">Số buổi</td>
+                    <td style="width:20%;text-align:center">Số lượng</td>
+                    <td style="width:20%;text-align:center">Ghi chú</td>
                     <td style="width:20%;text-align:center">Thành tiền</td>
+
                 </tr>
             </thead>
             <tbody style="border-bottom: solid 1px;">
@@ -80,8 +88,10 @@
                         @*<td style="text-align:center">@i</td>*@
                         <td style="text-align:left">@pt.TenLop</td>
                         <td style="text-align:center">Tháng @pt.Thang </td>
-                        <td style="text-align:center">@pt.SoBuoi buổi</td>
+                        <td style="text-align:center">@pt.SoBuoi</td>
+                        <td style="text-align:right;">@pt.LyDo</td>
                         <td style="text-align:right;">@pt.DonGia.ToString("N0")</td>
+
                     </tr>
                 }
             </tbody>
@@ -95,11 +105,13 @@
                 <tr style="border-bottom:solid 1px;">
                     @*<td style="width:10%;text-align:center">STT</td>*@
                     @*<td style="width:60%;text-align:center">Nội dung</td>
-                    <td style="width:30%;text-align:center">Thành tiền</td>*@
-                    <td style="width:40%;text-align:center">Lớp</td>
+        <td style="width:30%;text-align:center">Thành tiền</td>*@
+                    <td style="width:40%;text-align:center">Dịch vụ/Sản phẩm</td>
                     <td style="width:20%;text-align:center">Tháng</td>
-                    <td style="width:20%;text-align:center">Số buổi</td>
+                    <td style="width:20%;text-align:center">Số lượng</td>
+                    <td style="width:20%;text-align:center">Ghi chú</td>
                     <td style="width:20%;text-align:center">Thành tiền</td>
+
                 </tr>
             </thead>
             <tbody style="border-bottom: solid 1px;">
@@ -111,17 +123,23 @@
                         @*<td style="text-align:center">@k</td>*@
                         <td style="text-align:left">@pt.TenLop</td>
                         <td style="text-align:center">Tháng @pt.Thang </td>
-                        <td style="text-align:center">@pt.SoBuoi buổi</td>
+                        <td style="text-align:center">@pt.SoBuoi</td>
+                        <td style="text-align:right;">@pt.LyDo</td>
                         <td style="text-align:right;">@pt.DonGia.ToString("N0")</td>
+
                     </tr>
                 }
             </tbody>
         </table>
         <p class="text-right"><b>Tổng:  @Model.PhieuThu.TongThu.ToString("N0") VNĐ</b></p>
+        @if (Model.PhieuThu.DaThanhToan > 0)
+        {
+            <p class="text-right"><b>Đã thanh toán:  @Model.PhieuThu.DaThanhToan.ToString("N0") VNĐ</b></p>
+        }
         @if (Model.TaiKhoan.ID_ChiNhanh == 1)
         {
             <p class="text-center" style="border-top:dashed 1px; font-size:12px;vertical-align:middle;padding-top:10px;">
-                
+
             </p>
 
         }

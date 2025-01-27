@@ -120,6 +120,14 @@ namespace QLDH.Controllers
         }
 
         [SessionExpire]
+        [HttpGet]
+        public ActionResult GetAllThanhToanByHocSinh(int ID_HocSinh)
+        {
+            LopHocDAO hsdao = new LopHocDAO();
+            return Json(hsdao.GetAllThanhToan_ByHocSinh(ID_HocSinh), JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpire]
         [HttpPost]
         public ActionResult CreateOrUpdate(LopHocModel model)
         {
@@ -151,8 +159,8 @@ namespace QLDH.Controllers
             int newid = hsdao.InsertOrUpdate(model);
             if (newid > 0)
             {
-                LichHocDAO lhdao = new LichHocDAO();
                 QuanSinh_LopHocDAO qsdao = new QuanSinh_LopHocDAO();
+                LichHocDAO lhdao = new LichHocDAO();
                 try
                 {
                     if (model.lstLichHoc != null)
@@ -191,7 +199,7 @@ namespace QLDH.Controllers
                         List<QuanSinhLopHocModel> lstQuanSinhMoi = model.lstQuanSinh;
                         foreach (QuanSinhLopHocModel l in lstQuanSinhCu.Except(lstQuanSinhMoi.ToList(), new QuanSinhLopHocComparer()))
                         {
-                            qsdao.DeleteQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh);
+                            qsdao.DeleteQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh.ToString());
                         }
 
                         //Thêm, sửa lịch trong danh sách
@@ -206,7 +214,7 @@ namespace QLDH.Controllers
                         List<QuanSinhLopHocModel> lstQuanSinhCu = qsdao.GetByLop(newid);
                         foreach (QuanSinhLopHocModel l in lstQuanSinhCu)
                         {
-                            qsdao.DeleteQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh);
+                            qsdao.DeleteQuanSinh_LopHoc(l.ID_Lop, l.ID_QuanSinh.ToString());
                         }
                     }
                 }
@@ -294,6 +302,7 @@ namespace QLDH.Controllers
             }
         }
 
+
         internal class QuanSinhLopHocComparer : IEqualityComparer<QuanSinhLopHocModel>
         {
             public bool Equals(QuanSinhLopHocModel x, QuanSinhLopHocModel y)
@@ -363,6 +372,19 @@ namespace QLDH.Controllers
             {
                 return Json(new { status = true, msg = "Xóa dữ liệu thất bại, vui lòng liên hệ quản trị" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [SessionExpire]
+        [HttpPost]
+        public ActionResult Golive(int ID_Lop, string Token, int TrangThai)
+        {
+            LopHocDAO lhdao = new LopHocDAO();
+            int ID = lhdao.UpdateLive(ID_Lop, TrangThai, Token);
+            if(ID > 0 && TrangThai > 0)
+            {
+                lhdao.Insert_LichSuLive(ID_Lop, Token);
+            }
+            return Json(new { status = true, msg = "Lưu dữ liệu thành công" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

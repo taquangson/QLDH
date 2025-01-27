@@ -20,5 +20,6 @@ namespace QLDH.DataAccess.Models
         public int ID_ChiNhanh { get; set; }
         public DateTime NgayHocDuKien { get; set; }
         public GiaoAnModel GiaoAn { get; set; }
+        public BaiGiangModel BaiGiang { get; set; }
     }
 }

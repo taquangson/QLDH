@@ -4,6 +4,8 @@ using QLDH.DataAccess.DAO;
 using QLDH.DataAccess.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -100,7 +102,7 @@ namespace QLDH.Controllers
             return Json(dtdao.GetAllDeThi(), JsonRequestBehavior.AllowGet);
         }
 
-        [SessionExpire]
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult GetCauHoiByDanhMuc(int ID_DanhMuc)
         {
@@ -110,6 +112,7 @@ namespace QLDH.Controllers
             return Content(serializedResult);
             //return Json(chdao.GetCauHoi_GetByDanhMuc(ID_DanhMuc), JsonRequestBehavior.AllowGet);
         }
+
 
         [HttpPost, ValidateInput(false)]
         [SessionExpire]
@@ -244,6 +247,17 @@ namespace QLDH.Controllers
             public List<TreeDanhMucCauHoi> lstDanhMuc { get; set; }
 
         }
+
+        [SessionExpire]
+        public ActionResult GetAllDanhMucCauHoi()
+        {
+            DanhMucCauHoiDAO dmchdao = new DanhMucCauHoiDAO();
+            TaiKhoanModel userinfor = (TaiKhoanModel)System.Web.HttpContext.Current.Session["UserInfor"];
+            List<DanhMucCauHoiModel> lcn = dmchdao.GetAll();
+            return Json(lcn, JsonRequestBehavior.AllowGet);
+        }
+
+
         [SessionExpire]
         public ActionResult GetTreeDanhMucCauHoi()
         {

@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Quản lý phòng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .k-dropdown-wrap.k-state-default, .k-multiselect-wrap {
+        border-color: #929090;
+    }
+</style>
+<script src="~/Assets/stringeeConfig.js"></script>
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách khu vực</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-orange" onclick="openEditWindow()"> <i class="fa fa-wrench"> Sửa</i> </button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-close"> Xóa</i> </button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="Luu()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="Huy()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+        <div class="form-group valid" toggle-valid="TenKhuVuc">
+            <label style="width:100%">Tên khu vực: <span style="color:red">*</span></label>
+            <input id="TenKhuVuc" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="MaKhuVuc">
+            <label style="width:100%">Mã khu vực: <span style="color:red">*</span></label>
+            <input id="MaKhuVuc" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="TrangThai">
+            <label style="width:100%">Trạng Thái: <span style="color:red">*</span></label>
+            <input id="TrangThai" class="input" />
+            <span class="fa fa-exclamation-triangle icon" title="Không được bỏ trống"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="KhuVuc">
+            <label style="width:100%">Khu vực cha:</label>
+            <input id="KhuVuc" class="input" />
+        </div>
+        <div class="form-group" toggle-valid="MoTa">
+            <label style="width:100%">Mô Tả: </label>
+            <textarea id="MoTa" class="k-textbox" style="width: 100%; height: 200px;"></textarea>
+        </div>
+    </form>
+</div>
+<script src="~/Scripts/js/danhmucphong.js"></script>

@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Quản lý quỹ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dinhmucnhomchi.css" rel="stylesheet" />
+
+<script src="~/Scripts/js/phieucanquy.js"></script>
+
+<div id="dialogRoot"></div>
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        border-radius: 10px;
+    }
+</style>
+<div class="card">
+    <div style="width: 100%; text-align: center">
+        <h2 >
+            <b>Tổng số dư: </b>
+            <b id="TongSoDu"></b>
+        </h2>
+    </div>
+    
+    <h2 style="width: 50%; text-align: center; display: block; border-right: solid; border-right-width: 1px; ">
+        <b>Số dư tiền mặt: </b>
+        <b id="SoDu0"></b>
+    </h2>
+    <h2 style="width: 50%; text-align: center">
+        <b >Số dư trong tài khoản: </b>
+        <b id="SoDu1"></b>
+    </h2>
+</div>
+<div class="row">
+    <h2><b>Danh sách phiếu cân quỹ</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-orange" onclick="openEditWindow()"> <i class="fa fa-wrench"> Sửa</i> </button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-close"> Xóa</i> </button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu">
+        <button class="k-button bg-blue" onclick="Luu()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button class="k-button bg-red" onclick="Huy()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+        @*<div style="display:flex; ">
+            <div class="form-group valid" style="width:80%" toggle-valid="TenNguoiNhan">
+                <label style="width:100%">Họ và tên người nhận: <span style="color:red">*</span></label>
+                <input id="TenNguoiNhan" type="text" class="k-textbox input" />
+                <span class="fa fa-exclamation-triangle icon"></span>
+            </div>
+            <div class="form-group valid" style="width:20%" toggle-valid="LoaiPhieu">
+                <label style="width:100%">Loại phiếu: <span style="color:red">*</span></label>
+                <input id="LoaiPhieu" class="input" />
+                <span class="fa fa-exclamation-triangle icon"></span>
+            </div>
+        </div>*@
+        <div id="MaPhieuCanQuy" class="form-group valid" toggle-valid="MaPhieu">
+            <label style="width:100%">Mã phiếu: <span style="color:red">*</span></label>
+            <input id="MaPhieu" readonly type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="TenPhieu">
+            <label style="width:100%">Tên phiếu: <span style="color:red">*</span></label>
+            <input id="TenPhieu" type="text" class="k-textbox input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="HinhThuc">
+            <label style="width:100%">Hình thức thanh toán : <span style="color:red">*</span></label>
+            <input id="HinhThuc" class="input" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group valid" toggle-valid="SoTien">
+            <label style="width:100%">Số tiền: </label>
+            <input id="SoTien" type="number" style="width:100%" class="k-textbox" />
+            <span class="fa fa-exclamation-triangle icon"></span>
+        </div>
+        <div class="form-group">
+            <label style="width:100%">Ghi chú:</label>
+            <textarea id="GhiChu" type="text" style="width:100%" class="k-textbox"></textarea>
+        </div>
+
+    </form>
+</div>
+

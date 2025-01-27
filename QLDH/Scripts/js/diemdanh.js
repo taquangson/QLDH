@@ -350,6 +350,27 @@ $(document).ready(function () {
                     style: "text-align: center;",
                 }
             },
+            {
+                field: "GhiChuHocSinh",
+                title: "Ghi chú",
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                attributes: {
+                    style: "text-align: center;",
+                }
+            },
 
         ]
 
@@ -520,7 +541,7 @@ function LoadHocSinhTrongLop(id) {
                 location.reload(true);
             }
             siso = response.length;
-            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && CoPhep == 0; }).length;
+            comat = response.filter(function (st) { return st.ID_DiemDanh > 0 && st.CoPhep == 0; }).length;
             
             var dataSource = new kendo.data.DataSource({
                 data: response,
@@ -534,7 +555,7 @@ function LoadHocSinhTrongLop(id) {
                             GhiChu: { type: 'text', editable: true },
                             Diem: { type: 'text', editable: true },
                             TenHocSinh: { type: 'text', editable: false },
-                            DienThoaiMacDinh: { type: 'text', editable: false },
+                            DienThoaiMacDinh: { type: 'text', editable: false }
                         }
                     }
                 },

@@ -125,6 +125,152 @@ namespace QLDH.DataAccess.DAO
             return result;
         }
 
+        public List<CauHoiModel> GetCauHoiByBaiGiang(int ID_BaiGiang)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_BaiGiang", ID_BaiGiang),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_CauHoi_GetAllByBaiGiang", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                List<CauHoiModel> result = new List<CauHoiModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dr);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_TroChoi_GetAllByBaiGiang " + ex.Message);
+                return null;
+            }
+        }
+        
+        public List<CauHoiModel> GetCauHoiListenAndChoose(int ID_BaiGiang)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_BaiGiang", ID_BaiGiang),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_CauHoiListenAndChoose_GetAllByBaiGiang", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                List<CauHoiModel> result = new List<CauHoiModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dr);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_CauHoiListenAndChoose_GetAllByBaiGiang " + ex.Message);
+                return new List<CauHoiModel>();
+            }
+        }
+        public List<CauHoiModel> GetLookListenAndChoose(int ID_BaiGiang)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_BaiGiang", ID_BaiGiang),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LookListenAndChoose_GetAllByBaiGiang", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                List<CauHoiModel> result = new List<CauHoiModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dr);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LookListenAndChoose_GetAllByBaiGiang " + ex.Message);
+                return new List<CauHoiModel>();
+            }
+        }
+        public List<CauHoiModel> GetLookListenAndClick(int ID_BaiGiang)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_BaiGiang", ID_BaiGiang),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LookListenAndClick_GetAllByBaiGiang", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                List<CauHoiModel> result = new List<CauHoiModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dr);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LookListenAndClick_GetAllByBaiGiang " + ex.Message);
+                return new List<CauHoiModel>();
+            }
+        }
+        public List<CauHoiModel> GetLookListenAndType(int ID_BaiGiang)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_BaiGiang", ID_BaiGiang),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LookListenAndType_GetAllByBaiGiang", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                List<CauHoiModel> result = new List<CauHoiModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dr);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LookListenAndType_GetAllByBaiGiang " + ex.Message);
+                return new List<CauHoiModel>();
+            }
+        }
+        public List<CauHoiModel> GetLookTypeAndRepeat(int ID_BaiGiang)
+        {
+            try
+            {
+                SqlParameter[] pars = new SqlParameter[] {
+                new SqlParameter("@ID_BaiGiang", ID_BaiGiang),
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_LookTypeAndRepeat_GetAllByBaiGiang", pars);
+                System.Data.DataTable dt = ds.Tables[0];
+                List<CauHoiModel> result = new List<CauHoiModel>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    CauHoiModel item = GetCauHoiFromDataRow(dr);
+                    item.lstDapAn = GetDapAn_ByCauHoi(item.ID);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_LookTypeAndRepeat_GetAllByBaiGiang " + ex.Message);
+                return new List<CauHoiModel>();
+            }
+        }
+
         public List<CauHoiModel> GetRanDomCauHoi_GetByDanhMuc(int SoLuong, int ID_DanhMuc)
         {
             List<CauHoiModel> result = new List<CauHoiModel>();

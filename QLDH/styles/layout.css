@@ -1,0 +1,132 @@
+﻿/*font*/
+@font-face {
+    font-family: 'Super Marker';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Super Marker'), url('../fonts/SuperMarker.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Super Marker';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Super Marker'), url('../fonts/SuperMarkerItalic.woff') format('woff');
+}
+/*font end*/
+
+.km-ios7 .km-pane > .km-loader, .km-ios7.km-pane > .km-loader {
+    background: rgb(0 0 0 / 50%);
+    /* font-size: 2em !important; */
+}
+
+body {
+    font-family: cursive !important;
+}
+
+#about {
+    font-family: cursive;
+    font-weight: bold;
+    width: 220px;
+    background: #ee9ca7; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ee9ca7, #ffdde1); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ee9ca7, #ffdde1);
+}
+
+.km-content {
+    background-color: transparent !important;
+}
+
+#external-resources li {
+    font-size: 1em;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+    #external-resources li a img {
+        width: 32px;
+    }
+
+#left-nav-footer li {
+    font-size: .9em;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+    #left-nav-footer li a img {
+        width: 32px;
+    }
+
+.km-accent {
+    background: #c6ffdd;
+    background: -webkit-linear-gradient(to right, #f7797d, #fbd786,#c6ffdd);
+    background: linear-gradient(to right, #f7797d, #fbd786,#c6ffdd );
+    color: #111 !important;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+#demos-search-container {
+    text-align: right;
+    margin-right: 70px;
+    color: #111;
+}
+
+.student-name {
+    line-height: 63px;
+    margin-right: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: .9em;
+    font-weight: bold;
+    border: solid 2px #ff999d;
+    padding: 19px 2px;
+    border-radius: 10px;
+}
+
+.k-avatar {
+    width: 64px;
+    height: 64px
+}
+
+#timer-container {
+    padding: 5px;
+    border: solid 2px #294188;
+    border-radius: 10px;
+}
+
+.timer {
+    display: inline-block;
+    width: 90px;
+    text-align: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.timer-icon {
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.km-fill-title {
+    background: #c6ffdd;
+    background: -webkit-linear-gradient(to right, #f7797d, #fbd786,#c6ffdd);
+    background: linear-gradient(to right, #f7797d, #fbd786,#c6ffdd );
+}
+
+.km-footer {
+    bottom: 5px;
+    margin-left: 5px;
+    width: calc(100% - 10px);
+    border: solid 3px #fad18b;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(113 113 113)
+}
+
+.km-tabstrip {
+    width: 100%;
+    /*border: solid 2px #fad18b;*/
+    border-radius: 6px !important;
+}
+.km-horizontal-scrollbar{
+    opacity:0 !important;
+}

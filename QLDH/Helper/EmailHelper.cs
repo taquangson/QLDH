@@ -23,7 +23,7 @@ namespace QLDH.Helper
             {
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("ac.judopreschool@gmail.com");
+                message.From = new MailAddress(System.Configuration.ConfigurationManager.AppSettings["EmailAccount"]);
                 message.To.Add(new MailAddress(Email));
                 message.Subject = subject;
                 message.IsBodyHtml = true; //to make message body as html  
@@ -32,7 +32,7 @@ namespace QLDH.Helper
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;                
-                smtp.Credentials = new NetworkCredential("ac.judopreschool@gmail.com", "slzsbyjfzogprexa");
+                smtp.Credentials = new NetworkCredential(System.Configuration.ConfigurationManager.AppSettings["EmailAccount"], System.Configuration.ConfigurationManager.AppSettings["EmailPassword"]);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
             }

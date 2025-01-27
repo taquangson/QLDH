@@ -2058,6 +2058,15 @@ function XemTruocDeThi(uid, id) {
     kendo.ui.progress($("#rootContainer"), false);
 }
 
+function onMyFrameLoad(i) {
+    console.log(i.contentWindow.ServerModel);
+    console.log(ServerModel.homeworkId);
+}
+
+function check() {
+    console.log(ServerModel.homeworkId);
+}
+
 function htmlDecode(value) {
     if (value != null) {
         return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");

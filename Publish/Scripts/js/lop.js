@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     $("#windowGiaoAn").kendoWindow({
         width: "680px",
-        height: "570px",
+        height: "600px",
         title: "Giáo án",
         visible: false,
         modal: true,
@@ -40,6 +40,11 @@ $(document).ready(function () {
             $("#IDLop").val(0);
         }
     });
+
+    $("#ngayhoc").kendoDatePicker({
+        format: "{0:dd/MM/yyyy}",
+        default: new Date()
+    })
 
     $("#files").kendoUpload({
         validation: {
@@ -289,7 +294,7 @@ $(document).ready(function () {
                 },
                 template: function (e) {
                     //if (e.IsLive == 0) {
-                    return "<button class='k-button k-success text-center' onclick='LoadGridGiaoAnData(" + e.ID + ")'><i class='fa fa-book'/> Giáo án</button>";
+                    return "<button class='k-button k-success text-center' onclick='LoadGridGiaoAnData(" + e.ID + ",\"" + e.TenLop + "\")'><i class='fa fa-book'/> Giáo án</button>";
                     //} else {
                     //return "<button class='k-button k-error text-center' onclick='closeOnline(" + e.ID + ",\"" + e.Token_Room + "\")'><i class='fa fa-plug'/> Dừng lớp</button>";
                     //}
@@ -767,6 +772,8 @@ $(document).ready(function () {
 
     LoadComboKhoi();
 
+    LoadComboCongThucHocPhi();
+
     LoadlstCaHoc();
 
     $("#dialogRoot").kendoDialog().data("kendoDialog").close();
@@ -799,7 +806,9 @@ function openEditWindow() {
         $("#TenLop").val(selectedItem.TenLop);
         $("#PhongHoc").val(selectedItem.PhongHoc);
         $("#GiaoVienCombo").data("kendoComboBox").value(selectedItem.GiaoVien);
+        $("#QuanSinhCombo").data("kendoMultiSelect").value(selectedItem.lstIDQuanSinh);
         $("#KhoiCombo").data("kendoComboBox").value(selectedItem.ID_Khoi);
+        $("#CongThucHocPhiCombo").data("kendoComboBox").value(selectedItem.ID_CongThucHocPhi);
         LoadGridLichHoc(selectedItem.ID);
         //$(".image-preview").remove();
         //if (selectedItem.SoDoLop != null) {
@@ -850,8 +859,10 @@ function LoadGridData() {
     });
 }
 
-function LoadGridGiaoAnData(ID_Lop) {
+function LoadGridGiaoAnData(ID_Lop, TenLop) {
     $("#windowGiaoAn").data("kendoWindow").center().open();
+    $("#IDLopGiaoAn").val(ID_Lop);
+    $("#tenlop").text(TenLop);
     kendo.ui.progress($("#gridGiaoAn"), true);
     $.ajax({
         url: '/Lop/GetAllGiaoAnByLop?ID_Lop=' + ID_Lop,
@@ -894,6 +905,22 @@ function LoadComboGiaoVien() {
             dataTextField: 'TenDayDu',
             dataValueField: 'ID',
             autoClose: false,
+            dataSource: dataSource
+        });
+    });
+}
+
+function LoadComboCongThucHocPhi() {
+    $.ajax({
+        url: '/DanhMuc/GetAllCongThucTinhHocPhi',
+        type: 'GET',
+    }).done(function successCallback(response) {
+        var dataSource = new kendo.data.DataSource({
+            data: response
+        });
+        $("#CongThucHocPhiCombo").kendoComboBox({
+            dataTextField: 'TenCongThuc',
+            dataValueField: 'ID',
             dataSource: dataSource
         });
     });
@@ -944,12 +971,23 @@ function Luu() {
                 GhiChu: item.GhiChu ? item.GhiChu : ""
             })
         })
+        var lstQuanSinh = [];
+        $.each($("#QuanSinhCombo").data("kendoMultiSelect").value(), function (index, item) {
+            lstQuanSinh.push({
+                ID: 0,
+                ID_QuanSinh: item,
+                ID_Lop: $("#ID").val()
+            })
+        })
         var model = {
             ID: $("#ID").val(),
             TenLop: $("#TenLop").val(),
             PhongHoc: $("#PhongHoc").val(),
             GiaoVien: $("#GiaoVienCombo").data("kendoComboBox").value(),
+            lstQuanSinh: lstQuanSinh,
             ID_Khoi: $("#KhoiCombo").data("kendoComboBox").value(),
+            GiaBan: 0,
+            ID_CongThucHocPhi: $("#CongThucHocPhiCombo").data("kendoComboBox").value(),
             LichHoc: "",
             SoDoLop: "",
             lstLichHoc: lstLichHoc
@@ -1019,7 +1057,7 @@ function LoadHocSinhNgoaiLop(id) {
     }).done(function successCallback(response) {
         //kendo.ui.progress($("#gridHocSinhNgoaiLop"), true);
         var dataSource = new kendo.data.DataSource({
-            data: response,
+            data: JSON.parse(response),
             schema: {
                 model: {
                     id: "ID",
@@ -1421,4 +1459,35 @@ function XuatExcel() {
         allPages: true
     }
     grid.saveAsExcel();
+}
+
+function pushNoti() {
+    $.ajax({
+        url: '/User/GetAppUserGiaoVienByLop?ID_Lop=' + $("#IDLopGiaoAn").val(),
+        type: 'GET'
+    }).done(function successCallback(response) {
+        let model = {
+            Users: [],
+            Tokens: [],
+            TieuDe: "Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy"),
+            NoiDung: "",
+            NoiDungHTML: "<b style='font-size:25px;'>Cảnh báo! Yêu cầu nhập tên bài cho lớp " + $("#tenlop").text() + " ngày " + kendo.toString($("#ngayhoc").data("kendoDatePicker").value(), "dd/MM/yyyy") + "</b>",
+            NoiDungRieng: "",
+            AnhDaiDien: "logodh.png"
+        };
+        model.Users.push(response.UserName);
+        model.Tokens.push(response.NotifyID);
+
+        $.ajax({
+            url: '/FBNotification/PushNotify',
+            data: model,
+            type: 'POST'
+        }).done(function successCallback(response) {
+            if (response.status) {
+                notification.show({ kValue: response.msg }, "success");
+            } else {
+                notification.show({ kValue: response.msg }, "error");
+            }
+        });
+    })
 }

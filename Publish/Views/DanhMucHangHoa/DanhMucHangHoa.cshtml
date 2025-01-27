@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Danh sách hàng hóa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLDH.DataAccess.Models
+@{
+    TaiKhoanModel userinfor = (TaiKhoanModel)Session["UserInfor"];
+}
+<style>
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .k-dropdown-wrap.k-state-default, .k-multiselect-wrap {
+        border-color: #929090;
+    }
+    .rounded-circle{
+        border-radius:50%;
+        border: solid 2px #ad3dab;
+    }
+</style>
+<script src="~/Assets/stringeeConfig.js"></script>
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh sách hàng hóa</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-trash-o"> Xóa </i></button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+
+<div style="visibility:hidden" id="window">
+    <div class="toolBarMenu" id="btLuuhuy">
+        <button id="luu" class="k-button bg-blue" onclick="LuuHangHoa()"> <i class="fa fa-plus-square"> Lưu </i></button>
+        <button id="huy" class="k-button bg-red" onclick="HuyHangHoa()"> <i class="fa fa-close"> Hủy</i> </button>
+    </div>
+    <form id="formChiTiet">
+        <div class="form-group">
+            <input id="ID" type="hidden" />
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="MaHang">
+                <label>Mã hàng: <span style="color:red">*</span></label>
+                <input id="MaHang" class="k-textbox input" />
+            </div>
+            <div style="width:50%" class="form-group valid" toggle-valid="TenHangHoa">
+                <label>Tên hàng hóa: <span style="color:red">*</span></label>
+                <input id="TenHangHoa" class="k-textbox input" />
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:50%" class="form-group valid" toggle-valid="DonViTinh">
+                <label>Đơn vị tính: <span style="color:red">*</span></label>
+                <input id="DonViTinh" class="input"></input>
+            </div>
+            <div style="width:50%" class="form-group valid" toggle-valid="LoaiSanPham">
+                <label>Loại sản phẩm: <span style="color:red">*</span></label>
+                <input id="LoaiSanPham" class="input"></input>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:33%" class="form-group valid" toggle-valid="GiaBanLe">
+                <label>Giá bán lẻ: <span style="color:red">*</span></label>
+                <input id="GiaBanLe" class="k-textbox input" />
+            </div>
+            <div style="width:33%" class="form-group valid" toggle-valid="GiaNhap">
+                <label>Giá nhập: <span style="color:red">*</span></label>
+                <input id="GiaNhap" class="k-textbox input" />
+            </div>
+            <div style="width:33%" class="form-group valid" toggle-valid="GiaBanBuon">
+                <label>Giá bán buôn: <span style="color:red">*</span></label>
+                <input id="GiaBanBuon" class="k-textbox input" />
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width: 100%" class="form-group valid" toggle-valid="HinhAnhSanPham">
+                <label>Hình ảnh sản phẩm:</label>
+                <input id="HinhAnh" type="hidden" />
+                <input id="fileDMHH" type="file" />
+                <div id="preview"></div>
+                <button id="buttomXoa" class="k-button bg-red" onclick="clearImage()"> <i class="fa fa-trash-o"> Xóa </i></button>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width:100%" class="form-group valid" toggle-valid="MoTaSanPham">
+                <label>Mô tả sản phẩm:</label>
+                <textarea style="height: 160px; width: 100% " id="MoTaSanPham" placeholder="Mô tả sản phẩm" class="k-textbox input"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="~/Scripts/js/danhmuchanghoa.js"></script>
+
+<script>
+    var userinfor = @Html.Raw(Json.Encode(userinfor));
+</script>
+
+<style>
+    .image-preview {
+        position: relative;
+        vertical-align: top;
+        height: 45px;
+    }
+</style>

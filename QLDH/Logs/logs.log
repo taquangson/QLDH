@@ -1,4 +1,69 @@
+<<<<<<< HEAD
 ﻿2022/11/25 14:31:34,739 DEBUG 1 WebSocketServer-47063428 - Listener (0.0.0.0:8088) was started
 2022/11/25 14:31:34,748 INFO 1 WebSocketServer-47063428 - The server instance WebSocketServer-47063428 has been started!
 2022/11/25 14:35:18,311 DEBUG 35 WebSocketServer-39447126 - Listener (0.0.0.0:8088) was started
 2022/11/25 14:35:18,321 INFO 35 WebSocketServer-39447126 - The server instance WebSocketServer-39447126 has been started!
+=======
+﻿2025/01/16 11:18:59,033 DEBUG 1 WebSocketServer-54041329 - Listener (0.0.0.0:8088) was started
+2025/01/16 11:18:59,044 INFO 1 WebSocketServer-54041329 - The server instance WebSocketServer-54041329 has been started!
+2025/01/16 11:19:30,939 ERROR 11 QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_PhieuChi_GetByID'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\QLDH\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:3a8dbec4-0008-492c-9dba-124c122f1686
+Error Number:2812,State:62,Class:16
+2025/01/16 11:19:30,975 ERROR 11 QLDH.DataAccess.DAO.PhieuChiDAO - sp_PhieuChi_GetByID Cannot find table 0.
+2025/01/16 11:20:09,031 ERROR 19 QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_PhieuChi_GetByID'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\QLDH\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:3a8dbec4-0008-492c-9dba-124c122f1686
+Error Number:2812,State:62,Class:16
+2025/01/16 11:20:09,032 ERROR 19 QLDH.DataAccess.DAO.PhieuChiDAO - sp_PhieuChi_GetByID Cannot find table 0.
+2025/01/16 11:22:04,028 DEBUG 1 WebSocketServer-53020390 - Listener (0.0.0.0:8088) was started
+2025/01/16 11:22:04,037 INFO 1 WebSocketServer-53020390 - The server instance WebSocketServer-53020390 has been started!
+2025/01/16 11:22:47,149 ERROR 39 QLDH.DataAccess.Helper.DataHelper - System.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'sp_PhieuChi_GetByID'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at QLDH.DataAccess.Helper.DataHelper.ExecuteDataSet(String procName, SqlParameter[] procParams) in C:\Users\quang\source\repos\QLDH\QLDH\DataAccess\Helper\DataHelper.cs:line 410
+ClientConnectionId:82dbf70d-ef0a-4c81-8e6a-b05e30a65357
+Error Number:2812,State:62,Class:16
+2025/01/16 11:22:47,165 ERROR 39 QLDH.DataAccess.DAO.PhieuChiDAO - sp_PhieuChi_GetByID Cannot find table 0.
+2025/01/16 11:26:35,456 DEBUG 1 WebSocketServer-8413469 - Listener (0.0.0.0:8088) was started
+2025/01/16 11:26:35,466 INFO 1 WebSocketServer-8413469 - The server instance WebSocketServer-8413469 has been started!
+2025/01/16 11:28:10,747 DEBUG 45 WebSocketServer-41547690 - Listener (0.0.0.0:8088) was started
+2025/01/16 11:28:10,756 INFO 45 WebSocketServer-41547690 - The server instance WebSocketServer-41547690 has been started!
+>>>>>>> fa9070e6027ce20bb00da0a82f416778510b795f

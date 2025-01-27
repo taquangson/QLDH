@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Danh mục đơn vị tính";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using QLDH.DataAccess.Models
+@{
+    TaiKhoanModel userinfor = (TaiKhoanModel)Session["UserInfor"];
+}
+<style>
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .k-dropdown-wrap.k-state-default, .k-multiselect-wrap {
+        border-color: #929090;
+    }
+    .rounded-circle{
+        border-radius:50%;
+        border: solid 2px #ad3dab;
+    }
+</style>
+<script src="~/Assets/stringeeConfig.js"></script>
+<div id="dialogRoot"></div>
+<div class="row">
+    <h2><b>Danh mục đơn vị tính</b></h2>
+</div>
+<div class="row toolBarMenu">
+    <button class="k-button bg-blue" onclick="ThemMoi()"> <i class="fa fa-plus-square"> Thêm </i></button>
+    <button class="k-button bg-red" onclick="Xoa()"> <i class="fa fa-trash-o"> Xóa </i></button>
+    <button class="k-button bg-green" onclick="XuatExcel()"> <i class="fa fa-file-excel-o"> Xuất excel</i> </button>
+</div>
+<div class="row">
+    <div id="grid"></div>
+</div>
+
+
+<script src="~/Scripts/js/danhmucdonvitinh.js"></script>
+
+<script>
+    var userinfor = @Html.Raw(Json.Encode(userinfor));
+</script>
+
+<style>
+    .image-preview {
+        position: relative;
+        vertical-align: top;
+        height: 45px;
+    }
+</style>

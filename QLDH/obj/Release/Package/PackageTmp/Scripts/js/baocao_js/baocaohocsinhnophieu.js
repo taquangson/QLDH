@@ -100,6 +100,24 @@
                 },
             },
             {
+                title: "Điện thoại",
+                field: "DienThoaiMacDinh",
+                width: "200px",
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                },
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+            },
+            {
                 title: "Số phiếu nợ",
                 field: "SoPhieuNo",
                 width: "150px",
