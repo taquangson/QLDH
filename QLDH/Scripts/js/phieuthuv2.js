@@ -2350,6 +2350,8 @@ function openSuaPhieuThu(id) {
     }).done(function successCallback(response) {
         var item = response;
         phieuthu = item;
+        console.log(item.NgayTao);
+        console.log(item.Last_Print_Time);
         $("#windowLapPhieuThu").data("kendoWindow").maximize().open();
         $("#ID_HocSinh").val(item.ID_HocSinh);
         $("#ID_PhieuThu").val(item.ID);
@@ -2357,6 +2359,8 @@ function openSuaPhieuThu(id) {
         $("#TongTien").text(kendo.toString(item.TongThu, 'n0'));
         $("#DaThanhToan").text(kendo.toString(item.DaThanhToan, 'n0'));
         $("#ConLai").text(kendo.toString(item.TongThu - item.DaThanhToan, 'n0'));
+        $("#NgayLapPhieu").data('kendoDatePicker').value(toDate(item.NgayTao));
+        $("#NgayThanhToan").data('kendoDatePicker').value(toDate(item.Last_Print_Time));
         if (item.TongThu == item.DaThanhToan) {
             $("#btnThanhToan").hide();
             $("#btnTaoPhieu").hide();
@@ -2372,7 +2376,7 @@ function openSuaPhieuThu(id) {
             $("#btnTaoPhieu").show();
         }
         $("#HinhThuc").data("kendoComboBox").value(item.HinhThucThanhToan);
-        console.log(item);
+        //console.log(item);
 
         LoadGridThongKeSoBuoiHocThangTruoc(item.ID_HocSinh, item.lstPhuThu, item.lstGiamTru);
 
@@ -2390,7 +2394,7 @@ function openSuaPhieuThu(id) {
                         })
                         data[i].CongChuan = TinhSoBuoiHoc(data[i].Thang, data[i].NamHoc, lichhoc);
                         data[i].LichHoc = lichhoc;
-                        console.log(data[i]);
+                        //console.log(data[i]);
                     }
                     return data;
                 },
@@ -2696,3 +2700,8 @@ function GuiThongBao_DaNopTien(id_phieuthu) {
     }
 }
 
+function toDate(value) {
+    var dateRegExp = /^\/Date\((.*?)\)\/$/;
+    var date = dateRegExp.exec(value);
+    return new Date(parseInt(date[1]));
+}

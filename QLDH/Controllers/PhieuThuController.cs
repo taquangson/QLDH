@@ -597,17 +597,6 @@ namespace QLDH.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        public ActionResult ThongBaoDaNopHocPhiASE(int ID_PhieuThu)
-        {
-            PhieuThuDAO ptdao = new PhieuThuDAO();
-            PhieuThuModel pt = ptdao.GetById(ID_PhieuThu);
-            InPhieuModel model = new InPhieuModel();
-            model.PhieuThu = pt;
-            model.TaiKhoan = new TaiKhoanDAO().GetById(pt.ID_NhanVien);
-            return View(model);
-        }
-
 
     }
 }

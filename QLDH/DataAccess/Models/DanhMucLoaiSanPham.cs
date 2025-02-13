@@ -12,7 +12,6 @@ namespace QLDH.DataAccess.Models
         public string Ten { get; set; }
         public string MoTa { get; set; }
         public string MaLoaiSanPham { get; set; }
-
         public int TrangThai { get; set; }
 
     }

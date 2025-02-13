@@ -11,7 +11,7 @@ namespace QLDH.DataAccess.DAO
 {
     public class BaoCaoDAO
     {
-        log4net.ILog log = log4net.LogManager.GetLogger(typeof(TaiKhoanDAO));
+        log4net.ILog log = log4net.LogManager.GetLogger(typeof(BaoCaoDAO));
         private DataHelper helper;
         public BaoCaoDAO()
         {
@@ -113,7 +113,6 @@ namespace QLDH.DataAccess.DAO
             public string TenLop { get; set; }
             public int SoBuoi { get; set; }
             public int SoBuoiDaHoc { get; set; }
-            public int SoTien { get; set; }
             public DateTime NgayTao { get; set; }
             public float SoTien { get; set; }
             public int ID_NhanVien { get; set; }
@@ -407,6 +406,7 @@ namespace QLDH.DataAccess.DAO
 
         public class BaoCaoDoanhThuModel
         {
+            public int ID_PhieuThu { get; set; }
             public DateTime NgayTao { get; set; }
             public string MaPhieu { get; set; }
             public DateTime ThoiGianIn { get; set; }
@@ -419,9 +419,48 @@ namespace QLDH.DataAccess.DAO
             public string HinhThucThanhToan { get; set; }
         }
 
+        public class BaoCaoPhieuThuModel
+        {
+            public int ID_PhieuThu { get; set; }
+            public DateTime NgayTao { get; set; }
+            public string MaPhieu { get; set; }
+            public DateTime ThoiGianIn { get; set; }
+            public double DaThanhToan { get; set; }
+            public double TongThu { get; set; }
+            public string TenNhanVien { get; set; }
+            public string TenHocSinh { get; set; }
+
+        }
+
         private BaoCaoDoanhThuModel GetBaoCaoDoanhThuModelFromDataRow(DataRow dr)
         {
             BaoCaoDoanhThuModel obj = new BaoCaoDoanhThuModel();
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            {
+                if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(dr[propertyInfo.Name].ToString()))
+                    {
+                        var value = Convert.ChangeType(dr[propertyInfo.Name], propertyInfo.PropertyType);
+                        propertyInfo.SetValue(obj, value);
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(obj, null);
+                    }
+                }
+                else
+                {
+                    propertyInfo.SetValue(obj, null);
+                }
+            }
+            return obj;
+        }
+
+        private BaoCaoPhieuThuModel GetBaoCaoPhieuThuModelFromDataRow(DataRow dr)
+        {
+            BaoCaoPhieuThuModel obj = new BaoCaoPhieuThuModel();
             foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
                 if (dr.Table.Columns.IndexOf(propertyInfo.Name) >= 0)
@@ -469,6 +508,34 @@ namespace QLDH.DataAccess.DAO
             catch (Exception ex)
             {
                 log.Error("sp_LichSuThanhToan_GetByDate " + ex.Message);
+                return null;
+            }
+        }
+
+        public List<BaoCaoPhieuThuModel> GetDataBaoCaoPhieuThu(int ID_ChiNhanh, int ID_NhanVien, DateTime TuNgay, DateTime DenNgay)
+        {
+            try
+            {
+                List<BaoCaoPhieuThuModel> result = new List<BaoCaoPhieuThuModel>();
+                SqlParameter[] pars = new SqlParameter[]
+                {
+                    new SqlParameter("@ID_ChiNhanh",ID_ChiNhanh),
+                    new SqlParameter("@ID_NhanVien",ID_NhanVien),
+                    new SqlParameter("@from",TuNgay),
+                    new SqlParameter("@to",DenNgay)
+                };
+                DataSet ds = helper.ExecuteDataSet("sp_PhieuThu_GetByDate", pars);
+                DataTable dt = ds.Tables[0];
+                foreach (DataRow dr in dt.Rows)
+                {
+                    BaoCaoPhieuThuModel item = GetBaoCaoPhieuThuModelFromDataRow(dr);
+                    result.Add(item);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error("sp_PhieuThu_GetByDate " + ex.Message);
                 return null;
             }
         }

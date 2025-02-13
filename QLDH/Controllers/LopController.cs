@@ -161,7 +161,6 @@ namespace QLDH.Controllers
             {
                 QuanSinh_LopHocDAO qsdao = new QuanSinh_LopHocDAO();
                 LichHocDAO lhdao = new LichHocDAO();
-                QuanSinh_LopHocDAO qsdao = new QuanSinh_LopHocDAO();
                 try
                 {
                     if (model.lstLichHoc != null)
@@ -276,25 +275,6 @@ namespace QLDH.Controllers
                 return obj.ID.GetHashCode();
             }
         }
-
-        internal class QuanSinhLopHocComparer : IEqualityComparer<QuanSinhLopHocModel>
-        {
-            public bool Equals(QuanSinhLopHocModel x, QuanSinhLopHocModel y)
-            {
-                if (x.ID == y.ID)
-                {
-                    return true;
-                }
-                return false;
-            }
-
-            public int GetHashCode(QuanSinhLopHocModel obj)
-            {
-                return obj.ID.GetHashCode();
-            }
-
-        }
-
 
         internal class QuanSinhLopHocComparer : IEqualityComparer<QuanSinhLopHocModel>
         {

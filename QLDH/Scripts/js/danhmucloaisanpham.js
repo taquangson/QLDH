@@ -29,7 +29,6 @@
             var columns = e.workbook.sheets[0].columns;
             var sheet = e.workbook.sheets[0];
             sheet.title = "Danh sách loại sản phẩm";
-            //"từ" + kendo.toString($("#TuNgay").data("kendoDatePicker").value(), "dd/MM/yyyy") + " đến " + kendo.toString($("#DenNgay").data("kendoDatePicker").value(), "dd/MM/yyyy");
             for (var rowIndex = 0; rowIndex < sheet.rows.length; rowIndex++) {
                 var row = sheet.rows[rowIndex];
                 var flag = false;
@@ -207,15 +206,7 @@ function LoadGridData() {
             data: response,
             schema: {
                 model: {
-                    id: "ID",
-                    field: {
-                        NgayBatDau: {
-                            type: 'date'
-                        }, 
-                        NgayKetThuc: {
-                            type: 'date'
-                        }, 
-                    }
+                    id: "ID"
                 }
             },
             pageSize: 20,
