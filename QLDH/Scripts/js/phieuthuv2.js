@@ -551,7 +551,8 @@
                         CongChuan: { type: 'number', editablle: true },
                         LoaiHinh: { type: 'number', editablle: true },
                         DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
-                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
+                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } },
+                        PhanTramKhuyenMai: { type: 'number', editablle: true, validation: { min: 0, max: 100 } },
                     }
                 }
             },
@@ -573,7 +574,7 @@
         resizable: true,
         save: function (e) {
             console.log(e);
-            if (e.values.ID_LopHoc || e.values.TextThang) {
+            if (e.values.ID_LopHoc || e.values.TextThang || (e.values.PhanTramKhuyenMai || e.values.PhanTramKhuyenMai == 0)) {
                 try {
                     var vlthang = "0/0"
                     if (e.values.TextThang) {
@@ -595,6 +596,9 @@
                         e.model.SoBuoi = TinhSoBuoiHoc(e.model.Thang, e.model.NamHoc, lichhoc);
                         e.model.CongChuan = e.model.SoBuoi;
                         e.model.DonGia = TinhHocPhi(e.model.CongThucTinhHocPhi, e.model.CongChuan, 0, 0, e.model.SoBuoi);
+                        if (e.values.PhanTramKhuyenMai > 0) {
+                            e.model.DonGia = e.model.DonGia * (1 - (e.values.PhanTramKhuyenMai / 100));
+                        }
                         //if (e.model.SoBuoi >= 6) {
                         //    e.model.DonGia = e.model.GiaBan;
                         //} else {
@@ -822,6 +826,36 @@
                 format: "{0:n0}",
                 footerTemplate: "<div>#=kendo.toString(sum,'n0')#</div>",
                 aggregates: ["sum"],
+                attributes: {
+                    class: "text-right"
+                },
+                editor: function (container, options) {
+                    $('<input required name="' + options.field + '"/>').appendTo(container).kendoNumericTextBox({
+                        format: "n0"
+                    })
+                },
+                width: "100px",
+                filterable: {
+                    cell: {
+                        operator: "contains",
+                        showOperators: false,
+                        template: function (e) {
+                            e.element.addClass("k-textbox").css("width", "100%")
+                        }
+                    }
+                },
+                footerAttributes: {
+                    style: "text-align: right; font-size: 12px; font-weight:bold",
+                },
+                headerAttributes: {
+                    style: "text-align: center; font-size: 12px; font-weight:bold",
+                    class: "table-header-cell"
+                }
+            },
+            {
+                title: "Khuyến mãi(%)",
+                field: "PhanTramKhuyenMai",
+                format: "{0:n2}",
                 attributes: {
                     class: "text-right"
                 },
@@ -1793,7 +1827,8 @@ function ClearInputGrid() {
                     ID_LopHoc: { type: 'number', editablle: true },
                     TenLop: { type: 'text', editablle: false },
                     DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
-                    DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
+                    DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } },
+                    PhanTramKhuyenMai: { type: 'number', editablle: true, validation: { min: 0, max: 100 } },
                 }
             }
         },
@@ -2041,7 +2076,8 @@ function LuuPhieuThu() {
             Thang: item.Thang,
             ThangText: "Tháng " + item.Thang + "/" + item.Nam,
             NamHoc: item.NamHoc,
-            GhiChu: item.GhiChu ? item.GhiChu : ""
+            GhiChu: item.GhiChu ? item.GhiChu : "",
+            PhanTramKhuyenMai: item.PhanTramKhuyenMai,
         })
     })
     var grid = $("#gridBuoiHocThangTruoc").data("kendoGrid");
@@ -2168,7 +2204,8 @@ function NhanBan() {
             Thang: thang,
             ThangText: "Tháng " + thang + "/" + nam,
             NamHoc: item.NamHoc,
-            GhiChu: item.GhiChu ? item.GhiChu : ""
+            GhiChu: item.GhiChu ? item.GhiChu : "",
+            PhanTramKhuyenMai: item.PhanTramKhuyenMai,
         })
     })
 
@@ -2262,7 +2299,8 @@ function ThanhToan() {
             Thang: item.Thang,
             ThangText: "Tháng " + item.Thang + "/" + item.Nam,
             NamHoc: item.NamHoc,
-            GhiChu: item.GhiChu ? item.GhiChu : ""
+            GhiChu: item.GhiChu ? item.GhiChu : "",
+            PhanTramKhuyenMai: item.PhanTramKhuyenMai,
         })
     })
 
@@ -2416,7 +2454,8 @@ function openSuaPhieuThu(id) {
                         CongChuan: { type: 'number', editablle: true },
                         LoaiHinh: { type: 'number', editablle: true },
                         DonGia: { type: 'number', editablle: true, validation: { min: 0 } },
-                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } }
+                        DaThanhToan: { type: 'number', editablle: true, validation: { min: 0 } },
+                        PhanTramKhuyenMai: { type: 'number', editablle: true, validation: { min: 0, max: 100 } },
                     }
                 }
             },

@@ -348,7 +348,8 @@ namespace QLDH.DataAccess.DAO
                 new SqlParameter("@NamHoc", model.NamHoc),
                 new SqlParameter("@SoBuoiDaHoc", model.SoBuoiDaHoc),
                 new SqlParameter("@ID_ChiNhanh", model.ID_ChiNhanh),
-                new SqlParameter("@ID_PhieuThu", model.ID_PhieuThu)
+                new SqlParameter("@ID_PhieuThu", model.ID_PhieuThu),
+                new SqlParameter("@PhanTramKhuyenMai", model.PhanTramKhuyenMai)
 
                 };
 

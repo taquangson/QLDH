@@ -26,6 +26,7 @@ namespace QLDH.DataAccess.Models
         public int ID_ChiNhanh { get; set; }
         public int ID_PhieuThu { get; set; }
         public int ID_CongThucTinhHocPhi { get; set; }
+        public float PhanTramKhuyenMai { get; set; }
         public CongThucTinhHocPhiModel CongThucTinhHocPhi { get; set; }
         public List<LichHocModel> LichHoc { get; set; }
     }
